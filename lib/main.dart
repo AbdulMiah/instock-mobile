@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/presentation/home_page.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         splashColor: greenColor,
         highlightColor: pinkColor,
       ),
-      home: const HomePage(title: 'InStock V3'),
+      home: const NavBar(),
     );
   }
 }
