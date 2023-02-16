@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.example.instock_mobile_application",
+  "applicationId": "com.example.instock_mobile",
   "variantName": "debug",
   "elements": []
 }

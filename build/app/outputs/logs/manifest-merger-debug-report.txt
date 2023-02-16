@@ -38,7 +38,7 @@ INJECTED from C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\La
 INJECTED from C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\debug\AndroidManifest.xml:1:1-8:12
 INJECTED from C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\debug\AndroidManifest.xml:1:1-8:12
 	package
-		ADDED from C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\main\AndroidManifest.xml:2:5-53
+		ADDED from C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\main\AndroidManifest.xml:2:5-41
 		INJECTED from C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\debug\AndroidManifest.xml
 	android:versionName

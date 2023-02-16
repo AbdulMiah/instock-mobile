@@ -1,4 +1,4 @@
-com.example.instock_mobile_application
+com.example.instock_mobile
 attr activityAction
 attr activityName
 attr alpha
