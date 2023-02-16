@@ -1,12 +1,12 @@
-com.example.instock_mobile.app-jetified-window-java-1.0.0-beta04-0 C:\Users\archi\.gradle\caches\transforms-3\006d93cd422dbc43e89591147c2de572\transformed\jetified-window-java-1.0.0-beta04\res
-com.example.instock_mobile.app-core-1.6.0-1 C:\Users\archi\.gradle\caches\transforms-3\4ca28c4a71705f8a687c69dda140a277\transformed\core-1.6.0\res
-com.example.instock_mobile.app-jetified-annotation-experimental-1.1.0-2 C:\Users\archi\.gradle\caches\transforms-3\8965c941cf4bee4d72541b965c7c9d39\transformed\jetified-annotation-experimental-1.1.0\res
-com.example.instock_mobile.app-jetified-window-1.0.0-beta04-3 C:\Users\archi\.gradle\caches\transforms-3\dee59bb480020f42d53c2ea15e4501f7\transformed\jetified-window-1.0.0-beta04\res
-com.example.instock_mobile.app-debug-4 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\debug\res
-com.example.instock_mobile.app-main-5 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\android\app\src\main\res
-com.example.instock_mobile.app-pngs-6 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\build\app\generated\res\pngs\debug
-com.example.instock_mobile.app-resValues-7 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\build\app\generated\res\resValues\debug
-com.example.instock_mobile.app-rs-8 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\build\app\generated\res\rs\debug
-com.example.instock_mobile.app-mergeDebugResources-9 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.instock_mobile.app-mergeDebugResources-10 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.instock_mobile.app-merged_res-11 C:\Users\archi\OneDrive\Documents\Uni Year 3\Large Team Project\LargeTeamProject\instock_mobile_application\build\app\intermediates\merged_res\debug
+com.example.instock_mobile.app-jetified-window-java-1.0.0-beta04-0 C:\Users\c2061455\.gradle\caches\transforms-3\006d93cd422dbc43e89591147c2de572\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.instock_mobile.app-core-1.6.0-1 C:\Users\c2061455\.gradle\caches\transforms-3\4ca28c4a71705f8a687c69dda140a277\transformed\core-1.6.0\res
+com.example.instock_mobile.app-jetified-annotation-experimental-1.1.0-2 C:\Users\c2061455\.gradle\caches\transforms-3\8965c941cf4bee4d72541b965c7c9d39\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.instock_mobile.app-jetified-window-1.0.0-beta04-3 C:\Users\c2061455\.gradle\caches\transforms-3\dee59bb480020f42d53c2ea15e4501f7\transformed\jetified-window-1.0.0-beta04\res
+com.example.instock_mobile.app-debug-4 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\android\app\src\debug\res
+com.example.instock_mobile.app-main-5 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\android\app\src\main\res
+com.example.instock_mobile.app-pngs-6 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\build\app\generated\res\pngs\debug
+com.example.instock_mobile.app-resValues-7 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\build\app\generated\res\resValues\debug
+com.example.instock_mobile.app-rs-8 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\build\app\generated\res\rs\debug
+com.example.instock_mobile.app-mergeDebugResources-9 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.instock_mobile.app-mergeDebugResources-10 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.instock_mobile.app-merged_res-11 C:\Users\c2061455\projects\large_team_project\instock\instock-mobile-application\build\app\intermediates\merged_res\debug
