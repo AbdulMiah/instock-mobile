@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/account/account_page.dart';
 import 'package:instock_mobile/src/features/business/business_page.dart';
@@ -14,7 +13,6 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     InventoryPage(),
@@ -34,40 +32,39 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          body: Center(
-            child: _widgetOptions.elementAt(_selectedIndex),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.signal_cellular_alt),
-                label: 'Stats',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_box),
-                label: 'Add Item',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.storefront),
-                label: 'Business',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outlined),
-                label: 'Account',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Theme.of(context).splashColor,
-            backgroundColor: Theme.of(context).primaryColorDark,
-            unselectedItemColor: Colors.white,
-            onTap: _onItemTapped,
-            type: BottomNavigationBarType.fixed,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.signal_cellular_alt),
+            label: 'Stats',
           ),
-        )
-    );
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_box),
+            label: 'Add Item',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.storefront),
+            label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outlined),
+            label: 'Account',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Theme.of(context).splashColor,
+        backgroundColor: Theme.of(context).primaryColorDark,
+        unselectedItemColor: Theme.of(context).primaryColorLight,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+      ),
+    ));
   }
 }

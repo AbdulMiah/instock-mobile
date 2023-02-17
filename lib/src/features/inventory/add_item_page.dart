@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddItemPage extends StatefulWidget {
@@ -9,15 +8,12 @@ class AddItemPage extends StatefulWidget {
 }
 
 class _AddItemPageState extends State<AddItemPage> {
-
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
         child: Text("Add Item"),
       ),
-
     );
   }
 }

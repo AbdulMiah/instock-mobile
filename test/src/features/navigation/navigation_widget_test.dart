@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 
 void main() {
-
   testWidgets('Navigation bar has correct labels', (tester) async {
     await tester.pumpWidget(const NavBar());
 
@@ -29,7 +28,7 @@ void main() {
 
   testWidgets('Other tabs are hidden', (tester) async {
     await tester.pumpWidget(const NavBar());
-    
+
     final statsFinder = find.text('Stats');
     final addItemFinder = find.text('Add Item');
     final businessFinder = find.text('Business');
@@ -57,5 +56,3 @@ void main() {
     expect(statsFinder, findsAtLeastNWidgets(2));
   });
 }
-
-

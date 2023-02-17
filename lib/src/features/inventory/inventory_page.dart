@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class InventoryPage extends StatefulWidget {
@@ -9,15 +8,12 @@ class InventoryPage extends StatefulWidget {
 }
 
 class _InventoryPageState extends State<InventoryPage> {
-
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
         child: Text("Inventory"),
       ),
-
     );
   }
 }
