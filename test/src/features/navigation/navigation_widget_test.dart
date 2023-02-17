@@ -1,30 +1,61 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:instock_mobile/main.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('Navigation bar has correct labels', (tester) async {
+    await tester.pumpWidget(const NavBar());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final homeFinder = find.text('Home');
+    final statsFinder = find.text('Stats');
+    final addItemFinder = find.text('Add Item');
+    final businessFinder = find.text('Business');
+    final accountFinder = find.text('Account');
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(homeFinder, findsOneWidget);
+    expect(statsFinder, findsOneWidget);
+    expect(addItemFinder, findsOneWidget);
+    expect(businessFinder, findsOneWidget);
+    expect(accountFinder, findsOneWidget);
+  });
+
+  testWidgets('Defaults to Home tab', (tester) async {
+    await tester.pumpWidget(const NavBar());
+
+    final inventoryFinder = find.text('Inventory');
+
+    expect(inventoryFinder, findsOneWidget);
+  });
+
+  testWidgets('Other tabs are hidden', (tester) async {
+    await tester.pumpWidget(const NavBar());
+    
+    final statsFinder = find.text('Stats');
+    final addItemFinder = find.text('Add Item');
+    final businessFinder = find.text('Business');
+    final accountFinder = find.text('Account');
+
+    expect(statsFinder, isNot(findsAtLeastNWidgets(2)));
+    expect(addItemFinder, isNot(findsAtLeastNWidgets(2)));
+    expect(businessFinder, isNot(findsAtLeastNWidgets(2)));
+    expect(accountFinder, isNot(findsAtLeastNWidgets(2)));
+  });
+
+  testWidgets('Method is called on button press', (tester) async {
+    //Given
+    await tester.pumpWidget(const NavBar());
+    await tester.pumpAndSettle();
+
+    final statsFinder = find.text('Stats');
+
+    expect(statsFinder, findsOneWidget);
+
+    //When
+    await tester.tap(statsFinder);
+    await tester.pumpAndSettle();
+    //Then
+    expect(statsFinder, findsAtLeastNWidgets(2));
   });
 }
+
+
