@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/features/account/account_page.dart';
-import 'package:instock_mobile/src/features/business/business_page.dart';
+import 'package:instock_mobile/src/features/authentication/welcome_page.dart';
 import 'package:instock_mobile/src/features/inventory/add_item_page.dart';
 import 'package:instock_mobile/src/features/inventory/inventory_page.dart';
 import 'package:instock_mobile/src/features/stats/stats_page.dart';
+
+import '../account/account_page.dart';
+import '../business/business_page.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -28,8 +30,15 @@ class _NavBarState extends State<NavBar> {
     });
   }
 
+  bool isUserLoggedIn() {
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!isUserLoggedIn()) {
+      return const Welcome();
+    }
     return MaterialApp(
         home: Scaffold(
       body: Center(
