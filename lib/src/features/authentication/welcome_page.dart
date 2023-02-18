@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instock_mobile/src/features/authentication/sign_up_page.dart';
 
 import '../../util/InStockButton.dart';
+import 'login_page.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
@@ -19,8 +21,18 @@ class _WelcomeState extends State<Welcome> {
     final String WelcomeWave = 'lib/src/images/svgs/welcome_wave.svg';
     final Widget WelcomeWaveSvg = SvgPicture.asset(WelcomeWave);
 
-    void redirectToLogin() {
-      print("Hello");
+    redirectToLogin() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
+    }
+
+    redirectToSignUp() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SignUp()),
+      );
     }
 
     return MaterialApp(
@@ -77,7 +89,7 @@ class _WelcomeState extends State<Welcome> {
                           theme: theme,
                           colorOption: InStockButton.accent,
                           onPressed: () {
-                            print("Yee");
+                            redirectToLogin();
                           },
                         ),
                         InStockButton(
@@ -85,7 +97,7 @@ class _WelcomeState extends State<Welcome> {
                           theme: theme,
                           colorOption: InStockButton.primary,
                           onPressed: () {
-                            print("Nee");
+                            redirectToSignUp();
                           },
                         ),
                       ],
