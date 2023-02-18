@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instock_mobile/src/features/authentication/sign_up_page.dart';
+import 'package:instock_mobile/src/features/authentication/welcome_wave.dart';
 
 import '../../util/InStockButton.dart';
 import 'login_page.dart';
@@ -17,10 +17,6 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final String WelcomeWave = 'lib/src/images/svgs/welcome_wave.svg';
-    final Widget WelcomeWaveSvg = SvgPicture.asset(WelcomeWave);
-
     redirectToLogin() {
       Navigator.push(
         context,
@@ -75,7 +71,7 @@ class _WelcomeState extends State<Welcome> {
                         ),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.7 - 2,
-                          child: WelcomeWaveSvg,
+                          child: WelcomeWave(),
                         )
                       ],
                     ),
