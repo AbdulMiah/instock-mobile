@@ -17,7 +17,10 @@ class MyApp extends StatelessWidget {
     const pinkColor = Color(0xffEA5480);
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      //Removes Debug Banner
+      debugShowCheckedModeBanner: false,
+
+      title: 'Instock',
       theme: ThemeData(
         primaryColorDark: blackColor,
         primaryColorLight: whiteColor,
@@ -28,5 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
