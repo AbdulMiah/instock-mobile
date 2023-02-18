@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../util/InStockButton.dart';
+
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
 
@@ -12,9 +14,14 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final String WelcomeWave = 'lib/src/images/svgs/welcome_wave.svg';
-    final Widget WelcomeWaveSvg =
-        SvgPicture.asset(WelcomeWave, semanticsLabel: 'Acme Logo');
+    final Widget WelcomeWaveSvg = SvgPicture.asset(WelcomeWave);
+
+    void redirectToLogin() {
+      print("Hello");
+    }
 
     return MaterialApp(
         //Hides debug banner
@@ -38,11 +45,20 @@ class _WelcomeState extends State<Welcome> {
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.7,
                           child: Container(
-                            color: Theme.of(context).splashColor,
-                            child: Column(children: <Widget>[
-                              Text("Welcome To InStock"),
-                              Text("A Small Business' Best Friend"),
-                            ]),
+                            color: theme.splashColor,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 48.0, 0, 0),
+                              child: Column(children: <Widget>[
+                                Text(
+                                  "Welcome To InStock",
+                                  style: theme.textTheme.displayLarge,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("A Small Business' Best Friend",
+                                    style: theme.textTheme.displaySmall,
+                                    textAlign: TextAlign.center),
+                              ]),
+                            ),
                           ),
                         ),
                         Positioned(
@@ -51,7 +67,30 @@ class _WelcomeState extends State<Welcome> {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
+                    child: Column(
+                      children: <Widget>[
+                        InStockButton(
+                          text: "Login",
+                          theme: theme,
+                          colorOption: InStockButton.accent,
+                          onPressed: () {
+                            print("Yee");
+                          },
+                        ),
+                        InStockButton(
+                          text: "Sign Up",
+                          theme: theme,
+                          colorOption: InStockButton.primary,
+                          onPressed: () {
+                            print("Nee");
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -22,11 +22,21 @@ class MyApp extends StatelessWidget {
 
       title: 'Instock',
       theme: ThemeData(
+        // Colours
         primaryColorDark: blackColor,
         primaryColorLight: whiteColor,
         splashColor: greenColor,
         highlightColor: pinkColor,
+
+        //Text
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+              color: whiteColor, fontSize: 48, fontWeight: FontWeight.bold),
+          displayMedium: TextStyle(color: whiteColor, fontSize: 48),
+          displaySmall: TextStyle(color: whiteColor, fontSize: 18),
+        ),
       ),
+
       home: const NavBar(),
     );
   }
