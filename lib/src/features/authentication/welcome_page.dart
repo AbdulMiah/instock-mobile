@@ -23,7 +23,8 @@ class _WelcomeState extends State<Welcome> {
           children: <Widget>[
             SizedBox(
               width: double.infinity,
-              child: Column(
+              child: Stack(
+                clipBehavior: Clip.none,
                 children: [
                   SizedBox(
                     width: double.infinity,
@@ -36,7 +37,10 @@ class _WelcomeState extends State<Welcome> {
                       ]),
                     ),
                   ),
-                  WelcomeWaveSvg
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.7 - 2,
+                    child: WelcomeWaveSvg,
+                  )
                 ],
               ),
             )
