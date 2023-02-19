@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/welcome_wave.dart';
+import 'package:instock_mobile/src/util/InStockTextInput.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -66,13 +67,13 @@ class _LoginState extends State<Login> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            "Login Form Goes Here",
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          )
-                        ],
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: Column(
+                          children: <Widget>[
+                            InStockTextInput(theme: theme),
+                          ],
+                        ),
                       ),
                     ),
                   ]),
