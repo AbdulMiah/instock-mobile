@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/welcome_wave.dart';
 import 'package:instock_mobile/src/util/InStockTextInput.dart';
 
+import '../../util/InStockButton.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -11,6 +13,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  //Global formkey for login form
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -69,10 +74,31 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
-                        child: Column(
-                          children: <Widget>[
-                            InStockTextInput(theme: theme),
-                          ],
+                        child: Form(
+                          child: Column(
+                            children: <Widget>[
+                              InStockTextInput(
+                                text: 'Email',
+                                theme: theme,
+                                icon: Icons.person,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 16.0, 0, 0),
+                                child: SizedBox(
+                                  width: 180,
+                                  child: InStockButton(
+                                    text: 'Test',
+                                    onPressed: () {
+                                      print("Test");
+                                    },
+                                    theme: theme,
+                                    colorOption: InStockButton.accent,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
