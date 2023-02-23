@@ -12,14 +12,16 @@ class _InventoryPageState extends State<InventoryPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text("Inventory"),
-              InventoryItem(),
-            ],
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Text("Inventory"),
+                InventoryItem(theme: theme),
+              ],
+            ),
           ),
         ),
       ),
