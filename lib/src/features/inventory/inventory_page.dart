@@ -19,7 +19,13 @@ class _InventoryPageState extends State<InventoryPage> {
             child: Column(
               children: <Widget>[
                 Text("Inventory"),
-                InventoryItem(theme: theme),
+                InventoryItem(
+                  theme: theme,
+                  itemName: "BLah",
+                  itemSKU: "SKU",
+                  itemStockNo: "40",
+                  itemOrdersNo: "4",
+                ),
               ],
             ),
           ),
