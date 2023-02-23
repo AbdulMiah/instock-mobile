@@ -73,7 +73,7 @@ class _InventoryItemState extends State<InventoryItem> {
                         height: 74,
                         width: 74,
                         child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(4.0),
                           child: Image(
                               image: NetworkImage(
                                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')),
@@ -81,25 +81,29 @@ class _InventoryItemState extends State<InventoryItem> {
                       )
                     ],
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 8),
-                        child: Text(
-                          widget.itemName,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
+                          child: Text(
+                            widget.itemName,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
-                        child: Text(
-                          widget.itemSKU,
-                          style: const TextStyle(fontSize: 16),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
+                          child: Text(
+                            widget.itemSKU,
+                            style: const TextStyle(fontSize: 16),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: Align(
@@ -110,7 +114,8 @@ class _InventoryItemState extends State<InventoryItem> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                             child: Container(
-                              constraints: const BoxConstraints(minWidth: 90),
+                              constraints: const BoxConstraints(
+                                  minWidth: 90, maxWidth: 150),
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
@@ -148,20 +153,24 @@ class _InventoryItemState extends State<InventoryItem> {
                                 Radius.circular(2),
                               ),
                             ),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                    child: Icon(Icons.update, size: 14),
-                                  ),
-                                  TextSpan(
+                            child: Expanded(
+                              child: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                text: TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: Icon(Icons.update, size: 14),
+                                    ),
+                                    TextSpan(
+                                        style: TextStyle(color: Colors.black),
+                                        text: " " + widget.itemOrdersNo),
+                                    TextSpan(
                                       style: TextStyle(color: Colors.black),
-                                      text: " " + widget.itemOrdersNo),
-                                  TextSpan(
-                                    style: TextStyle(color: Colors.black),
-                                    text: " Orders",
-                                  ),
-                                ],
+                                      text: " Orders",
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
