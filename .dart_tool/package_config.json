@@ -188,6 +188,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "http",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "http_multi_server",
       "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/http_multi_server-3.2.1",
       "packageUri": "lib/",
@@ -386,7 +392,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-02-23T18:32:26.609010Z",
+  "generated": "2023-02-24T12:53:12.194569Z",
   "generator": "pub",
   "generatorVersion": "2.19.2"
 }
