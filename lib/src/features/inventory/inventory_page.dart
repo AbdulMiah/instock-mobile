@@ -28,7 +28,7 @@ class _InventoryPageState extends State<InventoryPage> {
                     itemSKU: "SKU",
                     itemStockNo: "406",
                     itemOrdersNo: "4",
-                    itemWarning: "Low stock",
+                    // itemWarning: "Low stock",
                   ),
                 ],
               ),

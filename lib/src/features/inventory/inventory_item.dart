@@ -39,7 +39,7 @@ class _InventoryItemState extends State<InventoryItem> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     widget.itemWarning,
                     textDirection: TextDirection.ltr,
@@ -54,13 +54,13 @@ class _InventoryItemState extends State<InventoryItem> {
           ),
         ],
         Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8)),
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
               gradient: LinearGradient(
-                  colors: [Colors.white, Colors.green],
-                  begin: Alignment(0.3, 0),
+                  colors: [Colors.white, widget.theme.splashColor],
+                  begin: const Alignment(0.3, 0),
                   end: Alignment.centerRight)),
           child: Column(
             children: [
@@ -68,11 +68,11 @@ class _InventoryItemState extends State<InventoryItem> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Column(
-                    children: [
-                      Container(
+                    children: const [
+                      SizedBox(
                         height: 74,
                         width: 74,
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(4.0),
                           child: Image(
                               image: NetworkImage(
@@ -114,8 +114,7 @@ class _InventoryItemState extends State<InventoryItem> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                             child: Container(
-                              constraints: const BoxConstraints(
-                                  minWidth: 90, maxWidth: 150),
+                              constraints: const BoxConstraints(minWidth: 100),
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
@@ -131,7 +130,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                     TextSpan(
                                       style:
                                           const TextStyle(color: Colors.black),
-                                      text: " " + widget.itemStockNo,
+                                      text: " ${widget.itemStockNo}",
                                     ),
                                     const TextSpan(
                                       style: TextStyle(color: Colors.black),
@@ -146,31 +145,30 @@ class _InventoryItemState extends State<InventoryItem> {
                             height: 8,
                           ),
                           Container(
-                            constraints: const BoxConstraints(minWidth: 90),
+                            constraints: const BoxConstraints(minWidth: 100),
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(2),
                               ),
                             ),
-                            child: Expanded(
-                              child: RichText(
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                text: TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: Icon(Icons.update, size: 14),
-                                    ),
-                                    TextSpan(
-                                        style: TextStyle(color: Colors.black),
-                                        text: " " + widget.itemOrdersNo),
-                                    TextSpan(
-                                      style: TextStyle(color: Colors.black),
-                                      text: " Orders",
-                                    ),
-                                  ],
-                                ),
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              text: TextSpan(
+                                children: [
+                                  const WidgetSpan(
+                                    child: Icon(Icons.update, size: 14),
+                                  ),
+                                  TextSpan(
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      text: " ${widget.itemOrdersNo}"),
+                                  const TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: " Orders",
+                                  ),
+                                ],
                               ),
                             ),
                           ),
