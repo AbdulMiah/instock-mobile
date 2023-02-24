@@ -40,6 +40,8 @@ class MyApp extends StatelessWidget {
               color: blackColor, fontSize: 48, fontWeight: FontWeight.bold),
           bodyMedium: TextStyle(color: blackColor, fontSize: 36),
           bodySmall: TextStyle(color: blackColor, fontSize: 18),
+          // Error Message
+          headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
         ),
       ),
 
