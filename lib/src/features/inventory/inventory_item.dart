@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/theme/common_theme.dart';
 
 class InventoryItem extends StatefulWidget {
   const InventoryItem(
       {super.key,
-      required this.theme,
       required this.itemName,
       required this.itemSKU,
       required this.itemStockNo,
       required this.itemOrdersNo,
       this.itemWarning});
 
-  final ThemeData theme;
   final String itemName;
   final String itemSKU;
   final String itemStockNo;
@@ -24,12 +23,13 @@ class InventoryItem extends StatefulWidget {
 class _InventoryItemState extends State<InventoryItem> {
   @override
   Widget build(BuildContext context) {
+    final theme = CommonTheme();
     return Column(
       children: [
         if (widget.itemWarning != null) ...[
           Container(
             decoration: BoxDecoration(
-              color: widget.theme.highlightColor,
+              color: theme.themeData.highlightColor,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8.0),
                 topRight: Radius.circular(8.0),
@@ -43,10 +43,7 @@ class _InventoryItemState extends State<InventoryItem> {
                   child: Text(
                     widget.itemWarning,
                     textDirection: TextDirection.ltr,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.black87,
-                    ),
+                    style: theme.themeData.textTheme.bodySmall,
                   ),
                 ),
               ),
@@ -58,23 +55,23 @@ class _InventoryItemState extends State<InventoryItem> {
               borderRadius: const BorderRadius.all(
                 Radius.circular(8),
               ),
-              gradient: LinearGradient(
-                  colors: [Colors.white, widget.theme.splashColor],
-                  begin: const Alignment(0.3, 0),
-                  end: Alignment.centerRight)),
+              gradient: LinearGradient(colors: [
+                theme.themeData.primaryColorLight,
+                theme.themeData.splashColor
+              ], begin: const Alignment(0.3, 0), end: Alignment.centerRight)),
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Column(
-                    children: const [
+                    children: [
                       SizedBox(
                         height: 74,
                         width: 74,
-                        child: Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Image(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: const Image(
                               image: NetworkImage(
                                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')),
                         ),
@@ -91,15 +88,15 @@ class _InventoryItemState extends State<InventoryItem> {
                             widget.itemName,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
+                            style: theme.themeData.textTheme.headlineMedium,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
                           child: Text(
                             widget.itemSKU,
-                            style: const TextStyle(fontSize: 16),
+                            style: theme.themeData.textTheme.bodySmall
+                                ?.merge(const TextStyle(fontSize: 16)),
                           ),
                         ),
                       ],
@@ -115,9 +112,9 @@ class _InventoryItemState extends State<InventoryItem> {
                             padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                             child: Container(
                               constraints: const BoxConstraints(minWidth: 100),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(
+                              decoration: BoxDecoration(
+                                color: theme.themeData.primaryColorLight,
+                                borderRadius: const BorderRadius.all(
                                   Radius.circular(2),
                                 ),
                               ),
@@ -128,12 +125,15 @@ class _InventoryItemState extends State<InventoryItem> {
                                       child: Icon(Icons.inventory, size: 14),
                                     ),
                                     TextSpan(
-                                      style:
-                                          const TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                          color:
+                                              theme.themeData.primaryColorDark),
                                       text: " ${widget.itemStockNo}",
                                     ),
-                                    const TextSpan(
-                                      style: TextStyle(color: Colors.black),
+                                    TextSpan(
+                                      style: TextStyle(
+                                          color:
+                                              theme.themeData.primaryColorDark),
                                       text: " In Stock",
                                     ),
                                   ],
@@ -146,9 +146,9 @@ class _InventoryItemState extends State<InventoryItem> {
                           ),
                           Container(
                             constraints: const BoxConstraints(minWidth: 100),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
+                            decoration: BoxDecoration(
+                              color: theme.themeData.primaryColorLight,
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(2),
                               ),
                             ),
@@ -161,11 +161,14 @@ class _InventoryItemState extends State<InventoryItem> {
                                     child: Icon(Icons.update, size: 14),
                                   ),
                                   TextSpan(
-                                      style:
-                                          const TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                          color:
+                                              theme.themeData.primaryColorDark),
                                       text: " ${widget.itemOrdersNo}"),
-                                  const TextSpan(
-                                    style: TextStyle(color: Colors.black),
+                                  TextSpan(
+                                    style: TextStyle(
+                                        color:
+                                            theme.themeData.primaryColorDark),
                                     text: " Orders",
                                   ),
                                 ],

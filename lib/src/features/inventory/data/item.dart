@@ -22,4 +22,9 @@ class Item {
       stock: json['Stock'],
     );
   }
+
+  @override
+  String toString() {
+    return 'Item{SKU: $SKU, businessId: $businessId, category: $category, name: $name, stock: $stock}';
+  }
 }
