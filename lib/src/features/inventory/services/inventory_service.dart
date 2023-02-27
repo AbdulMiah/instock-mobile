@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 
 class InventoryService {
-  Future<List<Item>> getItems() async {
+  Future<List<Item>> getItems(http.Client client) async {
     String url =
-        "https://api.json-generator.com/templates/QqZmEQPf6dQR/data?access_token=accesstoken";
-    var response = await http.get(Uri.parse(url));
+        "https://api.json-generator.com/templates/QqZmEQPf6dQR/data?access_token=token";
+    var response = await client.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
