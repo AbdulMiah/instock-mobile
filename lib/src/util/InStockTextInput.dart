@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
 class InStockTextInput extends StatefulWidget {
-  const InStockTextInput(
+  InStockTextInput(
       {super.key,
       required this.text,
       required this.theme,
       required this.icon,
       required this.validators,
-      required this.onSaved});
+      required this.onSaved,
+      this.obscureText = false});
 
   final ThemeData theme;
   final IconData? icon;
   final String text;
   final List<Function> validators;
   final void Function(String?)? onSaved;
+  bool obscureText = false;
 
   @override
   State<InStockTextInput> createState() => _InStockTextInputState();
@@ -87,6 +89,9 @@ class _InStockTextInputState extends State<InStockTextInput> {
               displayIcon(),
               Expanded(
                 child: TextFormField(
+                  enableSuggestions: true,
+                  autocorrect: true,
+                  obscureText: widget.obscureText,
                   validator: (value) {
                     return runValidators(value);
                   },

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 class InStockButton extends StatefulWidget {
-  const InStockButton(
-      {required this.text,
+  InStockButton(
+      {super.key,
+      required this.text,
       required this.onPressed,
       required this.theme,
-      required this.colorOption});
+      required this.colorOption,
+      this.isLoading = false});
 
   final String text;
   final ThemeData theme;
   final int colorOption;
   final void Function()? onPressed;
+  bool isLoading;
 
   // Used for colorOptions
   static final int primary = 1;
@@ -48,15 +51,19 @@ class _InStockButtonState extends State<InStockButton> {
   }
 
   displayButtonChild(ThemeData theme) {
-    bool isLoading = false;
-    if (isLoading == false) {
+    if (widget.isLoading == false) {
       return Text(
         widget.text,
         style: widget.theme.textTheme.displaySmall,
       );
     } else {
-      return CircularProgressIndicator(
-        color: theme.splashColor,
+      Map<String, Color> buttonColors = ColorPicker();
+      return SizedBox(
+        width: 30,
+        height: 30,
+        child: CircularProgressIndicator(
+          color: buttonColors["foreground"],
+        ),
       );
     }
   }
@@ -67,23 +74,19 @@ class _InStockButtonState extends State<InStockButton> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.7,
       child: ElevatedButton(
-        onPressed: widget.onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColors["background"],
-          // Background color
-          foregroundColor: buttonColors["foreground"],
-          // Text color
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5), // Rounded edges
+          onPressed: widget.onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: buttonColors["background"],
+            // Background color
+            foregroundColor: buttonColors["foreground"],
+            // Text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5), // Rounded edges
+            ),
+            elevation: 0,
+            // No shadow
           ),
-          elevation: 0,
-          // No shadow
-        ),
-        child: Text(
-          widget.text,
-          style: widget.theme.textTheme.displaySmall,
-        ),
-      ),
+          child: displayButtonChild(widget.theme)),
     );
   }
 }

@@ -11,8 +11,6 @@ import '../../util/InStockButton.dart';
 import '../navigation/navigation_bar.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
-
   @override
   State<Login> createState() => _LoginState();
 }
@@ -23,6 +21,7 @@ class _LoginState extends State<Login> {
   String? _email;
   String? _password;
   String? _loginError;
+  bool _isLoading = false;
 
   handleLogin() async {
     _loginError = null;
@@ -51,6 +50,12 @@ class _LoginState extends State<Login> {
         _loginError = response.body;
       }
     }
+  }
+
+  toggleLoading(bool loading) {
+    setState(() {
+      _isLoading = loading;
+    });
   }
 
   displayLoginError(ThemeData theme) {
@@ -151,6 +156,7 @@ class _LoginState extends State<Login> {
                                   onSaved: (value) {
                                     _password = value;
                                   },
+                                  obscureText: true,
                                 ),
                               ),
                               Padding(
@@ -161,10 +167,13 @@ class _LoginState extends State<Login> {
                                   child: InStockButton(
                                     text: 'Login',
                                     onPressed: () async {
+                                      toggleLoading(true);
                                       handleLogin();
+                                      toggleLoading(false);
                                     },
                                     theme: theme,
                                     colorOption: InStockButton.accent,
+                                    isLoading: _isLoading,
                                   ),
                                 ),
                               ),

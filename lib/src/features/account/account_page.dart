@@ -25,19 +25,20 @@ class _AccountPageState extends State<AccountPage> {
             children: <Widget>[
               Text("Account"),
               InStockButton(
-                  text: "Clear Token",
-                  onPressed: () async {
-                    //Hacky way to test bearer token is present;
-                    SecureStorageService secureStorageService =
-                        SecureStorageService();
-                    await secureStorageService.delete("bearerToken");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AuthCheck()),
-                    );
-                  },
-                  theme: theme,
-                  colorOption: InStockButton.primary)
+                text: "Clear Token",
+                onPressed: () async {
+                  //Hacky way to test bearer token is present;
+                  SecureStorageService secureStorageService =
+                      SecureStorageService();
+                  await secureStorageService.delete("bearerToken");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthCheck()),
+                  );
+                },
+                theme: theme,
+                colorOption: InStockButton.primary,
+              )
             ],
           ),
         ),
