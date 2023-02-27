@@ -22,7 +22,6 @@ class _AddBusinessState extends State<AddBusiness> {
             children: [
               Container(
                 alignment: Alignment.center,
-                color: Colors.grey,
                 child: Stack(
                   children: [
                     Positioned(
@@ -58,23 +57,25 @@ class _AddBusinessState extends State<AddBusiness> {
               Form(
                 key: _formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Enter business name',
                       ),
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Enter the description',
                       ),
                     ),
+                    SizedBox(height: 250.0,),
                     ElevatedButton.icon(
-                        onPressed: () { },
-                        icon: Icon(Icons.arrow_forward),
-                        label: Text("Continue")
+                      onPressed: () { },
+                      icon: Icon(Icons.arrow_forward),
+                      label: Text("Continue"),
                     ),
                   ],
                 ),
@@ -86,38 +87,3 @@ class _AddBusinessState extends State<AddBusiness> {
     );
   }
 }
-
-//   body: Padding(
-//     padding: EdgeInsets.all(30.0),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: <Widget>[
-//         CircleAvatar(
-//           radius: 60.0,
-//
-//           backgroundColor: Colors.red,
-//         ),
-//         Divider(
-//           height: 30.0,
-//           color: Colors.amber,
-//         ),
-//         Container(
-//           padding: EdgeInsets.all(30.0),
-//           child: Text("1"),
-//           color: Colors.pinkAccent,
-//         ),
-//         Container(
-//           padding: EdgeInsets.all(30.0),
-//           child: Text("2"),
-//           color: Colors.deepPurpleAccent,
-//         ),
-//         Container(
-//           padding: EdgeInsets.all(30.0),
-//           child: Text("3"),
-//           color: Colors.deepOrange,
-//         ),
-//       ],
-//     ),
-//   ),
-// ),
