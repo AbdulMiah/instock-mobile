@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
+import 'package:instock_mobile/src/features/auth_check.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,8 +44,7 @@ class MyApp extends StatelessWidget {
           headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
         ),
       ),
-
-      home: const NavBar(),
+      home: AuthCheck(),
     );
   }
 }

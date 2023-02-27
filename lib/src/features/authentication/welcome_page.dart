@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/sign_up_page.dart';
 import 'package:instock_mobile/src/features/authentication/welcome_wave.dart';
 
+import '../../theme/common_theme.dart';
 import '../../util/InStockButton.dart';
 import 'login_page.dart';
 
@@ -14,23 +15,23 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  redirectToLogin() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Login()),
+    );
+  }
+
+  redirectToSignUp() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SignUp()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    redirectToLogin() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Login()),
-      );
-    }
-
-    redirectToSignUp() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const SignUp()),
-      );
-    }
-
+    final theme = CommonTheme().themeData;
     return MaterialApp(
         //Hides debug banner
         debugShowCheckedModeBanner: false,

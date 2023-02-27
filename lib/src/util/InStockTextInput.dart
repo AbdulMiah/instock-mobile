@@ -6,12 +6,14 @@ class InStockTextInput extends StatefulWidget {
       required this.text,
       required this.theme,
       required this.icon,
-      required this.validators});
+      required this.validators,
+      required this.onSaved});
 
   final ThemeData theme;
   final IconData? icon;
   final String text;
   final List<Function> validators;
+  final void Function(String?)? onSaved;
 
   @override
   State<InStockTextInput> createState() => _InStockTextInputState();
@@ -33,14 +35,10 @@ class _InStockTextInputState extends State<InStockTextInput> {
       _errorMessage = null;
     });
 
-    print("Created");
-    print(widget.validators);
-
     for (var i = 0; i < widget.validators.length;) {
       Function validator = widget.validators[i];
       String? res = validator(value);
       if (res != null) {
-        print(res);
         setState(() {
           _errorMessage = res;
         });
@@ -57,10 +55,17 @@ class _InStockTextInputState extends State<InStockTextInput> {
 
   displayErrorMessage() {
     if (_errorMessage != null) {
-      return Text('$_errorMessage',
-          style: widget.theme.textTheme.headlineSmall);
+      return Padding(
+        padding: EdgeInsets.fromLTRB(0, 4.0, 0, 0),
+        child:
+            Text('$_errorMessage', style: widget.theme.textTheme.headlineSmall),
+      );
     }
-    return Container();
+    // For whatever reason putting an empty container here instead
+    // causes the text to jump when switching to display text
+    // so this is a bit of a work around
+    // I don't think it's worth the extra time looking into why already spent an hour
+    return Text("");
   }
 
   @override
@@ -82,22 +87,23 @@ class _InStockTextInputState extends State<InStockTextInput> {
               displayIcon(),
               Expanded(
                 child: TextFormField(
-                    validator: (value) {
-                      return runValidators(value);
-                    },
-                    cursorColor: widget.theme.primaryColorDark,
-                    decoration: InputDecoration(
-                      // If widget.icon is not given does not apply margin
-                      contentPadding: widget.icon != null
-                          ? EdgeInsets.fromLTRB(4, 0, 0, 0)
-                          : null,
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      errorStyle: TextStyle(height: 0),
-                    ),
-                    style: widget.theme.textTheme.bodySmall),
+                  validator: (value) {
+                    return runValidators(value);
+                  },
+                  onSaved: widget.onSaved,
+                  cursorColor: widget.theme.primaryColorDark,
+                  decoration: InputDecoration(
+                    // If widget.icon is not given does not apply margin
+                    contentPadding: widget.icon != null
+                        ? EdgeInsets.fromLTRB(4, 0, 0, 0)
+                        : null,
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    errorStyle: TextStyle(height: 0),
+                  ),
+                ),
               ),
             ],
           ),

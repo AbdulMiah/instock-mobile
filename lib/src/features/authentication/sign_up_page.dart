@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../theme/common_theme.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -11,7 +13,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = CommonTheme().themeData;
     return MaterialApp(
         //Hides debug banner
         debugShowCheckedModeBanner: false,
@@ -20,21 +22,20 @@ class _SignUpState extends State<SignUp> {
           //bar behind notifications appears grey which seems out of place with the rest of the page
           body: AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light
-                .copyWith(statusBarColor: Theme.of(context).primaryColorDark),
+                .copyWith(statusBarColor: theme.primaryColorDark),
             child: SafeArea(
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: Container(
-                  color: Theme.of(context).primaryColorDark,
+                  color: theme.primaryColorDark,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Sign Up",
-                            style: Theme.of(context).textTheme.displayLarge),
+                        Text("Sign Up", style: theme.textTheme.displayLarge),
                         Text("Coming Soon",
-                            style: Theme.of(context).textTheme.displayMedium),
+                            style: theme.textTheme.displayMedium),
                       ]),
                 ),
               ),

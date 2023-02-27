@@ -47,6 +47,20 @@ class _InStockButtonState extends State<InStockButton> {
     }
   }
 
+  displayButtonChild(ThemeData theme) {
+    bool isLoading = false;
+    if (isLoading == false) {
+      return Text(
+        widget.text,
+        style: widget.theme.textTheme.displaySmall,
+      );
+    } else {
+      return CircularProgressIndicator(
+        color: theme.splashColor,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Map<String, Color> buttonColors = ColorPicker();
