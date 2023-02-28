@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddBusiness extends StatefulWidget {
   const AddBusiness({super.key});
@@ -9,6 +13,20 @@ class AddBusiness extends StatefulWidget {
 
 class _AddBusinessState extends State<AddBusiness> {
   final _formKey = GlobalKey<FormState>();
+  final avatarSize = 140.0;
+  File? image;
+
+  // Taken from https://medium.com/unitechie/flutter-tutorial-image-picker-from-camera-gallery-c27af5490b74
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +42,31 @@ class _AddBusinessState extends State<AddBusiness> {
                 alignment: Alignment.center,
                 child: Stack(
                   children: [
-                    const Positioned(
-                      child: CircleAvatar(
-                        radius: 70.0,
-                        backgroundImage:NetworkImage('https://via.placeholder.com/150'),
-                        backgroundColor: Colors.transparent,
+                    Positioned(
+                      child: Container(
+                        height: avatarSize,
+                        width: avatarSize,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey.shade300,
+                        ),
+                        child: Center(
+                          child: image == null
+                            ? const Text("no image")
+                            : CircleAvatar(
+                              radius: avatarSize/2,
+                              backgroundImage: FileImage(image!),
+                          ),
+                        ),
                       ),
                     ),
                     Positioned(
                       bottom: 0.0,
                       left: 80.0,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          pickImage();
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
                           padding: const EdgeInsets.all(5),
