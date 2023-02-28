@@ -95,7 +95,7 @@ class _AddBusinessState extends State<AddBusiness> {
                                           pickImage(ImageSource.camera);
                                         },
                                         icon: const Icon(Icons.camera_alt),
-                                        label: const Text("Take Photo"),
+                                        label: const Text("Take a Photo"),
                                       ),
                                     ],
                                   ),
@@ -134,6 +134,8 @@ class _AddBusinessState extends State<AddBusiness> {
                       ),
                     ),
                     TextFormField(
+                      minLines: 1,
+                      maxLines: 4,
                       decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Enter the description',
