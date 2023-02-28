@@ -16,7 +16,7 @@ class _AddBusinessState extends State<AddBusiness> {
     return MaterialApp(
       home: Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(60.0),
+          padding: const EdgeInsets.all(60.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -24,27 +24,27 @@ class _AddBusinessState extends State<AddBusiness> {
                 alignment: Alignment.center,
                 child: Stack(
                   children: [
-                    Positioned(
+                    const Positioned(
                       child: CircleAvatar(
-                        radius: 60.0,
+                        radius: 70.0,
                         backgroundImage:NetworkImage('https://via.placeholder.com/150'),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
                     Positioned(
                       bottom: 0.0,
-                      left: 70.0,
+                      left: 80.0,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: Icon(
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(5),
+                          backgroundColor: Colors.green,
+                        ),
+                        child: const Icon(
                           Icons.camera_alt_outlined,
                           size: 20,
                           color: Colors.white,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(5),
-                          backgroundColor: Colors.green,
                         ),
                       ),
                     ),
@@ -52,7 +52,7 @@ class _AddBusinessState extends State<AddBusiness> {
                 ),
               ),
 
-              Divider(height: 50.0, thickness: 1.0, ),
+              const Divider(height: 50.0, thickness: 1.0, ),
 
               Form(
                 key: _formKey,
@@ -60,22 +60,22 @@ class _AddBusinessState extends State<AddBusiness> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Enter business name',
                       ),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         labelText: 'Enter the description',
                       ),
                     ),
-                    SizedBox(height: 250.0,),
+                    const SizedBox(height: 250.0,),
                     ElevatedButton.icon(
                       onPressed: () { },
-                      icon: Icon(Icons.arrow_forward),
-                      label: Text("Continue"),
+                      icon: const Icon(Icons.arrow_forward),
+                      label: const Text("Continue"),
                     ),
                   ],
                 ),
