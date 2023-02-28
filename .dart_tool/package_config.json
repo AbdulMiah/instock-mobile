@@ -164,6 +164,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_svg",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/Users/c2061455/flutter-3.7.3/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -284,6 +290,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "path_parsing",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/path_parsing-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "petitparser",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-5.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "pool",
       "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/pool-1.5.1",
       "packageUri": "lib/",
@@ -380,6 +398,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "vector_graphics",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "vector_graphics_codec",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_codec-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "vector_graphics_compiler",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_compiler-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -398,6 +434,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "yaml",
       "rootUri": "file:///C:/Users/c2061455/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.1",
       "packageUri": "lib/",
@@ -410,7 +452,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-02-27T15:38:05.819064Z",
+  "generated": "2023-02-27T17:06:30.449944Z",
   "generator": "pub",
   "generatorVersion": "2.19.2"
 }
