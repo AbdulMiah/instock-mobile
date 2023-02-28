@@ -17,9 +17,9 @@ class _AddBusinessState extends State<AddBusiness> {
   File? image;
 
   // Taken from https://medium.com/unitechie/flutter-tutorial-image-picker-from-camera-gallery-c27af5490b74
-  Future pickImage() async {
+  Future pickImage(ImageSource source) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: source);
       if(image == null) return;
       final imageTemp = File(image.path);
       setState(() => this.image = imageTemp);
@@ -52,7 +52,7 @@ class _AddBusinessState extends State<AddBusiness> {
                         ),
                         child: Center(
                           child: image == null
-                            ? const Text("no image")
+                            ? const Text("No image selected.")
                             : CircleAvatar(
                               radius: avatarSize/2,
                               backgroundImage: FileImage(image!),
@@ -65,7 +65,44 @@ class _AddBusinessState extends State<AddBusiness> {
                       left: 80.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          pickImage();
+                          showModalBottomSheet<void>(
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20.0),
+                              ),
+                            ),
+                            builder: (BuildContext context) {
+                              return SizedBox(
+                                height: 200,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ElevatedButton.icon(
+                                        onPressed: () {
+                                          pickImage(ImageSource.gallery);
+                                        },
+                                        icon: const Icon(Icons.image_outlined),
+                                        label: const Text("Choose from Gallery"),
+                                      ),
+
+                                      const Text("or"),
+
+                                      ElevatedButton.icon(
+                                        onPressed: () {
+                                          pickImage(ImageSource.camera);
+                                        },
+                                        icon: const Icon(Icons.camera_alt),
+                                        label: const Text("Take Photo"),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
