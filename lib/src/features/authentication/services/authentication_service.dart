@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:instock_mobile/src/util/SecureStorageService.dart';
-import 'package:instock_mobile/src/util/WidgetOptions/Validators.dart';
+
+import '../../../util/secure_storage_service.dart';
+import '../../../util/validation/validators.dart';
 
 class AuthenticationService {
   Future<Response> authenticateUser(String email, String password) async {

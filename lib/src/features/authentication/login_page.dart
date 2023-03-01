@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/authentication/welcome_wave.dart';
-import 'package:instock_mobile/src/util/InStockTextInput.dart';
-import 'package:instock_mobile/src/util/WidgetOptions/Validators.dart';
+import 'package:instock_mobile/src/util/instock_text_input.dart';
 
 import '../../theme/common_theme.dart';
-import '../../util/InStockButton.dart';
+import '../../util/instock_button.dart';
+import '../../util/validation/validators.dart';
 import '../navigation/navigation_bar.dart';
 
 class Login extends StatefulWidget {
@@ -132,7 +132,7 @@ class _LoginState extends State<Login> {
                                   text: 'Email',
                                   theme: theme,
                                   icon: Icons.person,
-                                  validators: [
+                                  validators: const [
                                     Validators.notNull,
                                     Validators.notBlank,
                                     Validators.isEmail,
@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
                                   text: 'Password',
                                   theme: theme,
                                   icon: Icons.lock,
-                                  validators: [
+                                  validators: const [
                                     Validators.validatePassword,
                                     Validators.notNull,
                                     Validators.notBlank,

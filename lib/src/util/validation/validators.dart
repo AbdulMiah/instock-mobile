@@ -1,6 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 
-import 'ValidatorUtilities.dart';
+import 'validator_utilities.dart';
 
 class Validators {
   static validatePassword(String value) {

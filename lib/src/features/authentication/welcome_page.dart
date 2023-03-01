@@ -4,7 +4,7 @@ import 'package:instock_mobile/src/features/authentication/sign_up_page.dart';
 import 'package:instock_mobile/src/features/authentication/welcome_wave.dart';
 
 import '../../theme/common_theme.dart';
-import '../../util/InStockButton.dart';
+import '../../util/instock_button.dart';
 import 'login_page.dart';
 
 class Welcome extends StatefulWidget {
