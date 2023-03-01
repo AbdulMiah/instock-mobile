@@ -168,6 +168,12 @@ class _AddBusinessState extends State<AddBusiness> {
                         border: UnderlineInputBorder(),
                         labelText: 'Enter business name',
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your business name';
+                        }
+                        return null;
+                      },
                     ),
                     TextFormField(
                       minLines: 1,
@@ -176,17 +182,30 @@ class _AddBusinessState extends State<AddBusiness> {
                         border: UnderlineInputBorder(),
                         labelText: 'Enter the description',
                       ),
-                    ),
-                    const SizedBox(height: 180.0,),
-                    ElevatedButton.icon(
-                      onPressed: () { },
-                      icon: const Icon(Icons.arrow_forward),
-                      label: const Text("Continue"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.themeData.splashColor,
-                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your business description';
+                        }
+                        return null;
+                      },
                     ),
                   ],
+                ),
+              ),
+              const Spacer(),
+
+              ElevatedButton.icon(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                  }
+                },
+                icon: const Icon(Icons.arrow_forward),
+                label: const Text("Continue"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.themeData.splashColor,
                 ),
               ),
             ],
