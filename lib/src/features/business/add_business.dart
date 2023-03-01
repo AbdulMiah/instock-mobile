@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../theme/common_theme.dart';
@@ -24,11 +25,28 @@ class _AddBusinessState extends State<AddBusiness> {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if(image == null) return;
-      final imageTemp = File(image.path);
+      File? imageTemp = File(image.path);
+      imageTemp = await cropImage(imageFile: imageTemp);
       setState(() => this.image = imageTemp);
     } on PlatformException catch(e) {
       print('Failed to pick image: $e');
     }
+  }
+
+  Future<File?> cropImage({required File imageFile}) async {
+    CroppedFile? croppedImage = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarColor: theme.themeData.splashColor,
+        ),
+      ],
+    );
+    if (croppedImage == null) return null;
+    return File(croppedImage.path);
   }
 
   @override
@@ -205,7 +223,7 @@ class _AddBusinessState extends State<AddBusiness> {
                 icon: const Icon(Icons.arrow_forward),
                 label: const Text("Continue"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.themeData.splashColor,
+                  backgroundColor: theme.themeData.primaryColorDark,
                 ),
               ),
             ],

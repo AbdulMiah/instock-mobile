@@ -224,6 +224,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "image_cropper",
+      "rootUri": "file:///C:/Users/c2035950/AppData/Local/Pub/Cache/hosted/pub.dev/image_cropper-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "image_cropper_for_web",
+      "rootUri": "file:///C:/Users/c2035950/AppData/Local/Pub/Cache/hosted/pub.dev/image_cropper_for_web-1.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "image_cropper_platform_interface",
+      "rootUri": "file:///C:/Users/c2035950/AppData/Local/Pub/Cache/hosted/pub.dev/image_cropper_platform_interface-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "image_picker",
       "rootUri": "file:///C:/Users/c2035950/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-0.8.6+3",
       "packageUri": "lib/",
@@ -446,7 +464,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-02-28T20:45:20.270647Z",
+  "generated": "2023-03-01T21:21:40.929285Z",
   "generator": "pub",
   "generatorVersion": "2.19.2"
 }
