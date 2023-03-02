@@ -4,12 +4,12 @@ import 'package:instock_mobile/src/features/authentication/screens/welcome_page.
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 
 import '../../../theme/common_theme.dart';
-import '../../../utililities/objects/response_object.dart';
-import '../../../utililities/validation/validators.dart';
-import '../../../utililities/widgets/back_button.dart';
-import '../../../utililities/widgets/instock_button.dart';
-import '../../../utililities/widgets/instock_text_input.dart';
-import '../../../utililities/widgets/wave.dart';
+import '../../../utilities/objects/response_object.dart';
+import '../../../utilities/validation/validators.dart';
+import '../../../utilities/widgets/back_button.dart';
+import '../../../utilities/widgets/instock_button.dart';
+import '../../../utilities/widgets/instock_text_input.dart';
+import '../../../utilities/widgets/wave.dart';
 import '../../navigation/navigation_bar.dart';
 
 class Login extends StatefulWidget {

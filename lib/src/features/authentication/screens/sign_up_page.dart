@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 
 import '../../../theme/common_theme.dart';
-import '../../../utililities/widgets/back_button.dart';
+import '../../../utilities/widgets/back_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

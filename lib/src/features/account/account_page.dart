@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
 
 import '../../theme/common_theme.dart';
-import '../../utililities/services/secure_storage_service.dart';
-import '../../utililities/widgets/instock_button.dart';
+import '../../utilities/services/secure_storage_service.dart';
+import '../../utilities/widgets/instock_button.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});

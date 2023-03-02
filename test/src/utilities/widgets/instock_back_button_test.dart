@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
-import 'package:instock_mobile/src/utililities/widgets/back_button.dart';
+import 'package:instock_mobile/src/utilities/widgets/back_button.dart';
 
 void main() {
   testWidgets('Back Button renders', (tester) async {
