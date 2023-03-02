@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:flutter/scheduler.dart';
 
 class InStockTextInput extends StatefulWidget {
   InStockTextInput(
@@ -9,8 +9,7 @@ class InStockTextInput extends StatefulWidget {
       required this.icon,
       required this.validators,
       required this.onSaved,
-      this.obscureText = false,
-      this.isPhoneNumber = false});
+      this.obscureText = false});
 
   final ThemeData theme;
   final IconData? icon;
@@ -18,7 +17,6 @@ class InStockTextInput extends StatefulWidget {
   final List<Function> validators;
   final void Function(String?)? onSaved;
   bool obscureText = false;
-  bool isPhoneNumber = false;
 
   @override
   State<InStockTextInput> createState() => _InStockTextInputState();
@@ -36,17 +34,12 @@ class _InStockTextInputState extends State<InStockTextInput> {
 
   String? runValidators(String? value) {
     // Resets error message
-    setState(() {
-      _errorMessage = null;
-    });
 
     for (var i = 0; i < widget.validators.length;) {
       Function validator = widget.validators[i];
       String? res = validator(value);
       if (res != null) {
-        setState(() {
-          _errorMessage = res;
-        });
+        setErrorMessage(res);
 
         //We return an empty string to the validator
         //so no error message is displayed from the text format
@@ -55,7 +48,15 @@ class _InStockTextInputState extends State<InStockTextInput> {
       }
       i++;
     }
+    setErrorMessage("");
+
     return null;
+  }
+
+  setErrorMessage(String errorMessage) {
+    SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {
+          _errorMessage = errorMessage;
+        }));
   }
 
   displayErrorMessage() {
@@ -73,37 +74,6 @@ class _InStockTextInputState extends State<InStockTextInput> {
     // so this is a bit of a work around
     // I don't think it's worth the extra time looking into why already spent an hour
     return Text("");
-  }
-
-  displayInputField() {
-    if (widget.isPhoneNumber == false) {
-      return TextFormField(
-        enableSuggestions: true,
-        autocorrect: true,
-        obscureText: widget.obscureText,
-        validator: (value) {
-          return runValidators(value);
-        },
-        onSaved: widget.onSaved,
-        cursorColor: widget.theme.primaryColorDark,
-        decoration: InputDecoration(
-          // If widget.icon is not given does not apply margin
-          contentPadding:
-              widget.icon != null ? EdgeInsets.fromLTRB(4, 0, 0, 0) : null,
-          border: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          errorStyle: TextStyle(height: 0),
-        ),
-      );
-    } else {
-      return IntlPhoneField(
-        showCountryFlag: false,
-        showDropdownIcon: false,
-        dropdownTextStyle: widget.theme.textTheme.bodySmall,
-      );
-    }
   }
 
   @override
@@ -124,7 +94,29 @@ class _InStockTextInputState extends State<InStockTextInput> {
             children: [
               displayIcon(),
               Expanded(
-                child: displayInputField(),
+                child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  enableSuggestions: true,
+                  autocorrect: true,
+                  obscureText: widget.obscureText,
+                  validator: (value) {
+                    print(value);
+                    runValidators(value);
+                  },
+                  onSaved: widget.onSaved,
+                  cursorColor: widget.theme.primaryColorDark,
+                  decoration: InputDecoration(
+                    // If widget.icon is not given does not apply margin
+                    contentPadding: widget.icon != null
+                        ? EdgeInsets.fromLTRB(4, 0, 0, 0)
+                        : null,
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    errorStyle: TextStyle(height: 0),
+                  ),
+                ),
               ),
             ],
           ),

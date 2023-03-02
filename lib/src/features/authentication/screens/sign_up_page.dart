@@ -162,19 +162,6 @@ class _SignUpState extends State<SignUp> {
                               onSaved: (value) {
                                 _email = value;
                               }),
-                          InStockTextInput(
-                              text: 'Phone Number',
-                              theme: theme,
-                              icon: null,
-                              validators: const [
-                                Validators.notNull,
-                                Validators.notBlank,
-                                Validators.shortLength,
-                              ],
-                              onSaved: (value) {
-                                _email = value;
-                              },
-                              isPhoneNumber: true),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
                             child: InStockTextInput(
