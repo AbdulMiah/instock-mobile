@@ -4,7 +4,7 @@ import 'validator_utilities.dart';
 
 class Validators {
   static validatePassword(String value) {
-    int maxLength = 30;
+    int maxLength = 20;
 
     ValidatorUtilities utilities = ValidatorUtilities();
     String? result = utilities.maxLength(value, maxLength);

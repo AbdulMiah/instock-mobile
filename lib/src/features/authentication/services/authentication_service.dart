@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+import 'package:instock_mobile/src/util/objects/response_object.dart';
 
-import '../../../util/secure_storage_service.dart';
+import '../../../util/services/secure_storage_service.dart';
 import '../../../util/validation/validators.dart';
 
 class AuthenticationService {
-  Future<Response> authenticateUser(String email, String password) async {
+  Future<ResponseObject> authenticateUser(String email, String password) async {
     Validators.isEmail(email);
     Validators.validatePassword(password);
     Validators.shortLength(email);
@@ -23,12 +23,15 @@ class AuthenticationService {
     final response = await http.post(url,
         headers: {"Content-Type": "application/json"}, body: body);
 
+    ResponseObject responseObject =
+        ResponseObject(response.statusCode, response.body);
+
     if (response.statusCode == 200) {
       String bearerToken = response.body;
       _saveBearerToken(bearerToken);
-      return (response);
+      return (responseObject);
     } else {
-      return (response);
+      return (responseObject);
     }
   }
 

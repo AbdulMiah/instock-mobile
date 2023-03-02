@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
-import 'package:instock_mobile/src/features/authentication/welcome_wave.dart';
-import 'package:instock_mobile/src/util/instock_text_input.dart';
+import 'package:instock_mobile/src/features/authentication/welcome_page.dart';
+
+import 'package:instock_mobile/src/util/widgets/instock_text_input.dart';
+import 'package:instock_mobile/src/util/widgets/wave.dart';
 
 import '../../theme/common_theme.dart';
-import '../../util/instock_button.dart';
+import '../../util/objects/response_object.dart';
 import '../../util/validation/validators.dart';
+import '../../util/widgets/back_button.dart';
+import '../../util/widgets/instock_button.dart';
 import '../navigation/navigation_bar.dart';
 
 class Login extends StatefulWidget {
@@ -28,9 +31,10 @@ class _LoginState extends State<Login> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       AuthenticationService authenticationService = AuthenticationService();
-      Response response =
+      ResponseObject response =
           await authenticationService.authenticateUser(_email!, _password!);
 
+      print(response.statusCode);
       if (response.statusCode == 200) {
         Navigator.push(
           context,
@@ -38,16 +42,16 @@ class _LoginState extends State<Login> {
         );
       } else if (response.statusCode == 404) {
         setState(() {
-          _loginError = "Whoops something went wrong, please try again";
+          _loginError = "Invalid Username or Password";
         });
       } else if (response.statusCode == 500) {
         setState(() {
           _loginError = "Whoops something went wrong, please try again";
         });
       } else if (response.statusCode == 502) {
-        _loginError = response.body;
+        _loginError = response.message;
       } else {
-        _loginError = response.body;
+        _loginError = response.message;
       }
     }
   }
@@ -106,16 +110,14 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Positioned(
-                            top: 10,
-                            left: 10,
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: theme.primaryColorLight,
-                            ),
-                          ),
+                              top: 10,
+                              left: 10,
+                              child: InStockBackButton(
+                                page: Welcome(),
+                              )),
                           Positioned(
                             top: MediaQuery.of(context).size.height * 0.2 - 2,
-                            child: WelcomeWave(),
+                            child: InStockWave(),
                           )
                         ],
                       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/authentication/welcome_page.dart';
 
 import '../../theme/common_theme.dart';
+import '../../util/widgets/back_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -36,6 +38,12 @@ class _SignUpState extends State<SignUp> {
                         Text("Sign Up", style: theme.textTheme.displayLarge),
                         Text("Coming Soon",
                             style: theme.textTheme.displayMedium),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 6.0, 0, 0),
+                          child: InStockBackButton(
+                            page: Welcome(),
+                          ),
+                        )
                       ]),
                 ),
               ),
