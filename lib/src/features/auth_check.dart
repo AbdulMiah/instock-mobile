@@ -20,7 +20,6 @@ class AuthCheck extends StatelessWidget {
               if (jwtToken == null) {
                 return Welcome();
               }
-              // Map<String, dynamic> payload = Jwt.parseJwt(jwtToken);
               bool tokenIsExpired = Jwt.isExpired(jwtToken);
               if (tokenIsExpired) {
                 return Welcome();
@@ -30,7 +29,6 @@ class AuthCheck extends StatelessWidget {
             }
             return Center(
               child: CircularProgressIndicator(
-                // backgroundColor: theme.themeData.splashColor,
                 color: theme.splashColor,
               ),
             );

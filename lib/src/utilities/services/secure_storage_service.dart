@@ -8,6 +8,8 @@ class SecureStorageService {
 
   final storage = const FlutterSecureStorage();
 
+  // Commented out for now, IOS options for secure storage
+  // come back to when testing on IOS
   // final options = IOSOptions(accessibility: IOSAccessibility.first_unlock);
   // await storage.write(key: key, value: value, iOptions: options);
 
