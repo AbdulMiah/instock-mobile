@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../theme/common_theme.dart';
+import '../../../theme/common_theme.dart';
 
 class AddBusiness extends StatefulWidget {
   const AddBusiness({super.key});
