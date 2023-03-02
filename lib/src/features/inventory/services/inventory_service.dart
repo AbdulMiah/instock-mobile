@@ -7,7 +7,7 @@ import 'package:instock_mobile/src/features/inventory/data/item.dart';
 class InventoryService {
   Future<List<Item>> getItems(http.Client client) async {
     String url =
-        "https://api.json-generator.com/templates/QqZmEQPf6dQR/data?access_token=arc83rrbafqxelika9cshbni9on94d561auee1rt";
+        "https://api.json-generator.com/templates/QqZmEQPf6dQR/data?access_token=token";
     var response = await client.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
