@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/features/account/account_page.dart';
-import 'package:instock_mobile/src/features/business/business_page.dart';
-import 'package:instock_mobile/src/features/inventory/add_item_page.dart';
-import 'package:instock_mobile/src/features/inventory/inventory_page.dart';
+import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/stats/stats_page.dart';
+
+import '../../theme/common_theme.dart';
+import '../account/account_page.dart';
+import '../business/business_page.dart';
+import '../inventory/add_item_page.dart';
+import '../inventory/inventory_page.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -30,10 +33,15 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = CommonTheme().themeData;
     return MaterialApp(
         home: Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light
+            .copyWith(statusBarColor: Colors.transparent),
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -59,9 +67,9 @@ class _NavBarState extends State<NavBar> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).splashColor,
-        backgroundColor: Theme.of(context).primaryColorDark,
-        unselectedItemColor: Theme.of(context).primaryColorLight,
+        selectedItemColor: theme.splashColor,
+        backgroundColor: theme.primaryColorDark,
+        unselectedItemColor: theme.primaryColorLight,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
       ),
