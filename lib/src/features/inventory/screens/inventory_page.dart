@@ -64,7 +64,7 @@ class _InventoryState extends State<Inventory> {
                       ),
                       Positioned(
                         top: MediaQuery.of(context).size.height * 0.05 - 2,
-                        child: WelcomeWave(),
+                        child: InStockWave(),
                       )
                     ],
                   ),
