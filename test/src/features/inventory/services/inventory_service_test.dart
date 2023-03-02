@@ -6,7 +6,7 @@ import 'package:instock_mobile/src/features/inventory/services/inventory_service
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../inventory_service_test.mocks.dart';
+import 'inventory_service_test.mocks.dart';
 
 // Generate a MockClient using the Mockito package.
 // Create new instances of this class in each test.

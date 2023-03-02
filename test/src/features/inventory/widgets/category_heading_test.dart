@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:instock_mobile/src/features/inventory/category_heading.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/category_heading.dart';
 
 void main() {
   testWidgets('Displays Category', (tester) async {

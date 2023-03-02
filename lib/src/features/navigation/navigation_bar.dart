@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/account/account_page.dart';
 import 'package:instock_mobile/src/features/business/business_page.dart';
-import 'package:instock_mobile/src/features/inventory/add_item_page.dart';
-import 'package:instock_mobile/src/features/inventory/inventory_page.dart';
+import 'package:instock_mobile/src/features/inventory/screens/add_item_page.dart';
 import 'package:instock_mobile/src/features/stats/stats_page.dart';
+
+import '../inventory/screens/inventory_page.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});

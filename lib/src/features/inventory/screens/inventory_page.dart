@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:instock_mobile/src/features/inventory/category_heading.dart';
-import 'package:instock_mobile/src/features/inventory/inventory_item.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/category_heading.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/inventory_item.dart';
 
-import '../../theme/common_theme.dart';
-import '../authentication/welcome_wave.dart';
+import '../../../theme/common_theme.dart';
+import '../../../utilities/widgets/wave.dart';
 
 class Inventory extends StatefulWidget {
   const Inventory({super.key});

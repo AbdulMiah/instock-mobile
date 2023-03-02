@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/common_theme.dart';
+import '../../../theme/common_theme.dart';
 
 class CategoryHeading extends StatefulWidget {
   const CategoryHeading({super.key, required this.category});
