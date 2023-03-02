@@ -16,16 +16,16 @@ class InStockButton extends StatefulWidget {
   bool isLoading;
 
   // Used for colorOptions
-  static final int primary = 1;
-  static final int secondary = 2;
-  static final int accent = 3;
+  static const int primary = 1;
+  static const int secondary = 2;
+  static const int accent = 3;
 
   @override
   State<InStockButton> createState() => _InStockButtonState();
 }
 
 class _InStockButtonState extends State<InStockButton> {
-  Map<String, Color> ColorPicker() {
+  Map<String, Color> colorPicker() {
     switch (widget.colorOption) {
       case 1:
         return {
@@ -57,7 +57,7 @@ class _InStockButtonState extends State<InStockButton> {
         style: widget.theme.textTheme.displaySmall,
       );
     } else {
-      Map<String, Color> buttonColors = ColorPicker();
+      Map<String, Color> buttonColors = colorPicker();
       return SizedBox(
         width: 30,
         height: 30,
@@ -70,7 +70,7 @@ class _InStockButtonState extends State<InStockButton> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, Color> buttonColors = ColorPicker();
+    Map<String, Color> buttonColors = colorPicker();
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.7,
       child: ElevatedButton(

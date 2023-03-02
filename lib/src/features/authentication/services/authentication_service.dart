@@ -14,7 +14,7 @@ class AuthenticationService {
     Validators.shortLength(password);
 
     final url = Uri.parse('http://api.instockinventory.co.uk/login');
-    var data = new Map<String, dynamic>();
+    var data = Map<String, dynamic>();
     data['Email'] = email;
     data['Password'] = password;
 

@@ -95,7 +95,7 @@ void main() {
 
   testWidgets('notNull throws an error for null values', (tester) async {
     //Given
-    String? value = null;
+    String? value;
 
     //When
     String? response = Validators.notNull(value);

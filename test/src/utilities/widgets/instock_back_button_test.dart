@@ -7,10 +7,8 @@ import 'package:instock_mobile/src/utilities/widgets/back_button.dart';
 void main() {
   testWidgets('Back Button renders', (tester) async {
     //Given
-    CommonTheme commonTheme = CommonTheme();
-
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: InStockBackButton(page: Welcome()),
         ),
@@ -26,10 +24,8 @@ void main() {
 
   testWidgets('Back Button can redirect to page on tap', (tester) async {
     //Given
-    CommonTheme commonTheme = CommonTheme();
-
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: InStockBackButton(page: Welcome()),
         ),

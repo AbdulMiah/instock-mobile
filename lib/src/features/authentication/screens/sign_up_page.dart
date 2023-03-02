@@ -36,8 +36,8 @@ class _SignUpState extends State<SignUp> {
                   children: <Widget>[
                     Text("Sign Up", style: theme.textTheme.displayLarge),
                     Text("Coming Soon", style: theme.textTheme.displayMedium),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 6.0, 0, 0),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 6.0, 0, 0),
                       child: InStockBackButton(
                         page: Welcome(),
                       ),

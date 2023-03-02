@@ -23,17 +23,19 @@ class Validators {
   static String? notNull(value) {
     if (value == null) {
       return "This field is required";
-    } else
+    } else {
       return null;
+    }
   }
 
   static String? notBlank(value) {
     //Stripping white space, just spaces won't be allowed
     String valueStripped = value.replaceAll(' ', '');
-    if (value == "" || value == " ") {
+    if (valueStripped == "" || valueStripped == " ") {
       return "This field is required";
-    } else
+    } else {
       return null;
+    }
   }
 
   static String? shortLength(value) {

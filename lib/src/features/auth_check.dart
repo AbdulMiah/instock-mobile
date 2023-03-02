@@ -7,6 +7,8 @@ import 'authentication/services/authentication_service.dart';
 import 'navigation/navigation_bar.dart';
 
 class AuthCheck extends StatelessWidget {
+  const AuthCheck({super.key});
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = CommonTheme().themeData;
@@ -18,13 +20,13 @@ class AuthCheck extends StatelessWidget {
               Map jwtTokenDict = snapshot.data;
               String? jwtToken = jwtTokenDict["bearerToken"];
               if (jwtToken == null) {
-                return Welcome();
+                return const Welcome();
               }
               bool tokenIsExpired = Jwt.isExpired(jwtToken);
               if (tokenIsExpired) {
-                return Welcome();
+                return const Welcome();
               } else {
-                return NavBar();
+                return const NavBar();
               }
             }
             return Center(

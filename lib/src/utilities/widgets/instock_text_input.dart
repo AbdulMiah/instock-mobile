@@ -58,7 +58,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
   displayErrorMessage() {
     if (_errorMessage != null) {
       return Padding(
-        padding: EdgeInsets.fromLTRB(0, 4.0, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 0),
         child: SizedBox(
             width: 250,
             child: Text('$_errorMessage',
@@ -69,7 +69,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
     // causes the text to jump when switching to display text
     // so this is a bit of a work around
     // I don't think it's worth the extra time looking into why already spent an hour
-    return Text("");
+    return const Text("");
   }
 
   @override
@@ -102,13 +102,13 @@ class _InStockTextInputState extends State<InStockTextInput> {
                   decoration: InputDecoration(
                     // If widget.icon is not given does not apply margin
                     contentPadding: widget.icon != null
-                        ? EdgeInsets.fromLTRB(4, 0, 0, 0)
+                        ? const EdgeInsets.fromLTRB(4, 0, 0, 0)
                         : null,
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
-                    errorStyle: TextStyle(height: 0),
+                    errorStyle: const TextStyle(height: 0),
                   ),
                 ),
               ),
