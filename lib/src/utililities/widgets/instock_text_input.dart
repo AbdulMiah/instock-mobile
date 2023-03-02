@@ -59,8 +59,10 @@ class _InStockTextInputState extends State<InStockTextInput> {
     if (_errorMessage != null) {
       return Padding(
         padding: EdgeInsets.fromLTRB(0, 4.0, 0, 0),
-        child:
-            Text('$_errorMessage', style: widget.theme.textTheme.headlineSmall),
+        child: SizedBox(
+            width: 250,
+            child: Text('$_errorMessage',
+                style: widget.theme.textTheme.headlineSmall)),
       );
     }
     // For whatever reason putting an empty container here instead
