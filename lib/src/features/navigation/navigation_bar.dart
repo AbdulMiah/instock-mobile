@@ -31,10 +31,15 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = CommonTheme().themeData;
     return MaterialApp(
         home: Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light
+            .copyWith(statusBarColor: Colors.transparent),
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -60,9 +65,9 @@ class _NavBarState extends State<NavBar> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).splashColor,
-        backgroundColor: Theme.of(context).primaryColorDark,
-        unselectedItemColor: Theme.of(context).primaryColorLight,
+        selectedItemColor: theme.splashColor,
+        backgroundColor: theme.primaryColorDark,
+        unselectedItemColor: theme.primaryColorLight,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
       ),
