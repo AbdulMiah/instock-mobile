@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class InStockTextInput extends StatefulWidget {
   InStockTextInput(
@@ -8,7 +9,8 @@ class InStockTextInput extends StatefulWidget {
       required this.icon,
       required this.validators,
       required this.onSaved,
-      this.obscureText = false});
+      this.obscureText = false,
+      this.isPhoneNumber = false});
 
   final ThemeData theme;
   final IconData? icon;
@@ -16,6 +18,7 @@ class InStockTextInput extends StatefulWidget {
   final List<Function> validators;
   final void Function(String?)? onSaved;
   bool obscureText = false;
+  bool isPhoneNumber = false;
 
   @override
   State<InStockTextInput> createState() => _InStockTextInputState();
@@ -72,6 +75,37 @@ class _InStockTextInputState extends State<InStockTextInput> {
     return Text("");
   }
 
+  displayInputField() {
+    if (widget.isPhoneNumber == false) {
+      return TextFormField(
+        enableSuggestions: true,
+        autocorrect: true,
+        obscureText: widget.obscureText,
+        validator: (value) {
+          return runValidators(value);
+        },
+        onSaved: widget.onSaved,
+        cursorColor: widget.theme.primaryColorDark,
+        decoration: InputDecoration(
+          // If widget.icon is not given does not apply margin
+          contentPadding:
+              widget.icon != null ? EdgeInsets.fromLTRB(4, 0, 0, 0) : null,
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          errorStyle: TextStyle(height: 0),
+        ),
+      );
+    } else {
+      return IntlPhoneField(
+        showCountryFlag: false,
+        showDropdownIcon: false,
+        dropdownTextStyle: widget.theme.textTheme.bodySmall,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -90,27 +124,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
             children: [
               displayIcon(),
               Expanded(
-                child: TextFormField(
-                  enableSuggestions: true,
-                  autocorrect: true,
-                  obscureText: widget.obscureText,
-                  validator: (value) {
-                    return runValidators(value);
-                  },
-                  onSaved: widget.onSaved,
-                  cursorColor: widget.theme.primaryColorDark,
-                  decoration: InputDecoration(
-                    // If widget.icon is not given does not apply margin
-                    contentPadding: widget.icon != null
-                        ? EdgeInsets.fromLTRB(4, 0, 0, 0)
-                        : null,
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    errorStyle: TextStyle(height: 0),
-                  ),
-                ),
+                child: displayInputField(),
               ),
             ],
           ),
