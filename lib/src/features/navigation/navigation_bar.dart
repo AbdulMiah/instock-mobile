@@ -35,45 +35,44 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     final theme = CommonTheme().themeData;
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
         home: Scaffold(
-          body: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.light
-                .copyWith(statusBarColor: Colors.transparent),
-            child: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light
+            .copyWith(statusBarColor: Colors.transparent),
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.signal_cellular_alt),
-                label: 'Stats',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_box),
-                label: 'Add Item',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.storefront),
-                label: 'Business',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outlined),
-                label: 'Account',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: theme.splashColor,
-            backgroundColor: theme.primaryColorDark,
-            unselectedItemColor: theme.primaryColorLight,
-            onTap: _onItemTapped,
-            type: BottomNavigationBarType.fixed,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.signal_cellular_alt),
+            label: 'Stats',
           ),
-        ));
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_box),
+            label: 'Add Item',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.storefront),
+            label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outlined),
+            label: 'Account',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: theme.splashColor,
+        backgroundColor: theme.primaryColorDark,
+        unselectedItemColor: theme.primaryColorLight,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+      ),
+    ));
   }
 }
