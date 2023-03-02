@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
-import 'package:instock_mobile/src/util/validation/validators.dart';
-import 'package:instock_mobile/src/util/widgets/instock_text_input.dart';
+import 'package:instock_mobile/src/utililities/validation/validators.dart';
+import 'package:instock_mobile/src/utililities/widgets/instock_text_input.dart';
 
 void main() {
   testWidgets('Form Field Renders with given Text', (tester) async {

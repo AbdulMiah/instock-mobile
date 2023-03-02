@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:instock_mobile/src/features/authentication/login_page.dart';
+import 'package:instock_mobile/src/features/authentication/screens/login_page.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:mockito/mockito.dart';
 

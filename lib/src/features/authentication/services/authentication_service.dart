@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:instock_mobile/src/util/objects/response_object.dart';
 
-import '../../../util/services/secure_storage_service.dart';
-import '../../../util/validation/validators.dart';
+import '../../../utililities/objects/response_object.dart';
+import '../../../utililities/services/secure_storage_service.dart';
+import '../../../utililities/validation/validators.dart';
 
 class AuthenticationService {
   Future<ResponseObject> authenticateUser(String email, String password) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
-import 'package:instock_mobile/src/util/widgets/instock_button.dart';
+import 'package:instock_mobile/src/utililities/widgets/instock_button.dart';
 
 void main() {
   testWidgets('Button runs on press method', (tester) async {

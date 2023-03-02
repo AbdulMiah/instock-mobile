@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:instock_mobile/src/util/validation/validators.dart';
+import 'package:instock_mobile/src/utililities/validation/validators.dart';
 
 void main() {
   testWidgets(

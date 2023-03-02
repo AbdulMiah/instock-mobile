@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
+import 'authentication/screens/welcome_page.dart';
 import 'authentication/services/authentication_service.dart';
-import 'authentication/welcome_page.dart';
 import 'navigation/navigation_bar.dart';
 
 class AuthCheck extends StatelessWidget {

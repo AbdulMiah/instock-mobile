@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/authentication/sign_up_page.dart';
-import 'package:instock_mobile/src/util/widgets/wave.dart';
+import 'package:instock_mobile/src/features/authentication/screens/sign_up_page.dart';
 
-import '../../theme/common_theme.dart';
-import '../../util/widgets/instock_button.dart';
+import '../../../theme/common_theme.dart';
+import '../../../utililities/widgets/instock_button.dart';
+import '../../../utililities/widgets/wave.dart';
 import 'login_page.dart';
 
 class Welcome extends StatefulWidget {

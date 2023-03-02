@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/authentication/welcome_page.dart';
+import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 
-import '../../theme/common_theme.dart';
-import '../../util/widgets/back_button.dart';
+import '../../../theme/common_theme.dart';
+import '../../../utililities/widgets/back_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
