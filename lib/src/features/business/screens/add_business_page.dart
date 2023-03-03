@@ -4,6 +4,7 @@ import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/validation/validators.dart';
+import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/wave.dart';
 
@@ -101,7 +102,11 @@ class _AddBusinessState extends State<AddBusiness> {
                           ),
                         ),
                         const Spacer(),
-                        ElevatedButton.icon(
+                        InStockButton(
+                          text: 'Continue',
+                          theme: theme.themeData,
+                          colorOption: InStockButton.primary,
+                          icon: Icons.arrow_forward,
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -110,12 +115,6 @@ class _AddBusinessState extends State<AddBusiness> {
                               );
                             }
                           },
-                          icon: const Icon(Icons.arrow_forward),
-                          label: const Text("Continue"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                theme.themeData.primaryColorDark,
-                          ),
                         ),
                       ],
                     ),
