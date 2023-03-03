@@ -13,32 +13,25 @@ class InventoryService {
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
 
-    String businessId = payload["BusinessIds"];
+    String businessIdWithComma = payload["BusinessIds"];
+    // currently a comma is returned because we are getting a list of one
+    // businesses but this will change in the future
+    String businessId =
+        businessIdWithComma.substring(0, businessIdWithComma.length - 1);
     String url = "api.instockinventory.co.uk";
 
-    print("token: $token");
-    Map<String, String> queryParams = {'businessId': businessId};
+    Map<String, dynamic> queryParams = {'businessId': businessId};
 
-    // var uri = Uri.http(url, '/items', queryParams);
-    // print(uri);
+    var uri = Uri.http(url, '/items', queryParams);
 
     final response = await http.get(
-      Uri.parse(
-          'http://api.instockinventory.co.uk/items?businessId=2a36f726-b3a2-11ed-afa1-0242ac120002'),
-      // Send authorization headers to the backend.
+      uri,
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
 
-    // final response = await http.get(Uri.parse(url3));
-
-    print(response);
-    var jsonData = json.decode(response.body);
-    print(jsonData);
-
     if (response.statusCode == 200) {
-      print(response.statusCode);
       var jsonData = json.decode(response.body);
       List<Item> items = [];
 
@@ -49,7 +42,6 @@ class InventoryService {
       items.sort((a, b) => a.category.compareTo(b.category));
       return items;
     } else {
-      print("failed: $response.statusCode");
       throw Exception('Failed to load items');
     }
   }
