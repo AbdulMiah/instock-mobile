@@ -4,8 +4,9 @@ import '../../theme/common_theme.dart';
 
 class InStockBackButton extends StatelessWidget {
   final Widget page;
+  final Color? color;
 
-  const InStockBackButton({super.key, required this.page});
+  const InStockBackButton({super.key, required this.page, this.color});
 
   redirectToPage(context) {
     return Navigator.push(
@@ -23,7 +24,7 @@ class InStockBackButton extends StatelessWidget {
       },
       child: Icon(
         Icons.arrow_back,
-        color: commonTheme.themeData.primaryColorLight,
+        color: color ?? commonTheme.themeData.primaryColorLight,
       ),
     );
   }
