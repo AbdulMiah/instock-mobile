@@ -124,6 +124,7 @@ class _AddBusinessState extends State<AddBusiness> {
             ),
           ),
         ),
+        resizeToAvoidBottomInset: false
       ),
     );
   }
