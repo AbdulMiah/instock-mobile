@@ -44,15 +44,12 @@ class _InventoryState extends State<Inventory> {
                             color: theme.themeData.splashColor,
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                              child: Column(children: <Widget>[
-                                Text(
-                                  "Inventory",
-                                  style: theme
-                                      .themeData.textTheme.headlineMedium
-                                      ?.merge(const TextStyle(fontSize: 24)),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ]),
+                              child: Text(
+                                "Inventory",
+                                style: theme.themeData.textTheme.headlineMedium
+                                    ?.merge(const TextStyle(fontSize: 24)),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
