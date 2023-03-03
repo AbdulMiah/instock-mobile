@@ -4,7 +4,7 @@ import 'package:instock_mobile/src/features/stats/stats_page.dart';
 
 import '../../theme/common_theme.dart';
 import '../account/account_page.dart';
-import '../business/business_page.dart';
+import '../business/screens/business_page.dart';
 import '../inventory/add_item_page.dart';
 import '../inventory/inventory_page.dart';
 
