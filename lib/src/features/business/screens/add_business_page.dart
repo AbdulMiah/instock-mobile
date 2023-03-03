@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/business/screens/business_page.dart';
 import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
 import '../../../theme/common_theme.dart';
-import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/wave.dart';
 
 class AddBusiness extends StatefulWidget {
@@ -41,25 +39,16 @@ class _AddBusinessState extends State<AddBusiness> {
                             color: theme.themeData.splashColor,
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                              child: Column(children: <Widget>[
-                                Text(
-                                  "Add Business",
-                                  style: theme
-                                      .themeData.textTheme.headlineMedium
-                                      ?.merge(const TextStyle(fontSize: 24)),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ]),
+                              child: Text(
+                                "Add Business",
+                                style: theme
+                                    .themeData.textTheme.headlineMedium
+                                    ?.merge(const TextStyle(fontSize: 24)),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
-                        Positioned(
-                            top: 10,
-                            left: 10,
-                            child: InStockBackButton(
-                              page: const BusinessPage(),
-                              color: theme.themeData.primaryColorDark,
-                            )),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.05 - 2,
                           child: const InStockWave(),
