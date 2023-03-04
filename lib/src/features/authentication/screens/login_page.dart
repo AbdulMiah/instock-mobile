@@ -138,7 +138,7 @@ class _LoginState extends State<Login> {
                               ],
                               onSaved: (value) {
                                 _email = value;
-                              }),
+                              }, isNumber: false,),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
                             child: InStockTextInput(
@@ -153,7 +153,7 @@ class _LoginState extends State<Login> {
                               onSaved: (value) {
                                 _password = value;
                               },
-                              obscureText: true,
+                              obscureText: true, isNumber: false,
                             ),
                           ),
                           Padding(

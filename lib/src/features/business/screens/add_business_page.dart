@@ -83,7 +83,7 @@ class _AddBusinessState extends State<AddBusiness> {
                                   ],
                                   onSaved: (value) {
                                     _businessName = value;
-                                  }
+                                  }, isNumber: false,
                               ),
                               InStockTextInput(
                                   text: 'Description',
@@ -96,7 +96,7 @@ class _AddBusinessState extends State<AddBusiness> {
                                   ],
                                   onSaved: (value) {
                                     _description = value;
-                                  }
+                                  }, isNumber: false,
                               ),
                             ],
                           ),

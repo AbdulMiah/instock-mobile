@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InStockTextInput extends StatefulWidget {
   InStockTextInput(
       {super.key,
       required this.text,
+      required this.isNumber,
       required this.theme,
       required this.icon,
       required this.validators,
@@ -14,6 +16,7 @@ class InStockTextInput extends StatefulWidget {
   final ThemeData theme;
   final IconData? icon;
   final String text;
+  bool isNumber = false;
   final List<Function> validators;
   final void Function(String?)? onSaved;
   bool obscureText = false;
@@ -114,6 +117,9 @@ class _InStockTextInputState extends State<InStockTextInput> {
                     errorBorder: InputBorder.none,
                     errorStyle: const TextStyle(height: 0),
                   ),
+                  keyboardType: widget.isNumber ? TextInputType.number : TextInputType.text,
+                  inputFormatters: widget.isNumber ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly] : null
                 ),
               ),
             ],
