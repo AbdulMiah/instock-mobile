@@ -35,8 +35,8 @@ class InventoryService {
       var jsonData = json.decode(response.body);
       List<Item> items = [];
 
-      for (var i in jsonData) {
-        Item item = Item.fromJson(i);
+      for (var itemJson in jsonData) {
+        Item item = Item.fromJson(itemJson);
         items.add(item);
       }
       items.sort((a, b) => a.category.compareTo(b.category));
