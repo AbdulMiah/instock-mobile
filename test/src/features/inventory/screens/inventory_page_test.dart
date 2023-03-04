@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 import 'package:mockito/mockito.dart';
 
-import '../services/inventory_service_test.mocks.dart';
+import '../mocks/inventory_service_test.mocks.dart';
 
 void main() {
   testWidgets('Page has correct heading', (tester) async {
