@@ -66,6 +66,22 @@ class _InventoryState extends State<Inventory> {
                                     color: theme.themeData.splashColor,
                                   ));
                                 }
+                                if (snapshot.data.length == 0) {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
+                                      child: Text(
+                                        "You don't have any items yet, add some to get started",
+                                        style: theme
+                                            .themeData.textTheme.bodyLarge
+                                            ?.merge(
+                                                const TextStyle(fontSize: 30)),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  );
+                                }
                                 return ListView.builder(
                                     itemCount: snapshot.data.length,
                                     itemBuilder:
