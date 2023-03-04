@@ -28,6 +28,7 @@ class _LoginState extends State<Login> {
   handleLogin() async {
     _loginError = null;
     if (_formKey.currentState!.validate()) {
+      print("Validated");
       _formKey.currentState!.save();
       AuthenticationService authenticationService = AuthenticationService();
       ResponseObject response =

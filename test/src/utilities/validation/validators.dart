@@ -3,7 +3,7 @@ import 'package:instock_mobile/src/utilities/validation/validators.dart';
 
 void main() {
   testWidgets(
-      'Validate Password checks passwords are no longer than 20 characters',
+      'Validate Password checks passwords are no longer than 30 characters',
       (tester) async {
     //Given
     String value = "AReallyReallyReallyReallyReallyReallyLongString";
@@ -12,10 +12,10 @@ void main() {
     String? response = Validators.validatePassword(value);
 
     //Then
-    expect(response, "Cannot be longer than 20 characters");
+    expect(response, "Cannot be longer than 30 characters");
   });
 
-  testWidgets('Validate Password allows passwords shorter 20 characters',
+  testWidgets('Validate Password allows passwords shorter 30 characters',
       (tester) async {
     //Given
     String value = "AShortString";
@@ -126,7 +126,7 @@ void main() {
     expect(response, null);
   });
 
-  testWidgets('shortLength allows strings less than 30 characters',
+  testWidgets('shortLength allows strings less than 50 characters',
       (tester) async {
     //Given
     String? value = "A short string";
@@ -138,16 +138,84 @@ void main() {
     expect(response, null);
   });
 
-  testWidgets('shortLength throws an error for strings over 30 characters',
+  testWidgets('shortLength throws an error for strings over 50 characters',
       (tester) async {
     //Given
-    String? value = "A very very very very very very very very"
-        "very very very long string";
+    // 51 characters long
+    String? value = "Very very very very very very very very long string";
 
     //When
     String? response = Validators.shortLength(value);
 
     //Then
-    expect(response, "Cannot be longer than 30 characters");
+    expect(response, "Cannot be longer than 50 characters");
+  });
+
+  testWidgets('noSpecial characters allows standard name', (tester) async {
+    //Given
+    String? value = "RonnieColeman";
+
+    //When
+    String? response = Validators.noSpecialCharacters(value);
+
+    //Then
+    expect(response, null);
+  });
+
+  testWidgets('noSpecial characters allows Stephens Name', (tester) async {
+    //Given
+    String? value = "Stephen O'Keefe";
+
+    //When
+    String? response = Validators.noSpecialCharacters(value);
+
+    //Then
+    expect(response, null);
+  });
+
+  testWidgets('noSpecial characters does not allow numbers', (tester) async {
+    //Given
+    String? value = "Stephen O'Keefe 555";
+
+    //When
+    String? response = Validators.noSpecialCharacters(value);
+
+    //Then
+    expect(response, "Can't have numbers and special characters");
+  });
+
+  testWidgets('noSpecial characters does not allow special characters',
+      (tester) async {
+    //Given
+    String? value = "Stephen O'Keefe ££";
+
+    //When
+    String? response = Validators.noSpecialCharacters(value);
+
+    //Then
+    expect(response, "Can't have numbers and special characters");
+  });
+
+  testWidgets('noSpecial characters allows hyphenated names', (tester) async {
+    //Given
+    String? value = "Stephen O-Keefe";
+
+    //When
+    String? response = Validators.noSpecialCharacters(value);
+
+    //Then
+    expect(response, null);
+  });
+
+  testWidgets('noSpecial characters does not allow punctuation',
+      (tester) async {
+    //Given
+    String? value = "Stephen O'Keefe !!!!!";
+
+    //When
+    String? response = Validators.noSpecialCharacters(value);
+
+    //Then
+    expect(response, "Can't have numbers and special characters");
   });
 }

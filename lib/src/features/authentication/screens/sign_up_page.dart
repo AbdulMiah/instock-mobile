@@ -20,16 +20,28 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   //Global formkey for login form
   final _formKey = GlobalKey<FormState>();
+  String? _firstName;
+  String? _lastName;
   String? _email;
-
   String? _password;
-  String? _loginError;
+  String? _confirmPassword;
+  String? _signUpError;
   bool _isLoading = false;
 
   handleLogin() async {
-    _loginError = null;
+    _signUpError = null;
     if (_formKey.currentState!.validate()) {
+      print("Validated?");
       _formKey.currentState!.save();
+      // validate passwords
+      if (_password != _confirmPassword) {
+        setState(() {
+          _signUpError = "Passwords do not match";
+        });
+        return null;
+      }
+
+      //Auth service handling
       AuthenticationService authenticationService = AuthenticationService();
       ResponseObject response =
           await authenticationService.authenticateUser(_email!, _password!);
@@ -40,16 +52,20 @@ class _SignUpState extends State<SignUp> {
         );
       } else if (response.statusCode == 404) {
         setState(() {
-          _loginError = "Invalid Username or Password";
+          _signUpError = "Invalid Username or Password";
         });
       } else if (response.statusCode == 500) {
         setState(() {
-          _loginError = "Whoops something went wrong, please try again";
+          _signUpError = "Whoops something went wrong, please try again";
         });
       } else if (response.statusCode == 502) {
-        _loginError = response.message;
+        setState(() {
+          _signUpError = "Whoops something went wrong, please try again";
+        });
       } else {
-        _loginError = response.message;
+        setState(() {
+          _signUpError = response.message;
+        });
       }
     }
   }
@@ -60,9 +76,9 @@ class _SignUpState extends State<SignUp> {
     });
   }
 
-  displayLoginError(ThemeData theme) {
-    if (_loginError != null) {
-      return Text(_loginError!, style: theme.textTheme.headlineSmall);
+  displaySignUpError(ThemeData theme) {
+    if (_signUpError != null) {
+      return Text(_signUpError!, style: theme.textTheme.headlineSmall);
     }
     return Text("");
   }
@@ -126,40 +142,45 @@ class _SignUpState extends State<SignUp> {
                       child: Column(
                         children: <Widget>[
                           InStockTextInput(
-                              text: 'First Name',
-                              theme: theme,
-                              icon: Icons.person,
-                              validators: const [
-                                Validators.notNull,
-                                Validators.notBlank,
-                                Validators.shortLength,
-                              ],
-                              onSaved: (value) {
-                                _email = value;
-                              }),
+                            text: 'First Name',
+                            theme: theme,
+                            icon: null,
+                            validators: const [
+                              Validators.notNull,
+                              Validators.notBlank,
+                              Validators.shortLength,
+                              Validators.noSpecialCharacters,
+                            ],
+                            onSaved: (value) {
+                              _firstName = value;
+                            },
+                            onChanged: (value) {
+                              _firstName = value;
+                            },
+                          ),
                           InStockTextInput(
                               text: 'Last Name',
                               theme: theme,
-                              icon: Icons.person,
+                              icon: null,
                               validators: const [
                                 Validators.notNull,
                                 Validators.notBlank,
                                 Validators.shortLength,
+                                Validators.noSpecialCharacters,
                               ],
-                              onSaved: (value) {
-                                _email = value;
+                              onChanged: (value) {
+                                _lastName = value;
                               }),
                           InStockTextInput(
                               text: 'Email',
                               theme: theme,
-                              icon: Icons.person,
+                              icon: null,
                               validators: const [
                                 Validators.notNull,
                                 Validators.notBlank,
                                 Validators.isEmail,
-                                Validators.shortLength,
                               ],
-                              onSaved: (value) {
+                              onChanged: (value) {
                                 _email = value;
                               }),
                           Padding(
@@ -167,13 +188,13 @@ class _SignUpState extends State<SignUp> {
                             child: InStockTextInput(
                               text: 'Password',
                               theme: theme,
-                              icon: Icons.lock,
+                              icon: null,
                               validators: const [
                                 Validators.validatePassword,
                                 Validators.notNull,
                                 Validators.notBlank,
                               ],
-                              onSaved: (value) {
+                              onChanged: (value) {
                                 _password = value;
                               },
                               obscureText: true,
@@ -184,14 +205,14 @@ class _SignUpState extends State<SignUp> {
                             child: InStockTextInput(
                               text: 'Confirm Password',
                               theme: theme,
-                              icon: Icons.lock,
+                              icon: null,
                               validators: const [
                                 Validators.validatePassword,
                                 Validators.notNull,
                                 Validators.notBlank,
                               ],
-                              onSaved: (value) {
-                                _password = value;
+                              onChanged: (value) {
+                                _confirmPassword = value;
                               },
                               obscureText: true,
                             ),
@@ -201,7 +222,7 @@ class _SignUpState extends State<SignUp> {
                             child: SizedBox(
                               width: 180,
                               child: InStockButton(
-                                text: 'Login',
+                                text: 'Sign Up',
                                 onPressed: () async {
                                   toggleLoading(true);
                                   handleLogin();
@@ -213,7 +234,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-                          displayLoginError(theme),
+                          displaySignUpError(theme),
                         ],
                       ),
                     ),
