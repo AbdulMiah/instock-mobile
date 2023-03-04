@@ -14,7 +14,7 @@ class InStockButton extends StatefulWidget {
   final ThemeData theme;
   final int colorOption;
   final void Function()? onPressed;
-  final dynamic icon;
+  final IconData? icon;
   bool isLoading;
 
   // Used for colorOptions
