@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:instock_mobile/src/features/inventory/screens/add_item_page.dart';
 
 import '../../../theme/common_theme.dart';
-import '../../../utilities/widgets/instock_button.dart';
 import '../services/inventory_service.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
@@ -20,13 +18,6 @@ class InventoryBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    redirectToAddItem() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const AddItemPage()),
-      );
-    }
-
     return FutureBuilder(
         future: inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -40,27 +31,17 @@ class InventoryBuilder extends StatelessWidget {
           if (snapshot.data.length == 0) {
             return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 40, 15, 0),
                     child: Text(
-                      "You don't have any items yet, add some to get started",
+                      "You don't have any items yet, go to Add Item to get started",
                       style: theme.themeData.textTheme.bodyLarge
-                          ?.merge(const TextStyle(fontSize: 30)),
+                          ?.merge(const TextStyle(fontSize: 20)),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    child: InStockButton(
-                      text: "Add Item",
-                      theme: theme.themeData,
-                      colorOption: InStockButton.accent,
-                      onPressed: () {
-                        redirectToAddItem();
-                      },
-                    ),
-                  )
                 ],
               ),
             );

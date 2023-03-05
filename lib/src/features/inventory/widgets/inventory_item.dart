@@ -14,7 +14,7 @@ class InventoryItem extends StatefulWidget {
   final String itemSKU;
   final String itemStockNo;
   final String itemOrdersNo;
-  final itemWarning;
+  final String? itemWarning;
 
   @override
   State<InventoryItem> createState() => _InventoryItemState();
@@ -41,7 +41,7 @@ class _InventoryItemState extends State<InventoryItem> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    widget.itemWarning,
+                    widget.itemWarning!,
                     textDirection: TextDirection.ltr,
                     style: theme.themeData.textTheme.bodySmall,
                   ),

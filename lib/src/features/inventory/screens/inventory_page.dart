@@ -46,7 +46,7 @@ class _InventoryState extends State<Inventory> {
                               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                               child: Text(
                                 "Inventory",
-                                style: theme.themeData.textTheme.headlineMedium
+                                style: theme.themeData.textTheme.bodyMedium
                                     ?.merge(const TextStyle(fontSize: 24)),
                                 textAlign: TextAlign.center,
                               ),
