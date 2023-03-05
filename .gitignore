@@ -64,6 +64,7 @@ build/
 **/ios/Flutter/flutter_assets/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+ios/Runner/GeneratedPluginRegistrant.m
 
 
 ### https://raw.github.com/github/gitignore//Android.gitignore
@@ -887,3 +888,11 @@ DerivedData/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+/dart
+/cache/
+/internal/
+/mingit/
+/dart.bat
+/flutter
+/flutter.bat
+/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
