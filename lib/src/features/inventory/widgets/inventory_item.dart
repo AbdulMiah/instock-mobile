@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
 class InventoryItem extends StatefulWidget {
@@ -21,6 +22,14 @@ class InventoryItem extends StatefulWidget {
 }
 
 class _InventoryItemState extends State<InventoryItem> {
+  void redirectToItemDetails() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ItemDetails(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -50,67 +59,106 @@ class _InventoryItemState extends State<InventoryItem> {
             ),
           ),
         ],
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
-              ),
-              gradient: LinearGradient(colors: [
-                theme.themeData.primaryColorLight,
-                theme.themeData.splashColor
-              ], begin: const Alignment(0.3, 0), end: Alignment.centerRight)),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 74,
-                        width: 74,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: const Image(
-                              image: NetworkImage(
-                                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')),
-                        ),
-                      )
-                    ],
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        GestureDetector(
+          onTap: () {
+            redirectToItemDetails();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
+                ),
+                gradient: LinearGradient(colors: [
+                  theme.themeData.primaryColorLight,
+                  theme.themeData.splashColor
+                ], begin: const Alignment(0.3, 0), end: Alignment.centerRight)),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
-                          child: Text(
-                            widget.itemName,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.themeData.textTheme.headlineMedium,
+                        SizedBox(
+                          height: 74,
+                          width: 74,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: const Image(
+                                image: NetworkImage(
+                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
-                          child: Text(
-                            widget.itemSKU,
-                            style: theme.themeData.textTheme.bodySmall
-                                ?.merge(const TextStyle(fontSize: 16)),
-                          ),
-                        ),
+                        )
                       ],
                     ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                            child: Container(
+                            padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
+                            child: Text(
+                              widget.itemName,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.themeData.textTheme.headlineMedium,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
+                            child: Text(
+                              widget.itemSKU,
+                              style: theme.themeData.textTheme.bodySmall
+                                  ?.merge(const TextStyle(fontSize: 16)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                              child: Container(
+                                constraints:
+                                    const BoxConstraints(minWidth: 100),
+                                decoration: BoxDecoration(
+                                  color: theme.themeData.primaryColorLight,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(2),
+                                  ),
+                                ),
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      const WidgetSpan(
+                                        child: Icon(Icons.inventory, size: 14),
+                                      ),
+                                      TextSpan(
+                                        style: TextStyle(
+                                            color: theme
+                                                .themeData.primaryColorDark),
+                                        text: " ${widget.itemStockNo}",
+                                      ),
+                                      TextSpan(
+                                        style: TextStyle(
+                                            color: theme
+                                                .themeData.primaryColorDark),
+                                        text: " In Stock",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Container(
                               constraints: const BoxConstraints(minWidth: 100),
                               decoration: BoxDecoration(
                                 color: theme.themeData.primaryColorLight,
@@ -119,69 +167,36 @@ class _InventoryItemState extends State<InventoryItem> {
                                 ),
                               ),
                               child: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                                 text: TextSpan(
                                   children: [
                                     const WidgetSpan(
-                                      child: Icon(Icons.inventory, size: 14),
+                                      child: Icon(Icons.update, size: 14),
                                     ),
+                                    TextSpan(
+                                        style: TextStyle(
+                                            color: theme
+                                                .themeData.primaryColorDark),
+                                        text: " ${widget.itemOrdersNo}"),
                                     TextSpan(
                                       style: TextStyle(
                                           color:
                                               theme.themeData.primaryColorDark),
-                                      text: " ${widget.itemStockNo}",
-                                    ),
-                                    TextSpan(
-                                      style: TextStyle(
-                                          color:
-                                              theme.themeData.primaryColorDark),
-                                      text: " In Stock",
+                                      text: " Orders",
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            constraints: const BoxConstraints(minWidth: 100),
-                            decoration: BoxDecoration(
-                              color: theme.themeData.primaryColorLight,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(2),
-                              ),
-                            ),
-                            child: RichText(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              text: TextSpan(
-                                children: [
-                                  const WidgetSpan(
-                                    child: Icon(Icons.update, size: 14),
-                                  ),
-                                  TextSpan(
-                                      style: TextStyle(
-                                          color:
-                                              theme.themeData.primaryColorDark),
-                                      text: " ${widget.itemOrdersNo}"),
-                                  TextSpan(
-                                    style: TextStyle(
-                                        color:
-                                            theme.themeData.primaryColorDark),
-                                    text: " Orders",
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         )
       ],

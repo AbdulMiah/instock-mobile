@@ -108,6 +108,7 @@ class _LoginState extends State<Login> {
                           left: 10,
                           child: InStockBackButton(
                             page: Welcome(),
+                            colorOption: InStockBackButton.primary,
                           )),
                       Positioned(
                         top: MediaQuery.of(context).size.height * 0.2 - 2,

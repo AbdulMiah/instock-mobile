@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
+import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/wave.dart';
-import '../widgets/inventory_builder.dart';
 
-class Inventory extends StatefulWidget {
-  const Inventory({super.key});
+class ItemDetails extends StatefulWidget {
+  const ItemDetails({super.key});
 
   @override
-  State<Inventory> createState() => _InventoryState();
+  State<ItemDetails> createState() => _ItemDetailsState();
 }
 
-class _InventoryState extends State<Inventory> {
+class _ItemDetailsState extends State<ItemDetails> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
-
-    var inventoryService = InventoryService();
 
     return MaterialApp(
       home: Scaffold(
@@ -43,7 +41,7 @@ class _InventoryState extends State<Inventory> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                               child: Text(
-                                "Inventory",
+                                "Item Details",
                                 style: theme.themeData.textTheme.bodyMedium
                                     ?.merge(const TextStyle(fontSize: 24)),
                                 textAlign: TextAlign.center,
@@ -51,11 +49,13 @@ class _InventoryState extends State<Inventory> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                          child: InventoryBuilder(
-                              inventoryService: inventoryService, theme: theme),
-                        ),
+                        Positioned(
+                            top: 10,
+                            left: 10,
+                            child: InStockBackButton(
+                              page: const Inventory(),
+                              colorOption: InStockBackButton.secondary,
+                            )),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.05 - 2,
                           child: InStockWave(),
