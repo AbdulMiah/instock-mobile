@@ -3,28 +3,84 @@ import 'package:instock_mobile/src/utilities/validation/validators.dart';
 
 void main() {
   testWidgets(
-      'Validate Password checks passwords are no longer than 30 characters',
+      'Validate Password checks passwords are no longer than 32 characters',
       (tester) async {
     //Given
-    String value = "AReallyReallyReallyReallyReallyReallyLongString";
+    String value = "AReallyReallyReallyReallyReallyReallyLongString44!";
 
     //When
     String? response = Validators.validatePassword(value);
 
     //Then
-    expect(response, "Cannot be longer than 30 characters");
+    expect(response,
+        "Password must contain one capital letter, number and special character and have 8-32 characters");
   });
 
-  testWidgets('Validate Password allows passwords shorter 30 characters',
+  testWidgets('Validate Password allows passwords shorter 32 characters',
       (tester) async {
     //Given
-    String value = "AShortString";
+    String value = "AShortString44!";
 
     //When
     String? response = Validators.validatePassword(value);
 
     //Then
     expect(response, null);
+  });
+
+  testWidgets('Validate Password requires passwords to have 1 number',
+      (tester) async {
+    //Given
+    String value = "AShortString!";
+
+    //When
+    String? response = Validators.validatePassword(value);
+
+    //Then
+    expect(response,
+        "Password must contain one capital letter, number and special character and have 8-32 characters");
+  });
+
+  testWidgets(
+      'Validate Password requires passwords to have 1 special character',
+      (tester) async {
+    //Given
+    String value = "AShortString44";
+
+    //When
+    String? response = Validators.validatePassword(value);
+
+    //Then
+    expect(response,
+        "Password must contain one capital letter, number and special character and have 8-32 characters");
+  });
+
+  testWidgets(
+      'Validate Password requires passwords to have 1 upper case character',
+      (tester) async {
+    //Given
+    String value = "ashortstring44!";
+
+    //When
+    String? response = Validators.validatePassword(value);
+
+    //Then
+    expect(response,
+        "Password must contain one capital letter, number and special character and have 8-32 characters");
+  });
+
+  testWidgets(
+      'Validate Password requires passwords to have 1 lower case character',
+      (tester) async {
+    //Given
+    String value = "ASHORTSTRING44!";
+
+    //When
+    String? response = Validators.validatePassword(value);
+
+    //Then
+    expect(response,
+        "Password must contain one capital letter, number and special character and have 8-32 characters");
   });
 
   testWidgets('isEmail blocks emails without @ sign', (tester) async {
@@ -151,12 +207,12 @@ void main() {
     expect(response, "Cannot be longer than 50 characters");
   });
 
-  testWidgets('noSpecial characters allows standard name', (tester) async {
+  testWidgets('noNumbers characters allows standard name', (tester) async {
     //Given
     String? value = "RonnieColeman";
 
     //When
-    String? response = Validators.noSpecialCharacters(value);
+    String? response = Validators.noNumbers(value);
 
     //Then
     expect(response, null);
@@ -173,15 +229,15 @@ void main() {
     expect(response, null);
   });
 
-  testWidgets('noSpecial characters does not allow numbers', (tester) async {
-    //Given
+  testWidgets('noNumbers characters does not allow numbers', (tester) async {
+    //Givens
     String? value = "Stephen O'Keefe 555";
 
     //When
-    String? response = Validators.noSpecialCharacters(value);
+    String? response = Validators.noNumbers(value);
 
     //Then
-    expect(response, "Can't have numbers and special characters");
+    expect(response, "Can't have numbers");
   });
 
   testWidgets('noSpecial characters does not allow special characters',
@@ -193,7 +249,7 @@ void main() {
     String? response = Validators.noSpecialCharacters(value);
 
     //Then
-    expect(response, "Can't have numbers and special characters");
+    expect(response, "Can't have special characters");
   });
 
   testWidgets('noSpecial characters allows hyphenated names', (tester) async {
@@ -216,6 +272,6 @@ void main() {
     String? response = Validators.noSpecialCharacters(value);
 
     //Then
-    expect(response, "Can't have numbers and special characters");
+    expect(response, "Can't have special characters");
   });
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class InStockTextInput extends StatefulWidget {
   InStockTextInput({
@@ -12,6 +11,7 @@ class InStockTextInput extends StatefulWidget {
     this.onSaved,
     this.onChanged,
     this.icon,
+    this.boldLabel = false,
   });
 
   final ThemeData theme;
@@ -20,6 +20,7 @@ class InStockTextInput extends StatefulWidget {
   final void Function(String?)? onSaved;
   final void Function(String?)? onChanged;
   bool obscureText = false;
+  bool boldLabel = false;
   IconData? icon;
   TextInputAction textInputAction = TextInputAction.none;
 
@@ -38,30 +39,16 @@ class _InStockTextInputState extends State<InStockTextInput> {
   }
 
   String? runValidators(String? value) {
-    // Resets error message
-
     for (var i = 0; i < widget.validators.length;) {
       Function validator = widget.validators[i];
       String? res = validator(value);
       if (res != null) {
-        setErrorMessage(res);
-
-        //We return an empty string to the validator
-        //so no error message is displayed from the text format
-        //but we set our custom error display to equal the error message
-        return "";
+        return res;
+      } else {
+        i++;
       }
-      i++;
     }
-    setErrorMessage("");
-
     return null;
-  }
-
-  setErrorMessage(String errorMessage) {
-    SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {
-          _errorMessage = errorMessage;
-        }));
   }
 
   @override
@@ -69,7 +56,10 @@ class _InStockTextInputState extends State<InStockTextInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.text, style: widget.theme.textTheme.bodySmall),
+        Text(widget.text,
+            style: widget.boldLabel
+                ? widget.theme.textTheme.labelMedium
+                : widget.theme.textTheme.bodySmall),
         Row(
           children: [
             // displayIcon(),
@@ -82,7 +72,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
                 autocorrect: true,
                 obscureText: widget.obscureText,
                 validator: (value) {
-                  runValidators(value);
+                  return runValidators(value);
                 },
                 onSaved: widget.onSaved,
                 cursorColor: widget.theme.primaryColorDark,
@@ -92,8 +82,8 @@ class _InStockTextInputState extends State<InStockTextInput> {
                   prefixIconConstraints:
                       BoxConstraints.loose(Size.fromWidth(1000)),
                   prefixIconColor: widget.theme.primaryColorDark,
-                  helperText: (_errorMessage),
-                  helperStyle: widget.theme.textTheme.headlineSmall,
+                  errorStyle: widget.theme.textTheme.headlineSmall,
+                  errorMaxLines: 5,
                   border: UnderlineInputBorder(
                       borderSide:
                           BorderSide(color: widget.theme.primaryColorDark)),
@@ -103,7 +93,9 @@ class _InStockTextInputState extends State<InStockTextInput> {
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
                           BorderSide(color: widget.theme.primaryColorDark)),
-                  errorBorder: InputBorder.none,
+                  errorBorder: UnderlineInputBorder(
+                      borderSide:
+                          BorderSide(color: widget.theme.highlightColor)),
                 ),
               ),
             ),

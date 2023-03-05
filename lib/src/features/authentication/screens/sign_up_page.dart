@@ -11,6 +11,7 @@ import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../navigation/navigation_bar.dart';
+import '../data/sign_up_dto.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -31,9 +32,9 @@ class _SignUpState extends State<SignUp> {
   handleLogin() async {
     _signUpError = null;
     if (_formKey.currentState!.validate()) {
-      print("Validated?");
       _formKey.currentState!.save();
-      // validate passwords
+      // To Do
+      // validate passwords match
       if (_password != _confirmPassword) {
         setState(() {
           _signUpError = "Passwords do not match";
@@ -41,10 +42,13 @@ class _SignUpState extends State<SignUp> {
         return null;
       }
 
+      SignUpDTO userDetails =
+          SignUpDTO(_firstName!, _lastName!, _email!, _password!);
+
       //Auth service handling
       AuthenticationService authenticationService = AuthenticationService();
       ResponseObject response =
-          await authenticationService.authenticateUser(_email!, _password!);
+          await authenticationService.createUserAndAuthenticate(userDetails);
       if (response.statusCode == 200) {
         Navigator.push(
           context,
@@ -52,7 +56,7 @@ class _SignUpState extends State<SignUp> {
         );
       } else if (response.statusCode == 404) {
         setState(() {
-          _signUpError = "Invalid Username or Password";
+          _signUpError = "Whoops something went wrong, please try again";
         });
       } else if (response.statusCode == 500) {
         setState(() {
@@ -78,22 +82,26 @@ class _SignUpState extends State<SignUp> {
 
   displaySignUpError(ThemeData theme) {
     if (_signUpError != null) {
-      return Text(_signUpError!, style: theme.textTheme.headlineSmall);
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 36.0),
+        child: Text(_signUpError!, style: theme.textTheme.headlineSmall),
+      );
     }
     return Text("");
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = CommonTheme().themeData;
+    final theme = CommonTheme();
     return MaterialApp(
         home: Scaffold(
       //Makes top notification bar specified colour otherwise
       //bar behind notifications appears grey which seems out of place with the rest of the page
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light
-            .copyWith(statusBarColor: theme.splashColor),
+            .copyWith(statusBarColor: theme.themeData.splashColor),
         child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,13 +115,13 @@ class _SignUpState extends State<SignUp> {
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height * 0.15,
                         child: Container(
-                          color: theme.splashColor,
+                          color: theme.themeData.splashColor,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 48.0, 0, 0),
                             child: Column(children: <Widget>[
                               Text(
                                 "Sign Up",
-                                style: theme.textTheme.displayLarge,
+                                style: theme.themeData.textTheme.displayLarge,
                                 textAlign: TextAlign.center,
                               ),
                             ]),
@@ -141,58 +149,69 @@ class _SignUpState extends State<SignUp> {
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          InStockTextInput(
-                            text: 'First Name',
-                            theme: theme,
-                            icon: null,
-                            validators: const [
-                              Validators.notNull,
-                              Validators.notBlank,
-                              Validators.shortLength,
-                              Validators.noSpecialCharacters,
-                            ],
-                            onSaved: (value) {
-                              _firstName = value;
-                            },
-                            onChanged: (value) {
-                              _firstName = value;
-                            },
-                          ),
-                          InStockTextInput(
-                              text: 'Last Name',
-                              theme: theme,
+                          Padding(
+                            padding: theme.textFieldPadding,
+                            child: InStockTextInput(
+                              text: 'First Name',
+                              theme: theme.themeData,
                               icon: null,
                               validators: const [
                                 Validators.notNull,
                                 Validators.notBlank,
                                 Validators.shortLength,
+                                Validators.noNumbers,
                                 Validators.noSpecialCharacters,
                               ],
+                              onSaved: (value) {
+                                _firstName = value;
+                              },
                               onChanged: (value) {
-                                _lastName = value;
-                              }),
-                          InStockTextInput(
-                              text: 'Email',
-                              theme: theme,
-                              icon: null,
-                              validators: const [
-                                Validators.notNull,
-                                Validators.notBlank,
-                                Validators.isEmail,
-                              ],
-                              onChanged: (value) {
-                                _email = value;
-                              }),
+                                _firstName = value;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: theme.textFieldPadding,
+                            child: InStockTextInput(
+                                text: 'Last Name',
+                                theme: theme.themeData,
+                                icon: null,
+                                validators: const [
+                                  Validators.notNull,
+                                  Validators.notBlank,
+                                  Validators.shortLength,
+                                  Validators.noNumbers,
+                                  Validators.noSpecialCharacters,
+                                ],
+                                onChanged: (value) {
+                                  _lastName = value;
+                                }),
+                          ),
+                          Padding(
+                            padding: theme.textFieldPadding,
+                            child: InStockTextInput(
+                                text: 'Email',
+                                theme: theme.themeData,
+                                icon: null,
+                                validators: const [
+                                  Validators.notNull,
+                                  Validators.notBlank,
+                                  Validators.isEmail,
+                                ],
+                                onChanged: (value) {
+                                  _email = value;
+                                }),
+                          ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
                             child: InStockTextInput(
                               text: 'Password',
-                              theme: theme,
+                              theme: theme.themeData,
                               icon: null,
                               validators: const [
-                                Validators.validatePassword,
                                 Validators.notNull,
                                 Validators.notBlank,
+                                Validators.validatePassword,
                               ],
                               onChanged: (value) {
                                 _password = value;
@@ -204,12 +223,12 @@ class _SignUpState extends State<SignUp> {
                             padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
                             child: InStockTextInput(
                               text: 'Confirm Password',
-                              theme: theme,
+                              theme: theme.themeData,
                               icon: null,
                               validators: const [
-                                Validators.validatePassword,
                                 Validators.notNull,
                                 Validators.notBlank,
+                                Validators.validatePassword,
                               ],
                               onChanged: (value) {
                                 _confirmPassword = value;
@@ -218,7 +237,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 0),
+                            padding: theme.textFieldPadding,
                             child: SizedBox(
                               width: 180,
                               child: InStockButton(
@@ -228,13 +247,13 @@ class _SignUpState extends State<SignUp> {
                                   handleLogin();
                                   toggleLoading(false);
                                 },
-                                theme: theme,
+                                theme: theme.themeData,
                                 colorOption: InStockButton.accent,
                                 isLoading: _isLoading,
                               ),
                             ),
                           ),
-                          displaySignUpError(theme),
+                          displaySignUpError(theme.themeData),
                         ],
                       ),
                     ),

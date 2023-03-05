@@ -18,29 +18,6 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Instock',
-      theme: ThemeData(
-        // Colours
-        primaryColorDark: blackColor,
-        primaryColorLight: whiteColor,
-        splashColor: greenColor,
-        highlightColor: pinkColor,
-
-        //Text
-        textTheme: const TextTheme(
-          //White Text
-          displayLarge: TextStyle(
-              color: whiteColor, fontSize: 48, fontWeight: FontWeight.bold),
-          displayMedium: TextStyle(color: whiteColor, fontSize: 36),
-          displaySmall: TextStyle(color: whiteColor, fontSize: 18),
-          // Dark Text
-          bodyLarge: TextStyle(
-              color: blackColor, fontSize: 48, fontWeight: FontWeight.bold),
-          bodyMedium: TextStyle(color: blackColor, fontSize: 36),
-          bodySmall: TextStyle(color: blackColor, fontSize: 18),
-          // Error Message
-          headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
-        ),
-      ),
       home: AuthCheck(),
     );
   }

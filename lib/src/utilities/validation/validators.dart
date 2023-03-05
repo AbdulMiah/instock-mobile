@@ -3,19 +3,19 @@ import 'package:email_validator/email_validator.dart';
 import 'validator_utilities.dart';
 
 class Validators {
-  static validatePassword(String value) {
-    int maxLength = 30;
-    //set min lenth
-    //set regex
-
-    ValidatorUtilities utilities = ValidatorUtilities();
-    String? result = utilities.maxLength(value, maxLength);
-
-    return result;
+  static String? validatePassword(value) {
+    final RegExp regex = RegExp(
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$');
+    bool meetsPasswordCrtiera = regex.hasMatch(value);
+    if (meetsPasswordCrtiera) {
+      return null;
+    } else {
+      return "Password must contain one capital letter, number and special character and have 8-32 characters";
+    }
   }
 
   static String? isEmail(value) {
-    // Could replace with very long regex?
+    // Tried replacing with this very long regex but kept facing different errors
     // (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
     bool isValid = EmailValidator.validate(value);
     if (isValid) {
@@ -50,16 +50,23 @@ class Validators {
     return result;
   }
 
-  static String? noSpecialCharacters(value) {
-    final nameRegExp = RegExp('^[0-9]*$');
-    //clean for special charactrs
-    bool hasNoSpecialCharacters = nameRegExp.hasMatch(value);
-    if (hasNoSpecialCharacters) {
-      return null;
+  static String? noNumbers(value) {
+    final RegExp regex = RegExp(r'\d+');
+    bool hasNumbers = regex.hasMatch(value);
+    if (hasNumbers) {
+      return "Can't have numbers";
     } else {
-      return "Can't have numbers and special characters";
+      return null;
     }
   }
 
-//  make validation for numbers
+  static String? noSpecialCharacters(value) {
+    RegExp regex = RegExp(r"[^\w\s\'-]");
+    bool hasSpecialCharacters = regex.hasMatch(value);
+    if (hasSpecialCharacters) {
+      return "Can't have special characters";
+    } else {
+      return null;
+    }
+  }
 }
