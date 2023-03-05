@@ -113,7 +113,7 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       SizedBox(
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.18,
                         child: Container(
                           color: theme.themeData.splashColor,
                           child: Padding(
@@ -135,7 +135,7 @@ class _SignUpState extends State<SignUp> {
                             page: Welcome(),
                           )),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * 0.15 - 2,
+                        top: MediaQuery.of(context).size.height * 0.18 - 2,
                         child: InStockWave(),
                       )
                     ],
