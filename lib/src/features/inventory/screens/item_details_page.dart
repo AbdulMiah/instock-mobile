@@ -61,7 +61,8 @@ class _ItemDetailsState extends State<ItemDetails> {
                             ),
                           ),
                         ),
-                        const Positioned(top: 10, right: 10, child: Icon(Icons.edit)),
+                        const Positioned(
+                            top: 10, right: 10, child: Icon(Icons.edit)),
                         Positioned(
                             top: 10,
                             left: 10,
@@ -69,10 +70,21 @@ class _ItemDetailsState extends State<ItemDetails> {
                               page: const Inventory(),
                               colorOption: InStockBackButton.secondary,
                             )),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            width: MediaQuery.of(context).size.height * 0.4,
+                            child: Image(
+                              image: NetworkImage(
+                                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                            ),
+                          ),
+                        ),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.05 - 2,
                           child: InStockWave(),
-                        )
+                        ),
                       ],
                     ),
                   ),
