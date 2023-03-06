@@ -59,9 +59,10 @@ class _ItemDetailsState extends State<ItemDetails> {
                           child: Container(
                             color: theme.themeData.splashColor,
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
                               child: Text(
                                 widget.itemName,
+                                overflow: TextOverflow.ellipsis,
                                 style: theme.themeData.textTheme.bodyMedium
                                     ?.merge(const TextStyle(fontSize: 24)),
                                 textAlign: TextAlign.center,
