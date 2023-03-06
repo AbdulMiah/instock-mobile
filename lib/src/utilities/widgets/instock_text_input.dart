@@ -9,7 +9,8 @@ class InStockTextInput extends StatefulWidget {
       required this.validators,
       required this.onSaved,
       this.obscureText = false,
-      this.initialValue});
+      this.initialValue,
+      this.enable = true});
 
   final ThemeData theme;
   final IconData? icon;
@@ -18,6 +19,7 @@ class InStockTextInput extends StatefulWidget {
   final void Function(String?)? onSaved;
   bool obscureText = false;
   final String? initialValue;
+  bool enable = true;
 
   @override
   State<InStockTextInput> createState() => _InStockTextInputState();
@@ -93,6 +95,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
               displayIcon(),
               Expanded(
                 child: TextFormField(
+                  enabled: widget.enable,
                   initialValue: widget.initialValue,
                   enableSuggestions: true,
                   autocorrect: true,

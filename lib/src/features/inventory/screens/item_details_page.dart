@@ -105,32 +105,38 @@ class _ItemDetailsState extends State<ItemDetails> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           InStockTextInput(
-                              text: "Name",
-                              theme: theme.themeData,
-                              icon: null,
-                              validators: const [Validators.notBlank],
-                              initialValue: widget.itemName,
-                              onSaved: (value) {
-                                _name = value;
-                              }),
+                            text: "Name",
+                            theme: theme.themeData,
+                            icon: null,
+                            validators: const [Validators.notBlank],
+                            onSaved: (value) {
+                              _name = value;
+                            },
+                            initialValue: widget.itemName,
+                            enable: false,
+                          ),
                           InStockTextInput(
-                              text: "Category",
-                              theme: theme.themeData,
-                              icon: null,
-                              validators: const [Validators.notBlank],
-                              initialValue: widget.itemCategory,
-                              onSaved: (value) {
-                                _category = value;
-                              }),
+                            text: "Category",
+                            theme: theme.themeData,
+                            icon: null,
+                            validators: const [Validators.notBlank],
+                            onSaved: (value) {
+                              _category = value;
+                            },
+                            initialValue: widget.itemCategory,
+                            enable: false,
+                          ),
                           InStockTextInput(
-                              text: "SKU",
-                              theme: theme.themeData,
-                              icon: null,
-                              validators: const [Validators.notBlank],
-                              initialValue: widget.itemSKU,
-                              onSaved: (value) {
-                                _SKU = value;
-                              })
+                            text: "SKU",
+                            theme: theme.themeData,
+                            icon: null,
+                            validators: const [Validators.notBlank],
+                            onSaved: (value) {
+                              _SKU = value;
+                            },
+                            initialValue: widget.itemSKU,
+                            enable: false,
+                          )
                         ]),
                   ),
                 ],
