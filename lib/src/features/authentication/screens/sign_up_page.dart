@@ -22,9 +22,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   IAuthenticationService _authenticationService;
 
-  _SignUpState(this._authenticationService, [auth]) {
+  _SignUpState(this._authenticationService) {
     _authenticationService = AuthenticationService();
-    _authenticationService = auth;
   }
 
   //Global formkey for login form
