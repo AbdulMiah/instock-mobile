@@ -158,6 +158,7 @@ class _SignUpState extends State<SignUp> {
                           Padding(
                             padding: theme.textFieldPadding,
                             child: InStockTextInput(
+                              key: const Key('firstNameTextField'),
                               text: 'First Name',
                               theme: theme.themeData,
                               icon: null,
@@ -179,6 +180,7 @@ class _SignUpState extends State<SignUp> {
                           Padding(
                             padding: theme.textFieldPadding,
                             child: InStockTextInput(
+                                key: const Key('lastNameTextField'),
                                 text: 'Last Name',
                                 theme: theme.themeData,
                                 icon: null,
@@ -196,6 +198,7 @@ class _SignUpState extends State<SignUp> {
                           Padding(
                             padding: theme.textFieldPadding,
                             child: InStockTextInput(
+                                key: const Key('emailTextField'),
                                 text: 'Email',
                                 theme: theme.themeData,
                                 icon: null,
@@ -211,6 +214,7 @@ class _SignUpState extends State<SignUp> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
                             child: InStockTextInput(
+                              key: const Key('passwordTextField'),
                               text: 'Password',
                               theme: theme.themeData,
                               icon: null,
@@ -228,6 +232,7 @@ class _SignUpState extends State<SignUp> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
                             child: InStockTextInput(
+                              key: const Key('confirmPasswordTextField'),
                               text: 'Confirm Password',
                               theme: theme.themeData,
                               icon: null,
@@ -247,6 +252,7 @@ class _SignUpState extends State<SignUp> {
                             child: SizedBox(
                               width: 180,
                               child: InStockButton(
+                                key: const Key('signUpButton'),
                                 text: 'Sign Up',
                                 onPressed: () async {
                                   toggleLoading(true);
