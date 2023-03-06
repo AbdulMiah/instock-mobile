@@ -61,6 +61,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             ),
                           ),
                         ),
+                        const Positioned(top: 10, right: 10, child: Icon(Icons.edit)),
                         Positioned(
                             top: 10,
                             left: 10,
