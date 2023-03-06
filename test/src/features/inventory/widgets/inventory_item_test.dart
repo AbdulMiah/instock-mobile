@@ -12,7 +12,7 @@ void main() {
             home: Scaffold(
               body: InventoryItem(
                 itemName: 'Test Name',
-                itemSKU: 'Test SKU',
+                itemSku: 'Test SKU',
                 itemStockNo: '33',
                 itemOrdersNo: '44',
                 itemCategory: 'Test Category',

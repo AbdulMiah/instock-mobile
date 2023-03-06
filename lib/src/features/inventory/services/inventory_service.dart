@@ -31,8 +31,7 @@ class InventoryService {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
-    var jsonData = json.decode(response.body);
-    print(jsonData);
+
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       List<Item> items = [];

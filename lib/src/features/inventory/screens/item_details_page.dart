@@ -13,14 +13,14 @@ class ItemDetails extends StatefulWidget {
       {super.key,
       required this.itemName,
       required this.itemCategory,
-      required this.itemSKU,
+      required this.itemSku,
       required this.itemStockNo,
       required this.itemOrdersNo,
       this.itemWarning});
 
   final String itemName;
   final String itemCategory;
-  final String itemSKU;
+  final String itemSku;
   final String itemStockNo;
   final String itemOrdersNo;
   final String? itemWarning;
@@ -32,7 +32,7 @@ class ItemDetails extends StatefulWidget {
 class _ItemDetailsState extends State<ItemDetails> {
   String? _name;
   String? _category;
-  String? _SKU;
+  String? _sku;
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -129,15 +129,15 @@ class _ItemDetailsState extends State<ItemDetails> {
                             enable: false,
                           ),
                           InStockTextInput(
-                            key: const Key('itemSKUTextField'),
+                            key: const Key('itemSkuTextField'),
                             text: "SKU",
                             theme: theme.themeData,
                             icon: null,
                             validators: const [Validators.notBlank],
                             onSaved: (value) {
-                              _SKU = value;
+                              _sku = value;
                             },
-                            initialValue: widget.itemSKU,
+                            initialValue: widget.itemSku,
                             enable: false,
                           )
                         ]),

@@ -7,7 +7,7 @@ class InventoryItem extends StatefulWidget {
       {super.key,
       required this.itemName,
       required this.itemCategory,
-      required this.itemSKU,
+      required this.itemSku,
       required this.itemStockNo,
       required this.itemOrdersNo,
       this.itemWarning,
@@ -16,7 +16,7 @@ class InventoryItem extends StatefulWidget {
 
   final String itemName;
   final String itemCategory;
-  final String itemSKU;
+  final String itemSku;
   final String itemStockNo;
   final String itemOrdersNo;
   final String? itemWarning;
@@ -33,7 +33,7 @@ class _InventoryItemState extends State<InventoryItem> {
         builder: (context) => ItemDetails(
           itemName: widget.itemName,
           itemCategory: widget.itemCategory,
-          itemSKU: widget.itemSKU,
+          itemSku: widget.itemSku,
           itemStockNo: widget.itemStockNo,
           itemOrdersNo: widget.itemOrdersNo,
         ),
@@ -118,7 +118,7 @@ class _InventoryItemState extends State<InventoryItem> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
                             child: Text(
-                              widget.itemSKU,
+                              widget.itemSku,
                               style: theme.themeData.textTheme.bodySmall
                                   ?.merge(const TextStyle(fontSize: 16)),
                             ),

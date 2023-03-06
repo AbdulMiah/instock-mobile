@@ -60,7 +60,7 @@ class InventoryBuilder extends StatelessWidget {
                         InventoryItem(
                             itemName: snapshot.data[index].name,
                             itemCategory: snapshot.data[index].category,
-                            itemSKU: snapshot.data[index].SKU,
+                            itemSku: snapshot.data[index].sku,
                             itemStockNo: snapshot.data[index].stock,
                             itemOrdersNo: "N/A"),
                       ],
@@ -76,7 +76,7 @@ class InventoryBuilder extends StatelessWidget {
                     child: InventoryItem(
                         itemName: snapshot.data[index].name,
                         itemCategory: snapshot.data[index].category,
-                        itemSKU: snapshot.data[index].SKU,
+                        itemSku: snapshot.data[index].sku,
                         itemStockNo: snapshot.data[index].stock,
                         itemOrdersNo: "N/A"),
                   );
@@ -89,7 +89,7 @@ class InventoryBuilder extends StatelessWidget {
                         InventoryItem(
                             itemName: snapshot.data[index].name,
                             itemCategory: snapshot.data[index].category,
-                            itemSKU: snapshot.data[index].SKU,
+                            itemSku: snapshot.data[index].sku,
                             itemStockNo: snapshot.data[index].stock,
                             itemOrdersNo: "N/A"),
                       ],
