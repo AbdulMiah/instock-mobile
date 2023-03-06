@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
+import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/wave.dart';
 
@@ -26,21 +28,23 @@ class ItemDetails extends StatefulWidget {
 }
 
 class _ItemDetailsState extends State<ItemDetails> {
+  String? _name;
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
 
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
               .copyWith(statusBarColor: theme.themeData.splashColor),
-          child: SafeArea(
-              child: Center(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: SizedBox(
+          child: SingleChildScrollView(
+            child: SafeArea(
+                child: Center(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
                     width: double.infinity,
                     child: Stack(
                       clipBehavior: Clip.none,
@@ -70,14 +74,17 @@ class _ItemDetailsState extends State<ItemDetails> {
                               page: const Inventory(),
                               colorOption: InStockBackButton.secondary,
                             )),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            width: MediaQuery.of(context).size.height * 0.4,
-                            child: Image(
-                              image: NetworkImage(
-                                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              width: MediaQuery.of(context).size.height * 0.3,
+                              child: const Image(
+                                image: NetworkImage(
+                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                              ),
                             ),
                           ),
                         ),
@@ -88,10 +95,41 @@ class _ItemDetailsState extends State<ItemDetails> {
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          )),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          InStockTextInput(
+                              text: "Name",
+                              theme: theme.themeData,
+                              icon: null,
+                              validators: const [Validators.notBlank],
+                              onSaved: (value) {
+                                _name = value;
+                              }),
+                          InStockTextInput(
+                              text: "Category",
+                              theme: theme.themeData,
+                              icon: null,
+                              validators: const [Validators.notBlank],
+                              onSaved: (value) {
+                                _name = value;
+                              }),
+                          InStockTextInput(
+                              text: "SKU",
+                              theme: theme.themeData,
+                              icon: null,
+                              validators: const [Validators.notBlank],
+                              onSaved: (value) {
+                                _name = value;
+                              })
+                        ]),
+                  ),
+                ],
+              ),
+            )),
+          ),
         ),
       ),
     );
