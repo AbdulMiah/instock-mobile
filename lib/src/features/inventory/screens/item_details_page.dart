@@ -106,6 +106,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           InStockTextInput(
+                            key: const Key('itemNameTextField'),
                             text: "Name",
                             theme: theme.themeData,
                             icon: null,
@@ -117,6 +118,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             enable: false,
                           ),
                           InStockTextInput(
+                            key: const Key('itemCategoryTextField'),
                             text: "Category",
                             theme: theme.themeData,
                             icon: null,
@@ -128,6 +130,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             enable: false,
                           ),
                           InStockTextInput(
+                            key: const Key('itemSKUTextField'),
                             text: "SKU",
                             theme: theme.themeData,
                             icon: null,
