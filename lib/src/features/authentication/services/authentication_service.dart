@@ -1,13 +1,21 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 import 'package:instock_mobile/src/features/authentication/data/sign_up_dto.dart';
 
 import '../../../utilities/objects/response_object.dart';
-import '../../../utilities/services/secure_storage_service.dart';
+import '../../../utilities/services/interfaces/Isecure_storage_service.dart';
 import '../../../utilities/validation/validators.dart';
+import 'interfaces/Iauthentication_service.dart';
 
-class AuthenticationService {
+@Injectable(as: IAuthenticationService)
+class AuthenticationService implements IAuthenticationService {
+  ISecureStorageService _secureStorageService;
+
+  AuthenticationService(this._secureStorageService);
+
+  @override
   Future<ResponseObject> authenticateUser(String email, String password) async {
     Validators.isEmail(email);
     Validators.validatePassword(password);
@@ -36,19 +44,21 @@ class AuthenticationService {
     }
   }
 
+  @override
   _saveBearerToken(String bearerToken) async {
-    SecureStorageService secureStorage = SecureStorageService();
-    await secureStorage.write("bearerToken", bearerToken);
+    await _secureStorageService.write("bearerToken", bearerToken);
   }
 
-  static Future<Map> retrieveBearerToken() async {
-    SecureStorageService secureStorage = SecureStorageService();
-    String? bearerToken = await secureStorage.get("bearerToken");
+  @override
+  Future<Map> retrieveBearerToken() async {
+    String? bearerToken = await _secureStorageService.get("bearerToken");
     Map tokenDict = {"bearerToken": bearerToken};
     return tokenDict;
   }
 
-  createUserAndAuthenticate(SignUpDTO userDetails) async {
+  @override
+  Future<ResponseObject> createUserAndAuthenticate(
+      SignUpDTO userDetails) async {
     Validators.isEmail(userDetails.email);
     Validators.validatePassword(userDetails.password);
     Validators.shortLength(userDetails.email);
