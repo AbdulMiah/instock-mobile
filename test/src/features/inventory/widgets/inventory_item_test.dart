@@ -15,6 +15,7 @@ void main() {
                 itemSKU: 'Test SKU',
                 itemStockNo: '33',
                 itemOrdersNo: '44',
+                itemCategory: 'Test Category',
               ),
             ),
           )));

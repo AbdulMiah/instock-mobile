@@ -6,6 +6,7 @@ class InventoryItem extends StatefulWidget {
   const InventoryItem(
       {super.key,
       required this.itemName,
+      required this.itemCategory,
       required this.itemSKU,
       required this.itemStockNo,
       required this.itemOrdersNo,
@@ -14,6 +15,7 @@ class InventoryItem extends StatefulWidget {
           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'});
 
   final String itemName;
+  final String itemCategory;
   final String itemSKU;
   final String itemStockNo;
   final String itemOrdersNo;
@@ -30,6 +32,7 @@ class _InventoryItemState extends State<InventoryItem> {
       MaterialPageRoute(
         builder: (context) => ItemDetails(
           itemName: widget.itemName,
+          itemCategory: widget.itemCategory,
           itemSKU: widget.itemSKU,
           itemStockNo: widget.itemStockNo,
           itemOrdersNo: widget.itemOrdersNo,

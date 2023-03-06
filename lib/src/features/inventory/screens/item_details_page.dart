@@ -12,12 +12,14 @@ class ItemDetails extends StatefulWidget {
   const ItemDetails(
       {super.key,
       required this.itemName,
+      required this.itemCategory,
       required this.itemSKU,
       required this.itemStockNo,
       required this.itemOrdersNo,
       this.itemWarning});
 
   final String itemName;
+  final String itemCategory;
   final String itemSKU;
   final String itemStockNo;
   final String itemOrdersNo;
@@ -29,6 +31,8 @@ class ItemDetails extends StatefulWidget {
 
 class _ItemDetailsState extends State<ItemDetails> {
   String? _name;
+  String? _category;
+  String? _SKU;
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -105,6 +109,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                               theme: theme.themeData,
                               icon: null,
                               validators: const [Validators.notBlank],
+                              initialValue: widget.itemName,
                               onSaved: (value) {
                                 _name = value;
                               }),
@@ -113,16 +118,18 @@ class _ItemDetailsState extends State<ItemDetails> {
                               theme: theme.themeData,
                               icon: null,
                               validators: const [Validators.notBlank],
+                              initialValue: widget.itemCategory,
                               onSaved: (value) {
-                                _name = value;
+                                _category = value;
                               }),
                           InStockTextInput(
                               text: "SKU",
                               theme: theme.themeData,
                               icon: null,
                               validators: const [Validators.notBlank],
+                              initialValue: widget.itemSKU,
                               onSaved: (value) {
-                                _name = value;
+                                _SKU = value;
                               })
                         ]),
                   ),
