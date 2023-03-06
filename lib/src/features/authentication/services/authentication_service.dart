@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:instock_mobile/src/features/authentication/data/sign_up_dto.dart';
+import 'package:instock_mobile/src/utilities/services/secure_storage_service.dart';
 
 import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/services/interfaces/Isecure_storage_service.dart';
@@ -11,9 +12,15 @@ import 'interfaces/Iauthentication_service.dart';
 
 @Injectable(as: IAuthenticationService)
 class AuthenticationService implements IAuthenticationService {
-  ISecureStorageService _secureStorageService;
+  static Future<AuthenticationService> init() async {
+    return AuthenticationService();
+  }
 
-  AuthenticationService(this._secureStorageService);
+  late final ISecureStorageService _secureStorageService;
+
+  AuthenticationService() {
+    _secureStorageService = SecureStorageService();
+  }
 
   @override
   Future<ResponseObject> authenticateUser(String email, String password) async {

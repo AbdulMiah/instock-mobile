@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
-import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -12,13 +11,22 @@ import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../navigation/navigation_bar.dart';
 import '../data/sign_up_dto.dart';
+import '../services/authentication_service.dart';
+import '../services/interfaces/Iauthentication_service.dart';
 
 class SignUp extends StatefulWidget {
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUp> createState() => _SignUpState(AuthenticationService());
 }
 
 class _SignUpState extends State<SignUp> {
+  IAuthenticationService _authenticationService;
+
+  _SignUpState(this._authenticationService, [auth]) {
+    _authenticationService = AuthenticationService();
+    _authenticationService = auth;
+  }
+
   //Global formkey for login form
   final _formKey = GlobalKey<FormState>();
   String? _firstName;
@@ -46,9 +54,8 @@ class _SignUpState extends State<SignUp> {
           SignUpDTO(_firstName!, _lastName!, _email!, _password!);
 
       //Auth service handling
-      AuthenticationService authenticationService = AuthenticationService();
       ResponseObject response =
-          await authenticationService.createUserAndAuthenticate(userDetails);
+          await _authenticationService.createUserAndAuthenticate(userDetails);
       if (response.statusCode == 200) {
         Navigator.push(
           context,

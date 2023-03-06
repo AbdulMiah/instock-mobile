@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
+import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -18,6 +19,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  IAuthenticationService? _authenticationService;
+
+  _LoginState([optionalParam]) {
+    _authenticationService = AuthenticationService();
+    _authenticationService = optionalParam;
+  }
+
   //Global formkey for login form
   final _formKey = GlobalKey<FormState>();
   String? _email;
@@ -133,7 +141,6 @@ class _LoginState extends State<Login> {
                               validators: const [
                                 Validators.notNull,
                                 Validators.notBlank,
-                                Validators.isEmail,
                                 Validators.shortLength,
                               ],
                               onSaved: (value) {
@@ -146,7 +153,7 @@ class _LoginState extends State<Login> {
                               theme: theme.themeData,
                               icon: Icons.lock,
                               validators: const [
-                                Validators.validatePassword,
+                                Validators.shortLength,
                                 Validators.notNull,
                                 Validators.notBlank,
                               ],

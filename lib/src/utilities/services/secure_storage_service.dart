@@ -5,7 +5,6 @@ import 'package:instock_mobile/src/utilities/services/interfaces/Isecure_storage
 @Injectable(as: ISecureStorageService)
 class SecureStorageService implements ISecureStorageService {
   static Future<SecureStorageService> init() async {
-    await SecureStorageService.initializeApp();
     return SecureStorageService();
   }
 

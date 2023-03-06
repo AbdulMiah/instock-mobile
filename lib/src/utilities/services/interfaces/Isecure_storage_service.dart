@@ -1,15 +1,19 @@
-abstract class ISecureStorageService {
-  Future<String?> get(String key);
+class ISecureStorageService {
+  Future<String?> get(String key) {
+    return Future<String?>.value();
+  }
 
   // Read all values
-  Future<Map<String, String>> getAll();
+  Future<Map<String, String>> getAll() {
+    return Future<Map<String, String>>.value();
+  }
 
   // Delete value
-  delete(String key);
+  delete(String key) {}
 
   // Delete all
-  deleteAll();
+  deleteAll() {}
 
   // Write value
-  write(String key, String value);
+  write(String key, String value) {}
 }

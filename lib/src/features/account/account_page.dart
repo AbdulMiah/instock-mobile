@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
+import 'package:instock_mobile/src/utilities/services/secure_storage_service.dart';
 
 import '../../theme/common_theme.dart';
-import '../../utilities/services/secure_storage_service.dart';
+import '../../utilities/services/interfaces/Isecure_storage_service.dart';
 import '../../utilities/widgets/instock_button.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+  AccountPage({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<AccountPage> createState() => _AccountPageState(SecureStorageService());
+
+//Hacky way to test bearer token is present;
 }
 
 class _AccountPageState extends State<AccountPage> {
+  ISecureStorageService _secureStorageService;
+
+  _AccountPageState(this._secureStorageService);
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme().themeData;
@@ -27,10 +34,7 @@ class _AccountPageState extends State<AccountPage> {
               InStockButton(
                 text: "Clear Token",
                 onPressed: () async {
-                  //Hacky way to test bearer token is present;
-                  SecureStorageService secureStorageService =
-                      SecureStorageService();
-                  await secureStorageService.delete("bearerToken");
+                  await _secureStorageService.delete("bearerToken");
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => AuthCheck()),
