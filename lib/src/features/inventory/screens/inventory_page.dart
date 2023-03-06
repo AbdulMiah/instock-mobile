@@ -21,6 +21,7 @@ class _InventoryState extends State<Inventory> {
     var inventoryService = InventoryService();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
