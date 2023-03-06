@@ -4,14 +4,16 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
-import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
+import '../../authentication/services/interfaces/Iauthentication_service.dart';
+
 @injectable
 class InventoryService {
-  AuthenticationService authService = AuthenticationService();
+  final IAuthenticationService _authenticationService;
+
+  InventoryService(this._authenticationService);
 
   Future<List<Item>> getItems(http.Client client) async {
     var tokenDict = await _authenticationService.retrieveBearerToken();
