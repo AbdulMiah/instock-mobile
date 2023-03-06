@@ -9,13 +9,16 @@ class InventoryItem extends StatefulWidget {
       required this.itemSKU,
       required this.itemStockNo,
       required this.itemOrdersNo,
-      this.itemWarning});
+      this.itemWarning,
+      this.itemImgUrl =
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'});
 
   final String itemName;
   final String itemSKU;
   final String itemStockNo;
   final String itemOrdersNo;
   final String? itemWarning;
+  final String? itemImgUrl;
 
   @override
   State<InventoryItem> createState() => _InventoryItemState();
@@ -25,7 +28,12 @@ class _InventoryItemState extends State<InventoryItem> {
   void redirectToItemDetails() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const ItemDetails(),
+        builder: (context) => ItemDetails(
+          itemName: widget.itemName,
+          itemSKU: widget.itemSKU,
+          itemStockNo: widget.itemStockNo,
+          itemOrdersNo: widget.itemOrdersNo,
+        ),
       ),
     );
   }

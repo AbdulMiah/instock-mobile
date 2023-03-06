@@ -7,7 +7,19 @@ import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/wave.dart';
 
 class ItemDetails extends StatefulWidget {
-  const ItemDetails({super.key});
+  const ItemDetails(
+      {super.key,
+      required this.itemName,
+      required this.itemSKU,
+      required this.itemStockNo,
+      required this.itemOrdersNo,
+      this.itemWarning});
+
+  final String itemName;
+  final String itemSKU;
+  final String itemStockNo;
+  final String itemOrdersNo;
+  final String? itemWarning;
 
   @override
   State<ItemDetails> createState() => _ItemDetailsState();
@@ -41,7 +53,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                               child: Text(
-                                "Item Details",
+                                widget.itemName,
                                 style: theme.themeData.textTheme.bodyMedium
                                     ?.merge(const TextStyle(fontSize: 24)),
                                 textAlign: TextAlign.center,
