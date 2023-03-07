@@ -4,8 +4,10 @@ import '../../theme/common_theme.dart';
 
 class InStockBackButton extends StatelessWidget {
   final Widget page;
+  final int colorOption;
 
-  const InStockBackButton({super.key, required this.page});
+  const InStockBackButton(
+      {super.key, required this.page, required this.colorOption});
 
   redirectToPage(context) {
     return Navigator.push(
@@ -14,16 +16,33 @@ class InStockBackButton extends StatelessWidget {
     );
   }
 
+// Used for colorOptions
+  static final int primary = 1;
+  static final int secondary = 2;
+
+  Color ColorPicker() {
+    final theme = CommonTheme();
+
+    switch (colorOption) {
+      case 1:
+        return theme.themeData.primaryColorLight;
+      case 2:
+        return theme.themeData.primaryColorDark;
+      default:
+        return theme.themeData.primaryColorLight;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    CommonTheme commonTheme = CommonTheme();
+    Color buttonColor = ColorPicker();
     return GestureDetector(
       onTap: () {
         redirectToPage(context);
       },
       child: Icon(
         Icons.arrow_back,
-        color: commonTheme.themeData.primaryColorLight,
+        color: buttonColor,
       ),
     );
   }

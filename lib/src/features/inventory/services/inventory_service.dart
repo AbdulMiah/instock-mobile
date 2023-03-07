@@ -9,6 +9,7 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 class InventoryService {
   Future<List<Item>> getItems(http.Client client) async {
+    print("in inventory service");
     var tokenDict = await AuthenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
@@ -24,7 +25,7 @@ class InventoryService {
 
     var uri = Uri.http(url, '/items', queryParams);
 
-    final response = await http.get(
+    final response = await client.get(
       uri,
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -35,11 +36,11 @@ class InventoryService {
       var jsonData = json.decode(response.body);
       List<Item> items = [];
 
-      // for (var itemJson in jsonData) {
-      //   Item item = Item.fromJson(itemJson);
-      //   items.add(item);
-      // }
-      // items.sort((a, b) => a.category.compareTo(b.category));
+      for (var itemJson in jsonData) {
+        Item item = Item.fromJson(itemJson);
+        items.add(item);
+      }
+      items.sort((a, b) => a.category.compareTo(b.category));
       return items;
     } else {
       throw Exception('Failed to load items');

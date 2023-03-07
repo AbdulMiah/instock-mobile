@@ -14,8 +14,6 @@ class Inventory extends StatefulWidget {
 }
 
 class _InventoryState extends State<Inventory> {
-  // checkStatus(AsyncSnapshot snapshot, int index)
-
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -23,6 +21,7 @@ class _InventoryState extends State<Inventory> {
     var inventoryService = InventoryService();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light

@@ -17,6 +17,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     final theme = CommonTheme().themeData;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
           child: Column(
