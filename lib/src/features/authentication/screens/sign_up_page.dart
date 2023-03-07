@@ -18,35 +18,38 @@ class _SignUpState extends State<SignUp> {
     final theme = CommonTheme().themeData;
     return MaterialApp(
         //Hides debug banner
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
-      //Makes top notification bar specified colour otherwise
-      //bar behind notifications appears grey which seems out of place with the rest of the page
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light
-            .copyWith(statusBarColor: theme.primaryColorDark),
-        child: SafeArea(
-          child: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: Container(
-              color: theme.primaryColorDark,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Sign Up", style: theme.textTheme.displayLarge),
-                    Text("Coming Soon", style: theme.textTheme.displayMedium),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(0, 6.0, 0, 0),
-                      child: InStockBackButton(
-                        page: Welcome(),
-                      ),
-                    )
-                  ]),
+          //Makes top notification bar specified colour otherwise
+          //bar behind notifications appears grey which seems out of place with the rest of the page
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light
+                .copyWith(statusBarColor: theme.primaryColorDark),
+            child: SafeArea(
+              child: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: Container(
+                  color: theme.primaryColorDark,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Sign Up", style: theme.textTheme.displayLarge),
+                        Text("Coming Soon",
+                            style: theme.textTheme.displayMedium),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 6.0, 0, 0),
+                          child: InStockBackButton(
+                            page: Welcome(),
+                            colorOption: InStockBackButton.primary,
+                          ),
+                        )
+                      ]),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }

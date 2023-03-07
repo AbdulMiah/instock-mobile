@@ -13,6 +13,7 @@ class AuthCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = CommonTheme().themeData;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: FutureBuilder(
           future: AuthenticationService.retrieveBearerToken(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {

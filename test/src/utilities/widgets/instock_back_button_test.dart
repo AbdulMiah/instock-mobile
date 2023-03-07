@@ -10,7 +10,10 @@ void main() {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
-          body: InStockBackButton(page: Welcome()),
+          body: InStockBackButton(
+            page: Welcome(),
+            colorOption: InStockBackButton.primary,
+          ),
         ),
       ),
     );
@@ -27,7 +30,10 @@ void main() {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
-          body: InStockBackButton(page: Welcome()),
+          body: InStockBackButton(
+            page: Welcome(),
+            colorOption: InStockBackButton.primary,
+          ),
         ),
       ),
     );

@@ -10,6 +10,8 @@ class InStockTextInput extends StatefulWidget {
       required this.validators,
       required this.onSaved,
       this.obscureText = false,
+      this.initialValue,
+      this.enable = true,
       this.maxLines,
       this.isNumber = false});
 
@@ -20,6 +22,8 @@ class InStockTextInput extends StatefulWidget {
   final List<Function> validators;
   final void Function(String?)? onSaved;
   bool obscureText = false;
+  final String? initialValue;
+  bool enable = true;
   final int? maxLines;
 
   @override
@@ -98,6 +102,8 @@ class _InStockTextInputState extends State<InStockTextInput> {
                 child: TextFormField(
                   minLines: 1,
                   maxLines: widget.maxLines ?? 1,
+                  enabled: widget.enable,
+                  initialValue: widget.initialValue,
                   enableSuggestions: true,
                   autocorrect: true,
                   obscureText: widget.obscureText,

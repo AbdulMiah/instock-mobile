@@ -20,7 +20,6 @@ void main() {
 
   testWidgets('Defaults to Home tab', (tester) async {
     await tester.pumpWidget(const NavBar());
-
     final inventoryFinder = find.text('Inventory');
 
     expect(inventoryFinder, findsOneWidget);
@@ -43,7 +42,7 @@ void main() {
   testWidgets('Method is called on button press', (tester) async {
     //Given
     await tester.pumpWidget(const NavBar());
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 5));
 
     final statsFinder = find.text('Stats');
 
