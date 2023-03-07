@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                          Positioned(
+                          const Positioned(
                               top: 10,
                               left: 10,
                               child: InStockBackButton(
@@ -116,7 +116,7 @@ class _LoginState extends State<Login> {
                               )),
                           Positioned(
                             top: MediaQuery.of(context).size.height * 0.2 - 2,
-                            child: InStockWave(),
+                            child: const InStockWave(),
                           )
                         ],
                       ),
