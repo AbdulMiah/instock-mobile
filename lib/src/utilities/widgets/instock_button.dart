@@ -35,7 +35,7 @@ class _InStockButtonState extends State<InStockButton> {
       case 2:
         return {
           "foreground": widget.theme.primaryColorDark,
-          "background": widget.theme.primaryColorLight,
+          "background": widget.theme.cardColor,
         };
       case 3:
         return {
@@ -51,13 +51,14 @@ class _InStockButtonState extends State<InStockButton> {
   }
 
   displayButtonChild(ThemeData theme) {
+    Map<String, Color> buttonColors = ColorPicker();
     if (widget.isLoading == false) {
       return Text(
         widget.text,
-        style: widget.theme.textTheme.displaySmall,
+        style: widget.theme.textTheme.displaySmall
+            ?.copyWith(color: buttonColors["foreground"]),
       );
     } else {
-      Map<String, Color> buttonColors = ColorPicker();
       return SizedBox(
         width: 30,
         height: 30,
@@ -78,8 +79,6 @@ class _InStockButtonState extends State<InStockButton> {
           style: ElevatedButton.styleFrom(
             backgroundColor: buttonColors["background"],
             // Background color
-            foregroundColor: buttonColors["foreground"],
-            // Text color
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5), // Rounded edges
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/stock_editor.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
 import '../../../theme/common_theme.dart';
@@ -33,6 +34,7 @@ class _ItemDetailsState extends State<ItemDetails> {
   String? _name;
   String? _category;
   String? _sku;
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -104,6 +106,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          StockEditor(),
                           InStockTextInput(
                             key: const Key('itemNameTextField'),
                             text: "Name",
