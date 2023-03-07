@@ -41,7 +41,7 @@ void main() {
         )));
     const nameKey = Key('itemNameTextField');
     const categoryKey = Key('itemCategoryTextField');
-    const skuKey = Key('itemSKUTextField');
+    const skuKey = Key('itemSkuTextField');
     final nameFormField = tester.widget<InStockTextInput>(find.byKey(nameKey));
     final categoryFormField =
         tester.widget<InStockTextInput>(find.byKey(categoryKey));
