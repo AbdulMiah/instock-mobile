@@ -5,13 +5,13 @@ class InStockTextInput extends StatefulWidget {
   InStockTextInput(
       {super.key,
       required this.text,
-      required this.isNumber,
       required this.theme,
       required this.icon,
       required this.validators,
       required this.onSaved,
       this.obscureText = false,
-      this.maxLines});
+      this.maxLines,
+      this.isNumber = false});
 
   final ThemeData theme;
   final IconData? icon;
