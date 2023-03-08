@@ -57,7 +57,8 @@ class Validators {
   }
 
   static String? noSpecialChars(value) {
-    final regexp = RegExp("^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*\$");
+    const pattern = r'^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$';
+    final regexp = RegExp(pattern, caseSensitive: false);
     if (!regexp.hasMatch(value)) {
       return "No special characters";
     }
