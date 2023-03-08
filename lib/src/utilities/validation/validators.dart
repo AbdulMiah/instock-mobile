@@ -64,4 +64,13 @@ class Validators {
 
     return null;
   }
+
+  static String? longLength(value) {
+    int maxLength = 180;
+
+    ValidatorUtilities utilities = ValidatorUtilities();
+    String? result = utilities.maxLength(value, maxLength);
+
+    return result;
+  }
 }

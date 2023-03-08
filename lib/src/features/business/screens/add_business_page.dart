@@ -134,6 +134,7 @@ class _AddBusinessState extends State<AddBusiness> {
                                   validators: const [
                                     Validators.notNull,
                                     Validators.notBlank,
+                                    Validators.longLength
                                   ],
                                   onSaved: (value) {
                                     _description = value;
