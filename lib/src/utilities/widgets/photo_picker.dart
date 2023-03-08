@@ -114,6 +114,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                             ElevatedButton.icon(
                               onPressed: () {
                                 pickImage(ImageSource.gallery);
+                                Navigator.pop(context);
                               },
                               icon: const Icon(Icons.image_outlined),
                               label: const Text("Choose from Gallery"),
@@ -127,6 +128,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                             ElevatedButton.icon(
                               onPressed: () {
                                 pickImage(ImageSource.camera);
+                                Navigator.pop(context);
                               },
                               icon: const Icon(Icons.camera_alt),
                               label: const Text("Take a Photo"),
