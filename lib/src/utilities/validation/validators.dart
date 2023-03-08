@@ -46,4 +46,13 @@ class Validators {
 
     return result;
   }
+
+  static String? shortString(value) {
+    int maxLength = 20;
+
+    ValidatorUtilities utilities = ValidatorUtilities();
+    String? result = utilities.maxLength(value, maxLength);
+
+    return result;
+  }
 }

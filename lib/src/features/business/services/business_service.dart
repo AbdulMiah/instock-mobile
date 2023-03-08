@@ -8,7 +8,6 @@ import '../../authentication/services/authentication_service.dart';
 
 class BusinessService {
   Future<ResponseObject> addBusiness(String name, String description) async {
-    print("in business service");
     var tokenDict = await AuthenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
 
