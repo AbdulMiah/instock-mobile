@@ -30,10 +30,6 @@ class BusinessService {
     ResponseObject responseObject =
     ResponseObject(response.statusCode, response.body);
 
-    if (response.statusCode == 201) {
-      return (responseObject);
-    } else {
-      return (responseObject);
-    }
+    return (responseObject);
   }
 }
