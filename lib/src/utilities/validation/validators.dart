@@ -55,4 +55,13 @@ class Validators {
 
     return result;
   }
+
+  static String? noSpecialChars(value) {
+    final regexp = RegExp("^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*\$");
+    if (!regexp.hasMatch(value)) {
+      return "No special characters";
+    }
+
+    return null;
+  }
 }

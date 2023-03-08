@@ -64,6 +64,7 @@ class _AddBusinessState extends State<AddBusiness> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
@@ -119,6 +120,7 @@ class _AddBusinessState extends State<AddBusiness> {
                                     Validators.notNull,
                                     Validators.notBlank,
                                     Validators.shortString,
+                                    Validators.noSpecialChars
                                   ],
                                   onSaved: (value) {
                                     _businessName = value;
