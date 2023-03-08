@@ -27,7 +27,7 @@ void main() {
     );
 
     //When
-    final businessNameFinder = find.text('Enter business name');
+    final businessNameFinder = find.text('Name');
 
     //Then
     expect(businessNameFinder, findsOneWidget);
@@ -42,7 +42,7 @@ void main() {
     );
 
     //When
-    final descriptionFinder = find.text('Enter the description');
+    final descriptionFinder = find.text('Description');
 
     //Then
     expect(descriptionFinder, findsOneWidget);
