@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
 class InStockTextInput extends StatefulWidget {
-  InStockTextInput({
-    super.key,
-    required this.text,
-    required this.theme,
-    required this.validators,
-    this.obscureText = false,
-    this.textInputAction = TextInputAction.none,
-    this.onSaved,
-    this.onChanged,
-    this.icon,
-    this.boldLabel = false,
-    this.initialValue,
-    this.enable = true
-  });
+  InStockTextInput(
+      {super.key,
+      required this.text,
+      required this.theme,
+      required this.validators,
+      this.obscureText = false,
+      this.textInputAction = TextInputAction.none,
+      this.onSaved,
+      this.onChanged,
+      this.icon,
+      this.boldLabel = false,
+      this.initialValue,
+      this.enable = true});
 
   final ThemeData theme;
   final String text;
@@ -33,8 +32,6 @@ class InStockTextInput extends StatefulWidget {
 }
 
 class _InStockTextInputState extends State<InStockTextInput> {
-  String? _errorMessage;
-
   displayIcon() {
     if (widget.icon != null) {
       return Icon(widget.icon);
@@ -43,11 +40,6 @@ class _InStockTextInputState extends State<InStockTextInput> {
   }
 
   String? runValidators(String? value) {
-    // Resets error message
-    setState(() {
-      _errorMessage = null;
-    });
-
     for (var i = 0; i < widget.validators.length;) {
       Function validator = widget.validators[i];
       String? res = validator(value);
@@ -58,23 +50,6 @@ class _InStockTextInputState extends State<InStockTextInput> {
       }
     }
     return null;
-  }
-
-  displayErrorMessage() {
-    if (_errorMessage != null) {
-      return Padding(
-        padding: EdgeInsets.fromLTRB(0, 4.0, 0, 0),
-        child: SizedBox(
-            width: 250,
-            child: Text('$_errorMessage',
-                style: widget.theme.textTheme.headlineSmall)),
-      );
-    }
-    // For whatever reason putting an empty container here instead
-    // causes the text to jump when switching to display text
-    // so this is a bit of a work around
-    // I don't think it's worth the extra time looking into why already spent an hour
-    return Text("");
   }
 
   @override
@@ -92,6 +67,8 @@ class _InStockTextInputState extends State<InStockTextInput> {
             Expanded(
               child: TextFormField(
                 style: widget.theme.textTheme.bodySmall,
+                enabled: widget.enable,
+                initialValue: widget.initialValue,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: widget.onChanged,
                 enableSuggestions: true,
@@ -126,45 +103,6 @@ class _InStockTextInputState extends State<InStockTextInput> {
               ),
             ),
           ],
-        Text(widget.text, style: widget.theme.textTheme.bodySmall),
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom:
-                  BorderSide(width: 1.0, color: widget.theme.primaryColorDark),
-            ),
-          ),
-          width: 250,
-          child: Row(
-            children: [
-              displayIcon(),
-              Expanded(
-                child: TextFormField(
-                  enabled: widget.enable,
-                  initialValue: widget.initialValue,
-                  enableSuggestions: true,
-                  autocorrect: true,
-                  obscureText: widget.obscureText,
-                  validator: (value) {
-                    return runValidators(value);
-                  },
-                  onSaved: widget.onSaved,
-                  cursorColor: widget.theme.primaryColorDark,
-                  decoration: InputDecoration(
-                    // If widget.icon is not given does not apply margin
-                    contentPadding: widget.icon != null
-                        ? EdgeInsets.fromLTRB(4, 0, 0, 0)
-                        : null,
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    errorStyle: TextStyle(height: 0),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ],
     );
