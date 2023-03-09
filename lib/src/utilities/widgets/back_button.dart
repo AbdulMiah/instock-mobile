@@ -17,8 +17,8 @@ class InStockBackButton extends StatelessWidget {
   }
 
 // Used for colorOptions
-  static final int primary = 1;
-  static final int secondary = 2;
+  static const int primary = 1;
+  static const int secondary = 2;
 
   Color ColorPicker() {
     final theme = CommonTheme();

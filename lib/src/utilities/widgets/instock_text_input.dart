@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InStockTextInput extends StatefulWidget {
   InStockTextInput(
@@ -10,16 +11,20 @@ class InStockTextInput extends StatefulWidget {
       required this.onSaved,
       this.obscureText = false,
       this.initialValue,
-      this.enable = true});
+      this.enable = true,
+      this.maxLines,
+      this.isNumber = false});
 
   final ThemeData theme;
   final IconData? icon;
   final String text;
+  bool isNumber = false;
   final List<Function> validators;
   final void Function(String?)? onSaved;
   bool obscureText = false;
   final String? initialValue;
   bool enable = true;
+  final int? maxLines;
 
   @override
   State<InStockTextInput> createState() => _InStockTextInputState();
@@ -62,7 +67,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
   displayErrorMessage() {
     if (_errorMessage != null) {
       return Padding(
-        padding: EdgeInsets.fromLTRB(0, 4.0, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 0),
         child: SizedBox(
             width: 250,
             child: Text('$_errorMessage',
@@ -73,7 +78,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
     // causes the text to jump when switching to display text
     // so this is a bit of a work around
     // I don't think it's worth the extra time looking into why already spent an hour
-    return Text("");
+    return const Text("");
   }
 
   @override
@@ -95,6 +100,8 @@ class _InStockTextInputState extends State<InStockTextInput> {
               displayIcon(),
               Expanded(
                 child: TextFormField(
+                  minLines: 1,
+                  maxLines: widget.maxLines ?? 1,
                   enabled: widget.enable,
                   initialValue: widget.initialValue,
                   enableSuggestions: true,
@@ -108,14 +115,17 @@ class _InStockTextInputState extends State<InStockTextInput> {
                   decoration: InputDecoration(
                     // If widget.icon is not given does not apply margin
                     contentPadding: widget.icon != null
-                        ? EdgeInsets.fromLTRB(4, 0, 0, 0)
+                        ? const EdgeInsets.fromLTRB(4, 0, 0, 0)
                         : null,
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
-                    errorStyle: TextStyle(height: 0),
+                    errorStyle: const TextStyle(height: 0),
                   ),
+                  keyboardType: widget.isNumber ? TextInputType.number : TextInputType.text,
+                  inputFormatters: widget.isNumber ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly] : null
                 ),
               ),
             ],

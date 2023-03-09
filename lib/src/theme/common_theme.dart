@@ -25,6 +25,8 @@ class CommonTheme {
       bodySmall: TextStyle(color: blackColor, fontSize: 18),
       // Error Message
       headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
+      // Success Message
+      labelSmall: TextStyle(color: greenColor, fontSize: 18),
     ),
   );
 }

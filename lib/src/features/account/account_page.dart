@@ -24,7 +24,7 @@ class _AccountPageState extends State<AccountPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("Account"),
+              const Text("Account"),
               InStockButton(
                 text: "Clear Token",
                 onPressed: () async {
@@ -34,7 +34,7 @@ class _AccountPageState extends State<AccountPage> {
                   await secureStorageService.delete("bearerToken");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AuthCheck()),
+                    MaterialPageRoute(builder: (context) => const AuthCheck()),
                   );
                 },
                 theme: theme,

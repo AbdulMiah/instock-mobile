@@ -71,11 +71,11 @@ class _ItemDetailsState extends State<ItemDetails> {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                             top: 10,
                             left: 10,
                             child: InStockBackButton(
-                              page: const Inventory(),
+                              page: Inventory(),
                               colorOption: InStockBackButton.secondary,
                             )),
                         Container(
@@ -94,7 +94,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                         ),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.05 - 2,
-                          child: InStockWave(),
+                          child: const InStockWave(),
                         ),
                       ],
                     ),
