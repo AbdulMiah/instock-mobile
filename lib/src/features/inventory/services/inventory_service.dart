@@ -27,15 +27,14 @@ class InventoryService {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
-
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       List<Item> items = [];
-
       for (var itemJson in jsonData) {
         Item item = Item.fromJson(itemJson);
         items.add(item);
       }
+
       items.sort((a, b) => a.category.compareTo(b.category));
       return items;
     } else {

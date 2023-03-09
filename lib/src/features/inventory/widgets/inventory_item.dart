@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
 class InventoryItem extends StatefulWidget {
   const InventoryItem(
       {super.key,
-      required this.itemName,
-      required this.itemCategory,
-      required this.itemSku,
-      required this.itemStockNo,
-      required this.itemOrdersNo,
+      required this.item,
       this.itemWarning,
       this.itemImgUrl =
           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'});
 
-  final String itemName;
-  final String itemCategory;
-  final String itemSku;
-  final String itemStockNo;
-  final String itemOrdersNo;
+  final Item item;
   final String? itemWarning;
   final String? itemImgUrl;
 
@@ -31,11 +24,7 @@ class _InventoryItemState extends State<InventoryItem> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ItemDetails(
-          itemName: widget.itemName,
-          itemCategory: widget.itemCategory,
-          itemSku: widget.itemSku,
-          itemStockNo: widget.itemStockNo,
-          itemOrdersNo: widget.itemOrdersNo,
+          item: widget.item,
         ),
       ),
     );
@@ -109,7 +98,7 @@ class _InventoryItemState extends State<InventoryItem> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
                             child: Text(
-                              widget.itemName,
+                              widget.item.name,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: theme.themeData.textTheme.headlineMedium,
@@ -118,7 +107,7 @@ class _InventoryItemState extends State<InventoryItem> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
                             child: Text(
-                              widget.itemSku,
+                              widget.item.sku,
                               style: theme.themeData.textTheme.bodySmall
                                   ?.merge(const TextStyle(fontSize: 16)),
                             ),
@@ -153,7 +142,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.itemStockNo}",
+                                        text: " ${widget.item.stockAmount}",
                                       ),
                                       TextSpan(
                                         style: TextStyle(
@@ -189,7 +178,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.itemOrdersNo}"),
+                                        text: " ${widget.item.ordersAmount}"),
                                     TextSpan(
                                       style: TextStyle(
                                           color:

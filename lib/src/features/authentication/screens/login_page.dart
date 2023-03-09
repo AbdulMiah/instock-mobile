@@ -134,7 +134,6 @@ class _LoginState extends State<Login> {
                                   validators: const [
                                     Validators.notNull,
                                     Validators.notBlank,
-                                    Validators.isEmail,
                                     Validators.shortLength,
                                   ],
                                   onSaved: (value) {
@@ -148,7 +147,6 @@ class _LoginState extends State<Login> {
                                   theme: theme,
                                   icon: Icons.lock,
                                   validators: const [
-                                    Validators.validatePassword,
                                     Validators.notNull,
                                     Validators.notBlank,
                                   ],

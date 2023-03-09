@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
@@ -10,20 +11,9 @@ import '../../../utilities/widgets/wave.dart';
 import '../widgets/stock_editor.dart';
 
 class ItemDetails extends StatefulWidget {
-  const ItemDetails(
-      {super.key,
-      required this.itemName,
-      required this.itemCategory,
-      required this.itemSku,
-      required this.itemStockNo,
-      required this.itemOrdersNo,
-      this.itemWarning});
+  const ItemDetails({super.key, required this.item, this.itemWarning});
 
-  final String itemName;
-  final String itemCategory;
-  final String itemSku;
-  final String itemStockNo;
-  final String itemOrdersNo;
+  final Item item;
   final String? itemWarning;
 
   @override
@@ -64,7 +54,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
                               child: Text(
-                                widget.itemName,
+                                widget.item.name,
                                 overflow: TextOverflow.ellipsis,
                                 style: theme.themeData.textTheme.bodyMedium
                                     ?.merge(const TextStyle(fontSize: 24)),
@@ -106,7 +96,9 @@ class _ItemDetailsState extends State<ItemDetails> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          StockEditor(),
+                          StockEditor(
+                            currentStock: widget.item.stockAmount,
+                          ),
                           InStockTextInput(
                             key: const Key('itemNameTextField'),
                             text: "Name",
@@ -116,7 +108,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             onSaved: (value) {
                               _name = value;
                             },
-                            initialValue: widget.itemName,
+                            initialValue: widget.item.name,
                             enable: false,
                           ),
                           InStockTextInput(
@@ -128,7 +120,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             onSaved: (value) {
                               _category = value;
                             },
-                            initialValue: widget.itemCategory,
+                            initialValue: widget.item.category,
                             enable: false,
                           ),
                           InStockTextInput(
@@ -140,7 +132,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             onSaved: (value) {
                               _sku = value;
                             },
-                            initialValue: widget.itemSku,
+                            initialValue: widget.item.sku,
                             enable: false,
                           )
                         ]),

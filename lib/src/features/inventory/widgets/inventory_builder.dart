@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:instock_mobile/src/features/inventory/data/item.dart';
 
 import '../../../theme/common_theme.dart';
 import '../services/inventory_service.dart';
@@ -22,6 +23,7 @@ class InventoryBuilder extends StatelessWidget {
         future: inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
+            print("Getting");
             return Center(
                 child: CircularProgressIndicator(
               // backgroundColor: theme.themeData.splashColor,
@@ -29,6 +31,7 @@ class InventoryBuilder extends StatelessWidget {
             ));
           }
           if (snapshot.data.length == 0) {
+            print("Got");
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -51,18 +54,16 @@ class InventoryBuilder extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 bool isSameCategory = true;
                 String category = snapshot.data[index].category;
+                print("BUILDING ITEMS");
+                print(snapshot.data[index]);
+                Item item = snapshot.data[index];
                 if (index == 0) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                     child: Column(
                       children: [
                         CategoryHeading(category: category),
-                        InventoryItem(
-                            itemName: snapshot.data[index].name,
-                            itemCategory: snapshot.data[index].category,
-                            itemSku: snapshot.data[index].sku,
-                            itemStockNo: snapshot.data[index].stock,
-                            itemOrdersNo: "N/A"),
+                        InventoryItem(item: item),
                       ],
                     ),
                   );
@@ -72,26 +73,15 @@ class InventoryBuilder extends StatelessWidget {
                 }
                 if (isSameCategory == true) {
                   return Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                    child: InventoryItem(
-                        itemName: snapshot.data[index].name,
-                        itemCategory: snapshot.data[index].category,
-                        itemSku: snapshot.data[index].sku,
-                        itemStockNo: snapshot.data[index].stock,
-                        itemOrdersNo: "N/A"),
-                  );
+                      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                      child: InventoryItem(item: item));
                 } else if (isSameCategory == false) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                     child: Column(
                       children: [
                         CategoryHeading(category: category),
-                        InventoryItem(
-                            itemName: snapshot.data[index].name,
-                            itemCategory: snapshot.data[index].category,
-                            itemSku: snapshot.data[index].sku,
-                            itemStockNo: snapshot.data[index].stock,
-                            itemOrdersNo: "N/A"),
+                        InventoryItem(item: item)
                       ],
                     ),
                   );

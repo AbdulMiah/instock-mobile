@@ -4,7 +4,9 @@ import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 
 class StockEditor extends StatefulWidget {
-  const StockEditor({super.key});
+  StockEditor({super.key, required this.currentStock});
+
+  int currentStock;
 
   @override
   State<StockEditor> createState() => _StockEditorState();
@@ -23,6 +25,7 @@ class _StockEditorState extends State<StockEditor> {
             style: theme.themeData.textTheme.titleMedium,
           ),
           Text("25", style: theme.themeData.textTheme.headlineMedium),
+          Text("+0", style: theme.themeData.textTheme.headlineMedium),
           SizedBox(
             width: 100,
             child: Divider(
@@ -31,7 +34,7 @@ class _StockEditorState extends State<StockEditor> {
               color: theme.themeData.primaryColorDark,
             ),
           ),
-          Text("+0", style: theme.themeData.textTheme.headlineMedium),
+          Text("25", style: theme.themeData.textTheme.headlineMedium),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
             child: Row(
