@@ -106,7 +106,7 @@ class _AddBusinessState extends State<AddBusiness> {
                   ),
                   // End of top stuff
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                    padding: const EdgeInsets.all(60.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
