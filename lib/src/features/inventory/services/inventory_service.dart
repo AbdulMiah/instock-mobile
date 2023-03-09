@@ -14,11 +14,8 @@ class InventoryService {
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
 
-    String businessIdWithComma = payload["BusinessIds"];
-    // currently a comma is returned because we are getting a list of one
-    // businesses but this will change in the future
-    String businessId =
-        businessIdWithComma.substring(0, businessIdWithComma.length - 1);
+    String businessId = payload["BusinessId"];
+
     String url = "api.instockinventory.co.uk";
 
     Map<String, dynamic> queryParams = {'businessId': businessId};
