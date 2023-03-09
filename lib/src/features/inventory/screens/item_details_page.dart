@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
-import 'package:instock_mobile/src/features/inventory/widgets/stock_editor.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/wave.dart';
+import '../widgets/stock_editor.dart';
 
 class ItemDetails extends StatefulWidget {
   const ItemDetails(
