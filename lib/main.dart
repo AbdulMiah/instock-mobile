@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     const pinkColor = Color(0xffEA5480);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Instock',
       home: AuthCheck(),
     );

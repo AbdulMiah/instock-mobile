@@ -4,7 +4,6 @@ import 'package:instock_mobile/src/features/inventory/services/inventory_service
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/wave.dart';
-import '../../authentication/services/authentication_service.dart';
 import '../widgets/inventory_builder.dart';
 
 class Inventory extends StatefulWidget {
@@ -24,7 +23,10 @@ class _InventoryState extends State<Inventory> {
   Widget build(BuildContext context) {
     final theme = CommonTheme();
 
+    var inventoryService = InventoryService();
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
@@ -58,8 +60,7 @@ class _InventoryState extends State<Inventory> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                           child: InventoryBuilder(
-                              inventoryService: _inventoryService,
-                              theme: theme),
+                              inventoryService: inventoryService, theme: theme),
                         ),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.05 - 2,

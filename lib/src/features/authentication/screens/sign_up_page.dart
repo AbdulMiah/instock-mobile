@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 
 import '../../../theme/common_theme.dart';
-import '../../../utilities/objects/response_object.dart';
-import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
@@ -15,6 +13,8 @@ import '../services/authentication_service.dart';
 import '../services/interfaces/Iauthentication_service.dart';
 
 class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
   @override
   State<SignUp> createState() => _SignUpState(AuthenticationService());
 }
@@ -98,8 +98,10 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = CommonTheme();
+    final theme = CommonTheme().themeData;
     return MaterialApp(
+        //Hides debug banner
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
       //Makes top notification bar specified colour otherwise
       //bar behind notifications appears grey which seems out of place with the rest of the page

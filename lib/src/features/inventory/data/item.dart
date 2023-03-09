@@ -1,12 +1,12 @@
 class Item {
-  final String SKU;
+  final String sku;
   final String businessId;
   final String category;
   final String name;
   final String stock;
 
   const Item({
-    required this.SKU,
+    required this.sku,
     required this.businessId,
     required this.category,
     required this.name,
@@ -15,7 +15,7 @@ class Item {
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
-      SKU: json['SKU'],
+      sku: json['SKU'],
       businessId: json['BusinessId'],
       category: json['Category'],
       name: json['Name'],
@@ -25,6 +25,6 @@ class Item {
 
   @override
   String toString() {
-    return 'Item{SKU: $SKU, businessId: $businessId, category: $category, name: $name, stock: $stock}';
+    return 'Item{SKU: $sku, businessId: $businessId, category: $category, name: $name, stock: $stock}';
   }
 }
