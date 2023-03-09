@@ -29,14 +29,14 @@ class AuthenticationService implements IAuthenticationService {
     Validators.shortLength(email);
     Validators.shortLength(password);
 
-    final url = Uri.parse('http://api.instockinventory.co.uk/login');
+    final uri = Uri.parse('http://api.instockinventory.co.uk/login');
     var data = new Map<String, dynamic>();
     data['Email'] = email;
     data['Password'] = password;
 
     var body = json.encode(data);
 
-    final response = await http.post(url,
+    final response = await http.post(uri,
         headers: {"Content-Type": "application/json"}, body: body);
 
     ResponseObject responseObject =
