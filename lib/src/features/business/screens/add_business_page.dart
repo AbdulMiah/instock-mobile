@@ -66,6 +66,7 @@ class _AddBusinessState extends State<AddBusiness> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
