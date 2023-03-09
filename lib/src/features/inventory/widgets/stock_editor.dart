@@ -13,8 +13,39 @@ class StockEditor extends StatefulWidget {
 }
 
 class _StockEditorState extends State<StockEditor> {
+  int _changeStockAmountBy = 0;
+  String _numberSign = "+";
+  int _calculatedStockAmount = 0;
+
+  displaySign() {
+    if (_changeStockAmountBy <= 0) {
+      setState(() {
+        _numberSign = "+";
+      });
+    } else {
+      setState(() {
+        _numberSign = "-";
+      });
+    }
+  }
+
+  calculateNewStockAmount() {
+    int totalStock = widget.currentStock + _changeStockAmountBy;
+    setState(() {
+      _calculatedStockAmount = totalStock;
+    });
+  }
+
+  updateChangeStockAmountBy(int changeBy) {
+    int newValue = _changeStockAmountBy + changeBy;
+    setState(() {
+      _changeStockAmountBy = newValue;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    calculateNewStockAmount();
     final theme = CommonTheme();
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -24,8 +55,10 @@ class _StockEditorState extends State<StockEditor> {
             "In stock:",
             style: theme.themeData.textTheme.titleMedium,
           ),
-          Text("25", style: theme.themeData.textTheme.headlineMedium),
-          Text("+0", style: theme.themeData.textTheme.headlineMedium),
+          Text('${widget.currentStock}',
+              style: theme.themeData.textTheme.headlineMedium),
+          Text("${_changeStockAmountBy}",
+              style: theme.themeData.textTheme.headlineMedium),
           SizedBox(
             width: 100,
             child: Divider(
@@ -34,7 +67,8 @@ class _StockEditorState extends State<StockEditor> {
               color: theme.themeData.primaryColorDark,
             ),
           ),
-          Text("25", style: theme.themeData.textTheme.headlineMedium),
+          Text("${_calculatedStockAmount}",
+              style: theme.themeData.textTheme.headlineMedium),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
             child: Row(
@@ -46,6 +80,7 @@ class _StockEditorState extends State<StockEditor> {
                         text: "-10",
                         onPressed: () {
                           print("-10");
+                          updateChangeStockAmountBy(-10);
                         },
                         theme: theme.themeData,
                         colorOption: InStockButton.primary),
@@ -57,7 +92,7 @@ class _StockEditorState extends State<StockEditor> {
                     child: InStockButton(
                         text: "-1",
                         onPressed: () {
-                          print("-1");
+                          updateChangeStockAmountBy(-1);
                         },
                         theme: theme.themeData,
                         colorOption: InStockButton.primary),
@@ -70,6 +105,7 @@ class _StockEditorState extends State<StockEditor> {
                         text: "+1",
                         onPressed: () {
                           print("+1");
+                          updateChangeStockAmountBy(1);
                         },
                         theme: theme.themeData,
                         colorOption: InStockButton.secondary),
@@ -82,6 +118,7 @@ class _StockEditorState extends State<StockEditor> {
                         text: "+10",
                         onPressed: () {
                           print("+10");
+                          updateChangeStockAmountBy(10);
                         },
                         theme: theme.themeData,
                         colorOption: InStockButton.secondary),
