@@ -31,10 +31,11 @@ class _AddBusinessState extends State<AddBusiness> {
       _formKey.currentState!.save();
       BusinessService businessService = BusinessService();
       ResponseObject response =
-      await businessService.addBusiness(_businessName!, _description!);
+          await businessService.addBusiness(_businessName!, _description!);
       if (response.statusCode == 201) {
         setState(() {
-          _addBusinessSuccess = "Successfully added a business to your account.";
+          _addBusinessSuccess =
+              "Successfully added a business to your account.";
         });
       } else if (response.statusCode == 401) {
         setState(() {
@@ -42,7 +43,8 @@ class _AddBusinessState extends State<AddBusiness> {
         });
       } else if (response.statusCode == 400) {
         setState(() {
-          _addBusinessError = "A Business is already associated with your account.";
+          _addBusinessError =
+              "A Business is already associated with your account.";
         });
       } else {
         setState(() {
@@ -64,42 +66,49 @@ class _AddBusinessState extends State<AddBusiness> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
               .copyWith(statusBarColor: theme.splashColor),
-          child: SafeArea(
-            child: SizedBox(
-              width: double.infinity,
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
+          child: SingleChildScrollView(
+            child: SafeArea(
+                child: Center(
+              child: Column(
+                children: <Widget>[
                   SizedBox(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: Container(
-                      color: theme.splashColor,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: Text(
-                          "Add Business",
-                          style: theme.textTheme.headlineMedium
-                              ?.merge(const TextStyle(fontSize: 24)),
-                          textAlign: TextAlign.center,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          child: Container(
+                            color: theme.splashColor,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
+                              child: Text(
+                                "Add Business",
+                                style: theme.textTheme.bodyMedium
+                                    ?.merge(const TextStyle(fontSize: 24)),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          top: MediaQuery.of(context).size.height * 0.05 - 2,
+                          child: const InStockWave(),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.05 - 2,
-                    child: const InStockWave(),
-                  ),
+                  // End of top stuff
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        60.0, 100.0, 60.0, 60.0),
+                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const PhotoPicker(),
                         const Divider(
@@ -109,60 +118,58 @@ class _AddBusinessState extends State<AddBusiness> {
                         Form(
                           key: _formKey,
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               InStockTextInput(
-                                  text: 'Name',
-                                  theme: theme,
-                                  icon: null,
-                                  validators: const [
-                                    Validators.notNull,
-                                    Validators.notBlank,
-                                    Validators.shortLength,
-                                    Validators.noSpecialChars
-                                  ],
-                                  onSaved: (value) {
-                                    _businessName = value;
-                                  },
+                                text: 'Name',
+                                theme: theme,
+                                icon: null,
+                                validators: const [
+                                  Validators.notNull,
+                                  Validators.notBlank,
+                                  Validators.shortLength,
+                                  Validators.noSpecialChars
+                                ],
+                                onSaved: (value) {
+                                  _businessName = value;
+                                },
                               ),
                               InStockTextInput(
-                                  text: 'Description',
-                                  theme: theme,
-                                  icon: null,
-                                  maxLines: 4,
-                                  validators: const [
-                                    Validators.notNull,
-                                    Validators.notBlank,
-                                    Validators.longLength
-                                  ],
-                                  onSaved: (value) {
-                                    _description = value;
-                                  },
+                                text: 'Description',
+                                theme: theme,
+                                icon: null,
+                                maxLines: 4,
+                                validators: const [
+                                  Validators.notNull,
+                                  Validators.notBlank,
+                                  Validators.longLength
+                                ],
+                                onSaved: (value) {
+                                  _description = value;
+                                },
                               ),
                             ],
                           ),
                         ),
                         displayMessage(theme),
-                        const Spacer(),
+                        const SizedBox(height: 50),
                         InStockButton(
                           text: 'Continue',
                           theme: theme,
                           colorOption: InStockButton.primary,
                           icon: Icons.arrow_forward,
                           onPressed: () async {
-                              handleAddBusiness();
+                            handleAddBusiness();
                           },
                         ),
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
-            ),
+            )),
           ),
         ),
-        resizeToAvoidBottomInset: false
       ),
     );
   }
