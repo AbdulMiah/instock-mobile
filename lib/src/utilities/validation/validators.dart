@@ -47,15 +47,6 @@ class Validators {
     return result;
   }
 
-  static String? shortString(value) {
-    int maxLength = 20;
-
-    ValidatorUtilities utilities = ValidatorUtilities();
-    String? result = utilities.maxLength(value, maxLength);
-
-    return result;
-  }
-
   static String? noSpecialChars(value) {
     const pattern = r'^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$';
     final regexp = RegExp(pattern, caseSensitive: false);

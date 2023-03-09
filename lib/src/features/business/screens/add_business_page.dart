@@ -119,7 +119,7 @@ class _AddBusinessState extends State<AddBusiness> {
                                   validators: const [
                                     Validators.notNull,
                                     Validators.notBlank,
-                                    Validators.shortString,
+                                    Validators.shortLength,
                                     Validators.noSpecialChars
                                   ],
                                   onSaved: (value) {
