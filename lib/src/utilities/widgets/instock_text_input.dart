@@ -125,7 +125,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
                   ),
                   keyboardType: widget.isNumber ? TextInputType.number : TextInputType.text,
                   inputFormatters: widget.isNumber ? <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly] : null
+                    FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6)] : null
                 ),
               ),
             ],

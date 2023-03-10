@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/sku_text_input.dart';
+import 'package:instock_mobile/src/utilities/widgets/instock_icon_button.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/validation/validators.dart';
@@ -18,6 +22,7 @@ class AddItemPage extends StatefulWidget {
 class _AddItemPageState extends State<AddItemPage> {
   final _formKey = GlobalKey<FormState>();
   final theme = CommonTheme().themeData;
+  final TextEditingController _controller = TextEditingController();
   String? _itemName;
   String? _category;
   String? _stockLevel;
@@ -31,6 +36,24 @@ class _AddItemPageState extends State<AddItemPage> {
             content: Text('Processing Data')),
       );
     }
+  }
+
+  String generateUuid() {
+    var random = Random();
+    var uuid = '';
+    for (var i = 0; i < 12; i++) {
+      if (i == 3 || i == 6 || i == 9) {
+        uuid += '-';
+      }
+      var digit = random.nextInt(16).toRadixString(16);
+      uuid += digit;
+    }
+    return uuid;
+  }
+
+  void generateRandomSku() {
+    String uuid = generateUuid();
+    _controller.text = uuid;
   }
 
   @override
@@ -109,7 +132,6 @@ class _AddItemPageState extends State<AddItemPage> {
                                     text: 'Category',
                                     theme: theme,
                                     icon: null,
-                                    maxLines: 4,
                                     validators: const [
                                       Validators.notNull,
                                       Validators.notBlank,
@@ -123,7 +145,6 @@ class _AddItemPageState extends State<AddItemPage> {
                                     theme: theme,
                                     isNumber: true,
                                     icon: null,
-                                    maxLines: 4,
                                     validators: const [
                                       Validators.notNull,
                                       Validators.notBlank,
@@ -132,18 +153,38 @@ class _AddItemPageState extends State<AddItemPage> {
                                       _stockLevel = value;
                                     },
                                   ),
-                                  InStockTextInput(
-                                    text: 'SKU Number',
-                                    theme: theme,
-                                    icon: null,
-                                    maxLines: 4,
-                                    validators: const [
-                                      Validators.notNull,
-                                      Validators.notBlank,
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 150.0,
+                                         child: SkuTextInput(
+                                            text: 'SKU Number',
+                                            theme: theme,
+                                            icon: null,
+                                            controller: _controller,
+                                            validators: const [
+                                              Validators.notNull,
+                                              Validators.notBlank,
+                                            ],
+                                            onSaved: (value) {
+                                              _sku = value;
+                                            },
+                                         )
+                                      ),
+                                      const Spacer(),
+                                      SizedBox(
+                                        height: 60.0,
+                                        width: 80.0,
+                                        child: InStockIconButton(
+                                          onPressed: () {
+                                            generateRandomSku();
+                                          },
+                                          theme: theme,
+                                          colorOption: InStockIconButton.accent,
+                                          icon: Icons.sync,
+                                        ),
+                                      ),
                                     ],
-                                    onSaved: (value) {
-                                      _sku = value;
-                                    },
                                   ),
                                 ],
                               ),
