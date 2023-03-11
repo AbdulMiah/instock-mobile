@@ -151,7 +151,7 @@ void main() {
 
   testWidgets('notNull throws an error for null values', (tester) async {
     //Given
-    String? value = null;
+    String? value;
 
     //When
     String? response = Validators.notNull(value);
@@ -273,5 +273,53 @@ void main() {
 
     //Then
     expect(response, "Can't have special characters");
+  });
+
+  testWidgets('noSpecialChars throws an error for strings with special characters',
+          (tester) async {
+    //Given
+    String? value = "%^&!&";
+
+    //When
+    String? response = Validators.noSpecialChars(value);
+
+    //Then
+    expect(response, "No special characters");
+  });
+
+  testWidgets('noSpecialChars allows strings with no special characters',
+          (tester) async {
+    //Given
+    String? value = "There are no special characters";
+
+    //When
+    String? response = Validators.noSpecialChars(value);
+
+    //Then
+    expect(response, null);
+  });
+
+  testWidgets('longLength throws an error for strings over 180 characters',
+          (tester) async {
+    //Given
+    String? value = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. "
+        "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur rid";
+
+    //When
+    String? response = Validators.longLength(value);
+
+    //Then
+    expect(response, "Cannot be longer than 180 characters");
+  });
+
+  testWidgets('longLength allows strings less than 180 characters', (tester) async {
+    //Given
+    String? value = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.";
+
+    //When
+    String? response = Validators.longLength(value);
+
+    //Then
+    expect(response, null);
   });
 }

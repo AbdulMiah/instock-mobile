@@ -10,7 +10,7 @@ void main() {
   testWidgets('Login screen has Login text and button', (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: Login()),
       ),
     );
@@ -25,7 +25,7 @@ void main() {
   testWidgets('Login screen has Email field', (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: Login()),
       ),
     );
@@ -40,7 +40,7 @@ void main() {
   testWidgets('Login screen has Password field', (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: Login()),
       ),
     );

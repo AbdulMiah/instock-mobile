@@ -50,6 +50,25 @@ class Validators {
     return result;
   }
 
+  static String? noSpecialChars(value) {
+    const pattern = r'^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$';
+    final regexp = RegExp(pattern, caseSensitive: false);
+    if (!regexp.hasMatch(value)) {
+      return "No special characters";
+    }
+
+    return null;
+  }
+
+  static String? longLength(value) {
+    int maxLength = 180;
+
+    ValidatorUtilities utilities = ValidatorUtilities();
+    String? result = utilities.maxLength(value, maxLength);
+
+    return result;
+  }
+
   static String? noNumbers(value) {
     final RegExp regex = RegExp(r'\d+');
     bool hasNumbers = regex.hasMatch(value);

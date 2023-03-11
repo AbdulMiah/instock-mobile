@@ -14,6 +14,8 @@ import '../../navigation/navigation_bar.dart';
 import '../services/interfaces/Iauthentication_service.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -72,7 +74,7 @@ class _LoginState extends State<Login> {
     if (_loginError != null) {
       return Text(_loginError!, style: theme.themeData.textTheme.headlineSmall);
     }
-    return Text("");
+    return const Text("");
   }
 
   @override
@@ -115,7 +117,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                           ),
-                          Positioned(
+                          const Positioned(
                               top: 10,
                               left: 10,
                               child: InStockBackButton(
@@ -124,7 +126,7 @@ class _LoginState extends State<Login> {
                               )),
                           Positioned(
                             top: MediaQuery.of(context).size.height * 0.2 - 2,
-                            child: InStockWave(),
+                            child: const InStockWave(),
                           )
                         ],
                       ),
