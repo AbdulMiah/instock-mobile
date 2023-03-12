@@ -50,7 +50,7 @@ class Validators {
     return result;
   }
 
-  static String? noSpecialChars(value) {
+  static String? noSpecialCharacters(value) {
     const pattern = r'^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$';
     final regexp = RegExp(pattern, caseSensitive: false);
     if (!regexp.hasMatch(value)) {
@@ -79,11 +79,11 @@ class Validators {
     }
   }
 
-  static String? noSpecialCharacters(value) {
-    RegExp regex = RegExp(r"[^\w\s\'-]");
+  static String? nameValidation(value) {
+    RegExp regex = RegExp(r"[^\w\s\'\-.]");
     bool hasSpecialCharacters = regex.hasMatch(value);
     if (hasSpecialCharacters) {
-      return "Can't have special characters";
+      return "Can't have special characters except hyphens, apostrophes and points";
     } else {
       return null;
     }

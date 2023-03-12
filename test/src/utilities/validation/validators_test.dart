@@ -218,12 +218,12 @@ void main() {
     expect(response, null);
   });
 
-  testWidgets('noSpecial characters allows Stephens Name', (tester) async {
+  testWidgets('nameValidation characters allows Stephens Name', (tester) async {
     //Given
     String? value = "Stephen O'Keefe";
 
     //When
-    String? response = Validators.noSpecialCharacters(value);
+    String? response = Validators.nameValidation(value);
 
     //Then
     expect(response, null);
@@ -240,67 +240,70 @@ void main() {
     expect(response, "Can't have numbers");
   });
 
-  testWidgets('noSpecial characters does not allow special characters',
-      (tester) async {
+  testWidgets('nameValidation characters does not allow signs', (tester) async {
     //Given
     String? value = "Stephen O'Keefe ££";
 
     //When
-    String? response = Validators.noSpecialCharacters(value);
+    String? response = Validators.nameValidation(value);
 
     //Then
-    expect(response, "Can't have special characters");
+    expect(response,
+        "Can't have special characters except hyphens, apostrophes and points");
   });
 
-  testWidgets('noSpecial characters allows hyphenated names', (tester) async {
+  testWidgets('nameValidation characters allows hyphenated names',
+      (tester) async {
     //Given
     String? value = "Stephen O-Keefe";
 
     //When
-    String? response = Validators.noSpecialCharacters(value);
+    String? response = Validators.nameValidation(value);
 
     //Then
     expect(response, null);
   });
 
-  testWidgets('noSpecial characters does not allow punctuation',
+  testWidgets('nameValidation characters does not allow punctuation',
       (tester) async {
     //Given
     String? value = "Stephen O'Keefe !!!!!";
 
     //When
-    String? response = Validators.noSpecialCharacters(value);
+    String? response = Validators.nameValidation(value);
 
     //Then
-    expect(response, "Can't have special characters");
+    expect(response,
+        "Can't have special characters except hyphens, apostrophes and points");
   });
 
-  testWidgets('noSpecialChars throws an error for strings with special characters',
-          (tester) async {
+  testWidgets(
+      'noSpecialCharacters throws an error for strings with special characters',
+      (tester) async {
     //Given
     String? value = "%^&!&";
 
     //When
-    String? response = Validators.noSpecialChars(value);
+    String? response = Validators.noSpecialCharacters(value);
 
     //Then
     expect(response, "No special characters");
   });
 
-  testWidgets('noSpecialChars allows strings with no special characters',
-          (tester) async {
+  testWidgets('noSpecialCharacters allows strings with no special characters',
+      (tester) async {
     //Given
     String? value = "There are no special characters";
 
     //When
-    String? response = Validators.noSpecialChars(value);
+    String? response = Validators.noSpecialCharacters(value);
 
     //Then
     expect(response, null);
   });
 
   testWidgets('longLength throws an error for strings over 180 characters',
-          (tester) async {
+      (tester) async {
     //Given
     String? value = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. "
         "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur rid";
@@ -312,7 +315,8 @@ void main() {
     expect(response, "Cannot be longer than 180 characters");
   });
 
-  testWidgets('longLength allows strings less than 180 characters', (tester) async {
+  testWidgets('longLength allows strings less than 180 characters',
+      (tester) async {
     //Given
     String? value = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.";
 

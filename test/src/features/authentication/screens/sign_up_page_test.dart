@@ -49,7 +49,7 @@ void main() {
   });
 
   testWidgets(
-      'Sign Up first name is not null, short and has no numbers or special characters',
+      'Sign Up first name is not null, short, has no numbers and allows name validation ',
       (tester) async {
     //Given
     await tester.pumpWidget(
@@ -68,12 +68,12 @@ void main() {
       Validators.notBlank,
       Validators.shortLength,
       Validators.noNumbers,
-      Validators.noSpecialCharacters,
+      Validators.nameValidation,
     ]);
   });
 
   testWidgets(
-      'Sign Up last name is not null, short and has no numbers or special characters',
+      'Sign Up last name is not null, short, has no numbers and allows name validation',
       (tester) async {
     //Given
     await tester.pumpWidget(
@@ -91,7 +91,7 @@ void main() {
       Validators.notBlank,
       Validators.shortLength,
       Validators.noNumbers,
-      Validators.noSpecialCharacters,
+      Validators.nameValidation,
     ]);
   });
 

@@ -9,7 +9,7 @@ import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/wave.dart';
-import '../../navigation/navigation_bar.dart';
+import '../../business/screens/add_business_page.dart';
 import '../data/sign_up_dto.dart';
 import '../services/authentication_service.dart';
 import '../services/interfaces/Iauthentication_service.dart';
@@ -61,7 +61,7 @@ class _SignUpState extends State<SignUp> {
       if (response.statusCode == 201) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const NavBar()),
+          MaterialPageRoute(builder: (context) => const AddBusiness()),
         );
       } else if (response.statusCode == 404) {
         setState(() {
@@ -175,7 +175,7 @@ class _SignUpState extends State<SignUp> {
                                     Validators.notBlank,
                                     Validators.shortLength,
                                     Validators.noNumbers,
-                                    Validators.noSpecialCharacters,
+                                    Validators.nameValidation,
                                   ],
                                   onSaved: (value) {
                                     _firstName = value;
@@ -197,7 +197,7 @@ class _SignUpState extends State<SignUp> {
                                       Validators.notBlank,
                                       Validators.shortLength,
                                       Validators.noNumbers,
-                                      Validators.noSpecialCharacters,
+                                      Validators.nameValidation,
                                     ],
                                     onChanged: (value) {
                                       _lastName = value;
