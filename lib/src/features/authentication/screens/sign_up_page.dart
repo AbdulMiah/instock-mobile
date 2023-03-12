@@ -57,7 +57,8 @@ class _SignUpState extends State<SignUp> {
       //Auth service handling
       ResponseObject response =
           await _authenticationService.createUserAndAuthenticate(userDetails);
-      if (response.statusCode == 200) {
+      print(response.toString());
+      if (response.statusCode == 201) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const NavBar()),

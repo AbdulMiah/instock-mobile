@@ -69,7 +69,7 @@ class AuthenticationService implements IAuthenticationService {
     Validators.shortLength(userDetails.email);
     Validators.shortLength(userDetails.password);
 
-    final url = Uri.parse('http://api.instockinventory.co.uk/user/create');
+    final url = Uri.parse('http://api.instockinventory.co.uk/user');
     var data = new Map<String, dynamic>();
     data['firstName'] = userDetails.firstName;
     data['lastName'] = userDetails.lastName;
@@ -83,8 +83,9 @@ class AuthenticationService implements IAuthenticationService {
 
     ResponseObject responseObject =
         ResponseObject(response.statusCode, response.body);
-
-    if (response.statusCode == 200) {
+    print("==== Service ====");
+    print(responseObject.toString());
+    if (response.statusCode == 201) {
       String bearerToken = response.body;
       _saveBearerToken(bearerToken);
       return (responseObject);
