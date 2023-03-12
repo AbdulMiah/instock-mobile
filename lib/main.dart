@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
         ),
       ),
-      home: const AuthCheck(),
+      home: AuthCheck(),
     );
   }
 }

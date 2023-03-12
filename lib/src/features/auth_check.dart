@@ -4,16 +4,15 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 import 'authentication/screens/welcome_page.dart';
 import 'authentication/services/authentication_service.dart';
+import 'authentication/services/interfaces/Iauthentication_service.dart';
 import 'navigation/navigation_bar.dart';
 
 class AuthCheck extends StatelessWidget {
-  late IAuthenticationService _authenticationService;
+  IAuthenticationService _authenticationService = AuthenticationService();
 
   AuthCheck() {
     _authenticationService = AuthenticationService();
   }
-
-  const AuthCheck({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class AuthCheck extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(
-          future: AuthenticationService.retrieveBearerToken(),
+          future: _authenticationService.retrieveBearerToken(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.data != null) {
               Map jwtTokenDict = snapshot.data;

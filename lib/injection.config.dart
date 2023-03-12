@@ -12,11 +12,11 @@ import 'app_module.dart' as _i8;
 import 'src/features/authentication/services/authentication_service.dart'
     as _i3;
 import 'src/features/authentication/services/interfaces/Iauthentication_service.dart'
-    as _i4;
-import 'src/features/inventory/services/inventory_service.dart' as _i7;
-import 'src/utilities/services/interfaces/Isecure_storage_service.dart' as _i5;
+    as _i7;
+import 'src/features/inventory/services/inventory_service.dart' as _i6;
+import 'src/utilities/services/interfaces/Isecure_storage_service.dart' as _i4;
 import 'src/utilities/services/secure_storage_service.dart'
-    as _i6; // ignore_for_file: unnecessary_lambdas
+    as _i5; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -35,11 +35,10 @@ Future<_i1.GetIt> $initGetIt(
     () => appModule.authenticationService,
     preResolve: true,
   );
-  gh.factory<_i4.IAuthenticationService>(() => _i3.AuthenticationService());
-  gh.factory<_i5.ISecureStorageService>(() => _i6.SecureStorageService());
-  gh.factory<_i7.InventoryService>(
-      () => _i7.InventoryService(get<_i4.IAuthenticationService>()));
-  await gh.factoryAsync<_i6.SecureStorageService>(
+  gh.factory<_i4.ISecureStorageService>(() => _i5.SecureStorageService());
+  gh.factory<_i6.InventoryService>(
+      () => _i6.InventoryService(get<_i7.IAuthenticationService>()));
+  await gh.factoryAsync<_i5.SecureStorageService>(
     () => appModule.secureStorageService,
     preResolve: true,
   );

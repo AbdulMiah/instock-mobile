@@ -18,6 +18,7 @@ class AddBusiness extends StatefulWidget {
 }
 
 class _AddBusinessState extends State<AddBusiness> {
+  BusinessService _businessService = BusinessService();
   final _formKey = GlobalKey<FormState>();
   final theme = CommonTheme().themeData;
   String? _businessName;
@@ -29,9 +30,8 @@ class _AddBusinessState extends State<AddBusiness> {
     _addBusinessError = null;
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      BusinessService businessService = BusinessService();
       ResponseObject response =
-          await businessService.addBusiness(_businessName!, _description!);
+          await _businessService.addBusiness(_businessName!, _description!);
       if (response.statusCode == 201) {
         setState(() {
           _addBusinessSuccess =

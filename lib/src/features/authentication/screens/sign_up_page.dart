@@ -100,7 +100,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = CommonTheme().themeData;
+    final theme = CommonTheme();
     return MaterialApp(
         //Hides debug banner
         debugShowCheckedModeBanner: false,

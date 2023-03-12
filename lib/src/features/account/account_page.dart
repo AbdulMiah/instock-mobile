@@ -38,7 +38,7 @@ class _AccountPageState extends State<AccountPage> {
                   await _secureStorageService.delete("bearerToken");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const AuthCheck()),
+                    MaterialPageRoute(builder: (context) => AuthCheck()),
                   );
                 },
                 theme: theme,
