@@ -83,8 +83,6 @@ class AuthenticationService implements IAuthenticationService {
 
     ResponseObject responseObject =
         ResponseObject(response.statusCode, response.body);
-    print("==== Service ====");
-    print(responseObject.toString());
     if (response.statusCode == 201) {
       String bearerToken = response.body;
       _saveBearerToken(bearerToken);

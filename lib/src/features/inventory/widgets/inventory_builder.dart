@@ -21,10 +21,7 @@ class InventoryBuilder extends StatelessWidget {
     return FutureBuilder(
         future: inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print("=== COME ON ===");
-          print(snapshot.data);
           if (snapshot.data == null) {
-            print("=== STOP ===");
             return Center(
                 child: CircularProgressIndicator(
               // backgroundColor: theme.themeData.splashColor,
@@ -32,7 +29,6 @@ class InventoryBuilder extends StatelessWidget {
             ));
           }
           if (snapshot.data.length == 0) {
-            print("=== EMPTY ===");
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
