@@ -1,4 +1,4 @@
-class SignUpDTO {
+class SignUpDto {
   String firstName;
 
   String lastName;
@@ -7,5 +7,5 @@ class SignUpDTO {
 
   String password;
 
-  SignUpDTO(this.firstName, this.lastName, this.email, this.password);
+  SignUpDto(this.firstName, this.lastName, this.email, this.password);
 }

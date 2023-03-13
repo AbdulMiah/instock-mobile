@@ -6,7 +6,7 @@ class IAuthenticationService {
     return Future<ResponseObject>.value();
   }
 
-  Future<ResponseObject> createUserAndAuthenticate(SignUpDTO userDetails) {
+  Future<ResponseObject> createUserAndAuthenticate(SignUpDto userDetails) {
     return Future<ResponseObject>.value();
   }
 

@@ -49,7 +49,6 @@ class AuthenticationService implements IAuthenticationService {
     }
   }
 
-  @override
   _saveBearerToken(String bearerToken) async {
     await _secureStorageService.write("bearerToken", bearerToken);
   }
@@ -63,7 +62,7 @@ class AuthenticationService implements IAuthenticationService {
 
   @override
   Future<ResponseObject> createUserAndAuthenticate(
-      SignUpDTO userDetails) async {
+      SignUpDto userDetails) async {
     Validators.isEmail(userDetails.email);
     Validators.validatePassword(userDetails.password);
     Validators.shortLength(userDetails.email);

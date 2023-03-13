@@ -51,13 +51,12 @@ class _SignUpState extends State<SignUp> {
         return null;
       }
 
-      SignUpDTO userDetails =
-          SignUpDTO(_firstName!, _lastName!, _email!, _password!);
+      SignUpDto userDetails =
+          SignUpDto(_firstName!, _lastName!, _email!, _password!);
 
       //Auth service handling
       ResponseObject response =
           await _authenticationService.createUserAndAuthenticate(userDetails);
-      print(response.toString());
       if (response.statusCode == 201) {
         Navigator.push(
           context,
@@ -146,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                               left: 10,
                               child: InStockBackButton(
                                 page: Welcome(),
-                                colorOption: InStockButton.primary,
+                                colorOption: InStockBackButton.primary,
                               )),
                           Positioned(
                             top: MediaQuery.of(context).size.height * 0.18 - 2,
