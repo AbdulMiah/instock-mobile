@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/sku_text_input.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_icon_button.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
@@ -21,21 +23,48 @@ class AddItem extends StatefulWidget {
 
 class _AddItemState extends State<AddItem> {
   final _formKey = GlobalKey<FormState>();
-  final theme = CommonTheme().themeData;
   final TextEditingController _controller = TextEditingController();
+  ItemService itemService = ItemService();
   String? _itemName;
   String? _category;
   String? _stockLevel;
   String? _sku;
+  String? _addItemError;
+  String? _addItemSuccess;
 
   handleAddItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      return ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Processing Data')),
-      );
+      ResponseObject response =
+      await itemService.addItem(_itemName!, _category!, _stockLevel!, _sku!);
+      if (response.statusCode == 201) {
+        setState(() {
+          _addItemSuccess =
+          "Successfully added a item to your inventory.";
+        });
+        return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Processing Data')),
+        );
+      } else if (response.statusCode == 401) {
+        setState(() {
+          _addItemError = "Whoops something went wrong, please try again";
+        });
+      } else {
+        setState(() {
+          // _addItemError = response.message;
+          _addItemError = "A network error occurred";
+        });
+      }
     }
+  }
+
+  displayMessage(ThemeData theme) {
+    if (_addItemError != null) {
+      return Text(_addItemError!, style: theme.textTheme.headlineSmall);
+    } else if (_addItemSuccess != null) {
+      return Text(_addItemSuccess!, style: theme.textTheme.labelSmall);
+    }
+    return const Text("");
   }
 
   String generateUuid() {
@@ -58,6 +87,7 @@ class _AddItemState extends State<AddItem> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = CommonTheme().themeData;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -81,7 +111,7 @@ class _AddItemState extends State<AddItem> {
                               child: Container(
                                 color: theme.splashColor,
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
+                                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                                   child: Text(
                                     "Add Item",
                                     style: theme.textTheme.bodyMedium
@@ -98,7 +128,6 @@ class _AddItemState extends State<AddItem> {
                           ],
                         ),
                       ),
-                      // End of top stuff
                       Padding(
                         padding: const EdgeInsets.all(60.0),
                         child: Column(
@@ -150,7 +179,7 @@ class _AddItemState extends State<AddItem> {
                                       Validators.notBlank,
                                     ],
                                     onSaved: (value) {
-                                      _stockLevel = value;
+                                      _stockLevel = value.toString();
                                     },
                                   ),
                                   Row(
@@ -189,7 +218,7 @@ class _AddItemState extends State<AddItem> {
                                 ],
                               ),
                             ),
-                            // displayMessage(theme),
+                            displayMessage(theme),
                             const SizedBox(height: 20),
                             InStockButton(
                               text: 'Add Item',
