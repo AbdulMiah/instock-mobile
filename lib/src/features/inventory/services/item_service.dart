@@ -15,7 +15,7 @@ class ItemService {
 
     String businessId = payload["BusinessId"];
 
-    final url = Uri.parse('https://localhost:7082/businesses/$businessId/items');
+    final url = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
     var data = Map<String, dynamic>();
     data['name'] = name;
     data['category'] = category;
@@ -35,8 +35,6 @@ class ItemService {
 
     ResponseObject responseObject =
     ResponseObject(response.statusCode, response.body);
-
-    print(response.statusCode);
 
     return (responseObject);
   }

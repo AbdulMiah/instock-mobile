@@ -119,6 +119,7 @@ class _SkuTextInputState extends State<SkuTextInput> {
                     ),
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(15),
+                      UpperCaseTextFormatter()
                     ],
                 ),
               ),
@@ -127,6 +128,17 @@ class _SkuTextInputState extends State<SkuTextInput> {
         ),
         displayErrorMessage(),
       ],
+    );
+  }
+}
+
+// Taken from https://stackoverflow.com/questions/49238908/flutter-textfield-value-always-uppercase-debounce
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -39,20 +40,30 @@ class _AddItemState extends State<AddItem> {
       await itemService.addItem(_itemName!, _category!, _stockLevel!, _sku!);
       if (response.statusCode == 201) {
         setState(() {
-          _addItemSuccess =
-          "Successfully added a item to your inventory.";
+          _addItemError = null;
+          _addItemSuccess = "Successfully added a item to your inventory.";
         });
-        return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Processing Data')),
-        );
       } else if (response.statusCode == 401) {
         setState(() {
           _addItemError = "Whoops something went wrong, please try again";
         });
+      } else if (response.statusCode == 400) {
+        setState(() {
+          var data = json.decode(response.message);
+          String duplicateName = data['errors']['duplicateItemName'].toString();
+          String duplicateSku = data['errors']['duplicateSKU'].toString();
+
+          if (duplicateName != "null" && duplicateSku != "null") {
+            _addItemError = "${duplicateName.substring(1, duplicateName.length - 1)}\n\n${duplicateSku.substring(1, duplicateSku.length - 1)}";
+          } else if (duplicateName != "null") {
+            _addItemError = duplicateName.substring(1, duplicateName.length - 1);
+          } else if (duplicateSku != "null") {
+            _addItemError = duplicateSku.substring(1, duplicateSku.length - 1);
+          }
+        });
       } else {
         setState(() {
-          // _addItemError = response.message;
-          _addItemError = "A network error occurred";
+          _addItemError = response.message;
         });
       }
     }
