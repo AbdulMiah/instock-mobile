@@ -12,14 +12,14 @@ import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
 
-class AddItemPage extends StatefulWidget {
-  const AddItemPage({super.key});
+class AddItem extends StatefulWidget {
+  const AddItem({super.key});
 
   @override
-  State<AddItemPage> createState() => _AddItemPageState();
+  State<AddItem> createState() => _AddItemState();
 }
 
-class _AddItemPageState extends State<AddItemPage> {
+class _AddItemState extends State<AddItem> {
   final _formKey = GlobalKey<FormState>();
   final theme = CommonTheme().themeData;
   final TextEditingController _controller = TextEditingController();
@@ -45,8 +45,8 @@ class _AddItemPageState extends State<AddItemPage> {
       if (i == 3 || i == 6 || i == 9) {
         uuid += '-';
       }
-      var digit = random.nextInt(16).toRadixString(16);
-      uuid += digit;
+      var hex = random.nextInt(16).toRadixString(16);
+      uuid += hex.toUpperCase();
     }
     return uuid;
   }

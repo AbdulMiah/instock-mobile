@@ -20,7 +20,7 @@ class _NavBarState extends State<NavBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     Inventory(),
     StatsPage(),
-    AddItemPage(),
+    AddItem(),
     BusinessPage(),
     AccountPage(),
   ];
