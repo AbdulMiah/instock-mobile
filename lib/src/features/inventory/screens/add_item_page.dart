@@ -83,7 +83,7 @@ class _AddItemState extends State<AddItem> {
     if (_addItemError != null) {
       return Text(_addItemError!, style: theme.textTheme.headlineSmall);
     } else if (_addItemSuccess != null) {
-      return Text(_addItemSuccess!, style: theme.textTheme.labelSmall);
+      return Text(_addItemSuccess!, style: theme.textTheme.labelMedium);
     }
     return const Text("");
   }
