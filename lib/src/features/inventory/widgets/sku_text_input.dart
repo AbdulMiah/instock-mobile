@@ -95,7 +95,7 @@ class _SkuTextInputState extends State<SkuTextInput> {
                         BorderSide(color: widget.theme.highlightColor)),
                   ),
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(6),
+                    LengthLimitingTextInputFormatter(15),
                     UpperCaseTextFormatter()
                   ],
               ),
