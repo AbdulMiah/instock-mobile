@@ -14,20 +14,8 @@ class StockEditor extends StatefulWidget {
 
 class _StockEditorState extends State<StockEditor> {
   int _changeStockAmountBy = 0;
-  String _numberSign = "+";
   int _calculatedStockAmount = 0;
-
-  displaySign() {
-    if (_changeStockAmountBy <= 0) {
-      setState(() {
-        _numberSign = "+";
-      });
-    } else {
-      setState(() {
-        _numberSign = "-";
-      });
-    }
-  }
+  Widget selected = 
 
   calculateNewStockAmount() {
     int totalStock = widget.currentStock + _changeStockAmountBy;
