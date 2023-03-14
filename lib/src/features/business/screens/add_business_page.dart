@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/business/services/business_service.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
 import '../../../theme/common_theme.dart';
@@ -18,25 +19,23 @@ class AddBusiness extends StatefulWidget {
 }
 
 class _AddBusinessState extends State<AddBusiness> {
+  BusinessService _businessService = BusinessService();
   final _formKey = GlobalKey<FormState>();
-  final theme = CommonTheme().themeData;
   String? _businessName;
   String? _description;
   String? _addBusinessError;
-  String? _addBusinessSuccess;
 
   handleAddBusiness() async {
     _addBusinessError = null;
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      BusinessService businessService = BusinessService();
       ResponseObject response =
-          await businessService.addBusiness(_businessName!, _description!);
+          await _businessService.addBusiness(_businessName!, _description!);
       if (response.statusCode == 201) {
-        setState(() {
-          _addBusinessSuccess =
-              "Successfully added a business to your account.";
-        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const NavBar()),
+        );
       } else if (response.statusCode == 401) {
         setState(() {
           _addBusinessError = "Whoops something went wrong, please try again";
@@ -57,21 +56,20 @@ class _AddBusinessState extends State<AddBusiness> {
   displayMessage(ThemeData theme) {
     if (_addBusinessError != null) {
       return Text(_addBusinessError!, style: theme.textTheme.headlineSmall);
-    } else if (_addBusinessSuccess != null) {
-      return Text(_addBusinessSuccess!, style: theme.textTheme.labelSmall);
     }
     return const Text("");
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = CommonTheme();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
-              .copyWith(statusBarColor: theme.splashColor),
+              .copyWith(statusBarColor: theme.themeData.splashColor),
           child: SingleChildScrollView(
             child: SafeArea(
                 child: Center(
@@ -86,12 +84,12 @@ class _AddBusinessState extends State<AddBusiness> {
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.05,
                           child: Container(
-                            color: theme.splashColor,
+                            color: theme.themeData.splashColor,
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
                               child: Text(
                                 "Add Business",
-                                style: theme.textTheme.bodyMedium
+                                style: theme.themeData.textTheme.bodyMedium
                                     ?.merge(const TextStyle(fontSize: 24)),
                                 textAlign: TextAlign.center,
                               ),
@@ -123,46 +121,49 @@ class _AddBusinessState extends State<AddBusiness> {
                             children: [
                               InStockTextInput(
                                 text: 'Name',
-                                theme: theme,
+                                theme: theme.themeData,
                                 icon: null,
                                 validators: const [
                                   Validators.notNull,
                                   Validators.notBlank,
                                   Validators.shortLength,
-                                  Validators.noSpecialChars
+                                  Validators.nameValidation,
                                 ],
                                 onSaved: (value) {
                                   _businessName = value;
                                 },
                               ),
-                              InStockTextInput(
-                                text: 'Description',
-                                theme: theme,
-                                icon: null,
-                                maxLines: 4,
-                                validators: const [
-                                  Validators.notNull,
-                                  Validators.notBlank,
-                                  Validators.longLength
-                                ],
-                                onSaved: (value) {
-                                  _description = value;
-                                },
+                              Padding(
+                                padding: theme.textFieldPadding,
+                                child: InStockTextInput(
+                                  text: 'Description',
+                                  theme: theme.themeData,
+                                  icon: null,
+                                  maxLines: 4,
+                                  validators: const [
+                                    Validators.notNull,
+                                    Validators.notBlank,
+                                    Validators.longLength
+                                  ],
+                                  onSaved: (value) {
+                                    _description = value;
+                                  },
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        displayMessage(theme),
                         const SizedBox(height: 50),
                         InStockButton(
                           text: 'Continue',
-                          theme: theme,
+                          theme: theme.themeData,
                           colorOption: InStockButton.primary,
                           icon: Icons.arrow_forward,
                           onPressed: () async {
                             handleAddBusiness();
                           },
                         ),
+                        displayMessage(theme.themeData),
                       ],
                     ),
                   )

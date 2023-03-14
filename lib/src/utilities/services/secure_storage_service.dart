@@ -1,6 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
+import 'package:instock_mobile/src/utilities/services/interfaces/Isecure_storage_service.dart';
 
-class SecureStorageService {
+@Injectable(as: ISecureStorageService)
+class SecureStorageService implements ISecureStorageService {
+  static Future<SecureStorageService> init() async {
+    return SecureStorageService();
+  }
+
   // Create storage
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
         encryptedSharedPreferences: true,
@@ -14,6 +21,7 @@ class SecureStorageService {
   // await storage.write(key: key, value: value, iOptions: options);
 
   // Read value
+  @override
   Future<String?> get(String key) async {
     String? value =
         await storage.read(key: key, aOptions: _getAndroidOptions());
@@ -28,17 +36,20 @@ class SecureStorageService {
   }
 
   // Delete value
-  delete(String key) async {
+  @override
+  void delete(String key) async {
     await storage.delete(key: key, aOptions: _getAndroidOptions());
   }
 
   // Delete all
-  deleteAll() async {
+  @override
+  void deleteAll() async {
     await storage.deleteAll(aOptions: _getAndroidOptions());
   }
 
   // Write value
-  write(String key, String value) async {
+  @override
+  void write(String key, String value) async {
     await storage.write(key: key, value: value, aOptions: _getAndroidOptions());
   }
 }
