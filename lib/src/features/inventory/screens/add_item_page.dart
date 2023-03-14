@@ -16,6 +16,7 @@ import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
 import '../data/item.dart';
 import '../utils/generate_uuid.dart';
+import 'item_details_page.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -36,7 +37,6 @@ class _AddItemState extends State<AddItem> {
   String? _stockLevel;
   String? _sku;
   String? _addItemError;
-  String? _addItemSuccess;
 
   handleAddItem() async {
     if (_formKey.currentState!.validate()) {
@@ -45,10 +45,18 @@ class _AddItemState extends State<AddItem> {
       ResponseObject response = await _inventoryService.addItem(newItem);
 
       if (response.statusCode == 201) {
-        setState(() {
-          _addItemError = null;
-          _addItemSuccess = "Successfully added an item to your inventory.";
-        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemDetails(
+              itemName: _itemName!,
+              itemCategory: _category!,
+              itemSku: _sku!,
+              itemStockNo: _stockLevel!,
+              itemOrdersNo: "N/A",
+            ),
+          ),
+        );
       } else if (response.statusCode == 401) {
         setState(() {
           _addItemError = "Whoops something went wrong, please try again";
@@ -82,8 +90,6 @@ class _AddItemState extends State<AddItem> {
   displayMessage(ThemeData theme) {
     if (_addItemError != null) {
       return Text(_addItemError!, style: theme.textTheme.headlineSmall);
-    } else if (_addItemSuccess != null) {
-      return Text(_addItemSuccess!, style: theme.textTheme.labelMedium);
     }
     return const Text("");
   }
