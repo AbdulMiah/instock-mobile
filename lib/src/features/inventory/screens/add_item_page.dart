@@ -242,6 +242,7 @@ class _AddItemState extends State<AddItem> {
                               padding: theme.textFieldPadding,
                               child: InStockButton(
                                 text: 'Add Item',
+                                icon: Icons.add,
                                 theme: theme.themeData,
                                 colorOption: InStockButton.accent,
                                 onPressed: () async {
