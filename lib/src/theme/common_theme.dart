@@ -6,6 +6,8 @@ class CommonTheme {
   static const whiteColor = Color(0xffFFFFFF);
   static const pinkColor = Color(0xffEA5480);
   static const offWhiteColor = Color(0xffD9D8D8);
+
+  EdgeInsets textFieldPadding = const EdgeInsets.fromLTRB(0, 24.0, 0, 0);
   ThemeData themeData = ThemeData(
     primaryColorDark: blackColor,
     primaryColorLight: whiteColor,
@@ -30,6 +32,11 @@ class CommonTheme {
           color: blackColor, fontSize: 24, fontWeight: FontWeight.bold),
       // Error Message
       headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
+      // Success Message
+      labelSmall: TextStyle(color: greenColor, fontSize: 18),
+
+      labelMedium: TextStyle(
+          color: blackColor, fontSize: 18, fontWeight: FontWeight.bold),
     ),
   );
 }

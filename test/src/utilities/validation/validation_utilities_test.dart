@@ -14,7 +14,7 @@ void main() {
     String? response = validatorUtilities.maxLength(value, maxLength);
 
     //Then
-    expect(response, "Cannot be longer than ${maxLength} characters");
+    expect(response, "Cannot be longer than $maxLength characters");
   });
 
   testWidgets(
@@ -44,7 +44,7 @@ void main() {
     String? response = validatorUtilities.minLength(value, minLength);
 
     //Then
-    expect(response, "Cannot be shorter than ${minLength} characters");
+    expect(response, "Cannot be shorter than $minLength characters");
   });
 
   testWidgets(

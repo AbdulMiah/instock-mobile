@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
 
-void main() {
+import 'injection.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   runApp(const MyApp());
 }
 

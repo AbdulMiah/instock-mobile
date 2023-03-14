@@ -11,13 +11,22 @@ import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../navigation/navigation_bar.dart';
+import '../services/interfaces/Iauthentication_service.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  IAuthenticationService? _authenticationService;
+
+  _LoginState() {
+    _authenticationService = AuthenticationService();
+  }
+
   //Global formkey for login form
   final _formKey = GlobalKey<FormState>();
   String? _email;
@@ -27,7 +36,9 @@ class _LoginState extends State<Login> {
 
   handleLogin() async {
     _loginError = null;
-    if (_formKey.currentState!.validate()) {
+    //99% sure this isnt doing anything
+    final FormState? form = _formKey.currentState;
+    if (form!.validate()) {
       _formKey.currentState!.save();
       AuthenticationService authenticationService = AuthenticationService();
       ResponseObject response =
@@ -59,16 +70,16 @@ class _LoginState extends State<Login> {
     });
   }
 
-  displayLoginError(ThemeData theme) {
+  displayLoginError(CommonTheme theme) {
     if (_loginError != null) {
-      return Text(_loginError!, style: theme.textTheme.headlineSmall);
+      return Text(_loginError!, style: theme.themeData.textTheme.headlineSmall);
     }
-    return Text("");
+    return const Text("");
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = CommonTheme().themeData;
+    final theme = CommonTheme();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -76,7 +87,7 @@ class _LoginState extends State<Login> {
           //bar behind notifications appears grey which seems out of place with the rest of the page
           body: AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle.light
-                .copyWith(statusBarColor: theme.splashColor),
+                .copyWith(statusBarColor: theme.themeData.splashColor),
             child: SingleChildScrollView(
               child: SafeArea(
                 child: Column(
@@ -91,30 +102,31 @@ class _LoginState extends State<Login> {
                             width: double.infinity,
                             height: MediaQuery.of(context).size.height * 0.2,
                             child: Container(
-                              color: theme.splashColor,
+                              color: theme.themeData.splashColor,
                               child: Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(0, 48.0, 0, 0),
                                 child: Column(children: <Widget>[
                                   Text(
                                     "Login",
-                                    style: theme.textTheme.displayLarge,
+                                    style:
+                                        theme.themeData.textTheme.displayLarge,
                                     textAlign: TextAlign.center,
                                   ),
                                 ]),
                               ),
                             ),
                           ),
-                          Positioned(
+                          const Positioned(
                               top: 10,
                               left: 10,
                               child: InStockBackButton(
                                 page: Welcome(),
-                                colorOption: InStockBackButton.primary,
+                                colorOption: InStockButton.primary,
                               )),
                           Positioned(
                             top: MediaQuery.of(context).size.height * 0.2 - 2,
-                            child: InStockWave(),
+                            child: const InStockWave(),
                           )
                         ],
                       ),
@@ -129,7 +141,7 @@ class _LoginState extends State<Login> {
                             children: <Widget>[
                               InStockTextInput(
                                   text: 'Email',
-                                  theme: theme,
+                                  theme: theme.themeData,
                                   icon: Icons.person,
                                   validators: const [
                                     Validators.notNull,
@@ -140,13 +152,13 @@ class _LoginState extends State<Login> {
                                     _email = value;
                                   }),
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
+                                padding: theme.textFieldPadding,
                                 child: InStockTextInput(
                                   text: 'Password',
-                                  theme: theme,
+                                  theme: theme.themeData,
                                   icon: Icons.lock,
                                   validators: const [
+                                    Validators.shortLength,
                                     Validators.notNull,
                                     Validators.notBlank,
                                   ],
@@ -168,7 +180,7 @@ class _LoginState extends State<Login> {
                                       handleLogin();
                                       toggleLoading(false);
                                     },
-                                    theme: theme,
+                                    theme: theme.themeData,
                                     colorOption: InStockButton.accent,
                                     isLoading: _isLoading,
                                   ),

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
-import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/back_button.dart';
 
 void main() {
   testWidgets('Back Button renders', (tester) async {
     //Given
-    CommonTheme commonTheme = CommonTheme();
-
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: InStockBackButton(
             page: Welcome(),
@@ -29,10 +26,8 @@ void main() {
 
   testWidgets('Back Button can redirect to page on tap', (tester) async {
     //Given
-    CommonTheme commonTheme = CommonTheme();
-
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: InStockBackButton(
             page: Welcome(),

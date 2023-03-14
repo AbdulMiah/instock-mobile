@@ -4,28 +4,35 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 import 'authentication/screens/welcome_page.dart';
 import 'authentication/services/authentication_service.dart';
+import 'authentication/services/interfaces/Iauthentication_service.dart';
 import 'navigation/navigation_bar.dart';
 
 class AuthCheck extends StatelessWidget {
+  IAuthenticationService _authenticationService = AuthenticationService();
+
+  AuthCheck() {
+    _authenticationService = AuthenticationService();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = CommonTheme().themeData;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(
-          future: AuthenticationService.retrieveBearerToken(),
+          future: _authenticationService.retrieveBearerToken(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.data != null) {
               Map jwtTokenDict = snapshot.data;
               String? jwtToken = jwtTokenDict["bearerToken"];
               if (jwtToken == null) {
-                return Welcome();
+                return const Welcome();
               }
               bool tokenIsExpired = Jwt.isExpired(jwtToken);
               if (tokenIsExpired) {
-                return Welcome();
+                return const Welcome();
               } else {
-                return NavBar();
+                return const NavBar();
               }
             }
             return Center(

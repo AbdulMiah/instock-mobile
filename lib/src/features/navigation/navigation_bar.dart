@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/account/account_page.dart';
-import 'package:instock_mobile/src/features/business/business_page.dart';
 import 'package:instock_mobile/src/features/inventory/screens/add_item_page.dart';
 import 'package:instock_mobile/src/features/stats/stats_page.dart';
 
 import '../../theme/common_theme.dart';
+import '../business/screens/business_page.dart';
 import '../inventory/screens/inventory_page.dart';
 
 class NavBar extends StatefulWidget {
@@ -17,7 +17,7 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Inventory(),
     StatsPage(),
     AddItemPage(),

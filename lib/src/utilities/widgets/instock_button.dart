@@ -7,18 +7,20 @@ class InStockButton extends StatefulWidget {
       required this.onPressed,
       required this.theme,
       required this.colorOption,
+      this.icon,
       this.isLoading = false});
 
   final String text;
   final ThemeData theme;
   final int colorOption;
   final void Function()? onPressed;
+  final IconData? icon;
   bool isLoading;
 
   // Used for colorOptions
-  static final int primary = 1;
-  static final int secondary = 2;
-  static final int accent = 3;
+  static const int primary = 1;
+  static const int secondary = 2;
+  static const int accent = 3;
 
   @override
   State<InStockButton> createState() => _InStockButtonState();
@@ -71,21 +73,41 @@ class _InStockButtonState extends State<InStockButton> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, Color> buttonColors = ColorPicker();
+    Map<String, Color> buttonColors = colorPicker();
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.7,
-      child: ElevatedButton(
-          onPressed: widget.onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColors["background"],
-            // Background color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5), // Rounded edges
-            ),
-            elevation: 0,
-            // No shadow
-          ),
-          child: displayButtonChild(widget.theme)),
+      child: widget.icon == null
+          ? ElevatedButton(
+              onPressed: widget.onPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: buttonColors["background"],
+                // Background color
+                foregroundColor: buttonColors["foreground"],
+                // Text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5), // Rounded edges
+                ),
+                elevation: 0,
+                // No shadow
+              ),
+              child: displayButtonChild(widget.theme)
+          )
+          : ElevatedButton.icon(
+              onPressed: widget.onPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: buttonColors["background"],
+                // Background color
+                foregroundColor: buttonColors["foreground"],
+                // Text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5), // Rounded edges
+                ),
+                elevation: 0,
+                // No shadow
+              ),
+              icon: Icon(widget.icon),
+              label: Text(widget.text)
+          )
     );
   }
 }

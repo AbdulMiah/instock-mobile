@@ -18,14 +18,14 @@ class _WelcomeState extends State<Welcome> {
   redirectToLogin() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Login()),
+      MaterialPageRoute(builder: (context) => const Login()),
     );
   }
 
   redirectToSignUp() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SignUp()),
+      MaterialPageRoute(builder: (context) => SignUp()),
     );
   }
 
@@ -71,7 +71,7 @@ class _WelcomeState extends State<Welcome> {
                         ),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.7 - 2,
-                          child: InStockWave(),
+                          child: const InStockWave(),
                         )
                       ],
                     ),

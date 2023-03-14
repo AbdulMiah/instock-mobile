@@ -16,8 +16,8 @@ void main() {
           text: 'Test Input',
           theme: commonTheme.themeData,
           icon: null,
-          validators: [],
-          onSaved: (String) {},
+          validators: const [],
+          onSaved: (string) {},
         )),
       ),
     );
@@ -42,8 +42,8 @@ void main() {
           text: 'Test Input',
           theme: commonTheme.themeData,
           icon: Icons.ice_skating_sharp,
-          validators: [],
-          onSaved: (String) {},
+          validators: const [],
+          onSaved: (string) {},
         )),
       ),
     );
@@ -69,12 +69,12 @@ void main() {
             text: 'Test Input',
             theme: commonTheme.themeData,
             icon: null,
-            validators: [
+            validators: const [
               Validators.notNull,
               Validators.notBlank,
               Validators.validatePassword,
             ],
-            onSaved: (String) {},
+            onSaved: (string) {},
           ),
         )),
       ),
@@ -108,8 +108,8 @@ void main() {
             text: 'Test Input',
             theme: commonTheme.themeData,
             icon: null,
-            validators: [],
-            onSaved: (String) {
+            validators: const [],
+            onSaved: (string) {
               testMethod();
             },
           ),
