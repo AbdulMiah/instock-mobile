@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
+import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/sku_text_input.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_icon_button.dart';
 
@@ -14,6 +14,7 @@ import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
+import '../../authentication/services/authentication_service.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -23,9 +24,12 @@ class AddItem extends StatefulWidget {
 }
 
 class _AddItemState extends State<AddItem> {
-  final _formKey = GlobalKey<FormState>();
+  final InventoryService _inventoryService =
+  InventoryService(AuthenticationService());
+
   final TextEditingController _controller = TextEditingController();
-  ItemService itemService = ItemService();
+
+  final _formKey = GlobalKey<FormState>();
   String? _itemName;
   String? _category;
   String? _stockLevel;
@@ -37,7 +41,7 @@ class _AddItemState extends State<AddItem> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       ResponseObject response =
-      await itemService.addItem(_itemName!, _category!, _stockLevel!, _sku!);
+      await _inventoryService.addItem(_itemName!, _category!, _stockLevel!, _sku!);
       if (response.statusCode == 201) {
         setState(() {
           _addItemError = null;
@@ -162,7 +166,7 @@ class _AddItemState extends State<AddItem> {
                                       Validators.notNull,
                                       Validators.notBlank,
                                       Validators.shortLength,
-                                      Validators.noSpecialChars
+                                      Validators.noSpecialCharacters
                                     ],
                                     onSaved: (value) {
                                       _itemName = value;
