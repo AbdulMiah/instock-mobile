@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/sku_text_input.dart';
-import 'package:instock_mobile/src/utilities/widgets/instock_icon_button.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -223,12 +222,12 @@ class _AddItemState extends State<AddItem> {
                                         SizedBox(
                                           height: 60.0,
                                           width: 80.0,
-                                          child: InStockIconButton(
+                                          child: InStockButton(
                                             onPressed: () {
                                               generateRandomSku();
                                             },
                                             theme: theme.themeData,
-                                            colorOption: InStockIconButton.accent,
+                                            colorOption: InStockButton.accent,
                                             icon: Icons.sync,
                                           ),
                                         ),
