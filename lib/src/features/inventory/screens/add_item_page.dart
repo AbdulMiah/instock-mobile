@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +15,7 @@ import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
 import '../data/item.dart';
+import '../utils/generate_uuid.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -86,19 +86,6 @@ class _AddItemState extends State<AddItem> {
       return Text(_addItemSuccess!, style: theme.textTheme.labelMedium);
     }
     return const Text("");
-  }
-
-  String generateUuid() {
-    var random = Random();
-    var uuid = '';
-    for (var i = 0; i < 12; i++) {
-      if (i == 3 || i == 6 || i == 9) {
-        uuid += '-';
-      }
-      var hex = random.nextInt(16).toRadixString(16);
-      uuid += hex.toUpperCase();
-    }
-    return uuid;
   }
 
   void generateRandomSku() {
