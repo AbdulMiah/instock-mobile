@@ -46,7 +46,7 @@ class InventoryService {
     }
   }
 
-  Future<ResponseObject> addItem(String name, String category, String stockLevel, String sku) async {
+  Future<ResponseObject> addItem(Item item) async {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
@@ -54,13 +54,8 @@ class InventoryService {
     String businessId = payload["BusinessId"];
 
     final url = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
-    var data = Map<String, dynamic>();
-    data['name'] = name;
-    data['category'] = category;
-    data['stock'] = stockLevel;
-    data['sku'] = sku;
 
-    var body = json.encode(data);
+    var body = json.encode(item.toMap());
 
     final response = await http.post(
         url,

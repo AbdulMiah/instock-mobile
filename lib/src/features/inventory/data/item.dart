@@ -1,13 +1,13 @@
 class Item {
   final String sku;
-  final String businessId;
+  final String? businessId;
   final String category;
   final String name;
   final String stock;
 
   const Item({
     required this.sku,
-    required this.businessId,
+    this.businessId,
     required this.category,
     required this.name,
     required this.stock,
@@ -22,6 +22,13 @@ class Item {
       stock: json['Stock'],
     );
   }
+
+  Map<String, dynamic> toMap() => {
+    'name': name,
+    'category': category,
+    'stock': stock,
+    'sku': sku,
+  };
 
   @override
   String toString() {
