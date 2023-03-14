@@ -102,14 +102,14 @@ class _AddItemState extends State<AddItem> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = CommonTheme().themeData;
+    final theme = CommonTheme();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
-              .copyWith(statusBarColor: theme.splashColor),
+              .copyWith(statusBarColor: theme.themeData.splashColor),
           child: SingleChildScrollView(
             child: SafeArea(
                 child: Center(
@@ -124,12 +124,12 @@ class _AddItemState extends State<AddItem> {
                               width: double.infinity,
                               height: MediaQuery.of(context).size.height * 0.05,
                               child: Container(
-                                color: theme.splashColor,
+                                color: theme.themeData.splashColor,
                                 child: Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                                   child: Text(
                                     "Add Item",
-                                    style: theme.textTheme.bodyMedium
+                                    style: theme.themeData.textTheme.bodyMedium
                                         ?.merge(const TextStyle(fontSize: 24)),
                                     textAlign: TextAlign.center,
                                   ),
@@ -160,7 +160,7 @@ class _AddItemState extends State<AddItem> {
                                 children: [
                                   InStockTextInput(
                                     text: 'Name',
-                                    theme: theme,
+                                    theme: theme.themeData,
                                     icon: null,
                                     validators: const [
                                       Validators.notNull,
@@ -172,77 +172,88 @@ class _AddItemState extends State<AddItem> {
                                       _itemName = value;
                                     },
                                   ),
-                                  InStockTextInput(
-                                    text: 'Category',
-                                    theme: theme,
-                                    icon: null,
-                                    validators: const [
-                                      Validators.notNull,
-                                      Validators.notBlank,
-                                    ],
-                                    onSaved: (value) {
-                                      _category = value;
-                                    },
+                                  Padding(
+                                    padding: theme.textFieldPadding,
+                                    child: InStockTextInput(
+                                      text: 'Category',
+                                      theme: theme.themeData,
+                                      icon: null,
+                                      validators: const [
+                                        Validators.notNull,
+                                        Validators.notBlank,
+                                      ],
+                                      onSaved: (value) {
+                                        _category = value;
+                                      },
+                                    ),
                                   ),
-                                  InStockTextInput(
-                                    text: 'Stock Level',
-                                    theme: theme,
-                                    isNumber: true,
-                                    icon: null,
-                                    validators: const [
-                                      Validators.notNull,
-                                      Validators.notBlank,
-                                    ],
-                                    onSaved: (value) {
-                                      _stockLevel = value.toString();
-                                    },
+                                  Padding(
+                                    padding: theme.textFieldPadding,
+                                    child: InStockTextInput(
+                                      text: 'Stock Level',
+                                      theme: theme.themeData,
+                                      isNumber: true,
+                                      icon: null,
+                                      validators: const [
+                                        Validators.notNull,
+                                        Validators.notBlank,
+                                      ],
+                                      onSaved: (value) {
+                                        _stockLevel = value.toString();
+                                      },
+                                    ),
                                   ),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 150.0,
-                                         child: SkuTextInput(
-                                            text: 'SKU Number',
-                                            theme: theme,
-                                            icon: null,
-                                            controller: _controller,
-                                            validators: const [
-                                              Validators.notNull,
-                                              Validators.notBlank,
-                                            ],
-                                            onSaved: (value) {
-                                              _sku = value;
-                                            },
-                                         )
-                                      ),
-                                      const Spacer(),
-                                      SizedBox(
-                                        height: 60.0,
-                                        width: 80.0,
-                                        child: InStockIconButton(
-                                          onPressed: () {
-                                            generateRandomSku();
-                                          },
-                                          theme: theme,
-                                          colorOption: InStockIconButton.accent,
-                                          icon: Icons.sync,
+                                  Padding(
+                                    padding: theme.textFieldPadding,
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 150.0,
+                                           child: SkuTextInput(
+                                              text: 'SKU Number',
+                                              theme: theme.themeData,
+                                              icon: null,
+                                              controller: _controller,
+                                              validators: const [
+                                                Validators.notNull,
+                                                Validators.notBlank,
+                                              ],
+                                              onSaved: (value) {
+                                                _sku = value;
+                                              },
+                                           )
                                         ),
-                                      ),
-                                    ],
+                                        const Spacer(),
+                                        SizedBox(
+                                          height: 60.0,
+                                          width: 80.0,
+                                          child: InStockIconButton(
+                                            onPressed: () {
+                                              generateRandomSku();
+                                            },
+                                            theme: theme.themeData,
+                                            colorOption: InStockIconButton.accent,
+                                            icon: Icons.sync,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                            displayMessage(theme),
-                            const SizedBox(height: 20),
-                            InStockButton(
-                              text: 'Add Item',
-                              theme: theme,
-                              colorOption: InStockButton.accent,
-                              onPressed: () async {
-                                handleAddItem();
-                              },
+                            Padding(
+                              padding: theme.textFieldPadding,
+                              child: InStockButton(
+                                text: 'Add Item',
+                                theme: theme.themeData,
+                                colorOption: InStockButton.accent,
+                                onPressed: () async {
+                                  handleAddItem();
+                                },
+                              ),
                             ),
+                            displayMessage(theme.themeData),
                           ],
                         ),
                       )
