@@ -5,6 +5,8 @@ class CommonTheme {
   static const blackColor = Color(0xff000000);
   static const whiteColor = Color(0xffFFFFFF);
   static const pinkColor = Color(0xffEA5480);
+
+  EdgeInsets textFieldPadding = const EdgeInsets.fromLTRB(0, 24.0, 0, 0);
   ThemeData themeData = ThemeData(
     primaryColorDark: blackColor,
     primaryColorLight: whiteColor,
@@ -27,6 +29,9 @@ class CommonTheme {
       headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
       // Success Message
       labelSmall: TextStyle(color: greenColor, fontSize: 18),
+
+      labelMedium: TextStyle(
+          color: blackColor, fontSize: 18, fontWeight: FontWeight.bold),
     ),
   );
 }

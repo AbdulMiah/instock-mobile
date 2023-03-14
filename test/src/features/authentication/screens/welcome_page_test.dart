@@ -81,8 +81,8 @@ void main() {
     //When
     await tester.tap(signUpFinder);
     await tester.pumpAndSettle();
-    final comingSoonFinder = find.text('Coming Soon');
+    final signUpPart2Finder = find.text('Sign Up');
     //Then
-    expect(comingSoonFinder, findsAtLeastNWidgets(1));
+    expect(signUpPart2Finder, findsAtLeastNWidgets(2));
   });
 }

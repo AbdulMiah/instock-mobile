@@ -25,7 +25,7 @@ class _WelcomeState extends State<Welcome> {
   redirectToSignUp() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SignUp()),
+      MaterialPageRoute(builder: (context) => SignUp()),
     );
   }
 
