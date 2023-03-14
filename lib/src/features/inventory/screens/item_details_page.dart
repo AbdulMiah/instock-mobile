@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
@@ -53,7 +54,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
                               child: Text(
-                                widget.itemName,
+                                widget.item.name,
                                 overflow: TextOverflow.ellipsis,
                                 style: theme.themeData.textTheme.bodyMedium
                                     ?.merge(const TextStyle(fontSize: 24)),

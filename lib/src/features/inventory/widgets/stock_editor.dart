@@ -1,7 +1,10 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/inventory/services/reason_for_change_enum.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
+
+import '../../../utilities/widgets/instock_radio_button.dart';
 
 class StockEditor extends StatefulWidget {
   StockEditor({super.key, required this.currentStock});
@@ -15,7 +18,7 @@ class StockEditor extends StatefulWidget {
 class _StockEditorState extends State<StockEditor> {
   int _changeStockAmountBy = 0;
   int _calculatedStockAmount = 0;
-  Widget selected = 
+  int _reasonForChange = 0;
 
   calculateNewStockAmount() {
     int totalStock = widget.currentStock + _changeStockAmountBy;
@@ -125,13 +128,20 @@ class _StockEditorState extends State<StockEditor> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockButton(
-                      text: "Sale",
-                      onPressed: () {
-                        print("Sale");
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.accent),
+                  child: InStockRadioButton<ReasonForChange>(
+                    text: 'Sale',
+                    onPressed: () {},
+                    theme: theme.themeData,
+                    selected: true,
+                    groupValue: _reasonForChange,
+                    onChanged: (value) {
+                      setState(() {
+                        print("Value");
+                        _reasonForChange = value;
+                      });
+                    },
+                    value: ReasonForChange.Sale,
+                  ),
                 ),
               ),
               Expanded(

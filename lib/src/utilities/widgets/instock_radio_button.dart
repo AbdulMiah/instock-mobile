@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/features/inventory/services/reason_for_change_enum.dart';
 
-class InStockRadioButton extends StatefulWidget {
+class InStockRadioButton<T extends Enum> extends StatefulWidget {
   InStockRadioButton({
-    super.key,
     required this.text,
     required this.onPressed,
     required this.theme,
     required this.selected,
     required this.groupValue,
+    required this.onChanged,
+    required this.value,
   });
 
   final String text;
   final ThemeData theme;
   final void Function()? onPressed;
   bool selected;
-  int groupValue;
-
-  // Used for colorOptions
+  var value;
+  var groupValue;
+  final void Function(dynamic)? onChanged;
 
   @override
-  State<InStockRadioButton> createState() => _InStockRadioButtonState();
+  State<InStockRadioButton<T>> createState() => _InStockRadioButtonState<T>();
 }
 
-class _InStockRadioButtonState extends State<InStockRadioButton> {
+class _InStockRadioButtonState<T extends Enum>
+    extends State<InStockRadioButton<T>> {
   int colorOption = 1;
 
   Map<String, Color> ColorPicker() {
@@ -52,26 +53,19 @@ class _InStockRadioButtonState extends State<InStockRadioButton> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.7,
       child: ListTile(
-          title: Text(widget.text, style: widget.theme.textTheme.displaySmall
-        ?.copyWith(color: buttonColors["foreground"])),
-          selected: widget.selected,
-          leading: Radio<ReasonForChange>(
-    value: ReasonForChange.Correction,
-    groupValue: widget.groupValue,
-    onChanged: ,
-
-
-    // onPressed: widget.onPressed,
-          // style: ElevatedButton.styleFrom(
-          //   backgroundColor: buttonColors["background"],
-          //   // Background color
-          //   shape: RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.circular(5), // Rounded edges
-          //   ),
-          //   elevation: 0,
-          //   // No shadow
-          // ),
-          // child: Text(widget.text)),
+        title: Text(
+          widget.text,
+          style: widget.theme.textTheme.displaySmall?.copyWith(
+            color: buttonColors["foreground"],
+          ),
+        ),
+        selected: widget.selected,
+        leading: Radio<T>(
+          value: widget.value,
+          groupValue: widget.groupValue,
+          onChanged: widget.onChanged,
+        ),
+      ),
     );
   }
 }

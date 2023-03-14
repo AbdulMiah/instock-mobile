@@ -27,7 +27,7 @@ class InStockButton extends StatefulWidget {
 }
 
 class _InStockButtonState extends State<InStockButton> {
-  Map<String, Color> ColorPicker() {
+  Map<String, Color> colorPicker() {
     switch (widget.colorOption) {
       case 1:
         return {
@@ -53,7 +53,7 @@ class _InStockButtonState extends State<InStockButton> {
   }
 
   displayButtonChild(ThemeData theme) {
-    Map<String, Color> buttonColors = ColorPicker();
+    Map<String, Color> buttonColors = colorPicker();
     if (widget.isLoading == false) {
       return Text(
         widget.text,
@@ -75,39 +75,36 @@ class _InStockButtonState extends State<InStockButton> {
   Widget build(BuildContext context) {
     Map<String, Color> buttonColors = colorPicker();
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.7,
-      child: widget.icon == null
-          ? ElevatedButton(
-              onPressed: widget.onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: buttonColors["background"],
-                // Background color
-                foregroundColor: buttonColors["foreground"],
-                // Text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5), // Rounded edges
+        width: MediaQuery.of(context).size.width * 0.7,
+        child: widget.icon == null
+            ? ElevatedButton(
+                onPressed: widget.onPressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: buttonColors["background"],
+                  // Background color
+                  foregroundColor: buttonColors["foreground"],
+                  // Text color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5), // Rounded edges
+                  ),
+                  elevation: 0,
+                  // No shadow
                 ),
-                elevation: 0,
-                // No shadow
-              ),
-              child: displayButtonChild(widget.theme)
-          )
-          : ElevatedButton.icon(
-              onPressed: widget.onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: buttonColors["background"],
-                // Background color
-                foregroundColor: buttonColors["foreground"],
-                // Text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5), // Rounded edges
+                child: displayButtonChild(widget.theme))
+            : ElevatedButton.icon(
+                onPressed: widget.onPressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: buttonColors["background"],
+                  // Background color
+                  foregroundColor: buttonColors["foreground"],
+                  // Text color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5), // Rounded edges
+                  ),
+                  elevation: 0,
+                  // No shadow
                 ),
-                elevation: 0,
-                // No shadow
-              ),
-              icon: Icon(widget.icon),
-              label: Text(widget.text)
-          )
-    );
+                icon: Icon(widget.icon),
+                label: Text(widget.text)));
   }
 }
