@@ -158,7 +158,7 @@ class _AddItemState extends State<AddItem> {
                                       Validators.notNull,
                                       Validators.notBlank,
                                       Validators.shortLength,
-                                      Validators.noSpecialCharacters
+                                      Validators.nameValidation
                                     ],
                                     onSaved: (value) {
                                       _itemName = value;
@@ -172,6 +172,7 @@ class _AddItemState extends State<AddItem> {
                                       validators: const [
                                         Validators.notNull,
                                         Validators.notBlank,
+                                        Validators.shortLength
                                       ],
                                       onSaved: (value) {
                                         _category = value;
