@@ -45,7 +45,7 @@ class _AddItemState extends State<AddItem> {
       if (response.statusCode == 201) {
         setState(() {
           _addItemError = null;
-          _addItemSuccess = "Successfully added a item to your inventory.";
+          _addItemSuccess = "Successfully added an item to your inventory.";
         });
       } else if (response.statusCode == 401) {
         setState(() {
@@ -161,7 +161,6 @@ class _AddItemState extends State<AddItem> {
                                   InStockTextInput(
                                     text: 'Name',
                                     theme: theme.themeData,
-                                    icon: null,
                                     validators: const [
                                       Validators.notNull,
                                       Validators.notBlank,
@@ -177,7 +176,6 @@ class _AddItemState extends State<AddItem> {
                                     child: InStockTextInput(
                                       text: 'Category',
                                       theme: theme.themeData,
-                                      icon: null,
                                       validators: const [
                                         Validators.notNull,
                                         Validators.notBlank,
@@ -193,7 +191,6 @@ class _AddItemState extends State<AddItem> {
                                       text: 'Stock Level',
                                       theme: theme.themeData,
                                       isNumber: true,
-                                      icon: null,
                                       validators: const [
                                         Validators.notNull,
                                         Validators.notBlank,
@@ -212,7 +209,6 @@ class _AddItemState extends State<AddItem> {
                                            child: SkuTextInput(
                                               text: 'SKU Number',
                                               theme: theme.themeData,
-                                              icon: null,
                                               controller: _controller,
                                               validators: const [
                                                 Validators.notNull,

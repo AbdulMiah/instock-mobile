@@ -11,7 +11,6 @@ class SkuTextInput extends StatefulWidget {
   this.onSaved,
   this.onChanged,
   this.icon,
-  this.boldLabel = false,
   this.initialValue,
   this.controller});
 
@@ -20,7 +19,6 @@ class SkuTextInput extends StatefulWidget {
   final List<Function> validators;
   final void Function(String?)? onSaved;
   final void Function(String?)? onChanged;
-  bool boldLabel = false;
   IconData? icon;
   TextInputAction textInputAction = TextInputAction.none;
   final String? initialValue;
@@ -57,15 +55,12 @@ class _SkuTextInputState extends State<SkuTextInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.text,
-            style: widget.boldLabel
-                ? widget.theme.textTheme.labelMedium
-                : widget.theme.textTheme.bodySmall),
+        Text(widget.text, style: widget.theme.textTheme.bodySmall),
         Row(
           children: [
-            // displayIcon(),
             Expanded(
               child: TextFormField(
+                  controller: widget.controller,
                   style: widget.theme.textTheme.bodySmall,
                   enabled: widget.enable,
                   initialValue: widget.initialValue,
