@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
+import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/wave.dart';
@@ -18,7 +18,7 @@ class _InventoryState extends State<Inventory> {
   Widget build(BuildContext context) {
     final theme = CommonTheme();
 
-    var inventoryService = InventoryService();
+    var itemService = ItemService();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -55,7 +55,7 @@ class _InventoryState extends State<Inventory> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                           child: InventoryBuilder(
-                              inventoryService: inventoryService, theme: theme),
+                              itemService: itemService, theme: theme),
                         ),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.05 - 2,

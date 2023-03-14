@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 
 import '../../../theme/common_theme.dart';
-import '../services/inventory_service.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
 
 class InventoryBuilder extends StatelessWidget {
   const InventoryBuilder({
     super.key,
-    required this.inventoryService,
+    required this.itemService,
     required this.theme,
   });
 
-  final InventoryService inventoryService;
+  final ItemService itemService;
   final CommonTheme theme;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: inventoryService.getItems(http.Client()),
+        future: itemService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Center(
