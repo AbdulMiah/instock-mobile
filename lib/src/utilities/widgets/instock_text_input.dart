@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../objects/uppercase_text_formatter.dart';
+
 class InStockTextInput extends StatefulWidget {
   InStockTextInput(
       {super.key,
@@ -16,7 +18,9 @@ class InStockTextInput extends StatefulWidget {
       this.initialValue,
       this.enable = true,
       this.maxLines,
-      this.isNumber = false});
+      this.isNumber = false,
+      this.isUnique = false,
+      this.controller});
 
   final ThemeData theme;
   final String text;
@@ -31,6 +35,8 @@ class InStockTextInput extends StatefulWidget {
   final String? initialValue;
   bool enable = true;
   final int? maxLines;
+  bool isUnique = false;
+  final TextEditingController? controller;
 
   @override
   State<InStockTextInput> createState() => _InStockTextInputState();
@@ -57,6 +63,22 @@ class _InStockTextInputState extends State<InStockTextInput> {
     return null;
   }
 
+  setInputFormatter() {
+    if (widget.isNumber) {
+      return [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(6)
+      ];
+    } else if (widget.isUnique) {
+      return [
+        LengthLimitingTextInputFormatter(15),
+        UpperCaseTextFormatter()
+      ];
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -71,6 +93,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
             // displayIcon(),
             Expanded(
               child: TextFormField(
+                  controller: widget.controller,
                   style: widget.theme.textTheme.bodySmall,
                   enabled: widget.enable,
                   initialValue: widget.initialValue,
@@ -108,12 +131,8 @@ class _InStockTextInputState extends State<InStockTextInput> {
                   keyboardType: widget.isNumber
                       ? TextInputType.number
                       : TextInputType.text,
-                  inputFormatters: widget.isNumber
-                      ? <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(6)
-                        ]
-                      : null),
+                  inputFormatters: setInputFormatter()
+              ),
             ),
           ],
         ),

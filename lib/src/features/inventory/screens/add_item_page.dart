@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
-import 'package:instock_mobile/src/features/inventory/widgets/sku_text_input.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -205,9 +204,10 @@ class _AddItemState extends State<AddItem> {
                                       children: [
                                         SizedBox(
                                           width: 150.0,
-                                           child: SkuTextInput(
+                                           child: InStockTextInput(
                                               text: 'SKU Number',
                                               theme: theme.themeData,
+                                              isUnique: true,
                                               controller: _controller,
                                               validators: const [
                                                 Validators.notNull,
