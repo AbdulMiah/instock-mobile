@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
+import '../../../utilities/objects/response_object.dart';
 import '../../authentication/services/interfaces/Iauthentication_service.dart';
 
 @injectable
@@ -22,11 +23,7 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    String url = "api.instockinventory.co.uk";
-
-    Map<String, dynamic> queryParams = {'businessId': businessId};
-
-    var uri = Uri.http(url, '/items', queryParams);
+    final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
 
     final response = await client.get(
       uri,
@@ -47,5 +44,31 @@ class InventoryService {
     } else {
       throw Exception('Failed to load items');
     }
+  }
+
+  Future<ResponseObject> addItem(Item item) async {
+    var tokenDict = await _authenticationService.retrieveBearerToken();
+    var token = tokenDict["bearerToken"];
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+
+    String businessId = payload["BusinessId"];
+
+    final url = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
+
+    var body = json.encode(item.toMap());
+
+    final response = await http.post(
+        url,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+          "Content-Type": "application/json"
+        },
+        body: body
+    );
+
+    ResponseObject responseObject =
+    ResponseObject(response.statusCode, response.body);
+
+    return (responseObject);
   }
 }

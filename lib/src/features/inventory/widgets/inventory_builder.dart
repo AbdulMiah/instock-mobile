@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 
 import '../../../theme/common_theme.dart';
-import '../services/inventory_service.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
 
