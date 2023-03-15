@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -14,7 +15,6 @@ import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
 import '../data/item.dart';
 import '../utils/generate_uuid.dart';
-import 'item_details_page.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -45,15 +45,7 @@ class _AddItemState extends State<AddItem> {
       if (response.statusCode == 201) {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => ItemDetails(
-              itemName: _itemName!,
-              itemCategory: _category!,
-              itemSku: _sku!,
-              itemStockNo: _stockLevel!,
-              itemOrdersNo: "N/A",
-            ),
-          ),
+          MaterialPageRoute(builder: (context) => const NavBar()),
         );
       } else if (response.statusCode == 401) {
         setState(() {
