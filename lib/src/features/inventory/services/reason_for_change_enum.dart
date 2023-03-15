@@ -1,6 +1,6 @@
 enum ReasonForChange {
   Sale,
-  ReStock,
+  Restock,
   Correction,
   Damaged,
   Returned,

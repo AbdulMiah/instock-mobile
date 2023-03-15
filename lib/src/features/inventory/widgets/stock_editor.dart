@@ -18,7 +18,7 @@ class StockEditor extends StatefulWidget {
 class _StockEditorState extends State<StockEditor> {
   int _changeStockAmountBy = 0;
   int _calculatedStockAmount = 0;
-  int _reasonForChange = 0;
+  ReasonForChange _reasonForChange = ReasonForChange.Sale;
 
   calculateNewStockAmount() {
     int totalStock = widget.currentStock + _changeStockAmountBy;
@@ -130,15 +130,15 @@ class _StockEditorState extends State<StockEditor> {
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
                   child: InStockRadioButton<ReasonForChange>(
                     text: 'Sale',
-                    onPressed: () {},
                     theme: theme.themeData,
-                    selected: true,
                     groupValue: _reasonForChange,
                     onChanged: (value) {
-                      setState(() {
-                        print("Value");
-                        _reasonForChange = value;
-                      });
+                      if (value != null) {
+                        setState(() {
+                          print(value);
+                          _reasonForChange = value!;
+                        });
+                      }
                     },
                     value: ReasonForChange.Sale,
                   ),
@@ -147,13 +147,21 @@ class _StockEditorState extends State<StockEditor> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockButton(
-                      text: "ReStock",
-                      onPressed: () {
-                        print("ReStock");
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.primary),
+                  child: InStockRadioButton<ReasonForChange>(
+                    text: 'Restock',
+                    theme: theme.themeData,
+                    groupValue: _reasonForChange,
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          print(value);
+
+                          _reasonForChange = value!;
+                        });
+                      }
+                    },
+                    value: ReasonForChange.Restock,
+                  ),
                 ),
               ),
             ],

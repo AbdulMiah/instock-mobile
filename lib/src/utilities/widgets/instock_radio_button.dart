@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 class InStockRadioButton<T extends Enum> extends StatefulWidget {
   InStockRadioButton({
     required this.text,
-    required this.onPressed,
+    this.onPressed,
     required this.theme,
-    required this.selected,
     required this.groupValue,
     required this.onChanged,
     required this.value,
@@ -14,9 +13,8 @@ class InStockRadioButton<T extends Enum> extends StatefulWidget {
   final String text;
   final ThemeData theme;
   final void Function()? onPressed;
-  bool selected;
-  var value;
-  var groupValue;
+  dynamic value;
+  dynamic groupValue;
   final void Function(dynamic)? onChanged;
 
   @override
@@ -25,46 +23,36 @@ class InStockRadioButton<T extends Enum> extends StatefulWidget {
 
 class _InStockRadioButtonState<T extends Enum>
     extends State<InStockRadioButton<T>> {
-  int colorOption = 1;
+  bool _selected = false;
 
-  Map<String, Color> ColorPicker() {
-    switch (colorOption) {
-      case 1:
-        return {
-          "foreground": widget.theme.primaryColorLight,
-          "background": widget.theme.primaryColorDark,
-        };
-      case 2:
-        return {
-          "foreground": widget.theme.primaryColorLight,
-          "background": widget.theme.splashColor,
-        };
-      default:
-        return {
-          "foreground": widget.theme.primaryColorLight,
-          "background": widget.theme.splashColor,
-        };
+  bool selectionDetector() {
+    print(widget.value);
+    print(widget.groupValue);
+    if (widget.value == widget.groupValue) {
+      return true;
+    } else {
+      return false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, Color> buttonColors = ColorPicker();
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.7,
-      child: ListTile(
-        title: Text(
-          widget.text,
-          style: widget.theme.textTheme.displaySmall?.copyWith(
-            color: buttonColors["foreground"],
-          ),
+    return ListTile(
+      tileColor: widget.theme.primaryColorDark,
+      iconColor: Colors.pink,
+      selectedTileColor: widget.theme.splashColor,
+      title: Text(
+        widget.text,
+        style: widget.theme.textTheme.displaySmall?.copyWith(
+          color: widget.theme.primaryColorLight,
         ),
-        selected: widget.selected,
-        leading: Radio<T>(
-          value: widget.value,
-          groupValue: widget.groupValue,
-          onChanged: widget.onChanged,
-        ),
+        selectionColor: widget.theme.primaryColorLight,
+      ),
+      selected: _selected,
+      leading: Radio<T>(
+        value: widget.value,
+        groupValue: widget.groupValue,
+        onChanged: widget.onChanged,
       ),
     );
   }
