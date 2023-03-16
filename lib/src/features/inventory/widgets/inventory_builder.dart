@@ -49,7 +49,7 @@ class InventoryBuilder extends StatelessWidget {
           return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
-                String warningMsg = '';
+                String? warningMsg;
                 bool isSameCategory = true;
                 int stock = int.parse(snapshot.data[index].stock);
                 if (stock <= 5) {

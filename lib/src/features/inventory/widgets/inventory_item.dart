@@ -19,7 +19,7 @@ class InventoryItem extends StatefulWidget {
   final String itemSku;
   final String itemStockNo;
   final String itemOrdersNo;
-  final String itemWarning;
+  final String? itemWarning;
   final String? itemImgUrl;
 
   @override
@@ -46,7 +46,7 @@ class _InventoryItemState extends State<InventoryItem> {
     final theme = CommonTheme();
     return Column(
       children: [
-        if (widget.itemWarning != '') ...[
+        if (widget.itemWarning != null) ...[
           Container(
             decoration: BoxDecoration(
               color: theme.themeData.highlightColor,
@@ -61,9 +61,10 @@ class _InventoryItemState extends State<InventoryItem> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    widget.itemWarning,
+                    widget.itemWarning!,
                     textDirection: TextDirection.ltr,
-                    style: theme.themeData.textTheme.bodySmall,
+                    style: theme.themeData.textTheme.bodySmall?.merge(
+                        TextStyle(color: theme.themeData.primaryColorLight)),
                   ),
                 ),
               ),
@@ -76,9 +77,14 @@ class _InventoryItemState extends State<InventoryItem> {
           },
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(8),
-                ),
+                borderRadius: widget.itemWarning != null
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(0),
+                        topRight: Radius.circular(0),
+                        bottomRight: Radius.circular(8),
+                        bottomLeft: Radius.circular(8),
+                      )
+                    : const BorderRadius.all(Radius.circular(8)),
                 gradient: LinearGradient(colors: [
                   theme.themeData.primaryColorLight,
                   theme.themeData.splashColor
@@ -94,7 +100,19 @@ class _InventoryItemState extends State<InventoryItem> {
                           height: 74,
                           width: 74,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: widget.itemWarning != null
+                                ? const BorderRadius.only(
+                                    topLeft: Radius.circular(0),
+                                    topRight: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    bottomLeft: Radius.circular(8),
+                                  )
+                                : const BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    bottomLeft: Radius.circular(8),
+                                  ),
                             child: const Image(
                                 image: NetworkImage(
                                     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')),
