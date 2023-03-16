@@ -49,7 +49,12 @@ class InventoryBuilder extends StatelessWidget {
           return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
+                String? warningMsg;
                 bool isSameCategory = true;
+                int stock = int.parse(snapshot.data[index].stock);
+                if (stock <= 5) {
+                  warningMsg = 'Low Stock';
+                }
                 String category = snapshot.data[index].category;
                 if (index == 0) {
                   return Padding(
@@ -58,11 +63,13 @@ class InventoryBuilder extends StatelessWidget {
                       children: [
                         CategoryHeading(category: category),
                         InventoryItem(
-                            itemName: snapshot.data[index].name,
-                            itemCategory: snapshot.data[index].category,
-                            itemSku: snapshot.data[index].sku,
-                            itemStockNo: snapshot.data[index].stock,
-                            itemOrdersNo: "N/A"),
+                          itemName: snapshot.data[index].name,
+                          itemCategory: snapshot.data[index].category,
+                          itemSku: snapshot.data[index].sku,
+                          itemStockNo: snapshot.data[index].stock,
+                          itemOrdersNo: 'N/A',
+                          itemWarning: warningMsg,
+                        ),
                       ],
                     ),
                   );
@@ -78,7 +85,8 @@ class InventoryBuilder extends StatelessWidget {
                         itemCategory: snapshot.data[index].category,
                         itemSku: snapshot.data[index].sku,
                         itemStockNo: snapshot.data[index].stock,
-                        itemOrdersNo: "N/A"),
+                        itemOrdersNo: "N/A",
+                        itemWarning: warningMsg),
                   );
                 } else if (isSameCategory == false) {
                   return Padding(
@@ -91,7 +99,8 @@ class InventoryBuilder extends StatelessWidget {
                             itemCategory: snapshot.data[index].category,
                             itemSku: snapshot.data[index].sku,
                             itemStockNo: snapshot.data[index].stock,
-                            itemOrdersNo: "N/A"),
+                            itemOrdersNo: 'N/A',
+                            itemWarning: warningMsg),
                       ],
                     ),
                   );

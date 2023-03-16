@@ -16,18 +16,41 @@ void main() {
                 itemStockNo: '33',
                 itemOrdersNo: '44',
                 itemCategory: 'Test Category',
+                itemWarning: null,
               ),
             ),
           )));
 
       final nameFinder = find.text('Test Name');
-      final SKUFinder = find.text('Test SKU');
+      final skuFinder = find.text('Test SKU');
       final itemStockNoFinder =
           find.textContaining('33 In Stock', findRichText: true);
 
       expect(nameFinder, findsOneWidget);
-      expect(SKUFinder, findsOneWidget);
+      expect(skuFinder, findsOneWidget);
       expect(itemStockNoFinder, findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'Displays Low Stock Warning',
+    (tester) async {
+      await mockNetworkImagesFor(() => tester.pumpWidget(const MaterialApp(
+            home: Scaffold(
+              body: InventoryItem(
+                itemName: 'Test Name',
+                itemSku: 'Test SKU',
+                itemStockNo: '5',
+                itemOrdersNo: '44',
+                itemCategory: 'Test Category',
+                itemWarning: 'Low Stock',
+              ),
+            ),
+          )));
+
+      final warningFinder = find.text('Low Stock');
+
+      expect(warningFinder, findsOneWidget);
     },
   );
 }
