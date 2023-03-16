@@ -10,7 +10,7 @@ class InventoryItem extends StatefulWidget {
       required this.itemSku,
       required this.itemStockNo,
       required this.itemOrdersNo,
-      this.itemWarning,
+      required this.itemWarning,
       this.itemImgUrl =
           'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'});
 
@@ -19,7 +19,7 @@ class InventoryItem extends StatefulWidget {
   final String itemSku;
   final String itemStockNo;
   final String itemOrdersNo;
-  final String? itemWarning;
+  final String itemWarning;
   final String? itemImgUrl;
 
   @override
@@ -46,7 +46,7 @@ class _InventoryItemState extends State<InventoryItem> {
     final theme = CommonTheme();
     return Column(
       children: [
-        if (widget.itemWarning != null) ...[
+        if (widget.itemWarning != '') ...[
           Container(
             decoration: BoxDecoration(
               color: theme.themeData.highlightColor,
@@ -61,7 +61,7 @@ class _InventoryItemState extends State<InventoryItem> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    widget.itemWarning!,
+                    widget.itemWarning,
                     textDirection: TextDirection.ltr,
                     style: theme.themeData.textTheme.bodySmall,
                   ),
