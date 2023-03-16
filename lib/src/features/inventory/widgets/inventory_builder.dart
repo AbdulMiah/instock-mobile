@@ -65,6 +65,7 @@ class InventoryBuilder extends StatelessWidget {
                   ordersAmount: snapshot.data[index].ordersAmount,
                   itemWarning: warningMsg,
                   itemImgUrl: snapshot.data[index].itemImgUrl,
+                  businessId: snapshot.data[index].businessId,
                 );
                 if (index == 0) {
                   return Padding(

@@ -93,51 +93,54 @@ class _ItemDetailsState extends State<ItemDetails> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          StockEditor(
-                            currentStock: widget.item.stockAmount,
-                            itemSKU: widget.item.sku,
-                            businessId: widget.item.businessId!,
-                          ),
-                          InStockTextInput(
-                            key: const Key('itemNameTextField'),
-                            text: "Name",
-                            theme: theme.themeData,
-                            icon: null,
-                            validators: const [Validators.notBlank],
-                            onSaved: (value) {
-                              _name = value;
-                            },
-                            initialValue: widget.item.name,
-                            enable: false,
-                          ),
-                          InStockTextInput(
-                            key: const Key('itemCategoryTextField'),
-                            text: "Category",
-                            theme: theme.themeData,
-                            icon: null,
-                            validators: const [Validators.notBlank],
-                            onSaved: (value) {
-                              _category = value;
-                            },
-                            initialValue: widget.item.category,
-                            enable: false,
-                          ),
-                          InStockTextInput(
-                            key: const Key('itemSkuTextField'),
-                            text: "SKU",
-                            theme: theme.themeData,
-                            icon: null,
-                            validators: const [Validators.notBlank],
-                            onSaved: (value) {
-                              _sku = value;
-                            },
-                            initialValue: widget.item.sku,
-                            enable: false,
-                          )
-                        ]),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            StockEditor(
+                              currentStock: widget.item.stockAmount,
+                              itemSKU: widget.item.sku,
+                              businessId: widget.item.businessId,
+                            ),
+                            InStockTextInput(
+                              key: const Key('itemNameTextField'),
+                              text: "Name",
+                              theme: theme.themeData,
+                              icon: null,
+                              validators: const [Validators.notBlank],
+                              onSaved: (value) {
+                                _name = value;
+                              },
+                              initialValue: widget.item.name,
+                              enable: false,
+                            ),
+                            InStockTextInput(
+                              key: const Key('itemCategoryTextField'),
+                              text: "Category",
+                              theme: theme.themeData,
+                              icon: null,
+                              validators: const [Validators.notBlank],
+                              onSaved: (value) {
+                                _category = value;
+                              },
+                              initialValue: widget.item.category,
+                              enable: false,
+                            ),
+                            InStockTextInput(
+                              key: const Key('itemSkuTextField'),
+                              text: "SKU",
+                              theme: theme.themeData,
+                              icon: null,
+                              validators: const [Validators.notBlank],
+                              onSaved: (value) {
+                                _sku = value;
+                              },
+                              initialValue: widget.item.sku,
+                              enable: false,
+                            )
+                          ]),
+                    ),
                   ),
                 ],
               ),

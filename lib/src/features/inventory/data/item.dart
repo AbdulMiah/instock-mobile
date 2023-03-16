@@ -1,6 +1,6 @@
 class Item {
   final String sku;
-  final String? businessId;
+  final String businessId;
   final String category;
   final String name;
   final int stockAmount;
@@ -10,7 +10,7 @@ class Item {
 
   Item({
     required this.sku,
-    this.businessId,
+    required this.businessId,
     required this.category,
     required this.name,
     required this.stockAmount,
