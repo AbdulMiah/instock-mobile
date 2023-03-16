@@ -1,12 +1,14 @@
 class ResponseObject {
   int statusCode;
 
-  String message;
+  String body;
 
-  ResponseObject(this.statusCode, this.message);
+  List<String>? errors;
+
+  ResponseObject(this.statusCode, this.body, [this.errors]);
 
   @override
   String toString() {
-    return 'ResponseObject{statusCode: $statusCode, message: $message}';
+    return 'ResponseObject{statusCode: $statusCode, body: $body, errors: $errors}';
   }
 }

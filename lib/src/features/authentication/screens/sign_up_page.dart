@@ -76,7 +76,7 @@ class _SignUpState extends State<SignUp> {
         });
       } else {
         setState(() {
-          _signUpError = response.message;
+          _signUpError = response.body;
         });
       }
     }
