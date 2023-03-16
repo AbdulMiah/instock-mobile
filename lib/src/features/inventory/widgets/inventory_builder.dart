@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:instock_mobile/src/features/inventory/data/item.dart';
+import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 
 import '../../../theme/common_theme.dart';
-import '../services/inventory_service.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
 
@@ -50,9 +49,13 @@ class InventoryBuilder extends StatelessWidget {
           return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
+                String? warningMsg;
                 bool isSameCategory = true;
+                int stock = int.parse(snapshot.data[index].stock);
+                if (stock <= 5) {
+                  warningMsg = 'Low Stock';
+                }
                 String category = snapshot.data[index].category;
-                Item item = snapshot.data[index];
                 if (index == 0) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
@@ -33,41 +32,47 @@ class _InventoryItemState extends State<InventoryItem> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
-    return Column(
-      children: [
-        if (widget.itemWarning != null) ...[
-          Container(
-            decoration: BoxDecoration(
-              color: theme.themeData.highlightColor,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
+    return GestureDetector(
+      onTap: () {
+        redirectToItemDetails();
+      },
+      child: Column(
+        children: [
+          if (widget.itemWarning != null) ...[
+            Container(
+              decoration: BoxDecoration(
+                color: theme.themeData.highlightColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
               ),
-            ),
-            child: Center(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.itemWarning!,
-                    textDirection: TextDirection.ltr,
-                    style: theme.themeData.textTheme.bodySmall,
+              child: Center(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.itemWarning!,
+                      textDirection: TextDirection.ltr,
+                      style: theme.themeData.textTheme.bodySmall?.merge(
+                          TextStyle(color: theme.themeData.primaryColorLight)),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-        GestureDetector(
-          onTap: () {
-            redirectToItemDetails();
-          },
-          child: Container(
+          ],
+          Container(
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(8),
-                ),
+                borderRadius: widget.itemWarning != null
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(0),
+                        topRight: Radius.circular(0),
+                        bottomRight: Radius.circular(8),
+                        bottomLeft: Radius.circular(8),
+                      )
+                    : const BorderRadius.all(Radius.circular(8)),
                 gradient: LinearGradient(colors: [
                   theme.themeData.primaryColorLight,
                   theme.themeData.splashColor
@@ -83,7 +88,19 @@ class _InventoryItemState extends State<InventoryItem> {
                           height: 74,
                           width: 74,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: widget.itemWarning != null
+                                ? const BorderRadius.only(
+                                    topLeft: Radius.circular(0),
+                                    topRight: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    bottomLeft: Radius.circular(8),
+                                  )
+                                : const BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    bottomLeft: Radius.circular(8),
+                                  ),
                             child: const Image(
                                 image: NetworkImage(
                                     'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')),
@@ -142,7 +159,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.item.stockAmount}",
+                                        text: " ${widget.itemStockNo}",
                                       ),
                                       TextSpan(
                                         style: TextStyle(
@@ -197,9 +214,9 @@ class _InventoryItemState extends State<InventoryItem> {
                 ),
               ],
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

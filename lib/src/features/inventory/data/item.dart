@@ -8,7 +8,7 @@ class Item {
 
   const Item({
     required this.sku,
-    required this.businessId,
+    this.businessId,
     required this.category,
     required this.name,
     required this.stockAmount,
@@ -25,6 +25,13 @@ class Item {
       ordersAmount: 0,
     );
   }
+
+  Map<String, dynamic> toMap() => {
+    'name': name,
+    'category': category,
+    'stock': stock,
+    'sku': sku,
+  };
 
   @override
   String toString() {
