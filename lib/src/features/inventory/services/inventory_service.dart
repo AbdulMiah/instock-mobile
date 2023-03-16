@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:instock_mobile/src/features/inventory/data/add_new_item_dto.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
@@ -23,7 +24,8 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
+    final uri = Uri.parse(
+        'http://api.instockinventory.co.uk/businesses/$businessId/items');
 
     final response = await client.get(
       uri,
@@ -47,28 +49,27 @@ class InventoryService {
     }
   }
 
-  Future<ResponseObject> addItem(Item item) async {
+  Future<ResponseObject> addItem(AddNewItemDto item) async {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
 
     String businessId = payload["BusinessId"];
 
-    final url = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
+    final url = Uri.parse(
+        'http://api.instockinventory.co.uk/businesses/$businessId/items');
 
     var body = json.encode(item.toMap());
 
-    final response = await http.post(
-        url,
+    final response = await http.post(url,
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           "Content-Type": "application/json"
         },
-        body: body
-    );
+        body: body);
 
     ResponseObject responseObject =
-    ResponseObject(response.statusCode, response.body);
+        ResponseObject(response.statusCode, response.body);
 
     return (responseObject);
   }

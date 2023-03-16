@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
 class InventoryItem extends StatefulWidget {
-  const InventoryItem(
-      {super.key,
-      required this.item,
-      this.itemWarning,
-      this.itemImgUrl =
-          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'});
+  const InventoryItem({super.key, required this.item});
 
   final Item item;
-  final String? itemWarning;
-  final String? itemImgUrl;
 
   @override
   State<InventoryItem> createState() => _InventoryItemState();
@@ -38,7 +32,7 @@ class _InventoryItemState extends State<InventoryItem> {
       },
       child: Column(
         children: [
-          if (widget.itemWarning != null) ...[
+          if (widget.item.itemWarning != null) ...[
             Container(
               decoration: BoxDecoration(
                 color: theme.themeData.highlightColor,
@@ -53,7 +47,7 @@ class _InventoryItemState extends State<InventoryItem> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      widget.itemWarning!,
+                      widget.item.itemWarning!,
                       textDirection: TextDirection.ltr,
                       style: theme.themeData.textTheme.bodySmall?.merge(
                           TextStyle(color: theme.themeData.primaryColorLight)),
@@ -65,7 +59,7 @@ class _InventoryItemState extends State<InventoryItem> {
           ],
           Container(
             decoration: BoxDecoration(
-                borderRadius: widget.itemWarning != null
+                borderRadius: widget.item.itemWarning != null
                     ? const BorderRadius.only(
                         topLeft: Radius.circular(0),
                         topRight: Radius.circular(0),
@@ -88,7 +82,7 @@ class _InventoryItemState extends State<InventoryItem> {
                           height: 74,
                           width: 74,
                           child: ClipRRect(
-                            borderRadius: widget.itemWarning != null
+                            borderRadius: widget.item.itemWarning != null
                                 ? const BorderRadius.only(
                                     topLeft: Radius.circular(0),
                                     topRight: Radius.circular(0),
@@ -159,7 +153,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.itemStockNo}",
+                                        text: " ${widget.item.stockAmount}",
                                       ),
                                       TextSpan(
                                         style: TextStyle(

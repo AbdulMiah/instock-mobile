@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 
 import '../../../theme/common_theme.dart';
+import '../data/item.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
 
@@ -51,11 +52,20 @@ class InventoryBuilder extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 String? warningMsg;
                 bool isSameCategory = true;
-                int stock = int.parse(snapshot.data[index].stock);
+                int stock = snapshot.data[index].stockAmount;
                 if (stock <= 5) {
                   warningMsg = 'Low Stock';
                 }
                 String category = snapshot.data[index].category;
+                Item item = Item(
+                  sku: snapshot.data[index].sku,
+                  category: snapshot.data[index].category,
+                  name: snapshot.data[index].name,
+                  stockAmount: snapshot.data[index].stockAmount,
+                  ordersAmount: snapshot.data[index].ordersAmount,
+                  itemWarning: warningMsg,
+                  itemImgUrl: snapshot.data[index].itemImgUrl,
+                );
                 if (index == 0) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),

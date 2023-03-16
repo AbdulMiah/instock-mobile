@@ -60,7 +60,7 @@ class _InStockButtonState extends State<InStockButton> {
           widget.text!,
           style: widget.theme.textTheme.displaySmall,
         );
-      } else if(widget.icon != null && widget.text == null) {
+      } else if (widget.icon != null && widget.text == null) {
         return Icon(widget.icon);
       } else {
         return Row(
@@ -74,11 +74,11 @@ class _InStockButtonState extends State<InStockButton> {
           ],
         );
       }
-      return Text(
-        widget.text,
-        style: widget.theme.textTheme.displaySmall
-            ?.copyWith(color: buttonColors["foreground"]),
-      );
+      // return Text(
+      //   widget.text,
+      //   style: widget.theme.textTheme.displaySmall
+      //       ?.copyWith(color: buttonColors["foreground"]),
+      // );
     } else {
       return SizedBox(
         width: 30,
@@ -96,20 +96,19 @@ class _InStockButtonState extends State<InStockButton> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.7,
       child: ElevatedButton(
-        onPressed: widget.onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColors["background"],
-          // Background color
-          foregroundColor: buttonColors["foreground"],
-          // Text color
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5), // Rounded edges
+          onPressed: widget.onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: buttonColors["background"],
+            // Background color
+            foregroundColor: buttonColors["foreground"],
+            // Text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5), // Rounded edges
+            ),
+            elevation: 0,
+            // No shadow
           ),
-          elevation: 0,
-          // No shadow
-        ),
-        child: displayButtonChild(widget.theme)
-      ),
+          child: displayButtonChild(widget.theme)),
     );
   }
 }
