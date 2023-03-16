@@ -4,8 +4,6 @@ import 'package:instock_mobile/src/features/inventory/services/reason_for_change
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 
-import '../../../utilities/widgets/instock_radio_button.dart';
-
 class StockEditor extends StatefulWidget {
   StockEditor({super.key, required this.currentStock});
 
@@ -19,6 +17,7 @@ class _StockEditorState extends State<StockEditor> {
   int _changeStockAmountBy = 0;
   int _calculatedStockAmount = 0;
   ReasonForChange _reasonForChange = ReasonForChange.Sale;
+  bool _isLoading = false;
 
   calculateNewStockAmount() {
     int totalStock = widget.currentStock + _changeStockAmountBy;
@@ -32,6 +31,19 @@ class _StockEditorState extends State<StockEditor> {
     setState(() {
       _changeStockAmountBy = newValue;
     });
+  }
+
+  bool determineIfSelected(ReasonForChange selectionOption) {
+    if (selectionOption == _reasonForChange) {
+      return true;
+    }
+    return false;
+  }
+
+  updateStock() {
+    print("Updating");
+    print(_reasonForChange.name);
+    print(_calculatedStockAmount);
   }
 
   @override
@@ -70,7 +82,6 @@ class _StockEditorState extends State<StockEditor> {
                     child: InStockButton(
                         text: "-10",
                         onPressed: () {
-                          print("-10");
                           updateChangeStockAmountBy(-10);
                         },
                         theme: theme.themeData,
@@ -95,7 +106,6 @@ class _StockEditorState extends State<StockEditor> {
                     child: InStockButton(
                         text: "+1",
                         onPressed: () {
-                          print("+1");
                           updateChangeStockAmountBy(1);
                         },
                         theme: theme.themeData,
@@ -108,7 +118,6 @@ class _StockEditorState extends State<StockEditor> {
                     child: InStockButton(
                         text: "+10",
                         onPressed: () {
-                          print("+10");
                           updateChangeStockAmountBy(10);
                         },
                         theme: theme.themeData,
@@ -128,39 +137,34 @@ class _StockEditorState extends State<StockEditor> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockRadioButton<ReasonForChange>(
-                    text: 'Sale',
-                    theme: theme.themeData,
-                    groupValue: _reasonForChange,
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() {
-                          print(value);
-                          _reasonForChange = value!;
-                        });
-                      }
+                  child: InStockButton(
+                    text: "Sale",
+                    onPressed: () {
+                      setState(() {
+                        _reasonForChange = ReasonForChange.Sale;
+                      });
                     },
-                    value: ReasonForChange.Sale,
+                    theme: theme.themeData,
+                    colorOption: determineIfSelected(ReasonForChange.Sale)
+                        ? InStockButton.accent
+                        : InStockButton.primary,
                   ),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockRadioButton<ReasonForChange>(
-                    text: 'Restock',
-                    theme: theme.themeData,
-                    groupValue: _reasonForChange,
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() {
-                          print(value);
-
-                          _reasonForChange = value!;
-                        });
-                      }
+                  child: InStockButton(
+                    text: "Restock",
+                    onPressed: () {
+                      setState(() {
+                        _reasonForChange = ReasonForChange.Restock;
+                      });
                     },
-                    value: ReasonForChange.Restock,
+                    theme: theme.themeData,
+                    colorOption: determineIfSelected(ReasonForChange.Restock)
+                        ? InStockButton.accent
+                        : InStockButton.primary,
                   ),
                 ),
               ),
@@ -172,121 +176,174 @@ class _StockEditorState extends State<StockEditor> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
                   child: InStockButton(
-                      text: "Correction",
-                      onPressed: () {
-                        print("Correction");
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.primary),
+                    text: "Correction",
+                    onPressed: () {
+                      setState(() {
+                        _reasonForChange = ReasonForChange.Correction;
+                      });
+                    },
+                    theme: theme.themeData,
+                    colorOption: determineIfSelected(ReasonForChange.Correction)
+                        ? InStockButton.accent
+                        : InStockButton.primary,
+                  ),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
                   child: InStockButton(
-                      text: "Damaged",
-                      onPressed: () {
-                        print("Damaged");
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.primary),
+                    text: "Damaged",
+                    onPressed: () {
+                      setState(() {
+                        _reasonForChange = ReasonForChange.Damaged;
+                      });
+                    },
+                    theme: theme.themeData,
+                    colorOption: determineIfSelected(ReasonForChange.Damaged)
+                        ? InStockButton.accent
+                        : InStockButton.primary,
+                  ),
                 ),
               ),
             ],
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: theme.themeData.cardColor,
-              borderRadius: BorderRadius.all(
-                Radius.circular(5),
-              ),
-            ),
-            padding: null,
-            child: ExpandablePanel(
-              theme: ExpandableThemeData(
-                  animationDuration: Duration(milliseconds: 150),
-                  hasIcon: true,
-                  tapHeaderToExpand: true),
-              header: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "More Options",
-                  style: theme.themeData.textTheme.bodySmall,
-                  textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: theme.themeData.cardColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
                 ),
               ),
-              collapsed: Container(),
-              expanded: Expanded(
-                child: Container(
-                  color: theme.themeData.cardColor,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                              child: InStockButton(
-                                  text: "Sale",
+              padding: null,
+              child: ExpandablePanel(
+                theme: ExpandableThemeData(
+                    animationDuration: Duration(milliseconds: 150),
+                    hasIcon: true,
+                    tapHeaderToExpand: true),
+                header: Container(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "More Options",
+                      style: theme.themeData.textTheme.bodySmall,
+                    ),
+                  ),
+                ),
+                collapsed: Container(),
+                expanded: Expanded(
+                  child: Container(
+                    color: theme.themeData.cardColor,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
+                                child: InStockButton(
+                                  text: "Returned",
                                   onPressed: () {
-                                    print("Sale");
+                                    setState(() {
+                                      _reasonForChange =
+                                          ReasonForChange.Returned;
+                                    });
                                   },
                                   theme: theme.themeData,
-                                  colorOption: InStockButton.accent),
+                                  colorOption: determineIfSelected(
+                                          ReasonForChange.Returned)
+                                      ? InStockButton.accent
+                                      : InStockButton.primary,
+                                ),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                              child: InStockButton(
-                                  text: "ReStock",
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
+                                child: InStockButton(
+                                  text: "Resent",
                                   onPressed: () {
-                                    print("ReStock");
+                                    setState(() {
+                                      _reasonForChange = ReasonForChange.Resent;
+                                    });
                                   },
                                   theme: theme.themeData,
-                                  colorOption: InStockButton.primary),
+                                  colorOption: determineIfSelected(
+                                          ReasonForChange.Resent)
+                                      ? InStockButton.accent
+                                      : InStockButton.primary,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                              child: InStockButton(
-                                  text: "Correction",
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
+                                child: InStockButton(
+                                  text: "Lost",
                                   onPressed: () {
-                                    print("Correction");
+                                    setState(() {
+                                      _reasonForChange = ReasonForChange.Lost;
+                                    });
                                   },
                                   theme: theme.themeData,
-                                  colorOption: InStockButton.primary),
+                                  colorOption:
+                                      determineIfSelected(ReasonForChange.Lost)
+                                          ? InStockButton.accent
+                                          : InStockButton.primary,
+                                ),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                              child: InStockButton(
-                                  text: "Damaged",
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
+                                child: InStockButton(
+                                  text: "Giveaway",
                                   onPressed: () {
-                                    print("Damaged");
+                                    setState(() {
+                                      _reasonForChange =
+                                          ReasonForChange.Giveaway;
+                                    });
                                   },
                                   theme: theme.themeData,
-                                  colorOption: InStockButton.primary),
+                                  colorOption: determineIfSelected(
+                                          ReasonForChange.Giveaway)
+                                      ? InStockButton.accent
+                                      : InStockButton.primary,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
+          Padding(
+            padding: theme.textFieldPadding,
+            child: InStockButton(
+              text: "Save",
+              onPressed: () {
+                updateStock();
+              },
+              theme: theme.themeData,
+              colorOption: InStockButton.accent,
+              isLoading: _isLoading,
+            ),
+          )
         ],
       ),
     );

@@ -23,7 +23,6 @@ class InventoryBuilder extends StatelessWidget {
         future: inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
-            print("Getting");
             return Center(
                 child: CircularProgressIndicator(
               // backgroundColor: theme.themeData.splashColor,
@@ -31,7 +30,6 @@ class InventoryBuilder extends StatelessWidget {
             ));
           }
           if (snapshot.data.length == 0) {
-            print("Got");
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -54,8 +52,6 @@ class InventoryBuilder extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 bool isSameCategory = true;
                 String category = snapshot.data[index].category;
-                print("BUILDING ITEMS");
-                print(snapshot.data[index]);
                 Item item = snapshot.data[index];
                 if (index == 0) {
                   return Padding(
