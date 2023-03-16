@@ -57,9 +57,9 @@ class _LoginState extends State<Login> {
           _loginError = "Whoops something went wrong, please try again";
         });
       } else if (response.statusCode == 502) {
-        _loginError = response.message;
+        _loginError = response.body;
       } else {
-        _loginError = response.message;
+        _loginError = response.body;
       }
     }
   }

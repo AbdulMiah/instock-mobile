@@ -47,7 +47,7 @@ class _AddBusinessState extends State<AddBusiness> {
         });
       } else {
         setState(() {
-          _addBusinessError = response.message;
+          _addBusinessError = response.body;
         });
       }
     }

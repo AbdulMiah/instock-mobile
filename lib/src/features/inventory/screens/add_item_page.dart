@@ -56,7 +56,7 @@ class _AddItemState extends State<AddItem> {
           _addItemError = "Whoops something went wrong, please try again";
         });
       } else if (response.statusCode == 400) {
-        var data = json.decode(response.message);
+        var data = json.decode(response.body!);
         String duplicateName = data['errors']['duplicateItemName'].toString();
         String duplicateSku = data['errors']['duplicateSKU'].toString();
 
@@ -77,7 +77,7 @@ class _AddItemState extends State<AddItem> {
         }
       } else {
         setState(() {
-          _addItemError = response.message;
+          _addItemError = response.body;
         });
       }
     }
