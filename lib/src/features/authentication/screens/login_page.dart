@@ -125,6 +125,7 @@ class _LoginState extends State<Login> {
                                 colorOption: InStockButton.primary,
                               )),
                           Positioned(
+                            width: MediaQuery.of(context).size.width,
                             top: MediaQuery.of(context).size.height * 0.2 - 2,
                             child: const InStockWave(),
                           )
