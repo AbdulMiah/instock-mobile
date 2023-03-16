@@ -98,6 +98,8 @@ class _ItemDetailsState extends State<ItemDetails> {
                         children: [
                           StockEditor(
                             currentStock: widget.item.stockAmount,
+                            itemSKU: widget.item.sku,
+                            businessId: widget.item.businessId!,
                           ),
                           InStockTextInput(
                             key: const Key('itemNameTextField'),

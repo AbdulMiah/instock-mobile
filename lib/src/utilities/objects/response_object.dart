@@ -5,10 +5,13 @@ class ResponseObject {
 
   List<String>? errors;
 
-  ResponseObject(this.statusCode, this.body, [this.errors]);
+  bool? requestSuccess;
+
+  ResponseObject(this.statusCode, this.body,
+      [this.errors, this.requestSuccess]);
 
   @override
   String toString() {
-    return 'ResponseObject{statusCode: $statusCode, body: $body, errors: $errors}';
+    return 'ResponseObject{statusCode: $statusCode, body: $body, errors: $errors, RequestSuccess: $requestSuccess}';
   }
 }

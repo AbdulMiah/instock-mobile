@@ -1,13 +1,23 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/inventory/data/stock_update_dto.dart';
+import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 import 'package:instock_mobile/src/features/inventory/services/reason_for_change_enum.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 
+import '../../../utilities/objects/response_object.dart';
+
 class StockEditor extends StatefulWidget {
-  StockEditor({super.key, required this.currentStock});
+  StockEditor(
+      {super.key,
+      required this.currentStock,
+      required this.itemSKU,
+      required this.businessId});
 
   int currentStock;
+  String itemSKU;
+  String businessId;
 
   @override
   State<StockEditor> createState() => _StockEditorState();
@@ -18,6 +28,7 @@ class _StockEditorState extends State<StockEditor> {
   int _calculatedStockAmount = 0;
   ReasonForChange _reasonForChange = ReasonForChange.Sale;
   bool _isLoading = false;
+  ItemService _itemService = ItemService();
 
   calculateNewStockAmount() {
     int totalStock = widget.currentStock + _changeStockAmountBy;
@@ -40,10 +51,14 @@ class _StockEditorState extends State<StockEditor> {
     return false;
   }
 
-  updateStock() {
+  updateStock() async {
     print("Updating");
-    print(_reasonForChange.name);
-    print(_calculatedStockAmount);
+
+    StockUpdateDTO stockUpdateDTO = StockUpdateDTO(widget.itemSKU,
+        widget.businessId, _changeStockAmountBy, _reasonForChange);
+    ResponseObject responseObject =
+        await _itemService.updateStockAmount(stockUpdateDTO);
+    //  Check response
   }
 
   @override
