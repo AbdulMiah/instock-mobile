@@ -62,7 +62,7 @@ class _SignUpState extends State<SignUp> {
         Navigator.pushAndRemoveUntil<void>(
           context,
           MaterialPageRoute<void>(builder: (context) => AddBusiness()),
-              (route) => false,
+          (route) => false,
         );
       } else if (response.statusCode == 404) {
         setState(() {
