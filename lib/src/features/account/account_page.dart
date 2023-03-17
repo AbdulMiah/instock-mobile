@@ -23,31 +23,28 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme().themeData;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const Text("Account"),
-              InStockButton(
-                text: "Clear Token",
-                onPressed: () async {
-                  await _secureStorageService.delete("bearerToken");
-                  // remove navigation stack and push
-                  Navigator.pushAndRemoveUntil<void>(
-                    context,
-                    MaterialPageRoute<void>(builder: (context) => AuthCheck()),
-                    (route) => false,
-                  );
-                },
-                theme: theme,
-                colorOption: InStockButton.primary,
-              )
-            ],
-          ),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const Text("Account"),
+            InStockButton(
+              text: "Clear Token",
+              onPressed: () async {
+                await _secureStorageService.delete("bearerToken");
+                // remove navigation stack and push
+                Navigator.pushAndRemoveUntil<void>(
+                  context,
+                  MaterialPageRoute<void>(builder: (context) => AuthCheck()),
+                  (route) => false,
+                );
+              },
+              theme: theme,
+              colorOption: InStockButton.primary,
+            )
+          ],
         ),
       ),
     );
