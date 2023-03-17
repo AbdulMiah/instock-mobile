@@ -23,7 +23,8 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
+    final uri = Uri.parse(
+        'http://api.instockinventory.co.uk/businesses/$businessId/items');
 
     final response = await client.get(
       uri,
@@ -53,21 +54,20 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    final url = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId/items');
+    final uri = Uri.parse(
+        'http://api.instockinventory.co.uk/businesses/$businessId/items');
 
     var body = json.encode(item.toMap());
 
-    final response = await http.post(
-        url,
+    final response = await http.post(uri,
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           "Content-Type": "application/json"
         },
-        body: body
-    );
+        body: body);
 
     ResponseObject responseObject =
-    ResponseObject(response.statusCode, response.body);
+        ResponseObject(statusCode: response.statusCode, body: response.body);
 
     return (responseObject);
   }

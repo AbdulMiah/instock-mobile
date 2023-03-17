@@ -17,4 +17,8 @@ class IAuthenticationService {
   Future<Map> retrieveBearerToken() {
     return Future<Map>.value();
   }
+
+  Future<ResponseObject> logOut() async {
+    return Future<ResponseObject>.value();
+  }
 }

@@ -70,6 +70,7 @@ class _WelcomeState extends State<Welcome> {
                           ),
                         ),
                         Positioned(
+                          width: MediaQuery.of(context).size.width,
                           top: MediaQuery.of(context).size.height * 0.7 - 2,
                           child: const InStockWave(),
                         )

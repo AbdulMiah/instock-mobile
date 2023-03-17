@@ -47,7 +47,7 @@ class _AddBusinessState extends State<AddBusiness> {
         });
       } else {
         setState(() {
-          _addBusinessError = response.message;
+          _addBusinessError = response.body;
         });
       }
     }
@@ -97,6 +97,7 @@ class _AddBusinessState extends State<AddBusiness> {
                           ),
                         ),
                         Positioned(
+                          width: MediaQuery.of(context).size.width,
                           top: MediaQuery.of(context).size.height * 0.05 - 2,
                           child: const InStockWave(),
                         ),

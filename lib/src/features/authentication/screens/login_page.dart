@@ -57,9 +57,9 @@ class _LoginState extends State<Login> {
           _loginError = "Whoops something went wrong, please try again";
         });
       } else if (response.statusCode == 502) {
-        _loginError = response.message;
+        _loginError = response.body;
       } else {
-        _loginError = response.message;
+        _loginError = response.body;
       }
     }
   }
@@ -125,6 +125,7 @@ class _LoginState extends State<Login> {
                                 colorOption: InStockButton.primary,
                               )),
                           Positioned(
+                            width: MediaQuery.of(context).size.width,
                             top: MediaQuery.of(context).size.height * 0.2 - 2,
                             child: const InStockWave(),
                           )
