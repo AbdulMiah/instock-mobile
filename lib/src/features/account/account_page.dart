@@ -20,7 +20,6 @@ class _AccountPageState extends State<AccountPage> {
   String _content = "";
 
   logOut() async {
-    print("Yesss");
     ResponseObject response = await _authenticationService.logOut();
     if (response.requestSuccess!) {
       Navigator.push(
