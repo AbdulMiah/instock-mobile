@@ -1,12 +1,18 @@
 class ResponseObject {
-  int statusCode;
+  int? statusCode;
+  String? body;
+  List<String>? errors;
+  bool? requestSuccess;
 
-  String message;
-
-  ResponseObject(this.statusCode, this.message);
+  ResponseObject({
+    this.statusCode,
+    this.body,
+    this.errors,
+    this.requestSuccess,
+  });
 
   @override
   String toString() {
-    return 'ResponseObject{statusCode: $statusCode, message: $message}';
+    return 'ResponseObject{statusCode: $statusCode, body: $body, errors: $errors, RequestSuccess: $requestSuccess}';
   }
 }

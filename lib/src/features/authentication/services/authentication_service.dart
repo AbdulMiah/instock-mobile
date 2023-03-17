@@ -21,6 +21,7 @@ class AuthenticationService implements IAuthenticationService {
   //   _secureStorageService = SecureStorageService();
   // }
 
+  @override
   Future<ResponseObject> authenticateUser(String email, String password) async {
     Validators.isEmail(email);
     Validators.validatePassword(password);
@@ -38,7 +39,7 @@ class AuthenticationService implements IAuthenticationService {
         headers: {"Content-Type": "application/json"}, body: body);
 
     ResponseObject responseObject =
-        ResponseObject(response.statusCode, response.body);
+        ResponseObject(statusCode: response.statusCode, body: response.body);
 
     if (response.statusCode == 200) {
       String bearerToken = response.body;
@@ -69,7 +70,7 @@ class AuthenticationService implements IAuthenticationService {
     Validators.shortLength(userDetails.password);
 
     final url = Uri.parse('http://api.instockinventory.co.uk/user');
-    var data = new Map<String, dynamic>();
+    var data = Map<String, dynamic>();
     data['firstName'] = userDetails.firstName;
     data['lastName'] = userDetails.lastName;
     data['email'] = userDetails.email;
@@ -81,13 +82,24 @@ class AuthenticationService implements IAuthenticationService {
         headers: {"Content-Type": "application/json"}, body: body);
 
     ResponseObject responseObject =
-        ResponseObject(response.statusCode, response.body);
+        ResponseObject(statusCode: response.statusCode, body: response.body);
     if (response.statusCode == 201) {
       String bearerToken = response.body;
       _saveBearerToken(bearerToken);
       return (responseObject);
     } else {
       return (responseObject);
+    }
+  }
+
+  @override
+  Future<ResponseObject> logOut() async {
+    try {
+      await _secureStorageService.delete("bearerToken");
+      return ResponseObject(requestSuccess: true, body: "Logged Out");
+    } catch (error) {
+      return ResponseObject(
+          requestSuccess: false, body: "Oops Something went wrong");
     }
   }
 }
