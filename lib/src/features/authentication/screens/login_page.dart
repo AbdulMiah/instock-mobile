@@ -44,9 +44,11 @@ class _LoginState extends State<Login> {
       ResponseObject response =
           await authenticationService.authenticateUser(_email!, _password!);
       if (response.statusCode == 200) {
-        Navigator.push(
+        // remove navigation stack and push
+        Navigator.pushAndRemoveUntil<void>(
           context,
-          MaterialPageRoute(builder: (context) => const NavBar()),
+          MaterialPageRoute<void>(builder: (context) => const NavBar()),
+          (route) => false,
         );
       } else if (response.statusCode == 404) {
         setState(() {

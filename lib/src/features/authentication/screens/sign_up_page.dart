@@ -58,9 +58,11 @@ class _SignUpState extends State<SignUp> {
       ResponseObject response =
           await _authenticationService.createUserAndAuthenticate(userDetails);
       if (response.statusCode == 201) {
-        Navigator.push(
+        // remove navigation stack and push
+        Navigator.pushAndRemoveUntil<void>(
           context,
-          MaterialPageRoute(builder: (context) => const AddBusiness()),
+          MaterialPageRoute<void>(builder: (context) => AddBusiness()),
+              (route) => false,
         );
       } else if (response.statusCode == 404) {
         setState(() {

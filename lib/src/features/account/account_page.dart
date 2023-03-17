@@ -36,9 +36,11 @@ class _AccountPageState extends State<AccountPage> {
                 text: "Clear Token",
                 onPressed: () async {
                   await _secureStorageService.delete("bearerToken");
-                  Navigator.push(
+                  // remove navigation stack and push
+                  Navigator.pushAndRemoveUntil<void>(
                     context,
-                    MaterialPageRoute(builder: (context) => AuthCheck()),
+                    MaterialPageRoute<void>(builder: (context) => AuthCheck()),
+                    (route) => false,
                   );
                 },
                 theme: theme,
