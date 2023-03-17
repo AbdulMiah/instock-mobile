@@ -54,12 +54,12 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    final url = Uri.parse(
+    final uri = Uri.parse(
         'http://api.instockinventory.co.uk/businesses/$businessId/items');
 
     var body = json.encode(item.toMap());
 
-    final response = await http.post(url,
+    final response = await http.post(uri,
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           "Content-Type": "application/json"
