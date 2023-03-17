@@ -32,76 +32,76 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme().themeData;
-        return Scaffold(
-          //Makes top notification bar specified colour otherwise
-          //bar behind notifications appears grey which seems out of place with the rest of the page
-          body: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.light
-                .copyWith(statusBarColor: theme.splashColor),
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: double.infinity,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.7,
-                          child: Container(
-                            color: theme.splashColor,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 48.0, 0, 0),
-                              child: Column(children: <Widget>[
-                                Text(
-                                  "Welcome To InStock",
-                                  style: theme.textTheme.displayLarge,
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text("A Small Business' Best Friend",
-                                    style: theme.textTheme.displaySmall,
-                                    textAlign: TextAlign.center),
-                              ]),
+    return Scaffold(
+      //Makes top notification bar specified colour otherwise
+      //bar behind notifications appears grey which seems out of place with the rest of the page
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light
+            .copyWith(statusBarColor: theme.splashColor),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: Container(
+                        color: theme.splashColor,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 48.0, 0, 0),
+                          child: Column(children: <Widget>[
+                            Text(
+                              "Welcome To InStock",
+                              style: theme.textTheme.displayLarge,
+                              textAlign: TextAlign.center,
                             ),
-                          ),
+                            Text("A Small Business' Best Friend",
+                                style: theme.textTheme.displaySmall,
+                                textAlign: TextAlign.center),
+                          ]),
                         ),
-                        Positioned(
-                          width: MediaQuery.of(context).size.width,
-                          top: MediaQuery.of(context).size.height * 0.7 - 2,
-                          child: const InStockWave(),
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
-                    child: Column(
-                      children: <Widget>[
-                        InStockButton(
-                          text: "Login",
-                          theme: theme,
-                          colorOption: InStockButton.accent,
-                          onPressed: () {
-                            redirectToLogin();
-                          },
-                        ),
-                        InStockButton(
-                          text: "Sign Up",
-                          theme: theme,
-                          colorOption: InStockButton.primary,
-                          onPressed: () {
-                            redirectToSignUp();
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                    Positioned(
+                      width: MediaQuery.of(context).size.width,
+                      top: MediaQuery.of(context).size.height * 0.7 - 2,
+                      child: const InStockWave(),
+                    )
+                  ],
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
+                child: Column(
+                  children: <Widget>[
+                    InStockButton(
+                      text: "Login",
+                      theme: theme,
+                      colorOption: InStockButton.accent,
+                      onPressed: () {
+                        redirectToLogin();
+                      },
+                    ),
+                    InStockButton(
+                      text: "Sign Up",
+                      theme: theme,
+                      colorOption: InStockButton.primary,
+                      onPressed: () {
+                        redirectToSignUp();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
+        ),
+      ),
     );
   }
 }

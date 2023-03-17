@@ -82,122 +82,119 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
-        return Scaffold(
-          //Makes top notification bar specified colour otherwise
-          //bar behind notifications appears grey which seems out of place with the rest of the page
-          body: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.light
-                .copyWith(statusBarColor: theme.themeData.splashColor),
-            child: SingleChildScrollView(
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      width: double.infinity,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          SizedBox(
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Container(
-                              color: theme.themeData.splashColor,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 48.0, 0, 0),
-                                child: Column(children: <Widget>[
-                                  Text(
-                                    "Login",
-                                    style:
-                                        theme.themeData.textTheme.displayLarge,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ]),
+    return Scaffold(
+      //Makes top notification bar specified colour otherwise
+      //bar behind notifications appears grey which seems out of place with the rest of the page
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light
+            .copyWith(statusBarColor: theme.themeData.splashColor),
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: double.infinity,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: Container(
+                          color: theme.themeData.splashColor,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 48.0, 0, 0),
+                            child: Column(children: <Widget>[
+                              Text(
+                                "Login",
+                                style: theme.themeData.textTheme.displayLarge,
+                                textAlign: TextAlign.center,
                               ),
-                            ),
-                          ),
-                          const Positioned(
-                              top: 10,
-                              left: 10,
-                              child: InStockBackButton(
-                                page: Welcome(),
-                                colorOption: InStockButton.primary,
-                              )),
-                          Positioned(
-                            width: MediaQuery.of(context).size.width,
-                            top: MediaQuery.of(context).size.height * 0.2 - 2,
-                            child: const InStockWave(),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: <Widget>[
-                              InStockTextInput(
-                                  text: 'Email',
-                                  theme: theme.themeData,
-                                  icon: Icons.person,
-                                  validators: const [
-                                    Validators.notNull,
-                                    Validators.notBlank,
-                                    Validators.shortLength,
-                                  ],
-                                  onSaved: (value) {
-                                    _email = value;
-                                  }),
-                              Padding(
-                                padding: theme.textFieldPadding,
-                                child: InStockTextInput(
-                                  text: 'Password',
-                                  theme: theme.themeData,
-                                  icon: Icons.lock,
-                                  validators: const [
-                                    Validators.shortLength,
-                                    Validators.notNull,
-                                    Validators.notBlank,
-                                  ],
-                                  onSaved: (value) {
-                                    _password = value;
-                                  },
-                                  obscureText: true,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 16.0, 0, 0),
-                                child: SizedBox(
-                                  width: 180,
-                                  child: InStockButton(
-                                    text: 'Login',
-                                    onPressed: () async {
-                                      toggleLoading(true);
-                                      handleLogin();
-                                      toggleLoading(false);
-                                    },
-                                    theme: theme.themeData,
-                                    colorOption: InStockButton.accent,
-                                    isLoading: _isLoading,
-                                  ),
-                                ),
-                              ),
-                              displayLoginError(theme),
-                            ],
+                            ]),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      const Positioned(
+                          top: 10,
+                          left: 10,
+                          child: InStockBackButton(
+                            page: Welcome(),
+                            colorOption: InStockButton.primary,
+                          )),
+                      Positioned(
+                        width: MediaQuery.of(context).size.width,
+                        top: MediaQuery.of(context).size.height * 0.2 - 2,
+                        child: const InStockWave(),
+                      )
+                    ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 60.0, 0, 0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          InStockTextInput(
+                              text: 'Email',
+                              theme: theme.themeData,
+                              icon: Icons.person,
+                              validators: const [
+                                Validators.notNull,
+                                Validators.notBlank,
+                                Validators.shortLength,
+                              ],
+                              onSaved: (value) {
+                                _email = value;
+                              }),
+                          Padding(
+                            padding: theme.textFieldPadding,
+                            child: InStockTextInput(
+                              text: 'Password',
+                              theme: theme.themeData,
+                              icon: Icons.lock,
+                              validators: const [
+                                Validators.shortLength,
+                                Validators.notNull,
+                                Validators.notBlank,
+                              ],
+                              onSaved: (value) {
+                                _password = value;
+                              },
+                              obscureText: true,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 0),
+                            child: SizedBox(
+                              width: 180,
+                              child: InStockButton(
+                                text: 'Login',
+                                onPressed: () async {
+                                  toggleLoading(true);
+                                  handleLogin();
+                                  toggleLoading(false);
+                                },
+                                theme: theme.themeData,
+                                colorOption: InStockButton.accent,
+                                isLoading: _isLoading,
+                              ),
+                            ),
+                          ),
+                          displayLoginError(theme),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        );
+        ),
+      ),
+    );
   }
 }
