@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
+import 'package:instock_mobile/src/utilities/widgets/instock_search_bar.dart';
 
 import '../../../theme/common_theme.dart';
 import 'category_heading.dart';
@@ -11,10 +13,12 @@ class InventoryBuilder extends StatelessWidget {
     super.key,
     required this.inventoryService,
     required this.theme,
+    required this.controller
   });
 
   final InventoryService inventoryService;
   final CommonTheme theme;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +62,16 @@ class InventoryBuilder extends StatelessWidget {
                 String category = snapshot.data[index].category;
                 if (index == 0) {
                   return Padding(
-                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                    padding: const EdgeInsets.fromLTRB(12, 50, 12, 8),
                     child: Column(
                       children: [
+                        InStockSearchBar(
+                            text: "Search",
+                            hintText: "Search for items",
+                            theme: theme.themeData,
+                            controller: controller,
+                        ),
+                        const SizedBox(height: 8.0,),
                         CategoryHeading(category: category),
                         InventoryItem(
                           itemName: snapshot.data[index].name,

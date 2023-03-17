@@ -17,6 +17,7 @@ class Inventory extends StatefulWidget {
 class _InventoryState extends State<Inventory> {
   // checkStatus(AsyncSnapshot snapshot, int index)
 
+  TextEditingController editingController = TextEditingController();
   final InventoryService _inventoryService =
       InventoryService(AuthenticationService());
 
@@ -26,6 +27,7 @@ class _InventoryState extends State<Inventory> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
               .copyWith(statusBarColor: theme.themeData.splashColor),
@@ -59,7 +61,9 @@ class _InventoryState extends State<Inventory> {
                           padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                           child: InventoryBuilder(
                               inventoryService: _inventoryService,
-                              theme: theme),
+                              theme: theme,
+                              controller: editingController,
+                          ),
                         ),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.05 - 2,
