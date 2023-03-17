@@ -85,7 +85,6 @@ class _AccountPageState extends State<AccountPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          const Text("Account"),
                           InStockButton(
                             text: "Log Out",
                             onPressed: () async {
