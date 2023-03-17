@@ -53,10 +53,12 @@ class _InStockSearchBarState extends State<InStockSearchBar> {
                     prefixIconConstraints:
                     BoxConstraints.loose(Size.fromWidth(1000)),
                     prefixIconColor: widget.theme.primaryColorDark,
-                    suffixIcon: IconButton(
-                      onPressed: widget.controller?.clear,
-                      icon: const Icon(Icons.clear),
-                    ),
+                    suffixIcon: widget.controller.text != ""
+                        ? IconButton(
+                          onPressed: widget.controller.clear,
+                          icon: const Icon(Icons.clear),
+                        )
+                        : null,
                     suffixIconColor: widget.theme.primaryColorDark,
                     errorStyle: widget.theme.textTheme.headlineSmall,
                     errorMaxLines: 5,
