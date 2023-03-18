@@ -32,6 +32,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
   @override
   Widget build(BuildContext context) {
     List<Item> items = <Item>[];
+    Map<String, int> categories = {};
     List<Item> searchResults = items;
 
     void filterSearchResults(String query) {
@@ -52,6 +53,15 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
         setState(() {
           searchResults = items;
         });
+      }
+    }
+
+    void getCategories() {
+      for (Item c in items) {
+        if (!categories.containsKey(c.category)) {
+          int index = items.indexWhere((item) => item.name == c.name);
+          categories[c.category] = index;
+        }
       }
     }
 
@@ -83,6 +93,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
             );
           }
           items.addAll(snapshot.data);
+          getCategories();
 
           return Column(
             children: <Widget>[
@@ -97,6 +108,10 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                     filterSearchResults(value!);
                   },
                 ),
+              ),
+              HorizontalCategoryList(
+                  scrollController: widget.scrollController,
+                  categories: categories
               ),
               Expanded(
                 child: ScrollablePositionedList.builder(
