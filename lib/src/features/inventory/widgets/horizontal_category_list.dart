@@ -16,6 +16,7 @@ class HorizontalCategoryList extends StatefulWidget {
 
 class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
   int _selectedIndex = 0;
+  final _horizontalScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,8 @@ class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 40),
       child: Scrollbar(
+        thumbVisibility: true,
+        controller: _horizontalScrollController,
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,

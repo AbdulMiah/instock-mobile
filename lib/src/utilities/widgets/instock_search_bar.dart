@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+//ignore: must_be_immutable
 class InStockSearchBar extends StatefulWidget {
   InStockSearchBar(
   {super.key,
@@ -51,7 +51,7 @@ class _InStockSearchBarState extends State<InStockSearchBar> {
                     hintText: widget.hintText,
                     prefixIcon: widget.icon != null ? Icon(widget.icon) : const Icon(Icons.search),
                     prefixIconConstraints:
-                    BoxConstraints.loose(Size.fromWidth(1000)),
+                    BoxConstraints.loose(const Size.fromWidth(1000)),
                     prefixIconColor: widget.theme.primaryColorDark,
                     suffixIcon: widget.controller.text != ""
                         ? IconButton(
@@ -63,15 +63,15 @@ class _InStockSearchBarState extends State<InStockSearchBar> {
                     errorStyle: widget.theme.textTheme.headlineSmall,
                     errorMaxLines: 5,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                      borderRadius: const BorderRadius.all(Radius.circular(25.0)),
                       borderSide: BorderSide(color: widget.theme.primaryColorDark),
                     ),
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
                         borderSide: BorderSide(color: widget.theme.primaryColorDark)
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
                         borderSide: BorderSide(color: widget.theme.primaryColorDark)
                     ),
                   ),
