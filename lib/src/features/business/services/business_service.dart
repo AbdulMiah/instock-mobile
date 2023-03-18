@@ -14,14 +14,14 @@ class BusinessService {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
 
-    final url = Uri.parse('http://api.instockinventory.co.uk/business');
+    final uri = Uri.parse('http://api.instockinventory.co.uk/business');
     var data = Map<String, dynamic>();
     data['businessName'] = name;
     data['businessDescription'] = description;
 
     var body = json.encode(data);
 
-    final response = await http.post(url,
+    final response = await http.post(uri,
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           "Content-Type": "application/json"
@@ -29,7 +29,7 @@ class BusinessService {
         body: body);
 
     ResponseObject responseObject =
-        ResponseObject(response.statusCode, response.body);
+        ResponseObject(statusCode: response.statusCode, body: response.body);
 
     return (responseObject);
   }

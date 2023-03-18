@@ -7,7 +7,11 @@ class InStockWave extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String waveSvgPath = 'lib/src/images/svgs/welcome_wave.svg';
-    final Widget waveSvg = SvgPicture.asset(waveSvgPath);
+    final Widget waveSvg = SvgPicture.asset(
+      waveSvgPath,
+      fit: BoxFit.cover,
+    );
+
     return (waveSvg);
   }
 }

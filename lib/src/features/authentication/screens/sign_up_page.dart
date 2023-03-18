@@ -76,7 +76,7 @@ class _SignUpState extends State<SignUp> {
         });
       } else {
         setState(() {
-          _signUpError = response.message;
+          _signUpError = response.body;
         });
       }
     }
@@ -148,6 +148,7 @@ class _SignUpState extends State<SignUp> {
                                 colorOption: InStockBackButton.primary,
                               )),
                           Positioned(
+                            width: MediaQuery.of(context).size.width,
                             top: MediaQuery.of(context).size.height * 0.18 - 2,
                             child: InStockWave(),
                           )
