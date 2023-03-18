@@ -29,6 +29,7 @@ class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
+          controller: _horizontalScrollController,
           itemCount: widget.categories.length,
           itemBuilder: (BuildContext context, int index) => Container(
             margin: const EdgeInsets.all(5),
