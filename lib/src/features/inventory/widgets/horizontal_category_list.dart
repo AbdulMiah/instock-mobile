@@ -22,27 +22,32 @@ class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
     final theme = CommonTheme();
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 40),
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.categories.length,
-        itemBuilder: (BuildContext context, int index) => ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _selectedIndex = index;
-            });
-            widget.scrollController.scrollTo(
-                index: widget.categories.values.elementAt(index),
-                duration: const Duration(milliseconds: 500));
-          },
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            foregroundColor: theme.themeData.primaryColorDark,
-            backgroundColor: _selectedIndex == index
-                ? theme.themeData.splashColor
-                : Colors.white
+      child: Scrollbar(
+        child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.categories.length,
+          itemBuilder: (BuildContext context, int index) => Container(
+            margin: const EdgeInsets.all(5),
+            child: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = index;
+                });
+                widget.scrollController.scrollTo(
+                    index: widget.categories.values.elementAt(index),
+                    duration: const Duration(milliseconds: 500));
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                foregroundColor: theme.themeData.primaryColorDark,
+                backgroundColor: _selectedIndex == index
+                    ? theme.themeData.splashColor.withOpacity(0.5)
+                    : Colors.white,
+              ),
+              child: Text(widget.categories.keys.elementAt(index)),
+            ),
           ),
-          child: Text(widget.categories.keys.elementAt(index)),
         ),
       ),
     );
