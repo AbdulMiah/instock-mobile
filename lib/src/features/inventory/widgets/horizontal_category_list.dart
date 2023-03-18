@@ -25,6 +25,7 @@ class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
       constraints: const BoxConstraints(maxHeight: 40),
       child: Scrollbar(
         thumbVisibility: true,
+        interactive: true,
         controller: _horizontalScrollController,
         child: ListView.builder(
           shrinkWrap: true,

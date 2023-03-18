@@ -48,7 +48,6 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
             return itemName.contains(input);
           }).toList();
         });
-        // setState(() => items = suggestions);
       } else {
         setState(() {
           searchResults = items;
@@ -114,68 +113,71 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   categories: categories
               ),
               Expanded(
-                child: ScrollablePositionedList.builder(
-                    shrinkWrap: true,
-                    itemScrollController: widget.scrollController,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      String? warningMsg;
-                      bool isSameCategory = true;
-                      int stock = int.parse(snapshot.data[index].stock);
-                      if (stock <= 5) {
-                        warningMsg = 'Low Stock';
-                      }
-                      String category = snapshot.data[index].category;
-                      if (index == 0) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                          child: Column(
-                            children: [
-                              CategoryHeading(category: category),
-                              InventoryItem(
-                                itemName: snapshot.data[index].name,
-                                itemCategory: snapshot.data[index].category,
-                                itemSku: snapshot.data[index].sku,
-                                itemStockNo: snapshot.data[index].stock,
-                                itemOrdersNo: 'N/A',
-                                itemWarning: warningMsg,
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
-                        String prevCategory = snapshot.data[index - 1].category;
-                        isSameCategory = prevCategory == category;
-                      }
-                      return isSameCategory == true
-                          ? Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                              child: InventoryItem(
-                                itemName: snapshot.data[index].name,
-                                itemCategory: snapshot.data[index].category,
-                                itemSku: snapshot.data[index].sku,
-                                itemStockNo: snapshot.data[index].stock,
-                                itemOrdersNo: "N/A",
-                                itemWarning: warningMsg,
-                              ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                              child: Column(
-                                children: [
-                                  CategoryHeading(category: category),
-                                  InventoryItem(
-                                    itemName: snapshot.data[index].name,
-                                    itemCategory: snapshot.data[index].category,
-                                    itemSku: snapshot.data[index].sku,
-                                    itemStockNo: snapshot.data[index].stock,
-                                    itemOrdersNo: 'N/A',
-                                    itemWarning: warningMsg,
-                                  ),
-                                ],
-                              ),
-                            );
-                    }),
+                child: Scrollbar(
+                  thickness: 5,
+                  child: ScrollablePositionedList.builder(
+                      shrinkWrap: true,
+                      itemScrollController: widget.scrollController,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String? warningMsg;
+                        bool isSameCategory = true;
+                        int stock = int.parse(snapshot.data[index].stock);
+                        if (stock <= 5) {
+                          warningMsg = 'Low Stock';
+                        }
+                        String category = snapshot.data[index].category;
+                        if (index == 0) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                            child: Column(
+                              children: [
+                                CategoryHeading(category: category),
+                                InventoryItem(
+                                  itemName: snapshot.data[index].name,
+                                  itemCategory: snapshot.data[index].category,
+                                  itemSku: snapshot.data[index].sku,
+                                  itemStockNo: snapshot.data[index].stock,
+                                  itemOrdersNo: 'N/A',
+                                  itemWarning: warningMsg,
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          String prevCategory = snapshot.data[index - 1].category;
+                          isSameCategory = prevCategory == category;
+                        }
+                        return isSameCategory == true
+                            ? Padding(
+                                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                child: InventoryItem(
+                                  itemName: snapshot.data[index].name,
+                                  itemCategory: snapshot.data[index].category,
+                                  itemSku: snapshot.data[index].sku,
+                                  itemStockNo: snapshot.data[index].stock,
+                                  itemOrdersNo: "N/A",
+                                  itemWarning: warningMsg,
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                child: Column(
+                                  children: [
+                                    CategoryHeading(category: category),
+                                    InventoryItem(
+                                      itemName: snapshot.data[index].name,
+                                      itemCategory: snapshot.data[index].category,
+                                      itemSku: snapshot.data[index].sku,
+                                      itemStockNo: snapshot.data[index].stock,
+                                      itemOrdersNo: 'N/A',
+                                      itemWarning: warningMsg,
+                                    ),
+                                  ],
+                                ),
+                              );
+                      }),
+                ),
               ),
             ],
           );
