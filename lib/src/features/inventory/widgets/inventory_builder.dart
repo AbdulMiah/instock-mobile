@@ -43,17 +43,15 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
 
   void filterSearchResults(String query) {
     if (query.isNotEmpty) {
-      setState(() {
-        searchResults = items.where((item) {
-          final itemName = item.name.toLowerCase();
-          final input = query.toLowerCase();
+      final suggestions = items.where((item) {
+        final name = item.name.toLowerCase();
+        final sku = item.sku.toLowerCase();
+        final category = item.category.toLowerCase();
+        final input = query.toLowerCase();
 
-          if (itemName.contains(input)) {
-            print(itemName);
-          }
-          return itemName.contains(input);
-        }).toList();
-      });
+        return name.contains(input) || sku.contains(input) || category.contains(input);
+      }).toList();
+      setState(() => searchResults = suggestions);
     } else {
       setState(() {
         searchResults = items;
