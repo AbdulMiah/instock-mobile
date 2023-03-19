@@ -42,8 +42,7 @@ class _AddBusinessState extends State<AddBusiness> {
         });
       } else if (response.statusCode == 400) {
         setState(() {
-          _addBusinessError =
-              "A Business is already associated with your account.";
+          _addBusinessError = _addBusinessError = response.body;
         });
       } else {
         setState(() {

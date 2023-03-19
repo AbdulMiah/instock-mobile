@@ -28,9 +28,47 @@ class BusinessService {
         },
         body: body);
 
+    if (response.statusCode == 201) {
+      ResponseObject(
+        statusCode: response.statusCode,
+        body: response.body,
+        requestSuccess: true,
+      );
+    } else {
+      print(response.body);
+      Map<String, dynamic> responseMap = response.body as Map<String, dynamic>;
+
+      List<String> errors = extractErrorMessages(responseMap);
+
+      ResponseObject responseObject = ResponseObject(
+          statusCode: response.statusCode,
+          body: "Whoops something went wrong, please try again",
+          requestSuccess: true,
+          errors: errors);
+
+      print(responseObject.toString());
+    }
+
     ResponseObject responseObject =
         ResponseObject(statusCode: response.statusCode, body: response.body);
 
     return (responseObject);
+  }
+
+  List<String> extractErrorMessages(Map<String, dynamic> dictionary) {
+    List<String> errorMessages = [];
+    if (dictionary.containsKey('errors')) {
+      Map<String, dynamic> errors = dictionary['errors'];
+      errors.forEach((key, value) {
+        if (value is List) {
+          value.forEach((element) {
+            if (element is String) {
+              errorMessages.add(element);
+            }
+          });
+        }
+      });
+    }
+    return errorMessages;
   }
 }
