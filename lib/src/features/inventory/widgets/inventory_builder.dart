@@ -106,7 +106,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   const SizedBox(height: 40,),
                   InStockButton(
                     onPressed: () {
-                      setState((){});
+                      fetchData();
                     },
                     theme: widget.theme.themeData,
                     colorOption: InStockButton.primary,
