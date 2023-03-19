@@ -16,8 +16,6 @@ class Inventory extends StatefulWidget {
 }
 
 class _InventoryState extends State<Inventory> {
-  // checkStatus(AsyncSnapshot snapshot, int index)
-
   ItemScrollController scrollController = ItemScrollController();
   final InventoryService _inventoryService =
       InventoryService(AuthenticationService());
