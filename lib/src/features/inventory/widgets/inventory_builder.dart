@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/horizontal_category_list.dart';
-import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_search_bar.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/widgets/instock_button.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
 
@@ -31,54 +31,54 @@ class InventoryBuilder extends StatefulWidget {
 class _InventoryBuilderState extends State<InventoryBuilder> {
   TextEditingController editingController = TextEditingController();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  List<Item> items = <Item>[];
+  Map<String, int> categories = {};
+  List<Item> searchResults = <Item>[];
+
+  void filterSearchResults(String query) {
+    if (query.isNotEmpty) {
+      setState(() {
+        searchResults = items.where((item) {
+          final itemName = item.name.toLowerCase();
+          final input = query.toLowerCase();
+
+          if (itemName.contains(input)) {
+            print(itemName);
+          }
+          return itemName.contains(input);
+        }).toList();
+      });
+    } else {
+      setState(() {
+        searchResults = items;
+      });
+    }
+  }
+
+  void getCategories() {
+    for (Item c in items) {
+      if (!categories.containsKey(c.category)) {
+        int index = items.indexWhere((item) => item.name == c.name);
+        categories[c.category] = index;
+      }
+    }
+  }
+
+  Future<void> fetchData() async {
+    final data = await widget.inventoryService.getItems(http.Client());
+    setState(() {
+      items = data;
+      searchResults = items;
+      getCategories();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Item> items = <Item>[];
-    Map<String, int> categories = {};
-    List<Item> searchResults = items;
-
-    void filterSearchResults(String query) {
-      if (query.isNotEmpty) {
-        setState(() {
-          searchResults = items.where((item) {
-            final itemName = item.name.toLowerCase();
-            final input = query.toLowerCase();
-
-            if (itemName.contains(input)) {
-              print(itemName);
-            }
-            return itemName.contains(input);
-          }).toList();
-        });
-      } else {
-        setState(() {
-          searchResults = items;
-        });
-      }
-    }
-
-    void getCategories() {
-      for (Item c in items) {
-        if (!categories.containsKey(c.category)) {
-          int index = items.indexWhere((item) => item.name == c.name);
-          categories[c.category] = index;
-        }
-      }
-    }
-
-    Future<void> fetchData() async {
-      final data = await widget.inventoryService.getItems(http.Client());
-      setState(() {
-        items = data;
-        getCategories();
-      });
-    }
-
     return FutureBuilder(
         future: widget.inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.data == null && snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
                 color: widget.theme.themeData.splashColor,
