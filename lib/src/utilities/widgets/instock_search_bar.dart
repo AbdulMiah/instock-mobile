@@ -50,20 +50,18 @@ class _InStockSearchBarState extends State<InStockSearchBar> {
                     labelStyle: widget.theme.textTheme.labelMedium,
                     hintText: widget.hintText,
                     prefixIcon: widget.icon != null ? Icon(widget.icon) : const Icon(Icons.search),
-                    prefixIconConstraints:
-                    BoxConstraints.loose(const Size.fromWidth(1000)),
                     prefixIconColor: widget.theme.primaryColorDark,
                     border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                      borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                       borderSide: BorderSide(color: widget.theme.primaryColorDark),
                     ),
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+                        borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                         borderSide: BorderSide(color: widget.theme.primaryColorDark)
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                        borderSide: BorderSide(color: widget.theme.primaryColorDark)
+                        borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                        borderSide: BorderSide(color: widget.theme.splashColor)
                     ),
                   ),
               ),
