@@ -35,6 +35,12 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
   Map<String, int> categories = {};
   List<Item> searchResults = <Item>[];
 
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   void filterSearchResults(String query) {
     if (query.isNotEmpty) {
       setState(() {
@@ -130,11 +136,6 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                 ],
               ),
             );
-          } else {
-            if (!items.contains(snapshot.data)) {
-              items.addAll(snapshot.data);
-              getCategories();
-            }
           }
 
           return Column(
@@ -161,18 +162,19 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   child: RefreshIndicator(
                     key: _refreshIndicatorKey,
                     onRefresh: fetchData,
+                    color: widget.theme.themeData.splashColor,
                     child: ScrollablePositionedList.builder(
                         shrinkWrap: true,
                         itemScrollController: widget.scrollController,
-                        itemCount: snapshot.data.length,
+                        itemCount: searchResults.length,
                         itemBuilder: (BuildContext context, int index) {
                           String? warningMsg;
                           bool isSameCategory = true;
-                          int stock = int.parse(snapshot.data[index].stock);
+                          int stock = int.parse(searchResults[index].stock);
                           if (stock <= 5) {
                             warningMsg = 'Low Stock';
                           }
-                          String category = snapshot.data[index].category;
+                          String category = searchResults[index].category;
                           if (index == 0) {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
@@ -180,10 +182,10 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                 children: [
                                   CategoryHeading(category: category),
                                   InventoryItem(
-                                    itemName: snapshot.data[index].name,
-                                    itemCategory: snapshot.data[index].category,
-                                    itemSku: snapshot.data[index].sku,
-                                    itemStockNo: snapshot.data[index].stock,
+                                    itemName: searchResults[index].name,
+                                    itemCategory: searchResults[index].category,
+                                    itemSku: searchResults[index].sku,
+                                    itemStockNo: searchResults[index].stock,
                                     itemOrdersNo: 'N/A',
                                     itemWarning: warningMsg,
                                   ),
@@ -191,17 +193,17 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                               ),
                             );
                           } else {
-                            String prevCategory = snapshot.data[index - 1].category;
+                            String prevCategory = searchResults[index - 1].category;
                             isSameCategory = prevCategory == category;
                           }
                           return isSameCategory == true
                               ? Padding(
                                   padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                                   child: InventoryItem(
-                                    itemName: snapshot.data[index].name,
-                                    itemCategory: snapshot.data[index].category,
-                                    itemSku: snapshot.data[index].sku,
-                                    itemStockNo: snapshot.data[index].stock,
+                                    itemName: searchResults[index].name,
+                                    itemCategory: searchResults[index].category,
+                                    itemSku: searchResults[index].sku,
+                                    itemStockNo: searchResults[index].stock,
                                     itemOrdersNo: "N/A",
                                     itemWarning: warningMsg,
                                   ),
@@ -212,10 +214,10 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                     children: [
                                       CategoryHeading(category: category),
                                       InventoryItem(
-                                        itemName: snapshot.data[index].name,
-                                        itemCategory: snapshot.data[index].category,
-                                        itemSku: snapshot.data[index].sku,
-                                        itemStockNo: snapshot.data[index].stock,
+                                        itemName: searchResults[index].name,
+                                        itemCategory: searchResults[index].category,
+                                        itemSku: searchResults[index].sku,
+                                        itemStockNo: searchResults[index].stock,
                                         itemOrdersNo: 'N/A',
                                         itemWarning: warningMsg,
                                       ),
