@@ -15,4 +15,11 @@ class ResponseObject {
   String toString() {
     return 'ResponseObject{statusCode: $statusCode, body: $body, errors: $errors, RequestSuccess: $requestSuccess}';
   }
+
+  hasErrors() {
+    if (errors != null || this.errors!.isNotEmpty) {
+      return true;
+    }
+    return false;
+  }
 }

@@ -35,8 +35,7 @@ class BusinessService {
         requestSuccess: true,
       );
     } else {
-      print(response.body);
-      Map<String, dynamic> responseMap = response.body as Map<String, dynamic>;
+      Map<String, dynamic> responseMap = json.decode(response.body);
 
       List<String> errors = extractErrorMessages(responseMap);
 
@@ -45,8 +44,7 @@ class BusinessService {
           body: "Whoops something went wrong, please try again",
           requestSuccess: true,
           errors: errors);
-
-      print(responseObject.toString());
+      return responseObject;
     }
 
     ResponseObject responseObject =
