@@ -17,30 +17,27 @@ class AuthCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = CommonTheme().themeData;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
-          future: _authenticationService.retrieveBearerToken(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.data != null) {
-              Map jwtTokenDict = snapshot.data;
-              String? jwtToken = jwtTokenDict["bearerToken"];
-              if (jwtToken == null) {
-                return const Welcome();
-              }
-              bool tokenIsExpired = Jwt.isExpired(jwtToken);
-              if (tokenIsExpired) {
-                return const Welcome();
-              } else {
-                return const NavBar();
-              }
+    return FutureBuilder(
+        future: _authenticationService.retrieveBearerToken(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            Map jwtTokenDict = snapshot.data;
+            String? jwtToken = jwtTokenDict["bearerToken"];
+            if (jwtToken == null) {
+              return const Welcome();
             }
-            return Center(
-              child: CircularProgressIndicator(
-                color: theme.splashColor,
-              ),
-            );
-          }),
-    );
+            bool tokenIsExpired = Jwt.isExpired(jwtToken);
+            if (tokenIsExpired) {
+              return const Welcome();
+            } else {
+              return const NavBar();
+            }
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              color: theme.splashColor,
+            ),
+          );
+        });
   }
 }
