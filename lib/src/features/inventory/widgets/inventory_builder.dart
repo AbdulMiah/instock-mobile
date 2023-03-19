@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/horizontal_category_list.dart';
+import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_search_bar.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -16,12 +18,10 @@ class InventoryBuilder extends StatefulWidget {
       {super.key,
       required this.inventoryService,
       required this.theme,
-      required this.editingController,
       required this.scrollController});
 
   final InventoryService inventoryService;
   final CommonTheme theme;
-  final TextEditingController editingController;
   final ItemScrollController scrollController;
 
   @override
@@ -29,6 +29,8 @@ class InventoryBuilder extends StatefulWidget {
 }
 
 class _InventoryBuilderState extends State<InventoryBuilder> {
+  TextEditingController editingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     List<Item> items = <Item>[];
@@ -67,11 +69,40 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
     return FutureBuilder(
         future: widget.inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-                child: CircularProgressIndicator(
-              color: widget.theme.themeData.splashColor,
-            ));
+              child: CircularProgressIndicator(
+                color: widget.theme.themeData.splashColor,
+              ),
+            );
+          }
+          if (snapshot.hasError || snapshot.error is SocketException) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("No Internet Connection",
+                    style: widget.theme.themeData.textTheme.bodyLarge?.merge(const TextStyle(fontSize: 30)),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20,),
+                  Text("Please check your internet connection and try again",
+                    style: widget.theme.themeData.textTheme.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 40,),
+                  InStockButton(
+                    onPressed: () {
+                      setState((){});
+                    },
+                    theme: widget.theme.themeData,
+                    colorOption: InStockButton.primary,
+                    text: "Try Again",
+                    icon: Icons.refresh,
+                  ),
+                ],
+              ),
+            );
           }
           if (snapshot.data.length == 0) {
             return Center(
@@ -90,9 +121,12 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                 ],
               ),
             );
+          } else {
+            if (!items.contains(snapshot.data)) {
+              items.addAll(snapshot.data);
+              getCategories();
+            }
           }
-          items.addAll(snapshot.data);
-          getCategories();
 
           return Column(
             children: <Widget>[
@@ -102,7 +136,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   text: "Search",
                   hintText: "Search for items",
                   theme: widget.theme.themeData,
-                  controller: widget.editingController,
+                  controller: editingController,
                   onChanged: (value) {
                     filterSearchResults(value!);
                   },
