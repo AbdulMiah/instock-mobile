@@ -30,6 +30,7 @@ class InventoryBuilder extends StatefulWidget {
 
 class _InventoryBuilderState extends State<InventoryBuilder> {
   TextEditingController editingController = TextEditingController();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,14 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
           categories[c.category] = index;
         }
       }
+    }
+
+    Future<void> fetchData() async {
+      final data = await widget.inventoryService.getItems(http.Client());
+      setState(() {
+        items = data;
+        getCategories();
+      });
     }
 
     return FutureBuilder(
@@ -149,72 +158,78 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
               Expanded(
                 child: Scrollbar(
                   thickness: 5,
-                  child: ScrollablePositionedList.builder(
-                      shrinkWrap: true,
-                      itemScrollController: widget.scrollController,
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        String? warningMsg;
-                        bool isSameCategory = true;
-                        int stock = int.parse(snapshot.data[index].stock);
-                        if (stock <= 5) {
-                          warningMsg = 'Low Stock';
-                        }
-                        String category = snapshot.data[index].category;
-                        if (index == 0) {
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                            child: Column(
-                              children: [
-                                CategoryHeading(category: category),
-                                InventoryItem(
-                                  itemName: snapshot.data[index].name,
-                                  itemCategory: snapshot.data[index].category,
-                                  itemSku: snapshot.data[index].sku,
-                                  itemStockNo: snapshot.data[index].stock,
-                                  itemOrdersNo: 'N/A',
-                                  itemWarning: warningMsg,
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          String prevCategory = snapshot.data[index - 1].category;
-                          isSameCategory = prevCategory == category;
-                        }
-                        return isSameCategory == true
-                            ? Padding(
-                                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                                child: InventoryItem(
-                                  itemName: snapshot.data[index].name,
-                                  itemCategory: snapshot.data[index].category,
-                                  itemSku: snapshot.data[index].sku,
-                                  itemStockNo: snapshot.data[index].stock,
-                                  itemOrdersNo: "N/A",
-                                  itemWarning: warningMsg,
-                                ),
+                  child: RefreshIndicator(
+                    key: _refreshIndicatorKey,
+                    onRefresh: fetchData,
+                    child: ScrollablePositionedList.builder(
+                        shrinkWrap: true,
+                        itemScrollController: widget.scrollController,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String? warningMsg;
+                          bool isSameCategory = true;
+                          int stock = int.parse(snapshot.data[index].stock);
+                          if (stock <= 5) {
+                            warningMsg = 'Low Stock';
+                          }
+                          String category = snapshot.data[index].category;
+                          if (index == 0) {
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                              child: Column(
+                                children: [
+                                  CategoryHeading(category: category),
+                                  InventoryItem(
+                                    itemName: snapshot.data[index].name,
+                                    itemCategory: snapshot.data[index].category,
+                                    itemSku: snapshot.data[index].sku,
+                                    itemStockNo: snapshot.data[index].stock,
+                                    itemOrdersNo: 'N/A',
+                                    itemWarning: warningMsg,
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            String prevCategory = snapshot.data[index - 1].category;
+                            isSameCategory = prevCategory == category;
+                          }
+                          return isSameCategory == true
+                              ? Padding(
+                                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                  child: InventoryItem(
+                                    itemName: snapshot.data[index].name,
+                                    itemCategory: snapshot.data[index].category,
+                                    itemSku: snapshot.data[index].sku,
+                                    itemStockNo: snapshot.data[index].stock,
+                                    itemOrdersNo: "N/A",
+                                    itemWarning: warningMsg,
+                                  ),
                               )
-                            : Padding(
-                                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                                child: Column(
-                                  children: [
-                                    CategoryHeading(category: category),
-                                    InventoryItem(
-                                      itemName: snapshot.data[index].name,
-                                      itemCategory: snapshot.data[index].category,
-                                      itemSku: snapshot.data[index].sku,
-                                      itemStockNo: snapshot.data[index].stock,
-                                      itemOrdersNo: 'N/A',
-                                      itemWarning: warningMsg,
-                                    ),
-                                  ],
-                                ),
+                              : Padding(
+                                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                  child: Column(
+                                    children: [
+                                      CategoryHeading(category: category),
+                                      InventoryItem(
+                                        itemName: snapshot.data[index].name,
+                                        itemCategory: snapshot.data[index].category,
+                                        itemSku: snapshot.data[index].sku,
+                                        itemStockNo: snapshot.data[index].stock,
+                                        itemOrdersNo: 'N/A',
+                                        itemWarning: warningMsg,
+                                      ),
+                                    ],
+                                  ),
                               );
-                      }),
+                        }
+                    ),
+                  ),
                 ),
               ),
             ],
           );
-        });
+        }
+    );
   }
 }
