@@ -17,20 +17,21 @@ class InventoryBuilder extends StatefulWidget {
   const InventoryBuilder(
       {super.key,
       required this.inventoryService,
-      required this.theme,
-      required this.scrollController});
+      required this.theme});
 
   final InventoryService inventoryService;
   final CommonTheme theme;
-  final ItemScrollController scrollController;
 
   @override
   State<InventoryBuilder> createState() => _InventoryBuilderState();
 }
 
 class _InventoryBuilderState extends State<InventoryBuilder> {
-  TextEditingController editingController = TextEditingController();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+
+  TextEditingController editingController = TextEditingController();
+  ItemScrollController itemScrollController = ItemScrollController();
+
   List<Item> items = <Item>[];
   Map<String, int> categories = {};
   List<Item> searchResults = <Item>[];
@@ -153,7 +154,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                 ),
               ),
               HorizontalCategoryList(
-                  scrollController: widget.scrollController,
+                  scrollController: itemScrollController,
                   categories: categories
               ),
 
@@ -168,74 +169,84 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                       ),
                   )
                   : Expanded(
-                      child: Scrollbar(
-                        thickness: 5,
-                        child: RefreshIndicator(
-                          key: _refreshIndicatorKey,
-                          onRefresh: fetchData,
-                          color: widget.theme.themeData.splashColor,
-                          child: ScrollablePositionedList.builder(
-                              shrinkWrap: true,
-                              itemScrollController: widget.scrollController,
-                              itemCount: searchResults.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                String? warningMsg;
-                                bool isSameCategory = true;
-                                int stock = int.parse(searchResults[index].stock);
-                                if (stock <= 5) {
-                                  warningMsg = 'Low Stock';
-                                }
-                                String category = searchResults[index].category;
-                                if (index == 0) {
-                                  return Padding(
-                                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                                    child: Column(
-                                      children: [
-                                        CategoryHeading(category: category),
-                                        InventoryItem(
-                                          itemName: searchResults[index].name,
-                                          itemCategory: searchResults[index].category,
-                                          itemSku: searchResults[index].sku,
-                                          itemStockNo: searchResults[index].stock,
-                                          itemOrdersNo: 'N/A',
-                                          itemWarning: warningMsg,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                } else {
-                                  String prevCategory = searchResults[index - 1].category;
-                                  isSameCategory = prevCategory == category;
-                                }
-                                return isSameCategory == true
-                                    ? Padding(
-                                        padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                                        child: InventoryItem(
-                                          itemName: searchResults[index].name,
-                                          itemCategory: searchResults[index].category,
-                                          itemSku: searchResults[index].sku,
-                                          itemStockNo: searchResults[index].stock,
-                                          itemOrdersNo: "N/A",
-                                          itemWarning: warningMsg,
-                                        ),
-                                    )
-                                    : Padding(
-                                        padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                                        child: Column(
-                                          children: [
-                                            CategoryHeading(category: category),
-                                            InventoryItem(
-                                              itemName: searchResults[index].name,
-                                              itemCategory: searchResults[index].category,
-                                              itemSku: searchResults[index].sku,
-                                              itemStockNo: searchResults[index].stock,
-                                              itemOrdersNo: 'N/A',
-                                              itemWarning: warningMsg,
-                                            ),
-                                          ],
-                                        ),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          scrollbarTheme: ScrollbarThemeData(
+                            thumbColor: MaterialStateProperty.all(
+                                widget.theme.themeData.primaryColorDark.withOpacity(0.5)
+                            ),
+                            radius: const Radius.circular(20),
+                          )
+                        ),
+                        child: Scrollbar(
+                          thickness: 5,
+                          child: RefreshIndicator(
+                            key: _refreshIndicatorKey,
+                            onRefresh: fetchData,
+                            color: widget.theme.themeData.splashColor,
+                            child: ScrollablePositionedList.builder(
+                                shrinkWrap: true,
+                                itemScrollController: itemScrollController,
+                                itemCount: searchResults.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  String? warningMsg;
+                                  bool isSameCategory = true;
+                                  int stock = int.parse(searchResults[index].stock);
+                                  if (stock <= 5) {
+                                    warningMsg = 'Low Stock';
+                                  }
+                                  String category = searchResults[index].category;
+                                  if (index == 0) {
+                                    return Padding(
+                                      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                      child: Column(
+                                        children: [
+                                          CategoryHeading(category: category),
+                                          InventoryItem(
+                                            itemName: searchResults[index].name,
+                                            itemCategory: searchResults[index].category,
+                                            itemSku: searchResults[index].sku,
+                                            itemStockNo: searchResults[index].stock,
+                                            itemOrdersNo: 'N/A',
+                                            itemWarning: warningMsg,
+                                          ),
+                                        ],
+                                      ),
                                     );
-                              }
+                                  } else {
+                                    String prevCategory = searchResults[index - 1].category;
+                                    isSameCategory = prevCategory == category;
+                                  }
+                                  return isSameCategory == true
+                                      ? Padding(
+                                          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                          child: InventoryItem(
+                                            itemName: searchResults[index].name,
+                                            itemCategory: searchResults[index].category,
+                                            itemSku: searchResults[index].sku,
+                                            itemStockNo: searchResults[index].stock,
+                                            itemOrdersNo: "N/A",
+                                            itemWarning: warningMsg,
+                                          ),
+                                      )
+                                      : Padding(
+                                          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                          child: Column(
+                                            children: [
+                                              CategoryHeading(category: category),
+                                              InventoryItem(
+                                                itemName: searchResults[index].name,
+                                                itemCategory: searchResults[index].category,
+                                                itemSku: searchResults[index].sku,
+                                                itemStockNo: searchResults[index].stock,
+                                                itemOrdersNo: 'N/A',
+                                                itemWarning: warningMsg,
+                                              ),
+                                            ],
+                                          ),
+                                      );
+                                }
+                            ),
                           ),
                         ),
                       ),

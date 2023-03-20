@@ -16,7 +16,6 @@ class Inventory extends StatefulWidget {
 }
 
 class _InventoryState extends State<Inventory> {
-  ItemScrollController scrollController = ItemScrollController();
   final InventoryService _inventoryService =
       InventoryService(AuthenticationService());
 
@@ -58,7 +57,6 @@ class _InventoryState extends State<Inventory> {
                         child: InventoryBuilder(
                           inventoryService: _inventoryService,
                           theme: theme,
-                          scrollController: scrollController,
                         ),
                       ),
                       Positioned(

@@ -23,8 +23,12 @@ class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
     final theme = CommonTheme();
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 40),
-      child: Scrollbar(
+      child: RawScrollbar(
+        thumbColor: theme.themeData.primaryColorDark.withOpacity(0.5),
+        radius: const Radius.circular(20),
+        thickness: 5,
         thumbVisibility: true,
+        interactive: false,
         controller: _horizontalScrollController,
         child: ListView.builder(
           shrinkWrap: true,
