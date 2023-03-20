@@ -9,6 +9,7 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../../utilities/objects/response_object.dart';
 import '../../authentication/services/interfaces/Iauthentication_service.dart';
+import '../data/add_new_item_dto.dart';
 
 @injectable
 class InventoryService {

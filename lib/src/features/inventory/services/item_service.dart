@@ -37,7 +37,34 @@ class ItemService {
         },
         body: body);
 
-    ResponseObject responseObject = ResponseObject(response.statusCode, "test");
+    ResponseObject responseObject =
+        ResponseObject(statusCode: response.statusCode, body: response.body);
+    // create response object
+    return responseObject;
+  }
+
+  Future<ResponseObject> deleteItem(String itemId) async {
+    var tokenDict = await _authenticationService.retrieveBearerToken();
+    var token = tokenDict["bearerToken"];
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+    String businessId = payload["BusinessId"];
+
+    String url = ConfigService.url;
+    var uri = Uri.http(
+        '${url}businesses/${stockUpdateDTO.businessId}/items/${stockUpdateDTO.sku}');
+
+    var data = Map<String, dynamic>();
+    data["newStockAmount"] = stockUpdateDTO.changeInStockAmount;
+    var body = json.encode(data);
+
+    final response = await http.post(uri,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $token',
+        },
+        body: body);
+
+    ResponseObject responseObject =
+        ResponseObject(statusCode: response.statusCode, body: response.body);
     // create response object
     return responseObject;
   }
