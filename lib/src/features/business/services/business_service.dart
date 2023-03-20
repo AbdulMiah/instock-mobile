@@ -28,45 +28,22 @@ class BusinessService {
         },
         body: body);
 
-    if (response.statusCode == 201) {
-      ResponseObject(
+    Map<String, dynamic> responseMap = json.decode(response.body);
+    List<String> responseErrors =
+        ResponseObject.extractErrorsFromResponse(responseMap);
+    if (responseErrors.isEmpty) {
+      return ResponseObject(
         statusCode: response.statusCode,
         body: response.body,
         requestSuccess: true,
       );
     } else {
-      Map<String, dynamic> responseMap = json.decode(response.body);
-
-      List<String> errors = extractErrorMessages(responseMap);
-
       ResponseObject responseObject = ResponseObject(
           statusCode: response.statusCode,
           body: "Whoops something went wrong, please try again",
-          requestSuccess: true,
-          errors: errors);
+          requestSuccess: false,
+          errors: responseErrors);
       return responseObject;
     }
-
-    ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
-
-    return (responseObject);
-  }
-
-  List<String> extractErrorMessages(Map<String, dynamic> dictionary) {
-    List<String> errorMessages = [];
-    if (dictionary.containsKey('errors')) {
-      Map<String, dynamic> errors = dictionary['errors'];
-      errors.forEach((key, value) {
-        if (value is List) {
-          value.forEach((element) {
-            if (element is String) {
-              errorMessages.add(element);
-            }
-          });
-        }
-      });
-    }
-    return errorMessages;
   }
 }

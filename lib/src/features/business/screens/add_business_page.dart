@@ -19,7 +19,7 @@ class AddBusiness extends StatefulWidget {
 }
 
 class _AddBusinessState extends State<AddBusiness> {
-  BusinessService _businessService = BusinessService();
+  final BusinessService _businessService = BusinessService();
   final _formKey = GlobalKey<FormState>();
   String? _businessName;
   String? _description;
@@ -31,7 +31,7 @@ class _AddBusinessState extends State<AddBusiness> {
       _formKey.currentState!.save();
       ResponseObject response =
           await _businessService.addBusiness(_businessName!, _description!);
-      if (response.statusCode == 201) {
+      if (response.requestSuccess!) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const NavBar()),
