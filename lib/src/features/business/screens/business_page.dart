@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/business/screens/shop_connections.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/validation/validators.dart';
@@ -113,7 +114,10 @@ class _BusinessPageState extends State<BusinessPage> {
                             colorOption: InStockButton.secondary,
                             icon: Icons.shopping_bag_outlined,
                             onPressed: () {
-                              // Navigate to Shop Connections
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const ShopConnections()),
+                              );
                             },
                           ),
                         ],
