@@ -164,7 +164,10 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                     child: Column(
                         children: [
                           const Icon(Icons.search_off),
-                          Text("No items found for '${editingController.text}'"),
+                          Text(
+                            "No items found for '${editingController.text}'",
+                            style: const TextStyle(fontSize: 15),
+                          ),
                         ],
                       ),
                   )
