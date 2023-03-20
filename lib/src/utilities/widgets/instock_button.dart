@@ -37,7 +37,7 @@ class _InStockButtonState extends State<InStockButton> {
       case 2:
         return {
           "foreground": widget.theme.primaryColorDark,
-          "background": widget.theme.primaryColorLight,
+          "background": widget.theme.cardColor,
         };
       case 3:
         return {
@@ -58,7 +58,8 @@ class _InStockButtonState extends State<InStockButton> {
       if (widget.text != null && widget.icon == null) {
         return Text(
           widget.text!,
-          style: widget.theme.textTheme.displaySmall,
+          style: widget.theme.textTheme.displaySmall
+              ?.copyWith(color: buttonColors["foreground"]),
         );
       } else if (widget.icon != null && widget.text == null) {
         return Icon(widget.icon);
@@ -69,16 +70,12 @@ class _InStockButtonState extends State<InStockButton> {
             Icon(widget.icon),
             Text(
               widget.text!,
-              style: widget.theme.textTheme.displaySmall,
+              style: widget.theme.textTheme.displaySmall
+                  ?.copyWith(color: buttonColors["foreground"]),
             ),
           ],
         );
       }
-      // return Text(
-      //   widget.text,
-      //   style: widget.theme.textTheme.displaySmall
-      //       ?.copyWith(color: buttonColors["foreground"]),
-      // );
     } else {
       return SizedBox(
         width: 30,
