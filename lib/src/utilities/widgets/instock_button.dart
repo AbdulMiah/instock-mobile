@@ -57,7 +57,7 @@ class _InStockButtonState extends State<InStockButton> {
       if (widget.text != null && widget.icon == null) {
         return Text(
           widget.text!,
-          style: widget.theme.textTheme.displaySmall,
+          style: const TextStyle(fontSize: 18),
         );
       } else if(widget.icon != null && widget.text == null) {
         return Icon(widget.icon);
@@ -66,10 +66,12 @@ class _InStockButtonState extends State<InStockButton> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(widget.icon),
+            const Spacer(),
             Text(
               widget.text!,
-              style: widget.theme.textTheme.displaySmall,
+              style: const TextStyle(fontSize: 18),
             ),
+            const Spacer(),
           ],
         );
       }
