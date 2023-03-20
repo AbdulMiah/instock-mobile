@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
@@ -34,7 +35,7 @@ class _ItemDetailsState extends State<ItemDetails> {
   // Dependency inject me
   ItemService _itemService = ItemService();
 
-  confirmDeleteItem() async {
+  confirmDeleteItem(ThemeData theme) async {
     ResponseObject response = await _itemService.delete(widget.item.sku);
     if (response.requestSuccess!) {
       Navigator.push(
@@ -43,8 +44,15 @@ class _ItemDetailsState extends State<ItemDetails> {
           builder: (context) => NavBar(),
         ),
       );
-      //  I would literally never expect this to happen - Archie
+      Fluttertoast.showToast(
+          msg: "${widget.item.name} Deleted",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: theme.splashColor,
+          textColor: theme.primaryColorDark,
+          fontSize: 18.0);
     } else {
+      //  I would literally never expect this to happen - Archie
       setState(() {
         _content = "Something went wrong please try again";
       });
@@ -192,7 +200,8 @@ class _ItemDetailsState extends State<ItemDetails> {
                                                               .highlightColor)),
                                               onPressed: () {
                                                 Navigator.pop(context);
-                                                confirmDeleteItem();
+                                                confirmDeleteItem(
+                                                    theme.themeData);
                                               },
                                             ),
                                             Divider(
