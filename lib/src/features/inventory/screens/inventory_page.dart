@@ -23,60 +23,56 @@ class _InventoryState extends State<Inventory> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light
-              .copyWith(statusBarColor: theme.themeData.splashColor),
-          child: SafeArea(
-              child: Center(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          child: Container(
-                            color: theme.themeData.splashColor,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                              child: Text(
-                                "Inventory",
-                                style: theme.themeData.textTheme.bodyMedium
-                                    ?.merge(const TextStyle(fontSize: 24)),
-                                textAlign: TextAlign.center,
-                              ),
+    return Scaffold(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light
+            .copyWith(statusBarColor: theme.themeData.splashColor),
+        child: SafeArea(
+            child: Center(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        child: Container(
+                          color: theme.themeData.splashColor,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                            child: Text(
+                              "Inventory",
+                              style: theme.themeData.textTheme.bodyMedium
+                                  ?.merge(const TextStyle(fontSize: 24)),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                          child: InventoryBuilder(
-                              inventoryService: _inventoryService,
-                              theme: theme,
-                              scrollController: scrollController,
-                          ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                        child: InventoryBuilder(
+                          inventoryService: _inventoryService,
+                          theme: theme,
+                          scrollController: scrollController,
                         ),
-                        Positioned(
-                          width: MediaQuery.of(context).size.width,
-                          top: MediaQuery.of(context).size.height * 0.05 - 2,
-                          child: const InStockWave(),
-                        )
-                      ],
-                    ),
+                      ),
+                      Positioned(
+                        width: MediaQuery.of(context).size.width,
+                        top: MediaQuery.of(context).size.height * 0.05 - 2,
+                        child: const InStockWave(),
+                      )
+                    ],
                   ),
                 ),
-              ],
-            ),
-          )),
-        ),
+              ),
+            ],
+          ),
+        )),
       ),
     );
   }
