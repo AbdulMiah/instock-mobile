@@ -22,4 +22,22 @@ class ResponseObject {
     }
     return false;
   }
+
+  static List<String> extractErrorsFromResponse(
+      Map<String, dynamic> dictionary) {
+    List<String> errorMessages = [];
+    if (dictionary.containsKey('errors')) {
+      Map<String, dynamic> errors = dictionary['errors'];
+      errors.forEach((key, value) {
+        if (value is List) {
+          value.forEach((element) {
+            if (element is String) {
+              errorMessages.add(element);
+            }
+          });
+        }
+      });
+    }
+    return errorMessages;
+  }
 }
