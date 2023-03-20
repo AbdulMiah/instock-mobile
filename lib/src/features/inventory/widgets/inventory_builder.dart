@@ -54,18 +54,23 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
             sku.contains(input) ||
             category.contains(input);
       }).toList();
-      setState(() => searchResults = suggestions);
+      setState(() {
+        searchResults = suggestions;
+        getCategories();
+      });
     } else {
       setState(() {
         searchResults = items;
+        getCategories();
       });
     }
   }
 
   void getCategories() {
-    for (Item c in items) {
+    categories.clear();
+    for (Item c in searchResults) {
       if (!categories.containsKey(c.category)) {
-        int index = items.indexWhere((item) => item.name == c.name);
+        int index = searchResults.indexWhere((item) => item.name == c.name);
         categories[c.category] = index;
       }
     }
