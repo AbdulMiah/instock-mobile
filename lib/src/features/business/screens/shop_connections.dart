@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/business/screens/business_page.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/wave.dart';
 
 class ShopConnections extends StatefulWidget {
@@ -44,6 +46,14 @@ class _ShopConnectionsState extends State<ShopConnections> {
                                 ),
                               ),
                             ),
+                          ),
+                          const Positioned(
+                              top: 10,
+                              left: 10,
+                              child: InStockBackButton(
+                                page: BusinessPage(),
+                                colorOption: InStockBackButton.secondary,
+                              )
                           ),
                           Positioned(
                             width: MediaQuery.of(context).size.width,
