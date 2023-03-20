@@ -15,4 +15,29 @@ class ResponseObject {
   String toString() {
     return 'ResponseObject{statusCode: $statusCode, body: $body, errors: $errors, RequestSuccess: $requestSuccess}';
   }
+
+  hasErrors() {
+    if (errors != null || errors!.isNotEmpty) {
+      return true;
+    }
+    return false;
+  }
+
+  static List<String> extractErrorsFromResponse(
+      Map<String, dynamic> dictionary) {
+    List<String> errorMessages = [];
+    if (dictionary.containsKey('errors')) {
+      Map<String, dynamic> errors = dictionary['errors'];
+      errors.forEach((key, value) {
+        if (value is List) {
+          value.forEach((element) {
+            if (element is String) {
+              errorMessages.add(element);
+            }
+          });
+        }
+      });
+    }
+    return errorMessages;
+  }
 }

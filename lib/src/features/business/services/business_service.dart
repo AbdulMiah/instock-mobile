@@ -28,9 +28,22 @@ class BusinessService {
         },
         body: body);
 
-    ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
-
-    return (responseObject);
+    Map<String, dynamic> responseMap = json.decode(response.body);
+    List<String> responseErrors =
+        ResponseObject.extractErrorsFromResponse(responseMap);
+    if (responseErrors.isEmpty) {
+      return ResponseObject(
+        statusCode: response.statusCode,
+        body: response.body,
+        requestSuccess: true,
+      );
+    } else {
+      ResponseObject responseObject = ResponseObject(
+          statusCode: response.statusCode,
+          body: "Whoops something went wrong, please try again",
+          requestSuccess: false,
+          errors: responseErrors);
+      return responseObject;
+    }
   }
 }
