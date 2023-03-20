@@ -93,7 +93,7 @@ class _AccountPageState extends State<AccountPage> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text(
+                                title: const Text(
                                   "Are you sure you want to Log Out?",
                                   textAlign: TextAlign.center,
                                 ),

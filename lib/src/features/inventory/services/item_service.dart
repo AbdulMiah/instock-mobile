@@ -43,28 +43,32 @@ class ItemService {
     return responseObject;
   }
 
-  Future<ResponseObject> deleteItem(String itemId) async {
+  Future<ResponseObject> delete(String itemId) async {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
+    print("Getting to here");
     String businessId = payload["BusinessId"];
+    print(businessId);
 
     String url = ConfigService.url;
-    var uri = Uri.http(
-        '${url}businesses/${stockUpdateDTO.businessId}/items/${stockUpdateDTO.sku}');
+    var uri = Uri.http(url, '/businesses/$businessId/items/$itemId');
+    final response = await http.delete(
+      uri,
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
 
-    var data = Map<String, dynamic>();
-    data["newStockAmount"] = stockUpdateDTO.changeInStockAmount;
-    var body = json.encode(data);
+    bool requestSuccess = false;
+    if (response.statusCode == 200) {
+      requestSuccess = true;
+    }
 
-    final response = await http.post(uri,
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-        },
-        body: body);
-
-    ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
+    ResponseObject responseObject = ResponseObject(
+        statusCode: response.statusCode,
+        body: response.body,
+        requestSuccess: requestSuccess);
     // create response object
     return responseObject;
   }

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
+import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/instock_button.dart';
@@ -26,17 +29,21 @@ class _ItemDetailsState extends State<ItemDetails> {
   String? _name;
   String? _category;
   String? _sku;
+  String _content = "";
 
-  I
+  // Dependency inject me
+  ItemService _itemService = ItemService();
 
-  confirmDelete(){
-    ResponseObject response = await _itemService.delete();
+  confirmDeleteItem() async {
+    ResponseObject response = await _itemService.delete(widget.item.sku);
     if (response.requestSuccess!) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AuthCheck()),
+        MaterialPageRoute(
+          builder: (context) => NavBar(),
+        ),
       );
-      //  I would literally never expect this to happen
+      //  I would literally never expect this to happen - Archie
     } else {
       setState(() {
         _content = "Something went wrong please try again";
@@ -162,47 +169,47 @@ class _ItemDetailsState extends State<ItemDetails> {
                               padding: theme.textFieldPadding,
                               child: InStockButton(
                                   text: "Delete",
-                                  onPressed: () {
-                                    print("Delete");
+                                  onPressed: () async {
                                     await showDialog(
-    context: context,
-    builder: (BuildContext context) {
-    return AlertDialog(
-    title: Text(
-    "Are you sure you want to Log Out?",
-    textAlign: TextAlign.center,
-    ),
-    content: Text(_content),
-    actions: [
-    Divider(
-    color: theme.themeData.primaryColorDark),
-    CupertinoDialogAction(
-    child: Text("Log Out",
-    style: theme
-        .themeData.textTheme.labelMedium
-        ?.copyWith(
-    color: theme
-        .themeData.highlightColor)),
-    onPressed: () {
-    Navigator.pop(context);
-    logOut();
-    },
-    ),
-    Divider(
-    color: theme.themeData.primaryColorDark),
-    CupertinoDialogAction(
-    child: Text("Cancel",
-    style: theme
-        .themeData.textTheme.bodySmall),
-    onPressed: () {
-    Navigator.pop(context);
-    },
-    ),
-    ],
-    );
-    },
-    );
-    },
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text(
+                                            "Are you sure you want to delete this item? This is irreversible",
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          content: Text(_content),
+                                          actions: [
+                                            Divider(
+                                                color: theme.themeData
+                                                    .primaryColorDark),
+                                            CupertinoDialogAction(
+                                              child: Text("Confirm Delete",
+                                                  style: theme.themeData
+                                                      .textTheme.labelMedium
+                                                      ?.copyWith(
+                                                          color: theme.themeData
+                                                              .highlightColor)),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                confirmDeleteItem();
+                                              },
+                                            ),
+                                            Divider(
+                                                color: theme.themeData
+                                                    .primaryColorDark),
+                                            CupertinoDialogAction(
+                                              child: Text("Cancel",
+                                                  style: theme.themeData
+                                                      .textTheme.bodySmall),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   },
                                   theme: theme.themeData,
                                   colorOption: InStockButton.danger),
