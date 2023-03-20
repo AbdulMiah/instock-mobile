@@ -1,14 +1,15 @@
 class ResponseObject {
-  int statusCode;
-
-  String body;
-
+  int? statusCode;
+  String? body;
   List<String>? errors;
-
   bool? requestSuccess;
 
-  ResponseObject(this.statusCode, this.body,
-      [this.errors, this.requestSuccess]);
+  ResponseObject({
+    this.statusCode,
+    this.body,
+    this.errors,
+    this.requestSuccess,
+  });
 
   @override
   String toString() {

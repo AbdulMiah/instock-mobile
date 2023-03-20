@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:instock_mobile/src/features/inventory/data/add_new_item_dto.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
@@ -56,12 +55,12 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    final url = Uri.parse(
+    final uri = Uri.parse(
         'http://api.instockinventory.co.uk/businesses/$businessId/items');
 
     var body = json.encode(item.toMap());
 
-    final response = await http.post(url,
+    final response = await http.post(uri,
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           "Content-Type": "application/json"
@@ -69,7 +68,7 @@ class InventoryService {
         body: body);
 
     ResponseObject responseObject =
-        ResponseObject(response.statusCode, response.body);
+        ResponseObject(statusCode: response.statusCode, body: response.body);
 
     return (responseObject);
   }
