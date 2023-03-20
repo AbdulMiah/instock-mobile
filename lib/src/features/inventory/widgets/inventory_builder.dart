@@ -49,7 +49,9 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
         final category = item.category.toLowerCase();
         final input = query.toLowerCase();
 
-        return name.contains(input) || sku.contains(input) || category.contains(input);
+        return name.contains(input) ||
+            sku.contains(input) ||
+            category.contains(input);
       }).toList();
       setState(() => searchResults = suggestions);
     } else {
@@ -154,79 +156,90 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   scrollController: widget.scrollController,
                   categories: categories
               ),
-              Expanded(
-                child: Scrollbar(
-                  thickness: 5,
-                  child: RefreshIndicator(
-                    key: _refreshIndicatorKey,
-                    onRefresh: fetchData,
-                    color: widget.theme.themeData.splashColor,
-                    child: ScrollablePositionedList.builder(
-                        shrinkWrap: true,
-                        itemScrollController: widget.scrollController,
-                        itemCount: searchResults.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String? warningMsg;
-                          bool isSameCategory = true;
-                          int stock = int.parse(searchResults[index].stock);
-                          if (stock <= 5) {
-                            warningMsg = 'Low Stock';
-                          }
-                          String category = searchResults[index].category;
-                          if (index == 0) {
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                              child: Column(
-                                children: [
-                                  CategoryHeading(category: category),
-                                  InventoryItem(
-                                    itemName: searchResults[index].name,
-                                    itemCategory: searchResults[index].category,
-                                    itemSku: searchResults[index].sku,
-                                    itemStockNo: searchResults[index].stock,
-                                    itemOrdersNo: 'N/A',
-                                    itemWarning: warningMsg,
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            String prevCategory = searchResults[index - 1].category;
-                            isSameCategory = prevCategory == category;
-                          }
-                          return isSameCategory == true
-                              ? Padding(
-                                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                                  child: InventoryItem(
-                                    itemName: searchResults[index].name,
-                                    itemCategory: searchResults[index].category,
-                                    itemSku: searchResults[index].sku,
-                                    itemStockNo: searchResults[index].stock,
-                                    itemOrdersNo: "N/A",
-                                    itemWarning: warningMsg,
-                                  ),
-                              )
-                              : Padding(
-                                  padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                                  child: Column(
-                                    children: [
-                                      CategoryHeading(category: category),
-                                      InventoryItem(
-                                        itemName: searchResults[index].name,
-                                        itemCategory: searchResults[index].category,
-                                        itemSku: searchResults[index].sku,
-                                        itemStockNo: searchResults[index].stock,
-                                        itemOrdersNo: 'N/A',
-                                        itemWarning: warningMsg,
-                                      ),
-                                    ],
-                                  ),
-                              );
-                        }
-                    ),
+
+              editingController.text.isNotEmpty && searchResults.isEmpty
+                  ? Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                        children: [
+                          const Icon(Icons.search_off),
+                          Text("No items found for '${editingController.text}'"),
+                        ],
+                      ),
+                  )
+                  : Expanded(
+                      child: Scrollbar(
+                        thickness: 5,
+                        child: RefreshIndicator(
+                          key: _refreshIndicatorKey,
+                          onRefresh: fetchData,
+                          color: widget.theme.themeData.splashColor,
+                          child: ScrollablePositionedList.builder(
+                              shrinkWrap: true,
+                              itemScrollController: widget.scrollController,
+                              itemCount: searchResults.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                String? warningMsg;
+                                bool isSameCategory = true;
+                                int stock = int.parse(searchResults[index].stock);
+                                if (stock <= 5) {
+                                  warningMsg = 'Low Stock';
+                                }
+                                String category = searchResults[index].category;
+                                if (index == 0) {
+                                  return Padding(
+                                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                    child: Column(
+                                      children: [
+                                        CategoryHeading(category: category),
+                                        InventoryItem(
+                                          itemName: searchResults[index].name,
+                                          itemCategory: searchResults[index].category,
+                                          itemSku: searchResults[index].sku,
+                                          itemStockNo: searchResults[index].stock,
+                                          itemOrdersNo: 'N/A',
+                                          itemWarning: warningMsg,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  String prevCategory = searchResults[index - 1].category;
+                                  isSameCategory = prevCategory == category;
+                                }
+                                return isSameCategory == true
+                                    ? Padding(
+                                        padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                        child: InventoryItem(
+                                          itemName: searchResults[index].name,
+                                          itemCategory: searchResults[index].category,
+                                          itemSku: searchResults[index].sku,
+                                          itemStockNo: searchResults[index].stock,
+                                          itemOrdersNo: "N/A",
+                                          itemWarning: warningMsg,
+                                        ),
+                                    )
+                                    : Padding(
+                                        padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                        child: Column(
+                                          children: [
+                                            CategoryHeading(category: category),
+                                            InventoryItem(
+                                              itemName: searchResults[index].name,
+                                              itemCategory: searchResults[index].category,
+                                              itemSku: searchResults[index].sku,
+                                              itemStockNo: searchResults[index].stock,
+                                              itemOrdersNo: 'N/A',
+                                              itemWarning: warningMsg,
+                                            ),
+                                          ],
+                                        ),
+                                    );
+                              }
+                          ),
+                        ),
+                      ),
                   ),
-                ),
-              ),
             ],
           );
         }
