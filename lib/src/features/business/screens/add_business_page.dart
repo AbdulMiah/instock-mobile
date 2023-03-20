@@ -36,18 +36,15 @@ class _AddBusinessState extends State<AddBusiness> {
           context,
           MaterialPageRoute(builder: (context) => const NavBar()),
         );
-      } else if (response.statusCode == 401) {
+      } else if (response.hasErrors()) {
         setState(() {
-          _addBusinessError = "Whoops something went wrong, please try again";
-        });
-      } else if (response.statusCode == 400) {
-        setState(() {
-          _addBusinessError =
-              "A Business is already associated with your account.";
+          //only displays first error so user is not overwhelmed
+          _addBusinessError = response.errors![0];
         });
       } else {
         setState(() {
-          _addBusinessError = response.body;
+          _addBusinessError =
+              "Something went wrong, please check your connection and try again";
         });
       }
     }
