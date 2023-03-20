@@ -17,7 +17,7 @@ class ResponseObject {
   }
 
   hasErrors() {
-    if (errors != null || this.errors!.isNotEmpty) {
+    if (errors != null || errors!.isNotEmpty) {
       return true;
     }
     return false;
