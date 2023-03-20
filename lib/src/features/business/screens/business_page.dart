@@ -113,6 +113,7 @@ class _BusinessPageState extends State<BusinessPage> {
                             theme: theme.themeData,
                             colorOption: InStockButton.secondary,
                             icon: Icons.shopping_bag_outlined,
+                            secondaryIcon: Icons.arrow_forward,
                             onPressed: () {
                               Navigator.push(
                                 context,
