@@ -15,8 +15,6 @@ class Inventory extends StatefulWidget {
 }
 
 class _InventoryState extends State<Inventory> {
-  // checkStatus(AsyncSnapshot snapshot, int index)
-
   final InventoryService _inventoryService =
       InventoryService(AuthenticationService());
 
@@ -56,7 +54,9 @@ class _InventoryState extends State<Inventory> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                         child: InventoryBuilder(
-                            inventoryService: _inventoryService, theme: theme),
+                          inventoryService: _inventoryService,
+                          theme: theme,
+                        ),
                       ),
                       Positioned(
                         width: MediaQuery.of(context).size.width,

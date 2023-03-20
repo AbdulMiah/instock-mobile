@@ -43,6 +43,7 @@ dependencies:
   jwt_decode: ^0.3.1
   injectable: ^1.5.0
   get_it: ^7.2.0
+  scrollable_positioned_list: ^0.3.5
 
 dev_dependencies:
   flutter_test:
