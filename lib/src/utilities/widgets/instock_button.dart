@@ -21,6 +21,7 @@ class InStockButton extends StatefulWidget {
   static const int primary = 1;
   static const int secondary = 2;
   static const int accent = 3;
+  static const int danger = 4;
 
   @override
   State<InStockButton> createState() => _InStockButtonState();
@@ -43,6 +44,11 @@ class _InStockButtonState extends State<InStockButton> {
         return {
           "foreground": widget.theme.primaryColorLight,
           "background": widget.theme.splashColor,
+        };
+      case 4:
+        return {
+          "foreground": widget.theme.primaryColorLight,
+          "background": widget.theme.highlightColor,
         };
       default:
         return {
