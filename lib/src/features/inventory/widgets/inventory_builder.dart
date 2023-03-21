@@ -15,9 +15,7 @@ import 'inventory_item.dart';
 
 class InventoryBuilder extends StatefulWidget {
   const InventoryBuilder(
-      {super.key,
-      required this.inventoryService,
-      required this.theme});
+      {super.key, required this.inventoryService, required this.theme});
 
   final InventoryService inventoryService;
   final CommonTheme theme;
@@ -27,7 +25,8 @@ class InventoryBuilder extends StatefulWidget {
 }
 
 class _InventoryBuilderState extends State<InventoryBuilder> {
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   TextEditingController editingController = TextEditingController();
   ItemScrollController itemScrollController = ItemScrollController();
@@ -90,7 +89,8 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
     return FutureBuilder(
         future: widget.inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null && snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.data == null &&
+              snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
                 color: widget.theme.themeData.splashColor,
@@ -102,16 +102,23 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("No Internet Connection",
-                    style: widget.theme.themeData.textTheme.bodyLarge?.merge(const TextStyle(fontSize: 30)),
+                  Text(
+                    "No Internet Connection",
+                    style: widget.theme.themeData.textTheme.bodyLarge
+                        ?.merge(const TextStyle(fontSize: 30)),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20,),
-                  Text("Please check your internet connection and try again",
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Please check your internet connection and try again",
                     style: widget.theme.themeData.textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 40,),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   InStockButton(
                     onPressed: () {
                       fetchData();
@@ -160,13 +167,11 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
               ),
               HorizontalCategoryList(
                   scrollController: itemScrollController,
-                  categories: categories
-              ),
-
+                  categories: categories),
               editingController.text.isNotEmpty && searchResults.isEmpty
                   ? Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Column(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
                         children: [
                           const Icon(Icons.search_off),
                           Text(
@@ -175,17 +180,16 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                           ),
                         ],
                       ),
-                  )
+                    )
                   : Expanded(
                       child: Theme(
                         data: Theme.of(context).copyWith(
-                          scrollbarTheme: ScrollbarThemeData(
-                            thumbColor: MaterialStateProperty.all(
-                                widget.theme.themeData.primaryColorDark.withOpacity(0.5)
-                            ),
-                            radius: const Radius.circular(20),
-                          )
-                        ),
+                            scrollbarTheme: ScrollbarThemeData(
+                          thumbColor: MaterialStateProperty.all(widget
+                              .theme.themeData.primaryColorDark
+                              .withOpacity(0.5)),
+                          radius: const Radius.circular(20),
+                        )),
                         child: Scrollbar(
                           thickness: 5,
                           child: RefreshIndicator(
@@ -197,71 +201,71 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                 itemScrollController: itemScrollController,
                                 itemCount: searchResults.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  String? warningMsg;
+                                  Item item = Item(
+                                    sku: searchResults[index].sku,
+                                    businessId: searchResults[index].businessId,
+                                    category: searchResults[index].category,
+                                    name: searchResults[index].name,
+                                    stockAmount:
+                                        searchResults[index].stockAmount,
+                                    ordersAmount:
+                                        searchResults[index].ordersAmount,
+                                    itemWarning: null,
+                                    itemImgUrl: searchResults[index].itemImgUrl,
+                                  );
                                   bool isSameCategory = true;
-                                  int stock = int.parse(searchResults[index].stock);
+                                  int stock = item.stockAmount;
                                   if (stock <= 5) {
-                                    warningMsg = 'Low Stock';
+                                    item.itemWarning = 'Low Stock';
                                   }
-                                  String category = searchResults[index].category;
+                                  String category =
+                                      searchResults[index].category;
                                   if (index == 0) {
                                     return Padding(
-                                      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          12, 8, 12, 8),
                                       child: Column(
                                         children: [
                                           CategoryHeading(category: category),
                                           InventoryItem(
-                                            itemName: searchResults[index].name,
-                                            itemCategory: searchResults[index].category,
-                                            itemSku: searchResults[index].sku,
-                                            itemStockNo: searchResults[index].stock,
-                                            itemOrdersNo: 'N/A',
-                                            itemWarning: warningMsg,
+                                            item: item,
                                           ),
                                         ],
                                       ),
                                     );
                                   } else {
-                                    String prevCategory = searchResults[index - 1].category;
+                                    String prevCategory =
+                                        searchResults[index - 1].category;
                                     isSameCategory = prevCategory == category;
                                   }
                                   return isSameCategory == true
                                       ? Padding(
-                                          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              12, 8, 12, 8),
                                           child: InventoryItem(
-                                            itemName: searchResults[index].name,
-                                            itemCategory: searchResults[index].category,
-                                            itemSku: searchResults[index].sku,
-                                            itemStockNo: searchResults[index].stock,
-                                            itemOrdersNo: "N/A",
-                                            itemWarning: warningMsg,
+                                            item: item,
                                           ),
-                                      )
+                                        )
                                       : Padding(
-                                          padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              12, 8, 12, 8),
                                           child: Column(
                                             children: [
-                                              CategoryHeading(category: category),
+                                              CategoryHeading(
+                                                  category: category),
                                               InventoryItem(
-                                                itemName: searchResults[index].name,
-                                                itemCategory: searchResults[index].category,
-                                                itemSku: searchResults[index].sku,
-                                                itemStockNo: searchResults[index].stock,
-                                                itemOrdersNo: 'N/A',
-                                                itemWarning: warningMsg,
+                                                item: item,
                                               ),
                                             ],
                                           ),
-                                      );
-                                }
-                            ),
+                                        );
+                                }),
                           ),
                         ),
                       ),
-                  ),
+                    ),
             ],
           );
-        }
-    );
+        });
   }
 }

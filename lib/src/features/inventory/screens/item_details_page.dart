@@ -176,6 +176,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             Padding(
                               padding: theme.textFieldPadding,
                               child: InStockButton(
+                                  key: const Key("DeleteItemButton"),
                                   text: "Delete",
                                   onPressed: () async {
                                     await showDialog(

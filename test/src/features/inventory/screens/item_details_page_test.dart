@@ -54,4 +54,66 @@ void main() {
     expect(categoryFormField.enable, false);
     expect(skuFormField.enable, false);
   });
+
+  testWidgets('Delete button present', (tester) async {
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: ItemDetails(
+              item: item,
+            ),
+          ),
+        )));
+
+    final deleteFinder = find.text("Delete");
+
+    expect(deleteFinder, findsOneWidget);
+  });
+
+  testWidgets('Delete button on click pulls up confirm', (tester) async {
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: ItemDetails(
+              item: item,
+            ),
+          ),
+        )));
+
+    const deleteButtonKey = Key('DeleteItemButton');
+    final deleteFinder = find.byKey(deleteButtonKey);
+
+    // Scrolls till deleteFinder is visible
+    await tester.ensureVisible(deleteFinder);
+
+    await tester.tap(deleteFinder);
+    await tester.pumpAndSettle();
+
+    final dialogFinder = find.byType(AlertDialog);
+    expect(dialogFinder, findsOneWidget);
+  });
+
+  testWidgets('Cancel button on alert dialog hides dialog', (tester) async {
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: ItemDetails(
+              item: item,
+            ),
+          ),
+        )));
+
+    const deleteButtonKey = Key('DeleteItemButton');
+    final deleteFinder = find.byKey(deleteButtonKey);
+
+    // Scrolls till deleteFinder is visible
+    await tester.ensureVisible(deleteFinder);
+
+    await tester.tap(deleteFinder);
+    await tester.pumpAndSettle();
+
+    final cancelFinder = find.text("Cancel");
+    await tester.tap(cancelFinder);
+    await tester.pumpAndSettle();
+
+    final dialogFinder = find.byType(AlertDialog);
+    expect(dialogFinder, findsNothing);
+  });
 }
