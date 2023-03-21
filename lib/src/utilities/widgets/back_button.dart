@@ -10,7 +10,7 @@ class InStockBackButton extends StatelessWidget {
       {super.key, required this.page, required this.colorOption});
 
   redirectToPage(context) {
-    return Navigator.push(
+    return Navigator.pop(
       context,
       MaterialPageRoute(builder: (context) => page),
     );
