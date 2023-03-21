@@ -160,7 +160,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                       InStockButton(
                                         text: 'Shop Connections',
                                         theme: theme.themeData,
-                                        colorOption: InStockButton.secondary,
+                                        colorOption: InStockButton.primary,
                                         icon: Icons.shopping_bag_outlined,
                                         secondaryIcon: Icons.arrow_forward,
                                         onPressed: () {
