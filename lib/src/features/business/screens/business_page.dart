@@ -111,7 +111,10 @@ class _BusinessPageState extends State<BusinessPage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      PhotoPicker(image: snapshot.data.img),
+                                      PhotoPicker(
+                                        image: snapshot.data.logo,
+                                        enabled: false,
+                                      ),
                                       const Divider(
                                         height: 50.0,
                                         thickness: 1.0,

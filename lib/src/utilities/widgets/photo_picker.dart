@@ -8,9 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import '../../theme/common_theme.dart';
 
 class PhotoPicker extends StatefulWidget {
-  PhotoPicker({super.key, this.image});
+  PhotoPicker(
+  {super.key,
+  this.image,
+  this.enabled = true,});
 
   File? image;
+  bool enabled = true;
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
@@ -74,7 +78,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
               ),
             ),
           ),
-          Positioned(
+          widget.enabled ? Positioned(
             bottom: 0.0,
             left: 90.0,
             child: ElevatedButton(
@@ -158,7 +162,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                 size: 20,
               ),
             ),
-          ),
+          ) : const SizedBox(),
         ],
       ),
     );
