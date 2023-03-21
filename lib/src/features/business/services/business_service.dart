@@ -16,6 +16,7 @@ class BusinessService {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
+    File logo = await Business.fileFromImageUrl('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg');
 
     String businessId = payload["BusinessId"];
 
@@ -31,7 +32,7 @@ class BusinessService {
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
-      Business business = Business.fromJson(jsonData);
+      Business business = Business.fromJson(jsonData, logo);
       return business;
     } else {
       throw Exception('Failed to load data');
