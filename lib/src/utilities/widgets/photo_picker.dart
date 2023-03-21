@@ -8,7 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import '../../theme/common_theme.dart';
 
 class PhotoPicker extends StatefulWidget {
-  const PhotoPicker({Key? key}) : super(key: key);
+  PhotoPicker({super.key, this.image});
+
+  File? image;
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
@@ -17,7 +19,6 @@ class PhotoPicker extends StatefulWidget {
 class _PhotoPickerState extends State<PhotoPicker> {
   final theme = CommonTheme();
   final avatarSize = 150.0;
-  File? image;
 
   // Taken from https://medium.com/unitechie/flutter-tutorial-image-picker-from-camera-gallery-c27af5490b74
   Future pickImage(ImageSource source) async {
@@ -26,7 +27,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
       if(image == null) return;
       File? imageTemp = File(image.path);
       imageTemp = await cropImage(imageFile: imageTemp);
-      setState(() => this.image = imageTemp);
+      setState(() => widget.image = imageTemp);
     } on PlatformException catch(e) {
       print('Failed to pick image: $e');
     }
@@ -64,11 +65,11 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   border: Border.all(color: theme.themeData.primaryColorDark)
               ),
               child: Center(
-                child: image == null
+                child: widget.image == null
                     ? const Icon(Icons.image_not_supported_outlined, size: 80.0,)
                     : CircleAvatar(
                   radius: avatarSize/2,
-                  backgroundImage: FileImage(image!),
+                  backgroundImage: FileImage(widget.image!),
                 ),
               ),
             ),
@@ -123,7 +124,10 @@ class _PhotoPickerState extends State<PhotoPicker> {
                               ),
                             ),
 
-                            const Text("or", textAlign: TextAlign.center,),
+                            const Text("or",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 13),
+                            ),
 
                             ElevatedButton.icon(
                               onPressed: () {

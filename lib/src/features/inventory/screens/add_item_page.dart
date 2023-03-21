@@ -142,7 +142,7 @@ class _AddItemState extends State<AddItem> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const PhotoPicker(),
+                      PhotoPicker(),
                       const Divider(
                         height: 50.0,
                         thickness: 1.0,
