@@ -32,9 +32,10 @@ class _AddBusinessState extends State<AddBusiness> {
       ResponseObject response =
           await _businessService.addBusiness(_businessName!, _description!);
       if (response.requestSuccess!) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const NavBar()),
+          (route) => false,
         );
       } else if (response.hasErrors()) {
         setState(() {
