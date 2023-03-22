@@ -24,22 +24,20 @@ void main() {
     expect(iconFinder, findsOneWidget);
   });
 
-  testWidgets('Back Button can redirect to page on tap', (tester) async {
+  testWidgets('Back Button can redirect to previous page on tap', (tester) async {
     //Given
     await tester.pumpWidget(
       const MaterialApp(
-        home: Scaffold(
-          body: InStockBackButton(
-            page: Welcome(),
-            colorOption: InStockBackButton.primary,
-          ),
-        ),
+        home: Scaffold(body: Welcome()),
       ),
     );
 
-    final iconFinder = find.byIcon(Icons.arrow_back);
+    final loginFinder = find.text('Login');
+    await tester.tap(loginFinder);
+    await tester.pumpAndSettle();
 
     //When
+    final iconFinder = find.byIcon(Icons.arrow_back);
     await tester.tap(iconFinder);
     await tester.pumpAndSettle();
 

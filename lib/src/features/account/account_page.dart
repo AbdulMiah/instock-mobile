@@ -24,9 +24,10 @@ class _AccountPageState extends State<AccountPage> {
   logOut() async {
     ResponseObject response = await _authenticationService.logOut();
     if (response.requestSuccess!) {
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => AuthCheck()),
+        (route) => false,
       );
       //  I would literally never expect this to happen
     } else {
