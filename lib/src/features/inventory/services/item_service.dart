@@ -19,23 +19,44 @@ class ItemService {
       StockUpdateDTO stockUpdateDTO) async {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
-    Map<String, dynamic> payload = Jwt.parseJwt(token);
-
-    String businessId = payload["BusinessId"];
 
     String url = ConfigService.url;
-    var uri = Uri.http(
-        '${url}businesses/${stockUpdateDTO.businessId}/items/${stockUpdateDTO.sku}');
+
+    final uri = Uri.parse(
+        'http://api.instockinventory.co.uk/businesses/${stockUpdateDTO.businessId}/items/${stockUpdateDTO.sku}/stock/updates');
 
     var data = Map<String, dynamic>();
-    data["newStockAmount"] = stockUpdateDTO.changeInStockAmount;
+    data["changeStockAmountBy"] = stockUpdateDTO.changeInStockAmount.toString();
+    data["reasonForChange"] = stockUpdateDTO.reasonForChange.name;
+
     var body = json.encode(data);
 
     final response = await http.post(uri,
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
+          "Content-Type": "application/json"
         },
         body: body);
+
+    Map<String, dynamic> responseMap = json.decode(response.body);
+    List<String> responseErrors =
+        ResponseObject.extractErrorsFromResponse(responseMap);
+    if (responseErrors.isEmpty) {
+      Map<String, dynamic> decodedData = jsonDecode(response.body);
+
+      return ResponseObject(
+        statusCode: response.statusCode,
+        body: decodedData,
+        requestSuccess: true,
+      );
+    } else {
+      ResponseObject responseObject = ResponseObject(
+          statusCode: response.statusCode,
+          body: "Whoops something went wrong, please try again",
+          requestSuccess: false,
+          errors: responseErrors);
+      return responseObject;
+    }
 
     ResponseObject responseObject =
         ResponseObject(statusCode: response.statusCode, body: response.body);

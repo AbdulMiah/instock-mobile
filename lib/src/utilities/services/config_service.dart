@@ -1,3 +1,3 @@
 class ConfigService {
-  static final String url = "api.instockinventory.co.uk";
+  static final String url = "http://api.instockinventory.co.uk";
 }

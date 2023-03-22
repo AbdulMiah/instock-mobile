@@ -1,8 +1,10 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instock_mobile/src/features/inventory/data/stock_update_dto.dart';
 import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 import 'package:instock_mobile/src/features/inventory/services/reason_for_change_enum.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 
@@ -29,6 +31,7 @@ class _StockEditorState extends State<StockEditor> {
   ReasonForChange _reasonForChange = ReasonForChange.Sale;
   bool _isLoading = false;
   ItemService _itemService = ItemService();
+  String _errorText = "";
 
   calculateNewStockAmount() {
     int totalStock = widget.currentStock + _changeStockAmountBy;
@@ -51,14 +54,41 @@ class _StockEditorState extends State<StockEditor> {
     return false;
   }
 
-  updateStock() async {
-    print("Updating");
+  void updateStock(ThemeData theme) async {
+    setState(() {
+      _errorText = "";
+    });
 
     StockUpdateDTO stockUpdateDTO = StockUpdateDTO(widget.itemSKU,
         widget.businessId, _changeStockAmountBy, _reasonForChange);
     ResponseObject responseObject =
         await _itemService.updateStockAmount(stockUpdateDTO);
-    //  Check response
+
+    if (responseObject.requestSuccess!) {
+      int stockToAdd = responseObject.body["changeStockAmountBy"];
+      int newCurrentStockAmount = widget.currentStock + stockToAdd;
+      setState(() {
+        widget.currentStock = newCurrentStockAmount;
+        _changeStockAmountBy = 0;
+        _calculatedStockAmount = 0;
+      });
+      //redirect to main screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const NavBar()),
+      );
+      Fluttertoast.showToast(
+          msg: "Stock Updated",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: theme.splashColor,
+          textColor: theme.primaryColorDark,
+          fontSize: 18.0);
+    } else {
+      setState(() {
+        _errorText = responseObject.errors![0];
+      });
+    }
   }
 
   @override
@@ -336,18 +366,29 @@ class _StockEditorState extends State<StockEditor> {
             ),
           ),
         ),
-        Padding(
-          padding: theme.textFieldPadding,
-          child: InStockButton(
-            text: "Save",
-            onPressed: () {
-              updateStock();
-            },
-            theme: theme.themeData,
-            colorOption: InStockButton.accent,
-            isLoading: _isLoading,
-          ),
-        )
+        Column(
+          children: [
+            Padding(
+              padding: theme.textFieldPadding,
+              child: InStockButton(
+                text: "Save",
+                onPressed: () {
+                  updateStock(theme.themeData);
+                },
+                theme: theme.themeData,
+                colorOption: InStockButton.accent,
+                isLoading: _isLoading,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 6, 0, 16),
+              child: Text(
+                _errorText,
+                style: theme.themeData.textTheme.headlineSmall,
+              ),
+            )
+          ],
+        ),
       ],
     );
   }
