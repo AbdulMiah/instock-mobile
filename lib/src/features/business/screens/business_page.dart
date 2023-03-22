@@ -12,6 +12,7 @@ import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
+import 'add_business_page.dart';
 
 class BusinessPage extends StatefulWidget {
   const BusinessPage({super.key});
@@ -103,6 +104,12 @@ class _BusinessPageState extends State<BusinessPage> {
                                         ),
                                       ],
                                     ),
+                                  );
+                                }
+                                if (snapshot.data == null) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const AddBusiness())
                                   );
                                 }
 
