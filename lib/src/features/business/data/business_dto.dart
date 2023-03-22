@@ -21,10 +21,10 @@ class Business {
 
   factory Business.fromJson(Map<String, dynamic> json, File logoImg) {
     return Business(
-      name: json['Name'],
-      businessId: json['BusinessId'],
-      description: json['Description'],
-      owner: json['Owner'],
+      name: json['businessName'],
+      businessId: json['businessId'],
+      description: json['businessDescription'],
+      owner: json['businessOwnerId'],
       logo: logoImg,
     );
   }

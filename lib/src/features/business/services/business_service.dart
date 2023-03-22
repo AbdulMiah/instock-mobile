@@ -20,8 +20,7 @@ class BusinessService {
 
     String businessId = payload["BusinessId"];
 
-    // final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId');
-    final uri = Uri.parse('https://953w3.wiremockapi.cloud/json/1');
+    final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId');
 
     final response = await client.get(
       uri,
