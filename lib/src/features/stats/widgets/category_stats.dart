@@ -1,21 +1,24 @@
-import 'package:flutter/cupertino.dart';
-import 'package:instock_mobile/src/features/stats/data/stats_dto.dart';
+import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/stats/widgets/stats_box.dart';
 
 import '../../../theme/common_theme.dart';
+import '../data/stats_dto.dart';
 
-class CategoryStats extends StatelessWidget {
+class CategoryStats extends StatefulWidget {
   final StatsDto statsDto;
-  CategoryStats({
+  const CategoryStats({
     super.key,
     required this.statsDto,
-    required this.theme,
   });
 
-  final CommonTheme theme;
+  @override
+  State<CategoryStats> createState() => _CategoryStatsState();
+}
 
+class _CategoryStatsState extends State<CategoryStats> {
   @override
   Widget build(BuildContext context) {
+    final theme = CommonTheme();
     return Column(
       children: [
         Container(
@@ -25,7 +28,7 @@ class CategoryStats extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-                "Sales: ${statsDto.performanceByCategory["cards"]["sales"]}",
+                "Sales: ${widget.statsDto.performanceByCategory["cards"]["sales"]}",
                 style: theme.themeData.textTheme.displayMedium
                     ?.merge(const TextStyle(fontSize: 24))),
           ),
@@ -39,7 +42,7 @@ class CategoryStats extends StatelessWidget {
             StatsBox(
               theme: theme,
               stat: "Orders",
-              figure: statsDto.overallShopPerformance["orders"]!,
+              figure: widget.statsDto.performanceByCategory["cards"]["orders"]!,
             ),
             StatsBox(
               theme: theme,
@@ -56,7 +59,8 @@ class CategoryStats extends StatelessWidget {
               StatsBox(
                 theme: theme,
                 stat: "Returns",
-                figure: statsDto.overallShopPerformance["returns"]!,
+                figure: widget.statsDto.performanceByCategory["cards"]
+                    ["returns"]!,
               ),
               StatsBox(
                 theme: theme,
@@ -74,12 +78,14 @@ class CategoryStats extends StatelessWidget {
               StatsBox(
                 theme: theme,
                 stat: "Damaged",
-                figure: statsDto.overallShopPerformance["damaged"]!,
+                figure: widget.statsDto.performanceByCategory["cards"]
+                    ["damaged"]!,
               ),
               StatsBox(
                 theme: theme,
                 stat: "Restocked",
-                figure: statsDto.overallShopPerformance["restocked"]!,
+                figure: widget.statsDto.performanceByCategory["cards"]
+                    ["restocked"]!,
               ),
             ],
           ),
@@ -92,7 +98,7 @@ class CategoryStats extends StatelessWidget {
               StatsBox(
                 theme: theme,
                 stat: "Lost",
-                figure: statsDto.overallShopPerformance["lost"]!,
+                figure: widget.statsDto.performanceByCategory["cards"]["lost"]!,
               ),
               const SizedBox(
                 width: 150,
