@@ -23,7 +23,7 @@ class ItemService {
     String url = ConfigService.url;
 
     final uri = Uri.parse(
-        'http://api.instockinventory.co.uk/businesses/${stockUpdateDTO.businessId}/items/${stockUpdateDTO.sku}/stock/updates');
+        '$url/businesses/${stockUpdateDTO.businessId}/items/${stockUpdateDTO.sku}/stock/updates');
 
     var data = Map<String, dynamic>();
     data["changeStockAmountBy"] = stockUpdateDTO.changeInStockAmount.toString();
