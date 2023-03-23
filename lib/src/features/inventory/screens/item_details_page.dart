@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
-import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
 import '../../../theme/common_theme.dart';
@@ -38,12 +37,7 @@ class _ItemDetailsState extends State<ItemDetails> {
   confirmDeleteItem(ThemeData theme) async {
     ResponseObject response = await _itemService.delete(widget.item.sku);
     if (response.requestSuccess!) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NavBar(),
-        ),
-      );
+      Navigator.pop(context);
       Fluttertoast.showToast(
           msg: "${widget.item.name} Deleted",
           toastLength: Toast.LENGTH_LONG,
