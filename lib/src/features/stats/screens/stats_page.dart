@@ -5,12 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/stats/services/stats_service.dart';
 import 'package:instock_mobile/src/features/stats/widgets/category_stats.dart';
-import 'package:instock_mobile/src/features/stats/widgets/overview_stats.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
+import '../data/stats_dto.dart';
+import '../widgets/overview_stats.dart';
+import '../widgets/shop_performance_graph.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({super.key});
@@ -130,8 +132,23 @@ class _StatsPageState extends State<StatsPage> {
                             ),
                           );
                         }
+                        categories = ["Cards", "Stickers", "Bookmarks"];
+                        dropdownValue = categories?.first;
+                        StatsDto statsDto = snapshot.data;
+                        print("categoes: $categories");
                         return Column(
                           children: [
+                            Text("Shop Performance",
+                                style:
+                                    theme.themeData.textTheme.headlineMedium),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              height: 300,
+                              child: ShopPerformanceGraph(
+                                salesByMonth: statsDto.salesByMonth,
+                                deductionsByMonth: statsDto.deductionsByMonth,
+                              ),
+                            ),
                             OverviewStats(
                                 statsDto: snapshot.data, theme: theme),
                             Padding(
