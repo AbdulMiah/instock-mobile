@@ -146,15 +146,35 @@ class _StatsPageState extends State<StatsPage> {
                         _dropdownCategory = lastSelected!;
                         return Column(
                           children: [
-                            Text("Shop Performance",
-                                style:
-                                    theme.themeData.textTheme.headlineMedium),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              height: 300,
-                              child: ShopPerformanceGraph(
-                                salesByMonth: statsDto.salesByMonth,
-                                deductionsByMonth: statsDto.deductionsByMonth,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0, 8.0, 0, 16.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: theme.themeData.cardColor,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 12.0, 0, 0),
+                                      child: Text("Shop Performance",
+                                          style: theme.themeData.textTheme
+                                              .headlineMedium),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.85,
+                                      height: 300,
+                                      child: ShopPerformanceGraph(
+                                        salesByMonth: statsDto.salesByMonth,
+                                        deductionsByMonth:
+                                            statsDto.deductionsByMonth,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             OverviewStats(
