@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 void main() {
+  Item item = Item(
+      category: 'Test Category',
+      sku: 'Test SKU',
+      name: 'Test Name',
+      businessId: "123",
+      stockAmount: 10,
+      ordersAmount: 10,
+      itemWarning: '',
+      itemImgUrl: '');
+
   testWidgets('Page displays correct data', (tester) async {
-    await mockNetworkImagesFor(() => tester.pumpWidget(const MaterialApp(
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
           home: Scaffold(
             body: ItemDetails(
-              itemName: 'Test Name',
-              itemSku: 'Test SKU',
-              itemStockNo: '33',
-              itemOrdersNo: '44',
-              itemCategory: 'Test Category',
+              item: item,
             ),
           ),
         )));
@@ -28,14 +35,10 @@ void main() {
   });
 
   testWidgets('Form fields disabled by default', (tester) async {
-    await mockNetworkImagesFor(() => tester.pumpWidget(const MaterialApp(
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
           home: Scaffold(
             body: ItemDetails(
-              itemName: 'Test Name',
-              itemSku: 'Test SKU',
-              itemStockNo: '33',
-              itemOrdersNo: '44',
-              itemCategory: 'Test Category',
+              item: item,
             ),
           ),
         )));
@@ -50,5 +53,67 @@ void main() {
     expect(nameFormField.enable, false);
     expect(categoryFormField.enable, false);
     expect(skuFormField.enable, false);
+  });
+
+  testWidgets('Delete button present', (tester) async {
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: ItemDetails(
+              item: item,
+            ),
+          ),
+        )));
+
+    final deleteFinder = find.text("Delete");
+
+    expect(deleteFinder, findsOneWidget);
+  });
+
+  testWidgets('Delete button on click pulls up confirm', (tester) async {
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: ItemDetails(
+              item: item,
+            ),
+          ),
+        )));
+
+    const deleteButtonKey = Key('DeleteItemButton');
+    final deleteFinder = find.byKey(deleteButtonKey);
+
+    // Scrolls till deleteFinder is visible
+    await tester.ensureVisible(deleteFinder);
+
+    await tester.tap(deleteFinder);
+    await tester.pumpAndSettle();
+
+    final dialogFinder = find.byType(AlertDialog);
+    expect(dialogFinder, findsOneWidget);
+  });
+
+  testWidgets('Cancel button on alert dialog hides dialog', (tester) async {
+    await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
+          home: Scaffold(
+            body: ItemDetails(
+              item: item,
+            ),
+          ),
+        )));
+
+    const deleteButtonKey = Key('DeleteItemButton');
+    final deleteFinder = find.byKey(deleteButtonKey);
+
+    // Scrolls till deleteFinder is visible
+    await tester.ensureVisible(deleteFinder);
+
+    await tester.tap(deleteFinder);
+    await tester.pumpAndSettle();
+
+    final cancelFinder = find.text("Cancel");
+    await tester.tap(cancelFinder);
+    await tester.pumpAndSettle();
+
+    final dialogFinder = find.byType(AlertDialog);
+    expect(dialogFinder, findsNothing);
   });
 }

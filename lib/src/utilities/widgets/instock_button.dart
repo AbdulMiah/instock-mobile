@@ -23,6 +23,7 @@ class InStockButton extends StatefulWidget {
   static const int primary = 1;
   static const int secondary = 2;
   static const int accent = 3;
+  static const int danger = 4;
 
   @override
   State<InStockButton> createState() => _InStockButtonState();
@@ -39,12 +40,17 @@ class _InStockButtonState extends State<InStockButton> {
       case 2:
         return {
           "foreground": widget.theme.primaryColorDark,
-          "background": widget.theme.primaryColorLight,
+          "background": widget.theme.cardColor,
         };
       case 3:
         return {
           "foreground": widget.theme.primaryColorLight,
           "background": widget.theme.splashColor,
+        };
+      case 4:
+        return {
+          "foreground": widget.theme.primaryColorLight,
+          "background": widget.theme.highlightColor,
         };
       default:
         return {
@@ -55,13 +61,15 @@ class _InStockButtonState extends State<InStockButton> {
   }
 
   displayButtonChild(ThemeData theme) {
+    Map<String, Color> buttonColors = colorPicker();
     if (widget.isLoading == false) {
       if (widget.text != null && widget.icon == null) {
         return Text(
           widget.text!,
-          style: const TextStyle(fontSize: 18),
+          style: widget.theme.textTheme.displaySmall
+              ?.copyWith(color: buttonColors["foreground"]),
         );
-      } else if(widget.icon != null && widget.text == null) {
+      } else if (widget.icon != null && widget.text == null) {
         return Icon(widget.icon);
       } else {
         return Row(
@@ -71,7 +79,8 @@ class _InStockButtonState extends State<InStockButton> {
             const Spacer(),
             Text(
               widget.text!,
-              style: const TextStyle(fontSize: 18),
+              style: widget.theme.textTheme.displaySmall
+                  ?.copyWith(color: buttonColors["foreground"]),
             ),
             const Spacer(),
             widget.secondaryIcon != null ? Icon(widget.secondaryIcon) : const Icon(null),
@@ -79,7 +88,6 @@ class _InStockButtonState extends State<InStockButton> {
         );
       }
     } else {
-      Map<String, Color> buttonColors = colorPicker();
       return SizedBox(
         width: 30,
         height: 30,
@@ -96,20 +104,19 @@ class _InStockButtonState extends State<InStockButton> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.7,
       child: ElevatedButton(
-        onPressed: widget.onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColors["background"],
-          // Background color
-          foregroundColor: buttonColors["foreground"],
-          // Text color
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5), // Rounded edges
+          onPressed: widget.onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: buttonColors["background"],
+            // Background color
+            foregroundColor: buttonColors["foreground"],
+            // Text color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5), // Rounded edges
+            ),
+            elevation: 0,
+            // No shadow
           ),
-          elevation: 0,
-          // No shadow
-        ),
-        child: displayButtonChild(widget.theme)
-      ),
+          child: displayButtonChild(widget.theme)),
     );
   }
 }

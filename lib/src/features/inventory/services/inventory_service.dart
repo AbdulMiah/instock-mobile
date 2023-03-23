@@ -9,6 +9,7 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../../utilities/objects/response_object.dart';
 import '../../authentication/services/interfaces/Iauthentication_service.dart';
+import '../data/add_new_item_dto.dart';
 
 @injectable
 class InventoryService {
@@ -32,6 +33,7 @@ class InventoryService {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
+
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       List<Item> items = [];
@@ -47,7 +49,7 @@ class InventoryService {
     }
   }
 
-  Future<ResponseObject> addItem(Item item) async {
+  Future<ResponseObject> addItem(AddNewItemDto item) async {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);

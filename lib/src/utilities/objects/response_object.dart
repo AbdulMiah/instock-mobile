@@ -1,6 +1,6 @@
 class ResponseObject {
   int? statusCode;
-  String? body;
+  var body;
   List<String>? errors;
   bool? requestSuccess;
 
