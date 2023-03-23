@@ -57,11 +57,6 @@ class ItemService {
           errors: responseErrors);
       return responseObject;
     }
-
-    ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
-    // create response object
-    return responseObject;
   }
 
   Future<ResponseObject> delete(String itemId) async {
