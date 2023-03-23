@@ -19,7 +19,7 @@ class AddNewItemDto {
       'businessId': businessId,
       'category': category,
       'name': name,
-      'stockAmount': stockAmount,
+      'stock': stockAmount,
     };
   }
 }
