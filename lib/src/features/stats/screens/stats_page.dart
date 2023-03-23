@@ -154,7 +154,7 @@ class _StatsPageState extends State<StatsPage> {
                                 );
                               }).toList(),
                             ),
-                            CategoryStats(statsDto: snapshot.data, theme: theme)
+                            CategoryStats(statsDto: snapshot.data)
                           ],
                         );
                       }),
