@@ -47,6 +47,9 @@ dependencies:
   fluttertoast: ^8.2.1
   scrollable_positioned_list: ^0.3.5
   path_provider: ^2.0.14
+  flutter_local_notifications: ^13.0.0
+  firebase_messaging: ^14.3.0
+  firebase_core: ^2.8.0
 
 dev_dependencies:
   flutter_test:

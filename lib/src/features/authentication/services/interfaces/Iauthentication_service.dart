@@ -14,7 +14,15 @@ class IAuthenticationService {
     return Future<ResponseObject>.value();
   }
 
+  Future<ResponseObject> _saveFcmToken(String fcmToken) {
+    return Future<ResponseObject>.value();
+  }
+
   Future<Map> retrieveBearerToken() {
+    return Future<Map>.value();
+  }
+
+  Future<Map> retrieveFcmToken() {
     return Future<Map>.value();
   }
 

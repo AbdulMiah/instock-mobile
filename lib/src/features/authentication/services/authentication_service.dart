@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/authentication/data/sign_up_dto.dart';
 import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
@@ -42,8 +43,10 @@ class AuthenticationService implements IAuthenticationService {
         ResponseObject(statusCode: response.statusCode, body: response.body);
 
     if (response.statusCode == 200) {
+      final fcmToken = await FirebaseMessaging.instance.getToken();
       String bearerToken = response.body;
       _saveBearerToken(bearerToken);
+      _saveFcmToken(fcmToken!);
       return (responseObject);
     } else {
       return (responseObject);
@@ -54,10 +57,21 @@ class AuthenticationService implements IAuthenticationService {
     await _secureStorageService.write("bearerToken", bearerToken);
   }
 
+  _saveFcmToken(String fcmToken) async {
+    await _secureStorageService.write("fcmToken", fcmToken);
+  }
+
   @override
   Future<Map> retrieveBearerToken() async {
     String? bearerToken = await _secureStorageService.get("bearerToken");
     Map tokenDict = {"bearerToken": bearerToken};
+    return tokenDict;
+  }
+
+  @override
+  Future<Map> retrieveFcmToken() async {
+    String? fcmToken = await _secureStorageService.get("fcmToken");
+    Map tokenDict = {"fcmToken": fcmToken};
     return tokenDict;
   }
 
