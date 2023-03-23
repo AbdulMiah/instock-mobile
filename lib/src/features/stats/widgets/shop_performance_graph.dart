@@ -70,7 +70,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
                   maxY: 20,
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
-                      tooltipBgColor: Colors.grey,
+                      tooltipBgColor: widget.theme.themeData.primaryColorDark,
                       getTooltipItem: (a, b, c, d) => null,
                     ),
                     touchCallback: (FlTouchEvent event, response) {
