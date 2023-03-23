@@ -1,8 +1,8 @@
 class StatsDto {
-  final Map<String, int> overallShopPerformance;
+  final overallShopPerformance;
   final performanceByCategory;
-  final Map<String, int> salesByMonth;
-  final Map<String, int> deductionsByMonth;
+  final salesByMonth;
+  final deductionsByMonth;
 
   StatsDto(
       {required this.overallShopPerformance,
@@ -10,4 +10,12 @@ class StatsDto {
       required this.salesByMonth,
       required this.deductionsByMonth,
       t});
+
+  factory StatsDto.fromJson(Map<String, dynamic> json) {
+    return StatsDto(
+        overallShopPerformance: json['overallShopPerformance'],
+        performanceByCategory: json['performanceByCategory'],
+        salesByMonth: json['salesByMonth'],
+        deductionsByMonth: json['deductionsByMonth']);
+  }
 }

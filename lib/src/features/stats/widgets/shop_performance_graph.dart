@@ -8,8 +8,8 @@ class ShopPerformanceGraph extends StatefulWidget {
   final Color leftBarColor = Colors.yellow;
   final Color rightBarColor = Colors.red;
   final Color avgColor = Colors.blue;
-  final Map<String, int> salesByMonth;
-  final Map<String, int> deductionsByMonth;
+  final salesByMonth;
+  final deductionsByMonth;
 
   @override
   State<StatefulWidget> createState() => ShopPerformanceGraphState();
