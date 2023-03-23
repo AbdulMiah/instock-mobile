@@ -26,6 +26,7 @@ class _StatsPageState extends State<StatsPage> {
 
   String _dropdownCategory = "cards";
 
+  // List of items in our dropdown menu
   var items = [
     'Cards',
     'Stickers',

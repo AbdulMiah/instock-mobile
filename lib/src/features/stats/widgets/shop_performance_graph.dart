@@ -1,15 +1,15 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/theme/common_theme.dart';
 
+//Heavily modified from example given in documentation
 class ShopPerformanceGraph extends StatefulWidget {
   ShopPerformanceGraph(
       {super.key, required this.salesByMonth, required this.deductionsByMonth});
 
-  final Color leftBarColor = Colors.yellow;
-  final Color rightBarColor = Colors.red;
-  final Color avgColor = Colors.blue;
-  final salesByMonth;
-  final deductionsByMonth;
+  final CommonTheme theme = CommonTheme();
+  final Map<String, int> salesByMonth;
+  final Map<String, int> deductionsByMonth;
 
   @override
   State<StatefulWidget> createState() => ShopPerformanceGraphState();
@@ -19,37 +19,41 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   final double width = 7;
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
+  List<String>? _months = [];
 
   int touchedGroupIndex = -1;
 
-  @override
-  void initState() {
-    super.initState();
-    final barGroup1 = makeGroupData(0, 5, 12);
-    final barGroup2 = makeGroupData(1, 16, 12);
-    final barGroup3 = makeGroupData(2, 18, 5);
-    final barGroup4 = makeGroupData(3, 20, 16);
-    final barGroup5 = makeGroupData(4, 17, 6);
-    final barGroup6 = makeGroupData(5, 19, 1.5);
-    final barGroup7 = makeGroupData(6, 10, 1.5);
+  void extractGraphPoints() {
+    print(widget.salesByMonth);
+    print(widget.deductionsByMonth);
 
-    final items = [
-      barGroup1,
-      barGroup2,
-      barGroup3,
-      barGroup4,
-      barGroup5,
-      barGroup6,
-      barGroup7,
-    ];
+    int x = 0;
+    List<BarChartGroupData> graphPoints = [];
+    for (var key in widget.salesByMonth.keys) {
+      print('$key');
+      print('$key: ${widget.salesByMonth[key]}');
+      print('$key: ${widget.deductionsByMonth[key]}');
 
-    rawBarGroups = items;
+      int? monthlySales = widget.salesByMonth[key];
+      int? monthlyDeductions = widget.deductionsByMonth[key];
+
+      _months!.add(key.substring(0, 3));
+
+      BarChartGroupData barGroup = makeGroupData(
+          x, monthlySales!.toDouble(), monthlyDeductions!.toDouble());
+      graphPoints.add(barGroup);
+
+      x++;
+    }
+
+    rawBarGroups = graphPoints;
 
     showingBarGroups = rawBarGroups;
   }
 
   @override
   Widget build(BuildContext context) {
+    extractGraphPoints();
     return AspectRatio(
       aspectRatio: 1,
       child: Padding(
@@ -104,7 +108,9 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
                                 .barRods
                                 .map((rod) {
                               return rod.copyWith(
-                                  toY: avg, color: widget.avgColor);
+                                  toY: avg,
+                                  color:
+                                      widget.theme.themeData.primaryColorDark);
                             }).toList(),
                           );
                         }
@@ -146,6 +152,50 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
             const SizedBox(
               height: 12,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      height: 18,
+                      width: 18,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: widget.theme.themeData.splashColor,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
+                      child: Text(
+                        "Sales",
+                        style: widget.theme.themeData.textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: widget.theme.themeData.highlightColor,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
+                        child: Text("Deductions",
+                            style: widget.theme.themeData.textTheme.bodySmall),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -159,12 +209,9 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
       fontSize: 14,
     );
     String text;
-    if (value == 0) {
-      text = '1K';
-    } else if (value == 10) {
-      text = '5K';
-    } else if (value == 19) {
-      text = '10K';
+    if (value % 10 == 0) {
+      int roundedValue = value.toInt();
+      text = roundedValue.toString();
     } else {
       return Container();
     }
@@ -176,10 +223,10 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
+    final titles = _months;
 
     final Widget text = Text(
-      titles[value.toInt()],
+      titles![value.toInt()],
       style: const TextStyle(
         color: Color(0xff7589a2),
         fontWeight: FontWeight.bold,
@@ -201,12 +248,12 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
       barRods: [
         BarChartRodData(
           toY: y1,
-          color: widget.leftBarColor,
+          color: widget.theme.themeData.splashColor,
           width: width,
         ),
         BarChartRodData(
           toY: y2,
-          color: widget.rightBarColor,
+          color: widget.theme.themeData.highlightColor,
           width: width,
         ),
       ],
