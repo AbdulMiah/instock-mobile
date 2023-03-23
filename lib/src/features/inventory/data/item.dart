@@ -1,16 +1,22 @@
 class Item {
   final String sku;
-  final String? businessId;
+  final String businessId;
   final String category;
   final String name;
-  final String stock;
+  final int stockAmount;
+  final int ordersAmount;
+  String? itemWarning;
+  final String itemImgUrl;
 
-  const Item({
+  Item({
     required this.sku,
-    this.businessId,
+    required this.businessId,
     required this.category,
     required this.name,
-    required this.stock,
+    required this.stockAmount,
+    required this.ordersAmount,
+    required this.itemWarning,
+    required this.itemImgUrl,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
@@ -19,19 +25,16 @@ class Item {
       businessId: json['BusinessId'],
       category: json['Category'],
       name: json['Name'],
-      stock: json['Stock'],
+      stockAmount: int.parse(json['Stock']),
+      ordersAmount: 0,
+      itemWarning: "",
+      itemImgUrl:
+          "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
     );
   }
 
-  Map<String, dynamic> toMap() => {
-    'name': name,
-    'category': category,
-    'stock': stock,
-    'sku': sku,
-  };
-
   @override
   String toString() {
-    return 'Item{SKU: $sku, businessId: $businessId, category: $category, name: $name, stock: $stock}';
+    return 'Item{sku: $sku, businessId: $businessId, category: $category, name: $name, stockAmount: $stockAmount, ordersAmount: $ordersAmount}';
   }
 }

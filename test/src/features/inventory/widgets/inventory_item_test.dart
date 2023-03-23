@@ -1,6 +1,7 @@
 // void main() {
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/inventory_item.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
@@ -8,15 +9,20 @@ void main() {
   testWidgets(
     'Displays Item Details',
     (tester) async {
-      await mockNetworkImagesFor(() => tester.pumpWidget(const MaterialApp(
+      Item item = Item(
+          category: 'Test',
+          sku: 'Test SKU',
+          name: 'Test Name',
+          businessId: 'WEE-WEE',
+          stockAmount: 33,
+          ordersAmount: 10,
+          itemWarning: '',
+          itemImgUrl: '');
+
+      await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
             home: Scaffold(
               body: InventoryItem(
-                itemName: 'Test Name',
-                itemSku: 'Test SKU',
-                itemStockNo: '33',
-                itemOrdersNo: '44',
-                itemCategory: 'Test Category',
-                itemWarning: null,
+                item: item,
               ),
             ),
           )));
@@ -35,15 +41,20 @@ void main() {
   testWidgets(
     'Displays Low Stock Warning',
     (tester) async {
-      await mockNetworkImagesFor(() => tester.pumpWidget(const MaterialApp(
+      Item item = Item(
+          category: 'Test',
+          sku: 'Test SKU',
+          name: 'Test Name',
+          businessId: 'WEE-WEE',
+          stockAmount: 3,
+          ordersAmount: 2,
+          itemWarning: 'Low Stock',
+          itemImgUrl: '');
+
+      await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
             home: Scaffold(
               body: InventoryItem(
-                itemName: 'Test Name',
-                itemSku: 'Test SKU',
-                itemStockNo: '5',
-                itemOrdersNo: '44',
-                itemCategory: 'Test Category',
-                itemWarning: 'Low Stock',
+                item: item,
               ),
             ),
           )));

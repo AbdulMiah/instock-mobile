@@ -13,7 +13,7 @@ import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
-import '../data/item.dart';
+import '../data/add_new_item_dto.dart';
 import '../utils/generate_uuid.dart';
 
 class AddItem extends StatefulWidget {
@@ -39,11 +39,11 @@ class _AddItemState extends State<AddItem> {
   handleAddItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Item newItem = Item(
+      AddNewItemDto newItem = AddNewItemDto(
           sku: _sku!,
           category: _category!,
           name: _itemName!,
-          stock: _stockLevel!);
+          stockAmount: _stockLevel!);
       ResponseObject response = await _inventoryService.addItem(newItem);
 
       if (response.statusCode == 201) {
