@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instock_mobile/src/features/inventory/data/stock_update_dto.dart';
 import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 import 'package:instock_mobile/src/features/inventory/services/reason_for_change_enum.dart';
-import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 
@@ -73,10 +72,7 @@ class _StockEditorState extends State<StockEditor> {
         _calculatedStockAmount = 0;
       });
       //redirect to main screen
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const NavBar()),
-      );
+      Navigator.pop(context);
       Fluttertoast.showToast(
           msg: "Stock Updated",
           toastLength: Toast.LENGTH_LONG,
