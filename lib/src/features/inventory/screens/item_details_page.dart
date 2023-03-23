@@ -137,41 +137,50 @@ class _ItemDetailsState extends State<ItemDetails> {
                               itemSKU: widget.item.sku,
                               businessId: widget.item.businessId,
                             ),
-                            InStockTextInput(
-                              key: const Key('itemNameTextField'),
-                              text: "Name",
-                              theme: theme.themeData,
-                              icon: null,
-                              validators: const [Validators.notBlank],
-                              onSaved: (value) {
-                                _name = value;
-                              },
-                              initialValue: widget.item.name,
-                              enable: false,
+                            Padding(
+                              padding: theme.textFieldPadding,
+                              child: InStockTextInput(
+                                key: const Key('itemNameTextField'),
+                                text: "Name",
+                                theme: theme.themeData,
+                                icon: null,
+                                validators: const [Validators.notBlank],
+                                onSaved: (value) {
+                                  _name = value;
+                                },
+                                initialValue: widget.item.name,
+                                enable: false,
+                              ),
                             ),
-                            InStockTextInput(
-                              key: const Key('itemCategoryTextField'),
-                              text: "Category",
-                              theme: theme.themeData,
-                              icon: null,
-                              validators: const [Validators.notBlank],
-                              onSaved: (value) {
-                                _category = value;
-                              },
-                              initialValue: widget.item.category,
-                              enable: false,
+                            Padding(
+                              padding: theme.textFieldPadding,
+                              child: InStockTextInput(
+                                key: const Key('itemCategoryTextField'),
+                                text: "Category",
+                                theme: theme.themeData,
+                                icon: null,
+                                validators: const [Validators.notBlank],
+                                onSaved: (value) {
+                                  _category = value;
+                                },
+                                initialValue: widget.item.category,
+                                enable: false,
+                              ),
                             ),
-                            InStockTextInput(
-                              key: const Key('itemSkuTextField'),
-                              text: "SKU",
-                              theme: theme.themeData,
-                              icon: null,
-                              validators: const [Validators.notBlank],
-                              onSaved: (value) {
-                                _sku = value;
-                              },
-                              initialValue: widget.item.sku,
-                              enable: false,
+                            Padding(
+                              padding: theme.textFieldPadding,
+                              child: InStockTextInput(
+                                key: const Key('itemSkuTextField'),
+                                text: "SKU",
+                                theme: theme.themeData,
+                                icon: null,
+                                validators: const [Validators.notBlank],
+                                onSaved: (value) {
+                                  _sku = value;
+                                },
+                                initialValue: widget.item.sku,
+                                enable: false,
+                              ),
                             ),
                             Padding(
                               padding: theme.textFieldPadding,
