@@ -6,7 +6,7 @@ void main() {
   testWidgets('Circular avatar renders', (tester) async {
     //Given
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: Scaffold(
           body: PhotoPicker(),
         ),
@@ -23,7 +23,7 @@ void main() {
   testWidgets('Camera button renders', (tester) async {
     //Given
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: Scaffold(
           body: PhotoPicker(),
         ),
@@ -40,7 +40,7 @@ void main() {
   testWidgets('Modal bottom sheet is displayed when camera button is pressed', (tester) async {
     //Given
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: Scaffold(
           body: PhotoPicker(),
         ),

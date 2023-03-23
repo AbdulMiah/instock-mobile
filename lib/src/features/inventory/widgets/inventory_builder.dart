@@ -97,7 +97,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
               ),
             );
           }
-          if (snapshot.hasError || snapshot.error is SocketException) {
+          if (snapshot.error is SocketException) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -132,7 +132,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
               ),
             );
           }
-          if (snapshot.data.length == 0) {
+          if (snapshot.error is Exception) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +140,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 40, 15, 0),
                     child: Text(
-                      "You don't have any items yet, go to Add Item to get started",
+                      "Looks like you have no items in your inventory... \n\nGo to 'Add Item' to get started!",
                       style: widget.theme.themeData.textTheme.bodyLarge
                           ?.merge(const TextStyle(fontSize: 20)),
                       textAlign: TextAlign.center,

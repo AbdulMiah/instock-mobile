@@ -8,6 +8,7 @@ class InStockButton extends StatefulWidget {
       required this.theme,
       required this.colorOption,
       this.icon,
+      this.secondaryIcon,
       this.isLoading = false});
 
   final String? text;
@@ -15,6 +16,7 @@ class InStockButton extends StatefulWidget {
   final int colorOption;
   final void Function()? onPressed;
   final IconData? icon;
+  final IconData? secondaryIcon;
   bool isLoading;
 
   // Used for colorOptions
@@ -74,11 +76,14 @@ class _InStockButtonState extends State<InStockButton> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(widget.icon),
+            const Spacer(),
             Text(
               widget.text!,
               style: widget.theme.textTheme.displaySmall
                   ?.copyWith(color: buttonColors["foreground"]),
             ),
+            const Spacer(),
+            widget.secondaryIcon != null ? Icon(widget.secondaryIcon) : const Icon(null),
           ],
         );
       }

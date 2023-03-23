@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/authentication/screens/login_page.dart';
 import 'package:instock_mobile/src/features/business/services/business_service.dart';
-import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
 import '../../../theme/common_theme.dart';
@@ -32,9 +32,10 @@ class _AddBusinessState extends State<AddBusiness> {
       ResponseObject response =
           await _businessService.addBusiness(_businessName!, _description!);
       if (response.requestSuccess!) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const NavBar()),
+          MaterialPageRoute(builder: (context) => const Login()),
+          (route) => false,
         );
       } else if (response.hasErrors()) {
         setState(() {
@@ -105,7 +106,7 @@ class _AddBusinessState extends State<AddBusiness> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const PhotoPicker(),
+                      PhotoPicker(),
                       const Divider(
                         height: 50.0,
                         thickness: 1.0,
