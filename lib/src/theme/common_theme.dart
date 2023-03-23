@@ -5,6 +5,7 @@ class CommonTheme {
   static const blackColor = Color(0xff000000);
   static const whiteColor = Color(0xffFFFFFF);
   static const pinkColor = Color(0xffEA5480);
+  static const offWhiteColor = Color(0xffD9D8D8);
 
   EdgeInsets textFieldPadding = const EdgeInsets.fromLTRB(0, 24.0, 0, 0);
   ThemeData themeData = ThemeData(
@@ -12,6 +13,7 @@ class CommonTheme {
     primaryColorLight: whiteColor,
     splashColor: greenColor,
     highlightColor: pinkColor,
+    cardColor: offWhiteColor,
     textTheme: const TextTheme(
       //White Text
       displayLarge: TextStyle(
@@ -25,6 +27,9 @@ class CommonTheme {
       headlineMedium: TextStyle(
           color: blackColor, fontSize: 20, fontWeight: FontWeight.bold),
       bodySmall: TextStyle(color: blackColor, fontSize: 18),
+
+      titleMedium: TextStyle(
+          color: blackColor, fontSize: 24, fontWeight: FontWeight.bold),
       // Error Message
       headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
       // Success Message
