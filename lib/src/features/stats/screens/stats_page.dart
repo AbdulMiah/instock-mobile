@@ -132,10 +132,7 @@ class _StatsPageState extends State<StatsPage> {
                             ),
                           );
                         }
-                        categories = ["Cards", "Stickers", "Bookmarks"];
-                        dropdownValue = categories?.first;
                         StatsDto statsDto = snapshot.data;
-                        print("categoes: $categories");
                         return Column(
                           children: [
                             Text("Shop Performance",
