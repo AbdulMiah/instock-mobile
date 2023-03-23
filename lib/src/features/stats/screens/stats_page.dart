@@ -39,7 +39,7 @@ class _StatsPageState extends State<StatsPage> {
     });
   }
 
-  String dropdownvalue = "Cards";
+  String dropdownValue = "Cards";
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -157,7 +157,7 @@ class _StatsPageState extends State<StatsPage> {
                               ),
                             ),
                             DropdownButton(
-                              value: dropdownvalue,
+                              value: dropdownValue,
                               icon: const Icon(Icons.keyboard_arrow_down),
                               items: items.map((String items) {
                                 return DropdownMenuItem(
@@ -167,7 +167,7 @@ class _StatsPageState extends State<StatsPage> {
                               }).toList(),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropdownvalue = newValue!;
+                                  dropdownValue = newValue!;
                                   _updateCategory(newValue);
                                 });
                               },
