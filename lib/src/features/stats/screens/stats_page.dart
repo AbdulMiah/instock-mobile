@@ -24,13 +24,10 @@ class StatsPage extends StatefulWidget {
 class _StatsPageState extends State<StatsPage> {
   final StatsService _statsService = StatsService(AuthenticationService());
 
-  String _dropdownCategory = "cards";
+  String? _dropdownCategory;
+  String? lastSelected;
 
-  var items = [
-    'Cards',
-    'Stickers',
-    'Bookmarks',
-  ];
+  var items = [];
 
   void _updateCategory(String value) {
     setState(() {
@@ -38,7 +35,16 @@ class _StatsPageState extends State<StatsPage> {
     });
   }
 
-  String dropdownValue = "Cards";
+  List<String> extractCategories(StatsDto statsDto) {
+    List<String> res = [];
+    var perfByCat = statsDto.performanceByCategory;
+    for (final perfSection in perfByCat.entries) {
+      final key = perfSection.key;
+      res.add(key);
+    }
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -132,6 +138,12 @@ class _StatsPageState extends State<StatsPage> {
                           );
                         }
                         StatsDto statsDto = snapshot.data;
+                        // Set dropdown list to categories from request
+                        List<String> dropdownItems =
+                            extractCategories(statsDto);
+                        // If the user hasn't made a selection, default to first item
+                        lastSelected ??= dropdownItems.first;
+                        _dropdownCategory = lastSelected!;
                         return Column(
                           children: [
                             Text("Shop Performance",
@@ -156,9 +168,9 @@ class _StatsPageState extends State<StatsPage> {
                               ),
                             ),
                             DropdownButton(
-                              value: dropdownValue,
+                              value: lastSelected,
                               icon: const Icon(Icons.keyboard_arrow_down),
-                              items: items.map((String items) {
+                              items: dropdownItems.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: Text(items),
@@ -166,15 +178,15 @@ class _StatsPageState extends State<StatsPage> {
                               }).toList(),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropdownValue = newValue!;
-                                  _updateCategory(newValue);
+                                  _updateCategory(newValue!);
+                                  lastSelected = newValue;
                                 });
                               },
                             ),
                             CategoryStats(
                                 statsDto: snapshot.data,
                                 updateCategory: _updateCategory,
-                                dropdownCategory: _dropdownCategory)
+                                dropdownCategory: _dropdownCategory!)
                           ],
                         );
                       }),
