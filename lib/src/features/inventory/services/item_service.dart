@@ -63,12 +63,10 @@ class ItemService {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
-    print("Getting to here");
     String businessId = payload["BusinessId"];
-    print(businessId);
 
     String url = ConfigService.url;
-    var uri = Uri.http(url, '/businesses/$businessId/items/$itemId');
+    var uri = Uri.parse('$url/businesses/$businessId/items/$itemId');
     final response = await http.delete(
       uri,
       headers: {
