@@ -22,8 +22,22 @@ class StatsPage extends StatefulWidget {
 class _StatsPageState extends State<StatsPage> {
   final StatsService _statsService = StatsService(AuthenticationService());
 
-  List<String>? categories;
-  String? dropdownValue;
+  String _dropdownCategory = "cards";
+
+  // List of items in our dropdown menu
+  var items = [
+    'Cards',
+    'Stickers',
+    'Bookmarks',
+  ];
+
+  void _updateCategory(String value) {
+    setState(() {
+      _dropdownCategory = value.toLowerCase();
+    });
+  }
+
+  String dropdownvalue = "Cards";
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -116,9 +130,6 @@ class _StatsPageState extends State<StatsPage> {
                             ),
                           );
                         }
-                        categories = ["Cards", "Stickers", "Bookmarks"];
-                        dropdownValue = categories?.first;
-                        print("categoes: $categories");
                         return Column(
                           children: [
                             OverviewStats(
@@ -131,30 +142,26 @@ class _StatsPageState extends State<StatsPage> {
                                     ?.merge(const TextStyle(fontSize: 24)),
                               ),
                             ),
-                            DropdownButton<String>(
-                              value: dropdownValue,
-                              icon: const Icon(Icons.arrow_downward),
-                              elevation: 16,
-                              style: const TextStyle(color: Colors.deepPurple),
-                              underline: Container(
-                                height: 2,
-                                color: Colors.deepPurpleAccent,
-                              ),
-                              onChanged: (String? value) {
-                                // This is called when the user selects an item.
-                                setState(() {
-                                  dropdownValue = value!;
-                                });
-                              },
-                              items: categories!.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
+                            DropdownButton(
+                              value: dropdownvalue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: items.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
                                 );
                               }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownvalue = newValue!;
+                                  _updateCategory(newValue);
+                                });
+                              },
                             ),
-                            CategoryStats(statsDto: snapshot.data)
+                            CategoryStats(
+                                statsDto: snapshot.data,
+                                updateCategory: _updateCategory,
+                                dropdownCategory: _dropdownCategory)
                           ],
                         );
                       }),

@@ -6,16 +6,22 @@ import '../data/stats_dto.dart';
 
 class CategoryStats extends StatefulWidget {
   final StatsDto statsDto;
-  const CategoryStats({
-    super.key,
-    required this.statsDto,
-  });
+  final String dropdownCategory;
+  final Function(String) updateCategory;
+
+  const CategoryStats(
+      {super.key,
+      required this.statsDto,
+      required this.dropdownCategory,
+      required this.updateCategory});
 
   @override
   State<CategoryStats> createState() => _CategoryStatsState();
 }
 
 class _CategoryStatsState extends State<CategoryStats> {
+  String category = "cards";
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -28,7 +34,7 @@ class _CategoryStatsState extends State<CategoryStats> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-                "Sales: ${widget.statsDto.performanceByCategory["cards"]["sales"]}",
+                "Sales: ${widget.statsDto.performanceByCategory[widget.dropdownCategory]["sales"]}",
                 style: theme.themeData.textTheme.displayMedium
                     ?.merge(const TextStyle(fontSize: 24))),
           ),
@@ -42,7 +48,8 @@ class _CategoryStatsState extends State<CategoryStats> {
             StatsBox(
               theme: theme,
               stat: "Orders",
-              figure: widget.statsDto.performanceByCategory["cards"]["orders"]!,
+              figure: widget.statsDto
+                  .performanceByCategory[widget.dropdownCategory]["orders"]!,
             ),
             StatsBox(
               theme: theme,
@@ -59,8 +66,8 @@ class _CategoryStatsState extends State<CategoryStats> {
               StatsBox(
                 theme: theme,
                 stat: "Returns",
-                figure: widget.statsDto.performanceByCategory["cards"]
-                    ["returns"]!,
+                figure: widget.statsDto
+                    .performanceByCategory[widget.dropdownCategory]["returns"]!,
               ),
               StatsBox(
                 theme: theme,
@@ -78,13 +85,14 @@ class _CategoryStatsState extends State<CategoryStats> {
               StatsBox(
                 theme: theme,
                 stat: "Damaged",
-                figure: widget.statsDto.performanceByCategory["cards"]
-                    ["damaged"]!,
+                figure: widget.statsDto
+                    .performanceByCategory[widget.dropdownCategory]["damaged"]!,
               ),
               StatsBox(
                 theme: theme,
                 stat: "Restocked",
-                figure: widget.statsDto.performanceByCategory["cards"]
+                figure: widget
+                        .statsDto.performanceByCategory[widget.dropdownCategory]
                     ["restocked"]!,
               ),
             ],
@@ -98,7 +106,8 @@ class _CategoryStatsState extends State<CategoryStats> {
               StatsBox(
                 theme: theme,
                 stat: "Lost",
-                figure: widget.statsDto.performanceByCategory["cards"]["lost"]!,
+                figure: widget.statsDto
+                    .performanceByCategory[widget.dropdownCategory]["lost"]!,
               ),
               const SizedBox(
                 width: 150,
