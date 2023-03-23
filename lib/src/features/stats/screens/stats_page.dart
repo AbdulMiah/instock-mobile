@@ -39,6 +39,7 @@ class _StatsPageState extends State<StatsPage> {
   }
 
   String dropdownValue = "Cards";
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -134,15 +135,24 @@ class _StatsPageState extends State<StatsPage> {
                         StatsDto statsDto = snapshot.data;
                         return Column(
                           children: [
-                            Text("Shop Performance",
-                                style:
-                                    theme.themeData.textTheme.headlineMedium),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              height: 300,
-                              child: ShopPerformanceGraph(
-                                salesByMonth: statsDto.salesByMonth,
-                                deductionsByMonth: statsDto.deductionsByMonth,
+                            Container(
+                              color: theme.themeData.canvasColor,
+                              child: Column(
+                                children: [
+                                  Text("Shop Performance",
+                                      style: theme
+                                          .themeData.textTheme.headlineMedium),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.85,
+                                    height: 300,
+                                    child: ShopPerformanceGraph(
+                                      salesByMonth: statsDto.salesByMonth,
+                                      deductionsByMonth:
+                                          statsDto.deductionsByMonth,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             OverviewStats(
