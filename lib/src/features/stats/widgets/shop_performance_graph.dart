@@ -8,8 +8,8 @@ class ShopPerformanceGraph extends StatefulWidget {
       {super.key, required this.salesByMonth, required this.deductionsByMonth});
 
   final CommonTheme theme = CommonTheme();
-  final Map<String, int> salesByMonth;
-  final Map<String, int> deductionsByMonth;
+  var salesByMonth;
+  var deductionsByMonth;
 
   @override
   State<StatefulWidget> createState() => ShopPerformanceGraphState();
