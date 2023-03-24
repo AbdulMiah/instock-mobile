@@ -44,6 +44,8 @@ class AuthenticationService implements IAuthenticationService {
 
     if (response.statusCode == 200) {
       final fcmToken = await FirebaseMessaging.instance.getToken();
+      print("================= Token ===================");
+      print(fcmToken);
       String bearerToken = response.body;
       _saveBearerToken(bearerToken);
       _saveFcmToken(fcmToken!);
