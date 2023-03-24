@@ -61,14 +61,14 @@ void main() {
     );
     await tester.pump(const Duration(seconds: 5));
 
-    final statsFinder = find.text('Stats');
+    final accountFinder = find.text('Account');
 
-    expect(statsFinder, findsOneWidget);
+    expect(accountFinder, findsOneWidget);
 
     //When
-    await tester.tap(statsFinder);
+    await tester.tap(accountFinder);
     await tester.pumpAndSettle();
     //Then
-    expect(statsFinder, findsAtLeastNWidgets(2));
+    expect(accountFinder, findsAtLeastNWidgets(2));
   });
 }

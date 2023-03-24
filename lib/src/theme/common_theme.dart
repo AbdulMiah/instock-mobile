@@ -5,7 +5,10 @@ class CommonTheme {
   static const blackColor = Color(0xff000000);
   static const whiteColor = Color(0xffFFFFFF);
   static const pinkColor = Color(0xffEA5480);
-  static const offWhiteColor = Color(0xffD9D8D8);
+  // static const offWhiteColor = Color(0xffD9D8D8);
+
+  // OffWhiteColor was d9d8d8 - made it 10% lighter
+  static const offWhiteColor = Color(0xffdddcdc);
 
   EdgeInsets textFieldPadding = const EdgeInsets.fromLTRB(0, 24.0, 0, 0);
   ThemeData themeData = ThemeData(
