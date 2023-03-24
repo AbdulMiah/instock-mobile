@@ -187,21 +187,42 @@ class _StatsPageState extends State<StatsPage> {
                                     ?.merge(const TextStyle(fontSize: 24)),
                               ),
                             ),
-                            DropdownButton(
-                              value: lastSelected,
-                              icon: const Icon(Icons.keyboard_arrow_down),
-                              items: dropdownItems.map((String items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  _updateCategory(newValue!);
-                                  lastSelected = newValue;
-                                });
-                              },
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(12.0, 0, 0, 12),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                height: 50,
+                                child: DropdownButton(
+                                  value: lastSelected,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: dropdownItems.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      _updateCategory(newValue!);
+                                      lastSelected = newValue;
+                                    });
+                                  },
+                                  style: theme.themeData.textTheme.bodySmall,
+                                  dropdownColor:
+                                      theme.themeData.primaryColorLight,
+                                  iconEnabledColor:
+                                      theme.themeData.primaryColorDark,
+                                  isExpanded: true,
+                                  underline: Container(
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                      color: theme.themeData.primaryColorDark,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                             CategoryStats(
                                 statsDto: snapshot.data,

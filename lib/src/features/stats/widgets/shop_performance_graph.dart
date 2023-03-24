@@ -24,16 +24,9 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   int touchedGroupIndex = -1;
 
   void extractGraphPoints() {
-    print(widget.salesByMonth);
-    print(widget.deductionsByMonth);
-
     int x = 0;
     List<BarChartGroupData> graphPoints = [];
     for (var key in widget.salesByMonth.keys) {
-      print('$key');
-      print('$key: ${widget.salesByMonth[key]}');
-      print('$key: ${widget.deductionsByMonth[key]}');
-
       int? monthlySales = widget.salesByMonth[key];
       int? monthlyDeductions = widget.deductionsByMonth[key];
 
