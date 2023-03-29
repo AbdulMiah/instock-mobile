@@ -6,10 +6,13 @@ import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/horizontal_category_list.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_search_bar.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
+import '../../authentication/services/authentication_service.dart';
+import '../../business/screens/add_business_page.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
 
@@ -84,11 +87,31 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
     });
   }
 
+  checkBusinessExists() async {
+    AuthenticationService authenticationService = AuthenticationService();
+
+    // Get token and check if businessId is null
+    var tokenDict = await authenticationService.retrieveBearerToken();
+    var token = tokenDict["bearerToken"];
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+    String businessId = payload["BusinessId"];
+
+    if (businessId == "") {
+      // Go to Add Business page if user has no business
+      Navigator.pushAndRemoveUntil<void>(
+        context,
+        MaterialPageRoute<void>(builder: (context) => const AddBusiness()),
+            (route) => false,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: widget.inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          checkBusinessExists();
           if (snapshot.data == null &&
               snapshot.connectionState == ConnectionState.waiting) {
             return Center(

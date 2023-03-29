@@ -47,7 +47,7 @@ class AuthenticationService implements IAuthenticationService {
       print("================= Token ===================");
       print(fcmToken);
       String bearerToken = response.body;
-      _saveBearerToken(bearerToken);
+      saveBearerToken(bearerToken);
       _saveFcmToken(fcmToken!);
       return (responseObject);
     } else {
@@ -55,8 +55,15 @@ class AuthenticationService implements IAuthenticationService {
     }
   }
 
-  _saveBearerToken(String bearerToken) async {
-    await _secureStorageService.write("bearerToken", bearerToken);
+  @override
+  Future<ResponseObject> saveBearerToken(String bearerToken) async {
+    try {
+      await _secureStorageService.write("bearerToken", bearerToken);
+      return ResponseObject(requestSuccess: true, body: "Bearer Token Saved");
+    } catch (error) {
+      return ResponseObject(
+          requestSuccess: false, body: "Oops Something went wrong");
+    }
   }
 
   _saveFcmToken(String fcmToken) async {
@@ -101,7 +108,7 @@ class AuthenticationService implements IAuthenticationService {
         ResponseObject(statusCode: response.statusCode, body: response.body);
     if (response.statusCode == 201) {
       String bearerToken = response.body;
-      _saveBearerToken(bearerToken);
+      saveBearerToken(bearerToken);
       return (responseObject);
     } else {
       return (responseObject);

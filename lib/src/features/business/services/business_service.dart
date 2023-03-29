@@ -60,6 +60,8 @@ class BusinessService {
     List<String> responseErrors =
         ResponseObject.extractErrorsFromResponse(responseMap);
     if (responseErrors.isEmpty) {
+      String bearerToken = responseMap["newJwtToken"];
+      await _authenticationService.saveBearerToken(bearerToken);
       return ResponseObject(
         statusCode: response.statusCode,
         body: response.body,

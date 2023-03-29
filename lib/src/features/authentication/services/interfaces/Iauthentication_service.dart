@@ -10,7 +10,7 @@ class IAuthenticationService {
     return Future<ResponseObject>.value();
   }
 
-  Future<ResponseObject> _saveBearerToken(String bearerToken) {
+  Future<ResponseObject> saveBearerToken(String bearerToken) async {
     return Future<ResponseObject>.value();
   }
 
