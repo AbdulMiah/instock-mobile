@@ -50,7 +50,7 @@ install-dependencies:
     - .use-pub-cache-bin
     - .upload-cache
   script:
-    - flutter pub get --no-precompile
+    - flutter pub get
 
 build:
   stage: build
@@ -60,7 +60,7 @@ build:
     - .use-pub-cache-bin
     - .upload-cache
   script:
-    - flutter pub get --offline --precompile
+    - flutter pub get
 
 unit-test:
   stage: test
