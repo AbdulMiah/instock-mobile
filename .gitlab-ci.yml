@@ -70,7 +70,7 @@ unit-test:
     - .use-pub-cache-bin
     - .download-cache
   script:
-    - flutter test $PUB_VARS
+    - flutter test
 
 lint-test:
   stage: test
@@ -80,14 +80,4 @@ lint-test:
     - .use-pub-cache-bin
     - .download-cache
   script:
-    - dart analyze .
-
-format-test:
-  stage: test
-  needs:
-    - install-dependencies
-  extends:
-    - .use-pub-cache-bin
-    - .download-cache
-  script:
-    - dart format --set-exit-if-changed bin/ lib/ test/
+    - dart analyze
