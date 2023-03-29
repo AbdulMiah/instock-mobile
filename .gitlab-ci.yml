@@ -8,7 +8,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Dart.gitlab-ci.yml
 
 # https://hub.docker.com/_/dart
-image: dart:2.17
+image: dart:2.19
 
 variables:
   # To learn more go to https://dart.dev/tools/dart-test

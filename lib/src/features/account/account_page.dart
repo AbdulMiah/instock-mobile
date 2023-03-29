@@ -131,7 +131,7 @@ class _AccountPageState extends State<AccountPage> {
                         },
                         theme: theme.themeData,
                         colorOption: InStockButton.primary,
-                      )
+                      ),
                     ],
                   ),
                 ),
