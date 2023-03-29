@@ -49,7 +49,7 @@ install-dependencies:
     - .use-pub-cache-bin
     - .upload-cache
   script:
-    - dart pub get --no-precompile
+    - flutter pub get --no-precompile
 
 build:
   stage: build
@@ -59,7 +59,7 @@ build:
     - .use-pub-cache-bin
     - .upload-cache
   script:
-    - dart pub get --offline --precompile
+    - flutter pub get --offline --precompile
 
 unit-test:
   stage: test
@@ -69,7 +69,7 @@ unit-test:
     - .use-pub-cache-bin
     - .download-cache
   script:
-    - dart test $PUB_VARS
+    - flutter test $PUB_VARS
 
 lint-test:
   stage: test
@@ -89,4 +89,4 @@ format-test:
     - .use-pub-cache-bin
     - .download-cache
   script:
-    - dart format --set-exit-if-changed bin/ lib/ test/
+    - flutter format --set-exit-if-changed bin/ lib/ test/
