@@ -97,6 +97,7 @@ build-docker-image:
   before_script:
     - apt-get update
     - apt-get install -y docker.io
+    - sudo service docker start
   script:
     - docker run hello-world
 
