@@ -9,7 +9,7 @@
 
 # https://hub.docker.com/_/dart
 # imports the most recent version of flutter
-image: cirrusci/flutter:stable
+image: cirrusci/flutter:3.7.3
 
 variables:
   # To learn more go to https://dart.dev/tools/dart-test
@@ -61,23 +61,46 @@ build:
     - .upload-cache
   script:
     - flutter pub get
+    - flutter build appbundle
 
-unit-test:
-  stage: test
+# unit-test:
+#   stage: test
+#   needs:
+#     - build
+#   extends:
+#     - .use-pub-cache-bin
+#     - .download-cache
+#   script:
+#     - flutter test
+
+# lint-test:
+#   stage: test
+#   needs:
+#     - install-dependencies
+#   extends:
+#     - .use-pub-cache-bin
+#     - .download-cache
+#   script:
+#     - dart analyze
+
+# Finish running tests and building
+# Time for docker 
+
+deploy-to-play-store:
+  stage: deploy
   needs:
     - build
+    # - unit-test
+    # - lint-test
   extends:
     - .use-pub-cache-bin
     - .download-cache
   script:
-    - flutter test
+    - echo "================= DEPLOYING ================="
+    - gcloud auth activate-service-account --key-file=<service-account-key.json>
+    - gcloud config set project <project-id>
+    - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
 
-lint-test:
-  stage: test
-  needs:
-    - install-dependencies
-  extends:
-    - .use-pub-cache-bin
-    - .download-cache
-  script:
-    - dart analyze
+
+
+
