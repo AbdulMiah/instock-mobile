@@ -86,7 +86,7 @@ lint-test:
 # Time for docker 
 
 build-docker-image:
-  stage: deply
+  stage: deploy
   needs:
     - build
     - test
