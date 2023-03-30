@@ -9,7 +9,7 @@
 
 # https://hub.docker.com/_/dart
 # imports the most recent version of flutter
-image: cirrusci/flutter:stable
+image: cirrusci/flutter:3.7.3
 
 variables:
   # To learn more go to https://dart.dev/tools/dart-test
@@ -94,6 +94,9 @@ build-docker-image:
   extends:
     - .use-pub-cache-bin
     - .download-cache
+  before_script:
+    - apt-get update
+    - apt-get install -y docker.io
   script:
     - docker run hello-world
 
