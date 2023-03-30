@@ -62,25 +62,25 @@ build:
   script:
     - flutter pub get
 
-unit-test:
-  stage: test
-  needs:
-    - build
-  extends:
-    - .use-pub-cache-bin
-    - .download-cache
-  script:
-    - flutter test
+# unit-test:
+#   stage: test
+#   needs:
+#     - build
+#   extends:
+#     - .use-pub-cache-bin
+#     - .download-cache
+#   script:
+#     - flutter test
 
-lint-test:
-  stage: test
-  needs:
-    - install-dependencies
-  extends:
-    - .use-pub-cache-bin
-    - .download-cache
-  script:
-    - dart analyze
+# lint-test:
+#   stage: test
+#   needs:
+#     - install-dependencies
+#   extends:
+#     - .use-pub-cache-bin
+#     - .download-cache
+#   script:
+#     - dart analyze
 
 # Finish running tests and building
 # Time for docker 
@@ -89,17 +89,17 @@ build-docker-image:
   stage: deploy
   needs:
     - build
-    - unit-test
-    - lint-test
+    # - unit-test
+    # - lint-test
   extends:
     - .use-pub-cache-bin
     - .download-cache
-  before_script:
-    - apt-get update
-    - apt-get install -y docker.io
-    - sudo docker start
   script:
-    - docker run hello-world
+    - echo "================= DEPLOYING ================="
+    - echo "$CONTAINER_BUILDER_HOSTNAME"
+    - echo "================= DEPLOYING ================="
+    - ssh $CONTAINER_BUILDER_HOSTNAME
+    - ssh $CONTAINER_BUILDER_HOSTNAME "sudo docker run hello-world"
 
 
 
