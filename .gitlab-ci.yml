@@ -89,7 +89,8 @@ build-docker-image:
   stage: deploy
   needs:
     - build
-    - test
+    - unit-test
+    - lint-test
   extends:
     - .use-pub-cache-bin
     - .download-cache
