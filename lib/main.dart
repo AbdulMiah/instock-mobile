@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
+import 'package:instock_mobile/src/utilities/widgets/helper_notification.dart';
 
 import 'firebase_options.dart';
 import 'injection.dart';
@@ -11,31 +13,51 @@ import 'injection.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
-  print("Handling a background message: ${message.messageId}");
+  print("=========== onBackground ===========");
+  print("onBackground: ${message.notification?.title}/${message.notification?.body}");
 }
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-    // TODO: If necessary send token to application server.
+  try {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-    // Note: This callback is fired at each app startup and whenever a new
-    // token is generated.
-    print("Firing");
-  }).onError((err) {
-    // Error getting token.
-    print("Token error");
-  });
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    print('User granted permission: ${settings.authorizationStatus}');
+
+    await messaging.getInitialMessage();
+    await HelperNotification.initialize(flutterLocalNotificationsPlugin);
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  } catch(e) {}
+
+  // FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+  //   // TODO: If necessary send token to application server.
+  //
+  //   // Note: This callback is fired at each app startup and whenever a new
+  //   // token is generated.
+  //   print("Firing");
+  // }).onError((err) {
+  //   // Error getting token.
+  //   print("Token error");
+  // });
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
@@ -43,20 +65,8 @@ Future<void> main() async {
   });
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    // Firebase.initializeApp();
-    // Notif.initialize(flutterLocalNotificationsPlugin);
-  }
 
   // This widget is the root of your application.
   @override
