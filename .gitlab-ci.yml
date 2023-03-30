@@ -61,6 +61,7 @@ build:
     - .upload-cache
   script:
     - flutter pub get
+    - flutter build appbundle
 
 # unit-test:
 #   stage: test
@@ -85,7 +86,7 @@ build:
 # Finish running tests and building
 # Time for docker 
 
-build-docker-image:
+deploy-to-play-store:
   stage: deploy
   needs:
     - build
@@ -96,11 +97,9 @@ build-docker-image:
     - .download-cache
   script:
     - echo "================= DEPLOYING ================="
-    - echo "$CONTAINER_BUILDER_HOSTNAME"
-    - echo "================= DEPLOYING ================="
-    - ssh $CONTAINER_BUILDER_HOSTNAME "ssh-agent bash -c 'ssh-add instock-gitlab.key; git clone git@git.cardiff.ac.uk:cm6331-2022-23-1/instock-mobile-application.git'"
-    - ssh $CONTAINER_BUILDER_HOSTNAME "sudo docker run hello-world"
-
+    - gcloud auth activate-service-account --key-file=<service-account-key.json>
+    - gcloud config set project <project-id>
+    - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
 
 
 
