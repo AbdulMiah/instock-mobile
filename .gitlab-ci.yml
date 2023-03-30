@@ -98,7 +98,7 @@ build-docker-image:
     - echo "================= DEPLOYING ================="
     - echo "$CONTAINER_BUILDER_HOSTNAME"
     - echo "================= DEPLOYING ================="
-    - ssh $CONTAINER_BUILDER_HOSTNAME
+    - ssh $CONTAINER_BUILDER_HOSTNAME "ssh-agent bash -c 'ssh-add instock-gitlab.key; git clone git@git.cardiff.ac.uk:cm6331-2022-23-1/instock-frontend.git'"
     - ssh $CONTAINER_BUILDER_HOSTNAME "sudo docker run hello-world"
 
 
