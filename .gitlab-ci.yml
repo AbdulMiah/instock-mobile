@@ -61,6 +61,9 @@ build:
     - .upload-cache
   script:
     - flutter pub get
+    - echo '======= Directory ======='
+    - cd android
+    - ls
     - flutter build appbundle
 
 # unit-test:
