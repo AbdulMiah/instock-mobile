@@ -62,7 +62,7 @@ build:
   script:
     - flutter pub get
     - echo '======= Directory ======='
-    - cd /android
+    - cd android
     - ls
     - flutter build appbundle
 
