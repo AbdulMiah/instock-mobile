@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
 import 'package:instock_mobile/src/utilities/widgets/helper_notification.dart';
 
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
     const whiteColor = Color(0xffFFFFFF);
     const pinkColor = Color(0xffEA5480);
 
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Instock',
       theme: ThemeData(

@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
+
+import '../../features/inventory/data/item.dart';
 
 class HelperNotification{
   static Future initialize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
@@ -9,6 +15,10 @@ class HelperNotification{
     await flutterLocalNotificationsPlugin.initialize(initializationsSettings,
         onDidReceiveNotificationResponse: (response) async {
           print('notification payload: ${response.payload}');
+          if (response.payload != null) {
+            final item = Item.fromJson(jsonDecode(response.payload as String));
+            Get.to(() => ItemDetails(item: item));
+          }
         }
     );
 
@@ -25,9 +35,15 @@ class HelperNotification{
       HelperNotification.showNotification(message: message, fln: flutterLocalNotificationsPlugin);
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("=========== onOpenApp ===========");
       print("onOpenApp: ${message.notification?.title}/${message.notification?.body}");
+
+      if (message.data != null) {
+        final response = jsonEncode(message.data);
+        final item = Item.fromJson(jsonDecode(response));
+        await Get.to(() => ItemDetails(item: item));
+      }
     });
   }
 
@@ -51,7 +67,7 @@ class HelperNotification{
     );
     await fln.show(
         0, message.notification?.title, message.notification?.body,
-        platformChannelSpecifics, payload: "payload"
+        platformChannelSpecifics, payload: jsonEncode(message.data)
     );
   }
 }

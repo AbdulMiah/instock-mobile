@@ -19,6 +19,19 @@ class Item {
     required this.itemImgUrl,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'SKU': sku,
+      'BusinessId': businessId,
+      'Category': category,
+      'Name': name,
+      'Stock': stockAmount,
+      'ordersAmount': ordersAmount,
+      'itemWarning': itemWarning,
+      'itemImgUrl': itemImgUrl,
+    };
+  }
+
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
       sku: json['SKU'],
