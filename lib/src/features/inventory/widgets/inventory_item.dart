@@ -4,31 +4,36 @@ import 'package:instock_mobile/src/features/inventory/screens/item_details_page.
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
 class InventoryItem extends StatefulWidget {
-  const InventoryItem({super.key, required this.item});
+  InventoryItem({super.key, required this.item, required this.refreshFunc});
 
   final Item item;
+  final VoidCallback refreshFunc;
 
   @override
   State<InventoryItem> createState() => _InventoryItemState();
-}
 
-class _InventoryItemState extends State<InventoryItem> {
-  void redirectToItemDetails() {
+  void redirectToItemDetails(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ItemDetails(
-          item: widget.item,
+          item: item,
         ),
       ),
-    );
+    ).then((value) {
+      if (value) {
+        refreshFunc();
+      }
+    });
   }
+}
 
+class _InventoryItemState extends State<InventoryItem> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
     return GestureDetector(
       onTap: () {
-        redirectToItemDetails();
+        widget.redirectToItemDetails(context);
       },
       child: Column(
         children: [

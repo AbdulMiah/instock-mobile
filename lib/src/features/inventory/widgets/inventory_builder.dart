@@ -252,6 +252,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                           CategoryHeading(category: category),
                                           InventoryItem(
                                             item: item,
+                                            refreshFunc: fetchData,
                                           ),
                                         ],
                                       ),
@@ -267,6 +268,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                               12, 8, 12, 8),
                                           child: InventoryItem(
                                             item: item,
+                                            refreshFunc: fetchData,
                                           ),
                                         )
                                       : Padding(
@@ -278,6 +280,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                                   category: category),
                                               InventoryItem(
                                                 item: item,
+                                                refreshFunc: fetchData,
                                               ),
                                             ],
                                           ),

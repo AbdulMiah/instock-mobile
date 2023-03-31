@@ -72,7 +72,7 @@ class _StockEditorState extends State<StockEditor> {
         _calculatedStockAmount = 0;
       });
       //redirect to main screen
-      Navigator.pop(context);
+      Navigator.pop(context, true);
       Fluttertoast.showToast(
           msg: "Stock Updated",
           toastLength: Toast.LENGTH_LONG,
