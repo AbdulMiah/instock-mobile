@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
-import 'authentication/screens/welcome_page.dart';
 import 'authentication/services/authentication_service.dart';
 import 'authentication/services/interfaces/Iauthentication_service.dart';
-import 'navigation/navigation_bar.dart';
 
 class AuthCheck extends StatelessWidget {
   IAuthenticationService _authenticationService = AuthenticationService();
+  final Widget page1;
+  final Widget page2;
 
-  AuthCheck() {
+  AuthCheck(this.page1, this.page2, {super.key}) {
     _authenticationService = AuthenticationService();
   }
 
@@ -24,13 +24,13 @@ class AuthCheck extends StatelessWidget {
             Map jwtTokenDict = snapshot.data;
             String? jwtToken = jwtTokenDict["bearerToken"];
             if (jwtToken == null) {
-              return const Welcome();
+              return page1;
             }
             bool tokenIsExpired = Jwt.isExpired(jwtToken);
             if (tokenIsExpired) {
-              return const Welcome();
+              return page1;
             } else {
-              return const NavBar();
+              return page2;
             }
           }
           return Center(
@@ -38,6 +38,7 @@ class AuthCheck extends StatelessWidget {
               color: theme.splashColor,
             ),
           );
-        });
+        }
+    );
   }
 }

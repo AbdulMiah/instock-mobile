@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
-import 'package:instock_mobile/src/utilities/widgets/helper_notification.dart';
+import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
+import 'package:instock_mobile/src/utilities/services/notification_service.dart';
 
 import 'firebase_options.dart';
 import 'injection.dart';
@@ -45,20 +47,9 @@ Future<void> main() async {
     print('User granted permission: ${settings.authorizationStatus}');
 
     await messaging.getInitialMessage();
-    await HelperNotification.initialize(flutterLocalNotificationsPlugin);
+    await NotificationService.initialize(flutterLocalNotificationsPlugin);
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   } catch(e) {}
-
-  // FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-  //   // TODO: If necessary send token to application server.
-  //
-  //   // Note: This callback is fired at each app startup and whenever a new
-  //   // token is generated.
-  //   print("Firing");
-  // }).onError((err) {
-  //   // Error getting token.
-  //   print("Token error");
-  // });
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
@@ -103,7 +94,7 @@ class MyApp extends StatelessWidget {
           headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
         ),
       ),
-      home: AuthCheck(),
+      home: AuthCheck(const Welcome(), const NavBar()),
     );
   }
 }

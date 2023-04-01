@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:instock_mobile/src/features/auth_check.dart';
+import 'package:instock_mobile/src/features/authentication/screens/login_page.dart';
 import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 
 import '../../features/inventory/data/item.dart';
 
-class HelperNotification{
+class NotificationService{
   static Future initialize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize = const AndroidInitializationSettings('ic_launcher');
     var iOSInitialize = const DarwinInitializationSettings();
@@ -17,7 +19,7 @@ class HelperNotification{
           print('notification payload: ${response.payload}');
           if (response.payload != null) {
             final item = Item.fromJson(jsonDecode(response.payload as String));
-            Get.to(() => ItemDetails(item: item));
+            await Get.to(() => AuthCheck(const Login(), ItemDetails(item: item)));
           }
         }
     );
@@ -31,8 +33,8 @@ class HelperNotification{
     FirebaseMessaging.onMessage.listen((RemoteMessage message) { 
       print("=========== onMessage ===========");
       print("onMessage: ${message.notification?.title}/${message.notification?.body}");
-      
-      HelperNotification.showNotification(message: message, fln: flutterLocalNotificationsPlugin);
+
+      NotificationService.showNotification(message: message, fln: flutterLocalNotificationsPlugin);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
@@ -42,7 +44,7 @@ class HelperNotification{
       if (message.data != null) {
         final response = jsonEncode(message.data);
         final item = Item.fromJson(jsonDecode(response));
-        await Get.to(() => ItemDetails(item: item));
+        await Get.to(() => AuthCheck(const Login(), ItemDetails(item: item)));
       }
     });
   }
@@ -52,11 +54,10 @@ class HelperNotification{
     }) async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
     const AndroidNotificationDetails(
-      'instock',
-      'instock_channel',
+      'InStockChannelId',
+      'Stock Notifications',
 
       playSound: true,
-      // sound: RawResourceAndroidNotificationSound('notification'),
       importance: Importance.high,
       priority: Priority.high,
     );
