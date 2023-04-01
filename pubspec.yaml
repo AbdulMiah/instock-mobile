@@ -62,6 +62,7 @@ dev_dependencies:
   injectable_generator: ^1.5.0
   flutter_launcher_icons: ^0.12.0
   fl_chart: ^0.61.0
+  flutter_native_splash: ^2.2.19
 
 
 
@@ -76,6 +77,10 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/InStock-logo.png"
+
+flutter_native_splash:
+  image: "assets/InStock-logo.png"
+  color: '#54B999'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
