@@ -23,10 +23,7 @@ class AuthenticationService implements IAuthenticationService {
 
   @override
   Future<ResponseObject> authenticateUser(String email, String password) async {
-    Validators.isEmail(email);
-    Validators.validatePassword(password);
-    Validators.shortLength(email);
-    Validators.shortLength(password);
+    _validateUserCredentialsInput(email, password);
 
     final uri = Uri.parse('http://api.instockinventory.co.uk/login');
     var data = Map<String, dynamic>();
@@ -64,10 +61,7 @@ class AuthenticationService implements IAuthenticationService {
   @override
   Future<ResponseObject> createUserAndAuthenticate(
       SignUpDto userDetails) async {
-    Validators.isEmail(userDetails.email);
-    Validators.validatePassword(userDetails.password);
-    Validators.shortLength(userDetails.email);
-    Validators.shortLength(userDetails.password);
+    _validateUserCredentialsInput(userDetails.email, userDetails.password);
 
     final url = Uri.parse('http://api.instockinventory.co.uk/user');
     var data = Map<String, dynamic>();
@@ -102,4 +96,11 @@ class AuthenticationService implements IAuthenticationService {
           requestSuccess: false, body: "Oops Something went wrong");
     }
   }
+}
+
+void _validateUserCredentialsInput(String email, String password) {
+  Validators.isEmail(email);
+  Validators.validatePassword(password);
+  Validators.shortLength(email);
+  Validators.shortLength(password);
 }
