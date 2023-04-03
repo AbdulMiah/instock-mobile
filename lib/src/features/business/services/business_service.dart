@@ -76,4 +76,20 @@ class BusinessService {
       return responseObject;
     }
   }
+
+  Future<bool> doesBusinessExist() async {
+    AuthenticationService authenticationService = AuthenticationService();
+
+    // Get token and check if businessId is null
+    var tokenDict = await authenticationService.retrieveBearerToken();
+    var token = tokenDict["bearerToken"];
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+    String businessId = payload["BusinessId"];
+
+    if (businessId == "") {
+      return false;
+    }
+
+    return true;
+  }
 }
