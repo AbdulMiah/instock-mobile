@@ -19,7 +19,7 @@ class NotificationService{
           print('notification payload: ${response.payload}');
           if (response.payload != null) {
             final item = Item.fromJson(jsonDecode(response.payload as String));
-            await Get.to(() => AuthCheck(const Login(), ItemDetails(item: item)));
+            await Get.to(() => AuthCheck(ItemDetails(item: item)));
           }
         }
     );
@@ -44,7 +44,7 @@ class NotificationService{
       if (message.data != null) {
         final response = jsonEncode(message.data);
         final item = Item.fromJson(jsonDecode(response));
-        await Get.to(() => AuthCheck(const Login(), ItemDetails(item: item)));
+        await Get.to(() => AuthCheck(ItemDetails(item: item)));
       }
     });
   }

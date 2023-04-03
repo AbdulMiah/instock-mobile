@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
@@ -7,10 +8,9 @@ import 'authentication/services/interfaces/Iauthentication_service.dart';
 
 class AuthCheck extends StatelessWidget {
   IAuthenticationService _authenticationService = AuthenticationService();
-  final Widget page1;
-  final Widget page2;
+  final Widget authenticatedPage;
 
-  AuthCheck(this.page1, this.page2, {super.key}) {
+  AuthCheck(this.authenticatedPage, {super.key}) {
     _authenticationService = AuthenticationService();
   }
 
@@ -24,13 +24,13 @@ class AuthCheck extends StatelessWidget {
             Map jwtTokenDict = snapshot.data;
             String? jwtToken = jwtTokenDict["bearerToken"];
             if (jwtToken == null) {
-              return page1;
+              return const Welcome();
             }
             bool tokenIsExpired = Jwt.isExpired(jwtToken);
             if (tokenIsExpired) {
-              return page1;
+              return const Welcome();
             } else {
-              return page2;
+              return authenticatedPage;
             }
           }
           return Center(
