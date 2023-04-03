@@ -65,9 +65,11 @@ class NotificationService{
         android: androidPlatformChannelSpecifics,
         iOS: const DarwinNotificationDetails()
     );
+
     await fln.show(
-        0, message.notification?.title, message.notification?.body,
-        platformChannelSpecifics, payload: jsonEncode(message.data)
+        id, message.notification?.title, message.notification?.body,
+        platformChannelSpecifics,
+        payload: jsonEncode(message.data)
     );
   }
 }
