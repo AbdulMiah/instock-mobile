@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/objects/response_object.dart';
 
 import '../../theme/common_theme.dart';
@@ -26,7 +27,7 @@ class _AccountPageState extends State<AccountPage> {
     if (response.requestSuccess!) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => AuthCheck()),
+        MaterialPageRoute(builder: (context) => AuthCheck(const NavBar())),
         (route) => false,
       );
       //  I would literally never expect this to happen

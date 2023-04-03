@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:instock_mobile/src/features/business/services/business_service.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/horizontal_category_list.dart';
@@ -10,6 +11,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
+import '../../business/screens/add_business_page.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
 
@@ -84,11 +86,26 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
     });
   }
 
+  checkBusinessExists() async {
+    BusinessService businessService = BusinessService();
+    bool doesBusinessExist = await businessService.doesBusinessExist();
+
+    if (!doesBusinessExist) {
+      // Go to Add Business page if user has no business
+      Navigator.pushAndRemoveUntil<void>(
+        context,
+        MaterialPageRoute<void>(builder: (context) => const AddBusiness()),
+            (route) => false,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: widget.inventoryService.getItems(http.Client()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
+          checkBusinessExists();
           if (snapshot.data == null &&
               snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -229,6 +246,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                           CategoryHeading(category: category),
                                           InventoryItem(
                                             item: item,
+                                            refreshFunc: fetchData,
                                           ),
                                         ],
                                       ),
@@ -244,6 +262,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                               12, 8, 12, 8),
                                           child: InventoryItem(
                                             item: item,
+                                            refreshFunc: fetchData,
                                           ),
                                         )
                                       : Padding(
@@ -255,6 +274,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                                   category: category),
                                               InventoryItem(
                                                 item: item,
+                                                refreshFunc: fetchData,
                                               ),
                                             ],
                                           ),

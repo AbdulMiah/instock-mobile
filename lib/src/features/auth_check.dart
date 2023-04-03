@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
-import 'authentication/screens/welcome_page.dart';
 import 'authentication/services/authentication_service.dart';
 import 'authentication/services/interfaces/Iauthentication_service.dart';
-import 'navigation/navigation_bar.dart';
 
 class AuthCheck extends StatelessWidget {
   IAuthenticationService _authenticationService = AuthenticationService();
+  final Widget authenticatedPage;
 
-  AuthCheck() {
+  AuthCheck(this.authenticatedPage, {super.key}) {
     _authenticationService = AuthenticationService();
   }
 
@@ -30,7 +30,7 @@ class AuthCheck extends StatelessWidget {
             if (tokenIsExpired) {
               return const Welcome();
             } else {
-              return const NavBar();
+              return authenticatedPage;
             }
           }
           return Center(
@@ -38,6 +38,7 @@ class AuthCheck extends StatelessWidget {
               color: theme.splashColor,
             ),
           );
-        });
+        }
+    );
   }
 }

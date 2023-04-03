@@ -22,7 +22,7 @@ void main() {
       await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
             home: Scaffold(
               body: InventoryItem(
-                item: item,
+                item: item, refreshFunc: () {  },
               ),
             ),
           )));
@@ -54,7 +54,7 @@ void main() {
       await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
             home: Scaffold(
               body: InventoryItem(
-                item: item,
+                item: item, refreshFunc: () {  },
               ),
             ),
           )));
