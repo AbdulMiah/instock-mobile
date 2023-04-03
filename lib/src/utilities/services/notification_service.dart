@@ -4,7 +4,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
-import 'package:instock_mobile/src/features/authentication/screens/login_page.dart';
 import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 
 import '../../features/inventory/data/item.dart';

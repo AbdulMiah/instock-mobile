@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:instock_mobile/src/features/auth_check.dart';
-import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/services/notification_service.dart';
 
@@ -35,7 +34,7 @@ Future<void> main() async {
   try {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-    NotificationSettings settings = await messaging.requestPermission(
+    await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -44,7 +43,6 @@ Future<void> main() async {
       provisional: false,
       sound: true,
     );
-    print('User granted permission: ${settings.authorizationStatus}');
 
     await messaging.getInitialMessage();
     await NotificationService.initialize(flutterLocalNotificationsPlugin);

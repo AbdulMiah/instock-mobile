@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/objects/response_object.dart';
