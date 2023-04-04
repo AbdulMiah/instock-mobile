@@ -55,16 +55,14 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         if (businessId == "") {
           // Go to Add Business page if user has no business
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddBusiness())
-          );
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddBusiness()));
         } else {
           // remove navigation stack and push
           Navigator.pushAndRemoveUntil<void>(
             context,
             MaterialPageRoute<void>(builder: (context) => const NavBar()),
-                (route) => false,
+            (route) => false,
           );
         }
       } else if (response.statusCode == 404) {

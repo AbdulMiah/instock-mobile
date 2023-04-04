@@ -16,11 +16,13 @@ class BusinessService {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
-    File logo = await Business.fileFromImageUrl('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg');
+    File logo = await Business.fileFromImageUrl(
+        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg');
 
     String businessId = payload["BusinessId"];
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId');
+    final uri =
+        Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId');
 
     final response = await client.get(
       uri,

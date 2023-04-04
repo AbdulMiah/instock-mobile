@@ -56,7 +56,7 @@ class _SignUpState extends State<SignUp> {
 
       //Auth service handling
       ResponseObject response =
-          await _authenticationService.createUserAndAuthenticate(userDetails);
+          await _authenticationService.signUpUserAndAuthenticate(userDetails);
       if (response.statusCode == 201) {
         // remove navigation stack and push
         Navigator.pushAndRemoveUntil<void>(

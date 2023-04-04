@@ -35,19 +35,10 @@ class AuthenticationService implements IAuthenticationService {
     final response = await http.post(uri,
         headers: {"Content-Type": "application/json"}, body: body);
 
-    ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
-
-    if (response.statusCode == 200) {
-      String bearerToken = response.body;
-      _saveBearerToken(bearerToken);
-      return (responseObject);
-    } else {
-      return (responseObject);
-    }
+    return _handleAuthenticationResponse(response, 200);
   }
 
-  _saveBearerToken(String bearerToken) async {
+  saveBearerToken(String bearerToken) async {
     await _secureStorageService.write("bearerToken", bearerToken);
   }
 
@@ -59,7 +50,7 @@ class AuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<ResponseObject> createUserAndAuthenticate(
+  Future<ResponseObject> signUpUserAndAuthenticate(
       SignUpDto userDetails) async {
     _validateUserCredentialsInput(userDetails.email, userDetails.password);
 
@@ -75,15 +66,7 @@ class AuthenticationService implements IAuthenticationService {
     final response = await http.post(url,
         headers: {"Content-Type": "application/json"}, body: body);
 
-    ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
-    if (response.statusCode == 201) {
-      String bearerToken = response.body;
-      _saveBearerToken(bearerToken);
-      return (responseObject);
-    } else {
-      return (responseObject);
-    }
+    return _handleAuthenticationResponse(response, 201);
   }
 
   @override
@@ -96,6 +79,19 @@ class AuthenticationService implements IAuthenticationService {
           requestSuccess: false, body: "Oops Something went wrong");
     }
   }
+}
+
+ResponseObject _handleAuthenticationResponse(
+    http.Response response, int successStatusCode) {
+  ResponseObject responseObject =
+      ResponseObject(statusCode: response.statusCode, body: response.body);
+
+  if (response.statusCode == successStatusCode) {
+    String bearerToken = response.body;
+    _saveBearerToken(bearerToken);
+  }
+
+  return responseObject;
 }
 
 void _validateUserCredentialsInput(String email, String password) {
