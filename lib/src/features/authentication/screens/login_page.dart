@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/business/screens/add_business_page.dart';
-import 'package:jwt_decode/jwt_decode.dart';
+import 'package:instock_mobile/src/features/business/services/business_service.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -43,17 +43,14 @@ class _LoginState extends State<Login> {
     if (form!.validate()) {
       _formKey.currentState!.save();
       AuthenticationService authenticationService = AuthenticationService();
+      BusinessService businessService = BusinessService();
       ResponseObject response =
           await authenticationService.authenticateUser(_email!, _password!);
 
-      // Get token and check if businessId is null
-      var tokenDict = await authenticationService.retrieveBearerToken();
-      var token = tokenDict["bearerToken"];
-      Map<String, dynamic> payload = Jwt.parseJwt(token);
-      String businessId = payload["BusinessId"];
+      bool doesBusinessExist = await businessService.doesBusinessExist();
 
       if (response.statusCode == 200) {
-        if (businessId == "") {
+        if (!doesBusinessExist) {
           // Go to Add Business page if user has no business
           Navigator.push(
               context,

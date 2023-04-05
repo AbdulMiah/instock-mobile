@@ -4,9 +4,10 @@ import 'package:instock_mobile/src/features/inventory/screens/item_details_page.
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
 class InventoryItem extends StatefulWidget {
-  const InventoryItem({super.key, required this.item});
+  const InventoryItem({super.key, required this.item, required this.refreshFunc});
 
   final Item item;
+  final VoidCallback refreshFunc;
 
   @override
   State<InventoryItem> createState() => _InventoryItemState();
@@ -20,7 +21,11 @@ class _InventoryItemState extends State<InventoryItem> {
           item: widget.item,
         ),
       ),
-    );
+    ).then((value) {
+      if (value) {
+        widget.refreshFunc();
+      }
+    });
   }
 
   @override

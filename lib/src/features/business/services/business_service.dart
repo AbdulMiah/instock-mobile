@@ -60,6 +60,8 @@ class BusinessService {
     List<String> responseErrors =
         ResponseObject.extractErrorsFromResponse(responseMap);
     if (responseErrors.isEmpty) {
+      String bearerToken = responseMap["newJwtToken"];
+      await _authenticationService.saveBearerToken(bearerToken);
       return ResponseObject(
         statusCode: response.statusCode,
         body: response.body,
@@ -73,5 +75,21 @@ class BusinessService {
           errors: responseErrors);
       return responseObject;
     }
+  }
+
+  Future<bool> doesBusinessExist() async {
+    AuthenticationService authenticationService = AuthenticationService();
+
+    // Get token and check if businessId is null
+    var tokenDict = await authenticationService.retrieveBearerToken();
+    var token = tokenDict["bearerToken"];
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+    String businessId = payload["BusinessId"];
+
+    if (businessId == "") {
+      return false;
+    }
+
+    return true;
   }
 }

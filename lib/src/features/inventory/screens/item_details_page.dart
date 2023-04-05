@@ -37,7 +37,7 @@ class _ItemDetailsState extends State<ItemDetails> {
   confirmDeleteItem(ThemeData theme) async {
     ResponseObject response = await _itemService.delete(widget.item.sku);
     if (response.requestSuccess!) {
-      Navigator.pop(context);
+      Navigator.pop(context, true);
       Fluttertoast.showToast(
           msg: "${widget.item.name} Deleted",
           toastLength: Toast.LENGTH_LONG,

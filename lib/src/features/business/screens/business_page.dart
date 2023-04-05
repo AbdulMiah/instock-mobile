@@ -107,10 +107,13 @@ class _BusinessPageState extends State<BusinessPage> {
                                   );
                                 }
                                 if (snapshot.data == null) {
-                                  Navigator.push(
+                                  Future.delayed(Duration.zero, () {
+                                    Navigator.pushAndRemoveUntil<void>(
                                       context,
-                                      MaterialPageRoute(builder: (context) => const AddBusiness())
-                                  );
+                                      MaterialPageRoute<void>(builder: (context) => const AddBusiness()),
+                                          (route) => false,
+                                    );
+                                  });
                                 }
 
                                 return Padding(
@@ -119,7 +122,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       PhotoPicker(
-                                        image: snapshot.data.logo,
+                                        image: snapshot.data?.logo,
                                         enabled: false,
                                       ),
                                       const Divider(
@@ -134,7 +137,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                             InStockTextInput(
                                               enable: false,
                                               text: 'Name',
-                                              initialValue: snapshot.data.name,
+                                              initialValue: snapshot.data?.name,
                                               theme: theme.themeData,
                                               icon: null,
                                               validators: const [
@@ -149,7 +152,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                               child: InStockTextInput(
                                                 enable: false,
                                                 text: 'Description',
-                                                initialValue: snapshot.data.description,
+                                                initialValue: snapshot.data?.description,
                                                 theme: theme.themeData,
                                                 icon: null,
                                                 maxLines: 4,

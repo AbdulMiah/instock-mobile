@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/authentication/data/sign_up_dto.dart';
 import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
@@ -42,22 +43,44 @@ class AuthenticationService implements IAuthenticationService {
         ResponseObject(statusCode: response.statusCode, body: response.body);
 
     if (response.statusCode == 200) {
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      print("================= Token ===================");
+      print(fcmToken);
       String bearerToken = response.body;
-      _saveBearerToken(bearerToken);
+      saveBearerToken(bearerToken);
+      _saveFcmToken(fcmToken!);
       return (responseObject);
     } else {
       return (responseObject);
     }
   }
 
-  _saveBearerToken(String bearerToken) async {
-    await _secureStorageService.write("bearerToken", bearerToken);
+  @override
+  Future<ResponseObject> saveBearerToken(String bearerToken) async {
+    try {
+      await _secureStorageService.write("bearerToken", bearerToken);
+      return ResponseObject(requestSuccess: true, body: "Bearer Token Saved");
+    } catch (error) {
+      return ResponseObject(
+          requestSuccess: false, body: "Oops Something went wrong");
+    }
+  }
+
+  _saveFcmToken(String fcmToken) async {
+    await _secureStorageService.write("fcmToken", fcmToken);
   }
 
   @override
   Future<Map> retrieveBearerToken() async {
     String? bearerToken = await _secureStorageService.get("bearerToken");
     Map tokenDict = {"bearerToken": bearerToken};
+    return tokenDict;
+  }
+
+  @override
+  Future<Map> retrieveFcmToken() async {
+    String? fcmToken = await _secureStorageService.get("fcmToken");
+    Map tokenDict = {"fcmToken": fcmToken};
     return tokenDict;
   }
 
@@ -85,7 +108,7 @@ class AuthenticationService implements IAuthenticationService {
         ResponseObject(statusCode: response.statusCode, body: response.body);
     if (response.statusCode == 201) {
       String bearerToken = response.body;
-      _saveBearerToken(bearerToken);
+      saveBearerToken(bearerToken);
       return (responseObject);
     } else {
       return (responseObject);

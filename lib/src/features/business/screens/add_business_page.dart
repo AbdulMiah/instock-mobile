@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/authentication/screens/login_page.dart';
 import 'package:instock_mobile/src/features/business/services/business_service.dart';
+import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
 import '../../../theme/common_theme.dart';
@@ -34,7 +34,7 @@ class _AddBusinessState extends State<AddBusiness> {
       if (response.requestSuccess!) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const Login()),
+          MaterialPageRoute(builder: (context) => const NavBar()),
           (route) => false,
         );
       } else if (response.hasErrors()) {
