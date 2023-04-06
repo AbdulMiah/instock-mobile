@@ -67,7 +67,7 @@ build:
     - flutter build appbundle
   artifacts:
     paths:
-      - android/app/build/outputs/bundle/release/app-release.aab
+      - app/build/outputs/bundle/release/app-release.aab
     expire_in: 1 week
 
 
