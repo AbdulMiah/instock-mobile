@@ -68,11 +68,7 @@ build:
     - .upload-cache
   script:
     - flutter pub get
-    - echo '======= Directory ======='
     - cd android/app
-    - ls
-    - echo '======= Current Working Directory ======='
-    - pwd
     - flutter build appbundle
   artifacts:
     paths:
