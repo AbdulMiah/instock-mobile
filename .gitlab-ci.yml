@@ -65,6 +65,11 @@ build:
     - cd android/app
     - ls
     - flutter build appbundle
+  artifacts:
+    paths:
+      - android/app/build/outputs/bundle/release/app-release.aab
+    expire_in: 1 week
+
 
 # unit-test:
 #   stage: test
@@ -100,9 +105,9 @@ deploy-to-play-store:
     - .download-cache
   script:
     - echo "================= DEPLOYING ================="
-    - gcloud auth activate-service-account --key-file=<service-account-key.json>
-    - gcloud config set project <project-id>
-    - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
+    # - gcloud auth activate-service-account --key-file=<service-account-key.json>
+    # - gcloud config set project <project-id>
+    # - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
 
 
 
