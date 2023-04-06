@@ -30,6 +30,8 @@ variables:
     - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
     - apt-get update -qq && apt-get install -y google-cloud-sdk
     # - gcloud components update
+    - apt-get update -qq && apt-get install -y ruby ruby-dev rubygems build-essential
+    - gem install fastlane --no-document
 
 # Cache generated files and plugins between builds.
 .upload-cache:
@@ -112,9 +114,8 @@ deploy-to-play-store:
     - echo "================= DEPLOYING ================="
     - echo "$PLAYSTORE_API_KEY" > temp_service_account_key.json
     - echo "==== Key = $PLAYSTORE_API_KEY ====="
-    - cat temp_service_account_key.json
-    - gcloud auth activate-service-account --key-file=temp_service_account_key.json
-    - gcloud config set project $PLAYSTORE_PROJECT_ID
+    - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
+    - fastlane android deploy_internal
     # - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
 
 
