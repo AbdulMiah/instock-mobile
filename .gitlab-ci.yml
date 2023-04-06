@@ -10,7 +10,7 @@
 # https://hub.docker.com/_/dart
 # imports the most recent version of flutter
 image: cirrusci/flutter:3.7.3
-image: google/cloud-sdk:latest
+
 
 variables:
   # To learn more go to https://dart.dev/tools/dart-test
@@ -24,8 +24,11 @@ variables:
     # PUB_CACHE is used by the `dart pub` command, it needs to be set so package dependencies are stored at the project-level for CI/CD operations.
     - export PUB_CACHE=".pub-cache"
     - export PATH="$PATH:$HOME/$PUB_CACHE/bin"
-    - curl https://sdk.cloud.google.com | bash > /dev/null
-    - source $HOME/google-cloud-sdk/path.bash.inc
+    # Commands generated using chatgpt 4.0
+    -  apt-get update -qq && apt-get install -y curl gnupg lsb-release
+    - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+    - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+    - apt-get update -qq && apt-get install -y google-cloud-sdk
     - gcloud components update
 
 # Cache generated files and plugins between builds.
