@@ -11,6 +11,7 @@
 # imports the most recent version of flutter
 image: cirrusci/flutter:3.7.3
 
+
 variables:
   # To learn more go to https://dart.dev/tools/dart-test
   # Or run `dart test --help`
@@ -23,6 +24,14 @@ variables:
     # PUB_CACHE is used by the `dart pub` command, it needs to be set so package dependencies are stored at the project-level for CI/CD operations.
     - export PUB_CACHE=".pub-cache"
     - export PATH="$PATH:$HOME/$PUB_CACHE/bin"
+    # Commands generated using chatgpt 4.0
+    -  apt-get update -qq && apt-get install -y curl gnupg lsb-release
+    - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+    - curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+    - apt-get update -qq && apt-get install -y google-cloud-sdk
+    # - gcloud components update
+    - apt-get update -qq && apt-get install -y ruby ruby-dev rubygems build-essential
+    - gem install fastlane --no-document
 
 # Cache generated files and plugins between builds.
 .upload-cache:
@@ -61,10 +70,13 @@ build:
     - .upload-cache
   script:
     - flutter pub get
-    - echo '======= Directory ======='
     - cd android/app
-    - ls
     - flutter build appbundle
+  artifacts:
+    paths:
+      - build/app/outputs/bundle/release/app-release.aab
+    expire_in: 1 week
+
 
 # unit-test:
 #   stage: test
@@ -100,9 +112,15 @@ deploy-to-play-store:
     - .download-cache
   script:
     - echo "================= DEPLOYING ================="
-    - gcloud auth activate-service-account --key-file=<service-account-key.json>
-    - gcloud config set project <project-id>
-    - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
+    - echo "$PLAYSTORE_API_KEY" > temp_service_account_key.json
+    - echo "==== Key = $PLAYSTORE_API_KEY ====="
+    - echo "================= Current Position ================="
+    - pwd
+    - echo "================= Currently Availalbe Files ================="
+    - ls
+    - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
+    - fastlane android deploy_internal
+    # - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
 
 
 
