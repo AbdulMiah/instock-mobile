@@ -10,6 +10,7 @@
 # https://hub.docker.com/_/dart
 # imports the most recent version of flutter
 image: cirrusci/flutter:3.7.3
+image: google/cloud-sdk:latest
 
 variables:
   # To learn more go to https://dart.dev/tools/dart-test
@@ -23,6 +24,9 @@ variables:
     # PUB_CACHE is used by the `dart pub` command, it needs to be set so package dependencies are stored at the project-level for CI/CD operations.
     - export PUB_CACHE=".pub-cache"
     - export PATH="$PATH:$HOME/$PUB_CACHE/bin"
+    - curl https://sdk.cloud.google.com | bash > /dev/null
+    - source $HOME/google-cloud-sdk/path.bash.inc
+    - gcloud components update
 
 # Cache generated files and plugins between builds.
 .upload-cache:
