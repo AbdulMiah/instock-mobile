@@ -105,8 +105,9 @@ deploy-to-play-store:
     - .download-cache
   script:
     - echo "================= DEPLOYING ================="
-    # - gcloud auth activate-service-account --key-file=<service-account-key.json>
-    # - gcloud config set project <project-id>
+    - echo "$SERVICE_ACCOUNT_KEY_JSON" > temp_service_account_key.json
+    - gcloud auth activate-service-account --key-file=temp_service_account_key.json
+    - gcloud config set project <com.instock.android.abc>
     # - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
 
 
