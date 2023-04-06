@@ -111,6 +111,7 @@ deploy-to-play-store:
   script:
     - echo "================= DEPLOYING ================="
     - echo "$PLAYSTORE_API_KEY" > temp_service_account_key.json
+    - echo "==== Key = $PLAYSTORE_API_KEY ====="
     - cat temp_service_account_key.json
     - gcloud auth activate-service-account --key-file temp_service_account_key.json
     - gcloud config set project <com.instock.android.abc>
