@@ -1,0 +1,45 @@
+# This script was creted using a combination of ChatGPT
+# and the fastfile documentation.
+# ChatGPT was able to create much of the template of the script for
+# me which was ideal as I didnt want to have to invest time into learning
+# ruby. But for several actions, chatgpt drew from old versions of fastlane
+# so I have bug fixed and optimised using the documentation
+# For later reference I initally asked chatgpt to build me a script to deploy
+# to the playstore using fastfile with ruby
+# then later on I asked chatgpt to build a function to increment the version number
+# using fastlane
+# setting the version number with fastlane appeared easy based on the docs
+# setting version number with fastlane doc reference
+# https://docs.fastlane.tools/actions/increment_version_number/
+# Note, my research didnt show any solutions similar to this one
+# but I liked the implementation chatgpt provided as it would automatically update the yaml
+
+default_platform(:android)
+
+platform :android do
+  desc "Deploy Android app to Internal testing track on Google Play Store"
+  lane :deploy_internal do
+    upload_to_play_store(
+      track: 'internal',
+      aab: 'build/app/outputs/bundle/release/app-release.aab',
+      json_key_data: ENV['PLAYSTORE_API_KEY'],
+      package_name: 'com.instock.android.abc',
+      release_status: 'draft'
+    )
+  end
+
+  desc "Increment version number"
+  lane :increment_version do
+    # Get current version number
+    current_version = sh("grep 'version:' pubspec.yaml | cut -d ':' -f 2 | xargs").strip
+
+    # Increment the version number
+    incremented_version = current_version.sub(/(\d+\.\d+\.)(\d+)/) do |match|
+      major_minor, patch = $1, $2.to_i
+      "#{major_minor}#{patch + 1}"
+    end
+
+    # Update pubspec.yaml file
+    sh("sed -i -e 's/#{current_version}/#{incremented_version}/' pubspec.yaml")
+  end
+end

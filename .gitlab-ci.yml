@@ -1,0 +1,117 @@
+# Script adapted from
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Dart.gitlab-ci.yml
+
+# imports version flutter 3.7.3 from a docker instance
+image: cirrusci/flutter:3.7.3
+
+variables:
+  # To learn more go to https://dart.dev/tools/dart-test
+  # Or run `dart test --help`
+  PUB_VARS: "--platform vm --timeout 30s --concurrency=6 --test-randomize-ordering-seed=random --reporter=expanded"
+
+.use-pub-cache-bin:
+  # Define commands that need to be executed before each job.
+  before_script:
+    # Set PUB_CACHE either here or in the CI/CD Settings if you have multiple jobs that use dart commands.
+    # PUB_CACHE is used by the `dart pub` command, it needs to be set so package dependencies are stored at the project-level for CI/CD operations.
+    - export PUB_CACHE=".pub-cache"
+    - export PATH="$PATH:$HOME/$PUB_CACHE/bin"
+    - sudo gem install fastlane --no-document
+
+# Cache generated files and plugins between builds.
+.upload-cache:
+  cache:
+    when: 'on_success'
+    paths:
+      - .pub-cache/bin/
+      - .pub-cache/global_packages/
+      - .pub-cache/hosted/
+      - .dart_tool/
+      - .packages
+
+# Cache downloaded dependencies and plugins between builds.
+# To keep cache across branches add 'key: "$CI_JOB_NAME"'
+.download-cache:
+  cache:
+    paths:
+      - .dart_tool/
+      - .packages
+    policy: pull
+
+install-dependencies:
+  stage: .pre
+  extends:
+    - .use-pub-cache-bin
+    - .upload-cache
+  script:
+    - flutter pub get
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+build:
+  stage: build
+  needs:
+    - install-dependencies
+  extends:
+    - .use-pub-cache-bin
+    - .upload-cache
+  script:
+    - cd android/app
+    - flutter build appbundle
+  artifacts:
+    paths:
+      - build/app/outputs/bundle/release/app-release.aab
+    expire_in: 1 week
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+
+unit-test:
+  stage: test
+  needs:
+    - install-dependencies
+  extends:
+    - .use-pub-cache-bin
+    - .download-cache
+  script:
+    - flutter test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+
+lint-test:
+  stage: test
+  needs:
+  extends:
+    - .use-pub-cache-bin
+    - .download-cache
+  script:
+    - dart analyze
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+
+deploy-to-play-store:
+  stage: deploy
+  rules:
+    # Only runs on  approved merge request to main
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+  needs:
+    - build
+    - unit-test
+    - lint-test
+  extends:
+    - .use-pub-cache-bin
+    - .download-cache
+  script:
+    - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
+    # runs fastfile script in fastlane folder
+    - fastlane android deploy_internal
+
+
+
+
