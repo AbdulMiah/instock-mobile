@@ -1,10 +1,8 @@
-# 
+# Script adapted from
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Dart.gitlab-ci.yml
-
 
 # imports version flutter 3.7.3 from a docker instance
 image: cirrusci/flutter:3.7.3
-
 
 variables:
   # To learn more go to https://dart.dev/tools/dart-test
@@ -47,6 +45,9 @@ install-dependencies:
     - .upload-cache
   script:
     - flutter pub get
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 build:
   stage: build
@@ -62,6 +63,10 @@ build:
     paths:
       - build/app/outputs/bundle/release/app-release.aab
     expire_in: 1 week
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
 
 unit-test:
   stage: test
@@ -72,6 +77,10 @@ unit-test:
     - .download-cache
   script:
     - flutter test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
 
 lint-test:
   stage: test
@@ -82,9 +91,16 @@ lint-test:
     - .download-cache
   script:
     - dart analyze
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
 
 deploy-to-play-store:
   stage: deploy
+  rules:
+    # Only runs on  approved merge request to main
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
   needs:
     - build
     # - unit-test
