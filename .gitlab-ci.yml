@@ -71,7 +71,7 @@ build:
 unit-test:
   stage: test
   needs:
-    - build
+    - install-dependencies
   extends:
     - .use-pub-cache-bin
     - .download-cache
@@ -85,7 +85,6 @@ unit-test:
 lint-test:
   stage: test
   needs:
-    - install-dependencies
   extends:
     - .use-pub-cache-bin
     - .download-cache
@@ -103,8 +102,8 @@ deploy-to-play-store:
     - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
   needs:
     - build
-    # - unit-test
-    # - lint-test
+    - unit-test
+    - lint-test
   extends:
     - .use-pub-cache-bin
     - .download-cache
