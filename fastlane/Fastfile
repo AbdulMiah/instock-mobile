@@ -19,7 +19,7 @@ platform :android do
       aab: 'build/app/outputs/bundle/release/app-release.aab',
       json_key_data: ENV['PLAYSTORE_API_KEY'],
       package_name: 'com.instock.android.abc',
-      release_status: 'inProgress'
+      release_status: 'draft'
     )
   end
 end
