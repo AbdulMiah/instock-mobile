@@ -114,7 +114,7 @@ deploy-to-play-store:
     - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
     - echo "===== Running Fastlane ====="
     - fastlane android deploy_internal
-    - echo "===== Deployed ====="
+    - echo "===== Deployed? ====="
 
 
 
