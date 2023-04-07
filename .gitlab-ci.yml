@@ -111,16 +111,10 @@ deploy-to-play-store:
     - .use-pub-cache-bin
     - .download-cache
   script:
-    - echo "================= DEPLOYING ================="
-    - echo "$PLAYSTORE_API_KEY" > temp_service_account_key.json
-    - echo "==== Key = $PLAYSTORE_API_KEY ====="
-    - echo "================= Current Position ================="
-    - pwd
-    - echo "================= Currently Availalbe Files ================="
-    - ls
     - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
+    - echo "===== Running Fastlane ====="
     - fastlane android deploy_internal
-    # - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
+    - echo "===== Come on pls ====="
 
 
 
