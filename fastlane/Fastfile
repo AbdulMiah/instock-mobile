@@ -3,16 +3,6 @@ default_platform(:android)
 platform :android do
   desc "Deploy Android app to Internal testing track on Google Play Store"
   lane :deploy_internal do
-    # Test if PLAYSTORE_API_KEY contains valid JSON data
-    begin
-      parsed_json = JSON.parse(ENV['PLAYSTORE_API_KEY'])
-      UI.success("PLAYSTORE_API_KEY is valid JSON")
-      UI.message("========= RUBY ============")
-      UI.message("Parsed JSON: #{parsed_json}")
-    rescue JSON::ParserError => e
-      UI.error("Invalid JSON in PLAYSTORE_API_KEY: #{e.message}")
-      raise "Invalid JSON in PLAYSTORE_API_KEY"
-    end
 
     upload_to_play_store(
       track: 'internal',
