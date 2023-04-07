@@ -112,8 +112,9 @@ deploy-to-play-store:
     - .download-cache
   script:
     - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
+    - echo "===== Running Fastlane ====="
     - fastlane android deploy_internal
-    # - gcloud firebase app dist-tags <app-id> --version=1.0.$CI_PIPELINE_ID
+    - echo "===== Deployed ====="
 
 
 
