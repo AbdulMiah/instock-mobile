@@ -46,7 +46,7 @@ install-dependencies:
   script:
     - flutter pub get
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 build:
@@ -64,7 +64,7 @@ build:
       - build/app/outputs/bundle/release/app-release.aab
     expire_in: 1 week
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 
@@ -78,7 +78,7 @@ unit-test:
   script:
     - flutter test
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 
@@ -91,15 +91,15 @@ lint-test:
   script:
     - dart analyze
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 deploy-to-play-store:
   stage: deploy
   rules:
     # Only runs on  approved merge request to main
-    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_requests" && $CI_MERGE_REQUEST_EVENT_TYPE == "merged"'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   needs:
     - build
     - unit-test
@@ -111,7 +111,4 @@ deploy-to-play-store:
     - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
     # runs fastfile script in fastlane folder
     - fastlane android deploy_internal
-
-
-
 
