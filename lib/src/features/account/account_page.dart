@@ -87,6 +87,7 @@ class _AccountPageState extends State<AccountPage> {
                     children: <Widget>[
                       InStockButton(
                         text: "Log Out",
+                        theme: theme.themeData,
                         onPressed: () async {
                           setState(() {
                             _content = "";
@@ -130,7 +131,6 @@ class _AccountPageState extends State<AccountPage> {
                             },
                           );
                         },
-                        theme: theme.themeData,
                         colorOption: InStockButton.primary,
                       ),
                     ],
