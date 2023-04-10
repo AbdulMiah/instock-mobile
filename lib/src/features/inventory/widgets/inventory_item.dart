@@ -28,6 +28,14 @@ class _InventoryItemState extends State<InventoryItem> {
     });
   }
 
+  Widget updateItemImage() {
+    if (widget.item.itemImgUrl == '') {
+      return const Icon(Icons.image_not_supported_outlined);
+    } else {
+      return Image.network(widget.item.itemImgUrl);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -100,9 +108,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                     bottomRight: Radius.circular(0),
                                     bottomLeft: Radius.circular(8),
                                   ),
-                            child: Image(
-                                image: NetworkImage(widget.item.itemImgUrl)
-                            ),
+                            child: updateItemImage()
                           ),
                         )
                       ],

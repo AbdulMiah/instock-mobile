@@ -53,6 +53,14 @@ class _ItemDetailsState extends State<ItemDetails> {
     }
   }
 
+  Widget updateItemImage() {
+    if (widget.item.itemImgUrl == '') {
+      return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
+    } else {
+      return Image.network(widget.item.itemImgUrl);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -105,9 +113,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             child: SizedBox(
                               height: MediaQuery.of(context).size.height * 0.3,
                               width: MediaQuery.of(context).size.height * 0.3,
-                              child: Image(
-                                image: NetworkImage(widget.item.itemImgUrl),
-                              ),
+                              child: updateItemImage()
                             ),
                           ),
                         ),
