@@ -122,7 +122,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       PhotoPicker(
-                                        image: snapshot.data?.logo,
+                                        imageUrl: snapshot.data?.imageUrl,
                                         enabled: false,
                                       ),
                                       const Divider(
