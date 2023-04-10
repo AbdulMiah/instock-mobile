@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/utilities/validation/validators.dart';
-import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
-import 'package:lottie/lottie.dart';
+import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_alert.dart';
+import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_success_alert.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
@@ -15,7 +14,28 @@ class ShopConnectionCard extends StatefulWidget {
 
 class _ShopConnectionCardState extends State<ShopConnectionCard> {
   String? _content = "";
-  bool connected = false;
+  bool _connected = false;
+  String _username = "";
+  String _password = "";
+
+  handleShopLoginRequest(BuildContext dialogContext, ThemeData themeData) {
+    // Closes the AlertDialog
+    //CODE FOR HANDLING SERVICE GOES HERE
+    Navigator.pop(dialogContext);
+    print("Submitted");
+    setState(() {
+      _connected = true;
+    });
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ShopSignInSuccessAlert(
+          text: "You are connected to Mock Shop",
+          themeData: themeData,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,45 +83,23 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                         setState(() {
                           _content = "";
                         });
-                        if (!connected) {
+                        if (!_connected) {
                           await showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text(
-                                  "Sign In To Mock Shop?",
-                                  textAlign: TextAlign.center,
-                                ),
-                                content:
-                                    _content == null ? null : Text(_content!),
-                                actions: [
-                                  InStockTextInput(
-                                    text: "Username",
-                                    theme: theme.themeData,
-                                    validators: [
-                                      Validators.longLength,
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: theme.textFieldPadding,
-                                    child: InStockTextInput(
-                                      text: "Password",
-                                      theme: theme.themeData,
-                                      validators: [Validators.longLength],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(0, 12.0, 6.0, 4.0),
-                                    child: InStockButton(
-                                        text: "Submit",
-                                        onPressed: () {
-                                          print("Clicky");
-                                        },
-                                        theme: theme.themeData,
-                                        colorOption: InStockButton.accent),
-                                  )
-                                ],
+                              return ShopSignInAlert(
+                                content: '',
+                                themeData: theme.themeData,
+                                onUsernameChanged: (String? value) {
+                                  print(value);
+                                },
+                                onPasswordChanged: (String? value) {
+                                  print(value);
+                                },
+                                onSubmit: () {
+                                  handleShopLoginRequest(
+                                      context, theme.themeData);
+                                },
                               );
                             },
                           );
@@ -109,25 +107,11 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                           await showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text(
-                                  "You are connected to Mock Shop",
-                                  textAlign: TextAlign.center,
-                                ),
-                                content: Lottie.asset(
-                                  'lib/src/images/animations/confirmed_tick.json',
-                                  repeat: false,
-                                ),
-                                actions: [
-                                  InStockButton(
-                                      text: "Ok",
-                                      onPressed: () {
-                                        Navigator.pop(
-                                            context); // Close the AlertDialog
-                                      },
-                                      theme: theme.themeData,
-                                      colorOption: InStockButton.accent),
-                                ],
+                              return ShopSignInSuccessAlert(
+                                themeData: theme.themeData,
+                                text: "You are already connected to Mock Shop.",
+                                secondaryText:
+                                    "To disconnect please email us at InstockInventoryTeam@gmail.com",
                               );
                             },
                           );
