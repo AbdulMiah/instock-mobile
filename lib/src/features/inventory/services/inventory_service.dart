@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
+import 'package:path/path.dart' as path;
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
@@ -69,8 +70,13 @@ class InventoryService {
     // Add the image file to the request
     final imageFile = item.imageFile;
     if (imageFile != null) {
+      final fileExtension = path.extension(imageFile.path).substring(1);
       request.files.add(
-          await http.MultipartFile.fromPath('imageFile', imageFile.path, contentType: MediaType('image', 'jpg'))
+          await http.MultipartFile.fromPath(
+              'imageFile',
+              imageFile.path,
+              contentType: MediaType('image', fileExtension)
+          )
       );
     }
 
