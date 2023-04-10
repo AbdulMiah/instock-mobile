@@ -59,7 +59,7 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
               child: const Image(
                 fit: BoxFit.fill,
                 image: NetworkImage(
-                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                    'https://instock-photos.s3.eu-west-2.amazonaws.com/shop-connections-images/mockshoplogoV1.png'),
               ),
             ),
           ),
