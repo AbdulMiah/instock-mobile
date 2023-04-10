@@ -12,10 +12,12 @@ class PhotoPicker extends StatefulWidget {
   {super.key,
   this.imageUrl,
   this.enabled = true,
+  this.onImageUpdated,
   });
 
   String? imageUrl;
   bool enabled = true;
+  final void Function(File?)? onImageUpdated;
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
@@ -34,6 +36,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
       File? imageTemp = File(image.path);
       imageTemp = await cropImage(imageFile: imageTemp);
       setState(() => imageFile = imageTemp);
+      widget.onImageUpdated!(imageTemp);
     } on PlatformException catch(e) {
       print('Failed to pick image: $e');
     }
@@ -56,7 +59,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
   }
 
   Widget updateAvatarImage() {
-    if (imageFile == null || widget.imageUrl == null) {
+    if (imageFile == null && widget.imageUrl == null) {
       return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
     } else if (widget.imageUrl != null) {
       return CircleAvatar(

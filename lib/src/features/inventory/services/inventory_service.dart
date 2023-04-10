@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
@@ -59,17 +60,28 @@ class InventoryService {
     final uri = Uri.parse(
         'http://api.instockinventory.co.uk/businesses/$businessId/items');
 
-    var body = json.encode(item.toMap());
+    final request = http.MultipartRequest('POST', uri);
+    request.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
 
-    final response = await http.post(uri,
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-          "Content-Type": "application/json"
-        },
-        body: body);
+    // Add the fields to the request
+    request.fields.addAll(item.toJson());
 
-    ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
+    // Add the image file to the request
+    final imageFile = item.imageFile;
+    if (imageFile != null) {
+      request.files.add(
+          await http.MultipartFile.fromPath('imageFile', imageFile.path, contentType: MediaType('image', 'jpg'))
+      );
+    }
+
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+
+    ResponseObject responseObject = ResponseObject(
+        statusCode: response.statusCode,
+        body: responseBody
+    );
+    print(responseObject);
 
     return (responseObject);
   }
