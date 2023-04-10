@@ -105,9 +105,8 @@ class _ItemDetailsState extends State<ItemDetails> {
                             child: SizedBox(
                               height: MediaQuery.of(context).size.height * 0.3,
                               width: MediaQuery.of(context).size.height * 0.3,
-                              child: const Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                              child: Image(
+                                image: NetworkImage(widget.item.itemImgUrl),
                               ),
                             ),
                           ),

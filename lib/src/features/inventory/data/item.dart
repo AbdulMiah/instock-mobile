@@ -41,8 +41,7 @@ class Item {
       stockAmount: int.parse(json['Stock']),
       ordersAmount: 0,
       itemWarning: "",
-      itemImgUrl:
-          "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
+      itemImgUrl: json['ImageUrl'],
     );
   }
 

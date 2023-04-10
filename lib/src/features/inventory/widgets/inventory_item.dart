@@ -100,9 +100,9 @@ class _InventoryItemState extends State<InventoryItem> {
                                     bottomRight: Radius.circular(0),
                                     bottomLeft: Radius.circular(8),
                                   ),
-                            child: const Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg')),
+                            child: Image(
+                                image: NetworkImage(widget.item.itemImgUrl)
+                            ),
                           ),
                         )
                       ],
