@@ -87,7 +87,6 @@ class InventoryService {
         statusCode: response.statusCode,
         body: responseBody
     );
-    print(responseObject);
 
     return (responseObject);
   }

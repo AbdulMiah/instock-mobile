@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/business/data/AddNewBusinessDto.dart';
 import 'package:instock_mobile/src/features/business/services/business_service.dart';
 import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
@@ -23,14 +26,20 @@ class _AddBusinessState extends State<AddBusiness> {
   final _formKey = GlobalKey<FormState>();
   String? _businessName;
   String? _description;
+  File? _imageFile;
   String? _addBusinessError;
 
   handleAddBusiness() async {
     _addBusinessError = null;
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      ResponseObject response =
-          await _businessService.addBusiness(_businessName!, _description!);
+      AddNewBusinessDto newBusiness = AddNewBusinessDto(
+        name: _businessName!,
+        description: _description!,
+        imageFile: _imageFile
+      );
+      ResponseObject response = await _businessService.addBusiness(newBusiness);
+
       if (response.requestSuccess!) {
         Navigator.pushAndRemoveUntil(
           context,
@@ -106,7 +115,11 @@ class _AddBusinessState extends State<AddBusiness> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PhotoPicker(),
+                      PhotoPicker(
+                        onImageUpdated: (file) {
+                          setState(() => _imageFile = file);
+                        },
+                      ),
                       const Divider(
                         height: 50.0,
                         thickness: 1.0,
