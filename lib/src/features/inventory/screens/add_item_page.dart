@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +36,7 @@ class _AddItemState extends State<AddItem> {
   String? _stockLevel;
   String? _sku;
   String? _addItemError;
+  File? _imageFile;
 
   handleAddItem() async {
     if (_formKey.currentState!.validate()) {
@@ -43,7 +45,9 @@ class _AddItemState extends State<AddItem> {
           sku: _sku!,
           category: _category!,
           name: _itemName!,
-          stockAmount: _stockLevel!);
+          stockAmount: _stockLevel!,
+          imageFile: _imageFile
+      );
       ResponseObject response = await _inventoryService.addItem(newItem);
 
       if (response.statusCode == 201) {
@@ -142,7 +146,11 @@ class _AddItemState extends State<AddItem> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PhotoPicker(),
+                      PhotoPicker(
+                        onImageUpdated: (file) {
+                          setState(() => _imageFile = file);
+                        },
+                      ),
                       const Divider(
                         height: 50.0,
                         thickness: 1.0,

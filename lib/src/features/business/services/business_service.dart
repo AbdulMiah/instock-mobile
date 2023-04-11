@@ -1,13 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:http_parser/http_parser.dart';
+import 'package:path/path.dart' as path;
 
 import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
+import 'package:instock_mobile/src/features/business/data/AddNewBusinessDto.dart';
 import 'package:instock_mobile/src/features/business/data/business_dto.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../../utilities/objects/response_object.dart';
+import '../../../utilities/services/config_service.dart';
 
 class BusinessService {
   final IAuthenticationService _authenticationService = AuthenticationService();
@@ -16,11 +20,12 @@ class BusinessService {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
     Map<String, dynamic> payload = Jwt.parseJwt(token);
-    File logo = await Business.fileFromImageUrl('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg');
 
     String businessId = payload["BusinessId"];
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId');
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/businesses/$businessId');
 
     final response = await client.get(
       uri,
@@ -31,32 +36,44 @@ class BusinessService {
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
-      Business business = Business.fromJson(jsonData, logo);
+      Business business = Business.fromJson(jsonData);
       return business;
     } else {
       throw Exception('Failed to load data');
     }
   }
 
-  Future<ResponseObject> addBusiness(String name, String description) async {
+  Future<ResponseObject> addBusiness(AddNewBusinessDto business) async {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/business');
-    var data = Map<String, dynamic>();
-    data['businessName'] = name;
-    data['businessDescription'] = description;
+    String url = ConfigService.url;
 
-    var body = json.encode(data);
+    final uri = Uri.parse('$url/business');
 
-    final response = await http.post(uri,
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-          "Content-Type": "application/json"
-        },
-        body: body);
+    final request = http.MultipartRequest('POST', uri);
+    request.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
 
-    Map<String, dynamic> responseMap = json.decode(response.body);
+    // Add the fields to the request
+    request.fields.addAll(business.toJson());
+
+    // Add the image file to the request
+    final imageFile = business.imageFile;
+    if (imageFile != null) {
+      final fileExtension = path.extension(imageFile.path).substring(1);
+      request.files.add(
+          await http.MultipartFile.fromPath(
+              'imageFile',
+              imageFile.path,
+              contentType: MediaType('image', fileExtension)
+          )
+      );
+    }
+
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+
+    Map<String, dynamic> responseMap = json.decode(responseBody);
     List<String> responseErrors =
         ResponseObject.extractErrorsFromResponse(responseMap);
     if (responseErrors.isEmpty) {
@@ -64,7 +81,7 @@ class BusinessService {
       await _authenticationService.saveBearerToken(bearerToken);
       return ResponseObject(
         statusCode: response.statusCode,
-        body: response.body,
+        body: responseBody,
         requestSuccess: true,
       );
     } else {
