@@ -95,7 +95,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
               child: TextFormField(
                   controller: widget.controller,
                   minLines: 1,
-                  maxLines: widget.maxLines,
+                  maxLines: widget.maxLines ?? 1,
                   style: widget.theme.textTheme.bodySmall,
                   enabled: widget.enable,
                   initialValue: widget.initialValue,

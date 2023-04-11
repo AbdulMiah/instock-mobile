@@ -10,6 +10,7 @@ import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../../utilities/objects/response_object.dart';
+import '../../../utilities/services/config_service.dart';
 import '../../authentication/services/interfaces/Iauthentication_service.dart';
 import '../data/add_new_item_dto.dart';
 
@@ -26,8 +27,9 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    final uri = Uri.parse(
-        'http://api.instockinventory.co.uk/businesses/$businessId/items');
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/businesses/$businessId/items');
 
     final response = await client.get(
       uri,
@@ -58,8 +60,9 @@ class InventoryService {
 
     String businessId = payload["BusinessId"];
 
-    final uri = Uri.parse(
-        'http://api.instockinventory.co.uk/businesses/$businessId/items');
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/businesses/$businessId/items');
 
     final request = http.MultipartRequest('POST', uri);
     request.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';

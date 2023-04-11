@@ -11,6 +11,7 @@ import 'package:instock_mobile/src/features/business/data/business_dto.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../../utilities/objects/response_object.dart';
+import '../../../utilities/services/config_service.dart';
 
 class BusinessService {
   final IAuthenticationService _authenticationService = AuthenticationService();
@@ -22,7 +23,9 @@ class BusinessService {
 
     String businessId = payload["BusinessId"];
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/businesses/$businessId');
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/businesses/$businessId');
 
     final response = await client.get(
       uri,
@@ -44,7 +47,9 @@ class BusinessService {
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/business');
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/business');
 
     final request = http.MultipartRequest('POST', uri);
     request.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
