@@ -191,8 +191,11 @@ class _ItemDetailsState extends State<ItemDetails> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: const Text(
-                                            "Are you sure you want to delete this item? This is irreversible",
+                                          title: Text(
+                                            "Are you sure you want to delete this item from your inventory tracking? "
+                                            "This action is irreversible.\n\n"
+                                            "You currently have ${widget.item.ordersAmount} orders active. "
+                                            "This will not delete your active orders from your shops.",
                                             textAlign: TextAlign.center,
                                           ),
                                           content: Text(_content),
