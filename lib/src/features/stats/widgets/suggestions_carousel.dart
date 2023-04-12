@@ -27,6 +27,4 @@ class SuggestionsCarousel extends StatelessWidget {
       }).toList(),
     );
   }
-
-
 }
