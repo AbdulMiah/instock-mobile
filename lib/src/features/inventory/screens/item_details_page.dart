@@ -53,6 +53,14 @@ class _ItemDetailsState extends State<ItemDetails> {
     }
   }
 
+  Widget updateItemImage() {
+    if (widget.item.itemImgUrl == '') {
+      return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
+    } else {
+      return Image.network(widget.item.itemImgUrl);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
@@ -105,10 +113,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             child: SizedBox(
                               height: MediaQuery.of(context).size.height * 0.3,
                               width: MediaQuery.of(context).size.height * 0.3,
-                              child: const Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                              ),
+                              child: updateItemImage()
                             ),
                           ),
                         ),
@@ -186,8 +191,11 @@ class _ItemDetailsState extends State<ItemDetails> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: const Text(
-                                            "Are you sure you want to delete this item? This is irreversible",
+                                          title: Text(
+                                            "Are you sure you want to delete this item from your inventory tracking? "
+                                            "This action is irreversible.\n\n"
+                                            "You currently have ${widget.item.ordersAmount} orders active. "
+                                            "This will not delete your active orders from your shops.",
                                             textAlign: TextAlign.center,
                                           ),
                                           content: Text(_content),

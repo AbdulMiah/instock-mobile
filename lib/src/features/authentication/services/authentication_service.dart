@@ -7,6 +7,7 @@ import 'package:instock_mobile/src/features/authentication/services/interfaces/I
 import 'package:instock_mobile/src/utilities/services/interfaces/Isecure_storage_service.dart';
 
 import '../../../utilities/objects/response_object.dart';
+import '../../../utilities/services/config_service.dart';
 import '../../../utilities/services/secure_storage_service.dart';
 import '../../../utilities/validation/validators.dart';
 
@@ -29,7 +30,9 @@ class AuthenticationService implements IAuthenticationService {
     Validators.shortLength(email);
     Validators.shortLength(password);
 
-    final uri = Uri.parse('http://api.instockinventory.co.uk/login');
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/login');
     var data = Map<String, dynamic>();
     data['Email'] = email;
     data['Password'] = password;
@@ -92,7 +95,9 @@ class AuthenticationService implements IAuthenticationService {
     Validators.shortLength(userDetails.email);
     Validators.shortLength(userDetails.password);
 
-    final url = Uri.parse('http://api.instockinventory.co.uk/user');
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/user');
     var data = Map<String, dynamic>();
     data['firstName'] = userDetails.firstName;
     data['lastName'] = userDetails.lastName;
@@ -101,7 +106,7 @@ class AuthenticationService implements IAuthenticationService {
 
     var body = json.encode(data);
 
-    final response = await http.post(url,
+    final response = await http.post(uri,
         headers: {"Content-Type": "application/json"}, body: body);
 
     ResponseObject responseObject =

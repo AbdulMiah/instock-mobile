@@ -1,22 +1,23 @@
+import 'dart:io';
+
 class AddNewItemDto {
   final String sku;
-  final String? businessId;
   final String category;
   final String name;
   final String stockAmount;
+  final File? imageFile;
 
   const AddNewItemDto({
     required this.sku,
-    this.businessId,
     required this.category,
     required this.name,
     required this.stockAmount,
+    this.imageFile
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, String> toJson() {
     return {
       'sku': sku,
-      'businessId': businessId,
       'category': category,
       'name': name,
       'stock': stockAmount,

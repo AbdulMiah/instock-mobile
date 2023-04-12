@@ -10,11 +10,14 @@ import '../../theme/common_theme.dart';
 class PhotoPicker extends StatefulWidget {
   PhotoPicker(
   {super.key,
-  this.image,
-  this.enabled = true,});
+  this.imageUrl,
+  this.enabled = true,
+  this.onImageUpdated,
+  });
 
-  File? image;
+  String? imageUrl;
   bool enabled = true;
+  final void Function(File?)? onImageUpdated;
 
   @override
   State<PhotoPicker> createState() => _PhotoPickerState();
@@ -23,6 +26,7 @@ class PhotoPicker extends StatefulWidget {
 class _PhotoPickerState extends State<PhotoPicker> {
   final theme = CommonTheme();
   final avatarSize = 150.0;
+  File? imageFile;
 
   // Taken from https://medium.com/unitechie/flutter-tutorial-image-picker-from-camera-gallery-c27af5490b74
   Future pickImage(ImageSource source) async {
@@ -31,7 +35,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
       if(image == null) return;
       File? imageTemp = File(image.path);
       imageTemp = await cropImage(imageFile: imageTemp);
-      setState(() => widget.image = imageTemp);
+      setState(() => imageFile = imageTemp);
+      widget.onImageUpdated!(imageTemp);
     } on PlatformException catch(e) {
       print('Failed to pick image: $e');
     }
@@ -53,6 +58,22 @@ class _PhotoPickerState extends State<PhotoPicker> {
     return File(croppedImage.path);
   }
 
+  Widget updateAvatarImage() {
+    if (imageFile == null && widget.imageUrl == null) {
+      return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
+    } else if (widget.imageUrl != null) {
+      return CircleAvatar(
+          radius: avatarSize/2,
+          backgroundImage: NetworkImage(widget.imageUrl!)
+      );
+    } else {
+      return CircleAvatar(
+          radius: avatarSize/2,
+          backgroundImage: FileImage(imageFile!)
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,12 +90,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   border: Border.all(color: theme.themeData.primaryColorDark)
               ),
               child: Center(
-                child: widget.image == null
-                    ? const Icon(Icons.image_not_supported_outlined, size: 80.0,)
-                    : CircleAvatar(
-                  radius: avatarSize/2,
-                  backgroundImage: FileImage(widget.image!),
-                ),
+                child: updateAvatarImage(),
               ),
             ),
           ),
