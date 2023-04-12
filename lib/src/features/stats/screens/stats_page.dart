@@ -13,6 +13,7 @@ import '../../authentication/services/authentication_service.dart';
 import '../data/stats_dto.dart';
 import '../widgets/overview_stats.dart';
 import '../widgets/shop_performance_graph.dart';
+import '../widgets/suggestions_carousel.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({super.key});
@@ -174,6 +175,10 @@ class _StatsPageState extends State<StatsPage> {
                             ),
                           ),
                           OverviewStats(statsDto: snapshot.data, theme: theme),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: SuggestionsCarousel(statsDto: statsDto),
+                          ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                             child: Text(

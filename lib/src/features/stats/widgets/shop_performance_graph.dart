@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
@@ -20,6 +22,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
   List<String>? _months = [];
+  int maxYAxis = 50;
 
   int touchedGroupIndex = -1;
 
@@ -34,6 +37,12 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
       for (var month in salesYearDict.keys) {
         int? monthlySales = salesYearDict[month];
         int? monthlyDeductions = deductionsYearDict[month];
+
+        int maxInt = max(monthlySales!, monthlyDeductions!);
+
+        if (maxInt > maxYAxis) {
+          maxYAxis = (maxInt / 100).ceil() * 100;
+        }
 
         _months!.add(month);
 
@@ -66,7 +75,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
             Expanded(
               child: BarChart(
                 BarChartData(
-                  maxY: 600,
+                  maxY: this.maxYAxis.toDouble(),
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
                       tooltipBgColor: widget.theme.themeData.primaryColorDark,
@@ -209,7 +218,8 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
     );
     String text;
     // Change this number to set intervals
-    if (value % 50 == 0) {
+    int interval = (maxYAxis ~/ 10);
+    if (value % interval == 0) {
       int roundedValue = value.toInt();
       text = roundedValue.toString();
     } else {
