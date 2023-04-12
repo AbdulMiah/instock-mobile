@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/account/account_page.dart';
-import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
+import 'package:instock_mobile/src/features/account/services/email_service.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 import '../../../utilities/widgets/wave.dart';
-import '../../authentication/services/authentication_service.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({super.key});
@@ -19,26 +19,38 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  final InventoryService _inventoryService =
-  InventoryService(AuthenticationService());
-
-  final TextEditingController _controller = TextEditingController();
+  final EmailService _contactUsService = EmailService();
 
   final _formKey = GlobalKey<FormState>();
   String? _topic;
   String? _message;
+  String? _success;
   String? _error;
 
   handleAddItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print("sending email");
+
+      ResponseObject response = await _contactUsService.sendMessage(_topic!, _message!);
+
+      if (response.statusCode == 200) {
+        setState(() {
+          _success = response.body;
+        });
+      } else {
+        setState(() {
+          _error = response.body;
+        });
+      }
     }
   }
 
   displayMessage(ThemeData theme) {
     if (_error != null) {
       return Text(_error!, style: theme.textTheme.headlineSmall);
+    }
+    if (_success != null) {
+      return Text(_success!, style: theme.textTheme.labelSmall);
     }
     return const Text("");
   }
