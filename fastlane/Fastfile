@@ -28,10 +28,11 @@ platform :android do
     )
   end
 
+# Modified from original chatgpt solution
   desc "Increment version number"
   lane :increment_version do
     # Get current version number
-    current_version = sh("grep 'version:' pubspec.yaml | cut -d ':' -f 2 | xargs").strip
+    current_version = sh("grep 'version:' ../pubspec.yaml | cut -d ':' -f 2 | xargs").strip
 
     # Increment the version number
     incremented_version = current_version.sub(/(\d+\.\d+\.)(\d+)/) do |match|
@@ -40,6 +41,6 @@ platform :android do
     end
 
     # Update pubspec.yaml file
-    sh("sed -i -e 's/#{current_version}/#{incremented_version}/' pubspec.yaml")
+    sh("sed -i -e 's/#{current_version}/#{incremented_version}/' ../pubspec.yaml")
   end
 end

@@ -44,6 +44,8 @@ install-dependencies:
     - .use-pub-cache-bin
     - .upload-cache
   script:
+    - fastlane android increment_version
+
     - flutter pub get
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
