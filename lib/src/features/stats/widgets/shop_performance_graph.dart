@@ -26,17 +26,23 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   void extractGraphPoints() {
     int x = 0;
     List<BarChartGroupData> graphPoints = [];
-    for (var key in widget.salesByMonth.keys) {
-      int? monthlySales = widget.salesByMonth[key];
-      int? monthlyDeductions = widget.deductionsByMonth[key];
+    for (var year in widget.salesByMonth.keys) {
+      print(year);
+      Map<String, dynamic> salesYearDict = widget.salesByMonth[year];
+      Map<String, dynamic> deductionsYearDict = widget.deductionsByMonth[year];
+      print(salesYearDict);
+      for (var month in salesYearDict.keys) {
+        int? monthlySales = salesYearDict[month];
+        int? monthlyDeductions = deductionsYearDict[month];
 
-      _months!.add(key.substring(0, 3));
+        _months!.add(month);
 
-      BarChartGroupData barGroup = makeGroupData(
-          x, monthlySales!.toDouble(), monthlyDeductions!.toDouble());
-      graphPoints.add(barGroup);
+        BarChartGroupData barGroup = makeGroupData(
+            x, monthlySales!.toDouble(), monthlyDeductions!.toDouble());
+        graphPoints.add(barGroup);
 
-      x++;
+        x++;
+      }
     }
 
     rawBarGroups = graphPoints;
@@ -60,7 +66,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
             Expanded(
               child: BarChart(
                 BarChartData(
-                  maxY: 20,
+                  maxY: 600,
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
                       tooltipBgColor: widget.theme.themeData.primaryColorDark,
@@ -202,7 +208,8 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
       fontSize: 14,
     );
     String text;
-    if (value % 10 == 0) {
+    // Change this number to set intervals
+    if (value % 50 == 0) {
       int roundedValue = value.toInt();
       text = roundedValue.toString();
     } else {

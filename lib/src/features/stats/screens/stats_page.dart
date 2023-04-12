@@ -12,6 +12,7 @@ import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
 import '../data/stats_dto.dart';
 import '../widgets/overview_stats.dart';
+import '../widgets/shop_performance_graph.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({super.key});
@@ -157,6 +158,16 @@ class _StatsPageState extends State<StatsPage> {
                                     child: Text("Shop Performance",
                                         style: theme.themeData.textTheme
                                             .headlineMedium),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.85,
+                                    height: 300,
+                                    child: ShopPerformanceGraph(
+                                      salesByMonth: statsDto.salesByMonth,
+                                      deductionsByMonth:
+                                          statsDto.deductionsByMonth,
+                                    ),
                                   ),
                                 ],
                               ),
