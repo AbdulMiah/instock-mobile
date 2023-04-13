@@ -43,6 +43,9 @@ class _StatsPageState extends State<StatsPage> {
       final key = perfSection.key;
       res.add(key);
     }
+    if (res.isEmpty) {
+      res.add("No Categories");
+    }
     return res;
   }
 
@@ -137,6 +140,9 @@ class _StatsPageState extends State<StatsPage> {
                         );
                       }
                       StatsDto statsDto = snapshot.data;
+                      var suggestionsErrors = statsDto
+                          .suggestions["errorNotification"]["hasErrors"];
+                      print("Suggestions errors: $suggestionsErrors");
                       // Set dropdown list to categories from request
                       List<String> dropdownItems = extractCategories(statsDto);
                       // If the user hasn't made a selection, default to first item
@@ -175,9 +181,11 @@ class _StatsPageState extends State<StatsPage> {
                           ),
                           OverviewStats(statsDto: snapshot.data, theme: theme),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: SuggestionsCarousel(statsDto: statsDto),
-                          ),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              // child: SuggestionsCarousel(statsDto: statsDto),
+                              child: suggestionsErrors == false
+                                  ? SuggestionsCarousel(statsDto: statsDto)
+                                  : Container()),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                             child: Text(
@@ -222,10 +230,17 @@ class _StatsPageState extends State<StatsPage> {
                               ),
                             ),
                           ),
-                          CategoryStats(
-                              statsDto: snapshot.data,
-                              updateCategory: _updateCategory,
-                              dropdownCategory: _dropdownCategory!)
+                          dropdownItems[0] == "No Categories"
+                              ? Container() // If No Dropdown Categories, render nothing
+                              : CategoryStats(
+                                  statsDto: snapshot.data,
+                                  updateCategory: _updateCategory,
+                                  dropdownCategory: _dropdownCategory!,
+                                )
+                          // CategoryStats(
+                          //     statsDto: snapshot.data,
+                          //     updateCategory: _updateCategory,
+                          //     dropdownCategory: _dropdownCategory!)
                         ],
                       );
                     }),

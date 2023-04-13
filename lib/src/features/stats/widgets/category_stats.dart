@@ -55,7 +55,8 @@ class _CategoryStatsState extends State<CategoryStats> {
               theme: theme,
               stat: "Returns",
               figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                  ["Return"]!,
+                      ["Returned"] ??
+                  0,
             ),
           ],
         ),
