@@ -43,7 +43,7 @@ class OverviewStats extends StatelessWidget {
             StatsBox(
               theme: theme,
               stat: "Returns",
-              figure: statsDto.overallShopPerformance["Return"]!,
+              figure: statsDto.overallShopPerformance["Returned"] ?? 0,
             ),
           ],
         ),
