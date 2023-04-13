@@ -5,7 +5,7 @@ import 'package:instock_mobile/src/features/business/screens/business_page.dart'
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/wave.dart';
-import '../widgets/shop_connection_card.dart';
+import '../widgets/shop_connection_list.dart';
 
 class ShopConnections extends StatefulWidget {
   const ShopConnections({Key? key}) : super(key: key);
@@ -74,7 +74,7 @@ class _ShopConnectionsState extends State<ShopConnections> {
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 0),
-                          child: ShopConnectionCard(),
+                          child: ShopConnectionList(),
                         )
                       ],
                     ),

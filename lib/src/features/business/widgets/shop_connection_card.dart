@@ -18,6 +18,8 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
   String _username = "";
   String _password = "";
 
+  // String _pass
+
   handleShopLoginRequest(BuildContext dialogContext, ThemeData themeData) {
     // Closes the AlertDialog
     //CODE FOR HANDLING SERVICE GOES HERE
