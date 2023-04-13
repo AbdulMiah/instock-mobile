@@ -22,4 +22,9 @@ class BusinessConnectionsDto {
       errorNotification: ErrorNotification.fromJson(json['errorNotification']),
     );
   }
+
+  @override
+  String toString() {
+    return 'BusinessConnectionsDto{businessId: $businessId, connections: $connections, errorNotification: $errorNotification}';
+  }
 }
