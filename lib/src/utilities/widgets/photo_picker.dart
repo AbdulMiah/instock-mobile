@@ -61,9 +61,9 @@ class _PhotoPickerState extends State<PhotoPicker> {
   }
 
   Widget updateAvatarImage() {
-    if (imageFile == null && widget.imageUrl == null) {
+    if (imageFile == null && widget.imageUrl == "" || widget.imageUrl == null) {
       return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
-    } else if (widget.imageUrl != null) {
+    } else if (widget.imageUrl != "" || widget.imageUrl != null) {
       return CircleAvatar(
           radius: widget.avatarSize != null ? widget.avatarSize!/2 : defaultAvatarSize/2,
           backgroundImage: NetworkImage(widget.imageUrl!)

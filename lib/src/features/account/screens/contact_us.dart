@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/account/account_page.dart';
+import 'package:instock_mobile/src/features/account/screens/account_page.dart';
 import 'package:instock_mobile/src/features/account/services/email_service.dart';
 
 import '../../../theme/common_theme.dart';
