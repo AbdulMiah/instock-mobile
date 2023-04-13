@@ -50,7 +50,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
           maxYAxis = (maxInt / 100).ceil() * 100;
         }
         BarChartGroupData barGroup = makeGroupData(
-            x, monthlySales!.toDouble(), monthlyDeductions!.toDouble());
+            x, monthlySales.toDouble(), monthlyDeductions.toDouble());
 
         _months!.add(monthPlusYear);
         graphPoints.add(barGroup);
