@@ -84,12 +84,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                           text: 'First Name',
                           initialValue: widget.userDto.firstName,
                           theme: theme.themeData,
-                          validators: const [
-                            Validators.notNull,
-                            Validators.notBlank,
-                            Validators.shortLength,
-                            Validators.nameValidation
-                          ],
+                          validators: const [],
                         ),
                       ),
                       Padding(
@@ -99,12 +94,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                           text: 'Last Name',
                           initialValue: widget.userDto.lastName,
                           theme: theme.themeData,
-                          validators: const [
-                            Validators.notNull,
-                            Validators.notBlank,
-                            Validators.shortLength,
-                            Validators.nameValidation
-                          ],
+                          validators: const [],
                         ),
                       ),
                       Padding(
@@ -114,12 +104,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                           text: 'Email',
                           initialValue: widget.userDto.email,
                           theme: theme.themeData,
-                          validators: const [
-                            Validators.notNull,
-                            Validators.notBlank,
-                            Validators.shortLength,
-                            Validators.nameValidation
-                          ],
+                          validators: const [],
                         ),
                       ),
                       Padding(
@@ -129,12 +114,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                           text: 'Password',
                           initialValue: "**********",
                           theme: theme.themeData,
-                          validators: const [
-                            Validators.notNull,
-                            Validators.notBlank,
-                            Validators.shortLength,
-                            Validators.nameValidation
-                          ],
+                          validators: const [],
                         ),
                       ),
                     ],
