@@ -10,6 +10,7 @@ import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/back_button.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
+import '../../../utilities/widgets/page_route_animation.dart';
 import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../business/screens/add_business_page.dart';
@@ -59,7 +60,7 @@ class _SignUpState extends State<SignUp> {
           lastName: _lastName!,
           email: _email!,
           password: _password!,
-          imageFile: _imageFile!
+          imageFile: _imageFile
       );
 
       //Auth service handling
@@ -69,7 +70,7 @@ class _SignUpState extends State<SignUp> {
         // remove navigation stack and push
         Navigator.pushAndRemoveUntil<void>(
           context,
-          MaterialPageRoute<void>(builder: (context) => AddBusiness()),
+          PageRouteAnimation(page: AddBusiness()),
           (route) => false,
         );
       } else if (response.statusCode == 404) {

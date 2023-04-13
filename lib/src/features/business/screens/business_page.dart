@@ -11,6 +11,7 @@ import '../../../theme/common_theme.dart';
 import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
+import '../../../utilities/widgets/page_route_animation.dart';
 import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
 import 'add_business_page.dart';
@@ -86,7 +87,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                   Future.delayed(Duration.zero, () {
                                     Navigator.pushAndRemoveUntil<void>(
                                       context,
-                                      MaterialPageRoute<void>(builder: (context) => const AddBusiness()),
+                                      PageRouteAnimation(page: const AddBusiness()),
                                           (route) => false,
                                     );
                                   });
@@ -152,7 +153,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                         onPressed: () {
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => const ShopConnections()),
+                                            PageRouteAnimation(page: const ShopConnections()),
                                           );
                                         },
                                       ),
