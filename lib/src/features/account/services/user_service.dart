@@ -30,7 +30,6 @@ class UserService {
 
     if (response.statusCode == 200) {
       var userJson = json.decode(response.body);
-      print(userJson);
       UserDto userDto = UserDto.fromJson(userJson);
       return userDto;
     } else {

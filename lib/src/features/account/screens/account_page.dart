@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instock_mobile/src/features/account/data/user_dto.dart';
 import 'package:instock_mobile/src/features/account/screens/account_details.dart';
 import 'package:instock_mobile/src/features/account/screens/contact_us.dart';
 import 'package:instock_mobile/src/features/account/screens/notifications.dart';
@@ -39,11 +38,6 @@ class _AccountPageState extends State<AccountPage> {
       context,
       MaterialPageRoute(builder: (context) => page),
     );
-  }
-
-  fetchUserData() async {
-    UserDto userDto = await _userService.getUser();
-    print(userDto);
   }
 
   logOut() async {
@@ -137,13 +131,11 @@ class _AccountPageState extends State<AccountPage> {
                             .size
                             .height * 0.55,
                         child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             const SizedBox(height: 50.0,),
                             InStockButton(
                                 onPressed: () {
-                                  redirectToPage(const AccountDetails());
+                                  redirectToPage(AccountDetails(userDto: snapshot.data));
                                 },
                                 text: "Account",
                                 theme: theme.themeData,
