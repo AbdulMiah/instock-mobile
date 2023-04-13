@@ -131,115 +131,139 @@ class _AccountPageState extends State<AccountPage> {
                             .of(context)
                             .size
                             .height * 0.55,
-                        child: Column(
-                          children: <Widget>[
-                            const SizedBox(height: 50.0,),
-                            InStockButton(
-                                onPressed: () {
-                                  redirectToPage(AccountDetails(userDto: snapshot.data));
-                                },
-                                text: "Account",
-                                theme: theme.themeData,
-                                colorOption: InStockButton.secondary,
-                                icon: Icons.person_outlined,
-                                secondaryIcon: Icons.arrow_forward
-                            ),
-                            InStockButton(
-                                onPressed: () {
-                                  redirectToPage(const Notifications());
-                                },
-                                text: "Notifications",
-                                theme: theme.themeData,
-                                colorOption: InStockButton.secondary,
-                                icon: Icons.notifications,
-                                secondaryIcon: Icons.arrow_forward
-                            ),
-                            InStockButton(
-                                onPressed: () {
-                                  redirectToPage(const PaymentDetails());
-                                },
-                                text: "Payment Details",
-                                theme: theme.themeData,
-                                colorOption: InStockButton.secondary,
-                                icon: Icons.credit_card,
-                                secondaryIcon: Icons.arrow_forward
-                            ),
-                            InStockButton(
-                                onPressed: () {
-                                  redirectToPage(const TermsPrivacy());
-                                },
-                                text: "Terms & Privacy",
-                                theme: theme.themeData,
-                                colorOption: InStockButton.secondary,
-                                icon: Icons.lock,
-                                secondaryIcon: Icons.arrow_forward
-                            ),
-                            InStockButton(
-                                onPressed: () {
-                                  redirectToPage(const ContactUs());
-                                },
-                                text: "Contact Us",
-                                theme: theme.themeData,
-                                colorOption: InStockButton.secondary,
-                                icon: Icons.chat,
-                                secondaryIcon: Icons.arrow_forward
-                            ),
-                            const Spacer(),
-                            InStockButton(
-                              text: "Log Out",
-                              onPressed: () async {
-                                setState(() {
-                                  _content = "";
-                                });
-                                await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text(
-                                        "Are you sure you want to Log Out?",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      content: Text(_content),
-                                      actions: [
-                                        Divider(
-                                            color: theme.themeData
-                                                .primaryColorDark),
-                                        CupertinoDialogAction(
-                                          child: Text("Log Out",
-                                              style: theme
-                                                  .themeData.textTheme
-                                                  .labelMedium
-                                                  ?.copyWith(
-                                                  color: theme
-                                                      .themeData
-                                                      .highlightColor)),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            logOut();
-                                          },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: InStockButton(
+                                    onPressed: () {
+                                      redirectToPage(AccountDetails(userDto: snapshot.data));
+                                    },
+                                    text: "Account",
+                                    theme: theme.themeData,
+                                    colorOption: InStockButton.secondary,
+                                    icon: Icons.person_outlined,
+                                    secondaryIcon: Icons.arrow_forward,
+                                    minimumSize: const Size(0, 50),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: InStockButton(
+                                    onPressed: () {
+                                      redirectToPage(const Notifications());
+                                    },
+                                    text: "Notifications",
+                                    theme: theme.themeData,
+                                    colorOption: InStockButton.secondary,
+                                    icon: Icons.notifications,
+                                    secondaryIcon: Icons.arrow_forward,
+                                    minimumSize: const Size(0, 50),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: InStockButton(
+                                    onPressed: () {
+                                      redirectToPage(const PaymentDetails());
+                                    },
+                                    text: "Payment Details",
+                                    theme: theme.themeData,
+                                    colorOption: InStockButton.secondary,
+                                    icon: Icons.credit_card,
+                                    secondaryIcon: Icons.arrow_forward,
+                                    minimumSize: const Size(0, 50),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: InStockButton(
+                                    onPressed: () {
+                                      redirectToPage(const TermsPrivacy());
+                                    },
+                                    text: "Terms & Privacy",
+                                    theme: theme.themeData,
+                                    colorOption: InStockButton.secondary,
+                                    icon: Icons.lock,
+                                    secondaryIcon: Icons.arrow_forward,
+                                    minimumSize: const Size(0, 50),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: InStockButton(
+                                    onPressed: () {
+                                      redirectToPage(const ContactUs());
+                                    },
+                                    text: "Contact Us",
+                                    theme: theme.themeData,
+                                    colorOption: InStockButton.secondary,
+                                    icon: Icons.chat,
+                                    secondaryIcon: Icons.arrow_forward,
+                                    minimumSize: const Size(0, 50),
+                                ),
+                              ),
+                              const Spacer(),
+                              InStockButton(
+                                text: "Log Out",
+                                onPressed: () async {
+                                  setState(() {
+                                    _content = "";
+                                  });
+                                  await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          "Are you sure you want to Log Out?",
+                                          textAlign: TextAlign.center,
                                         ),
-                                        Divider(
-                                            color: theme.themeData
-                                                .primaryColorDark),
-                                        CupertinoDialogAction(
-                                          child: Text("Cancel",
-                                              style: theme
-                                                  .themeData.textTheme
-                                                  .bodySmall),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              theme: theme.themeData,
-                              colorOption: InStockButton.danger,
-                              icon: Icons.logout,
-                            ),
-                          ],
+                                        content: Text(_content),
+                                        actions: [
+                                          Divider(
+                                              color: theme.themeData
+                                                  .primaryColorDark),
+                                          CupertinoDialogAction(
+                                            child: Text("Log Out",
+                                                style: theme
+                                                    .themeData.textTheme
+                                                    .labelMedium
+                                                    ?.copyWith(
+                                                    color: theme
+                                                        .themeData
+                                                        .highlightColor)),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              logOut();
+                                            },
+                                          ),
+                                          Divider(
+                                              color: theme.themeData
+                                                  .primaryColorDark),
+                                          CupertinoDialogAction(
+                                            child: Text("Cancel",
+                                                style: theme
+                                                    .themeData.textTheme
+                                                    .bodySmall),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                theme: theme.themeData,
+                                colorOption: InStockButton.danger,
+                                icon: Icons.logout,
+                                minimumSize: const Size(0, 50),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
