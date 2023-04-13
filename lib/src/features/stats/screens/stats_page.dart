@@ -39,7 +39,6 @@ class _StatsPageState extends State<StatsPage> {
   List<String> extractCategories(StatsDto statsDto) {
     List<String> res = [];
     var perfByCat = statsDto.categoryStats;
-    print("perfByCat: $perfByCat");
     for (final perfSection in perfByCat.entries) {
       final key = perfSection.key;
       res.add(key);

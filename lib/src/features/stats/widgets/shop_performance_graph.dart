@@ -30,10 +30,8 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
     int x = 0;
     List<BarChartGroupData> graphPoints = [];
     for (var year in widget.salesByMonth.keys) {
-      print(year);
       Map<String, dynamic> salesYearDict = widget.salesByMonth[year];
       Map<String, dynamic> deductionsYearDict = widget.deductionsByMonth[year];
-      print(salesYearDict);
       for (var month in salesYearDict.keys) {
         int? monthlySales = salesYearDict[month];
         int? monthlyDeductions = deductionsYearDict[month];
