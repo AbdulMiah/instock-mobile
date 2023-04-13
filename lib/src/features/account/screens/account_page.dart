@@ -12,6 +12,7 @@ import 'package:instock_mobile/src/features/account/services/user_service.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
 import 'package:instock_mobile/src/utilities/objects/response_object.dart';
+import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
 import '../../../theme/common_theme.dart';
@@ -36,7 +37,7 @@ class _AccountPageState extends State<AccountPage> {
   redirectToPage(Widget page) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => page),
+      PageRouteAnimation(page: page)
     );
   }
 
