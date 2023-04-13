@@ -1,8 +1,10 @@
+import 'package:instock_mobile/src/features/authentication/data/login_dto.dart';
+
 import '../../../../utilities/objects/response_object.dart';
 import '../../data/sign_up_dto.dart';
 
 class IAuthenticationService {
-  Future<ResponseObject> authenticateUser(String email, String password) {
+  Future<ResponseObject> authenticateUser(LoginDto loginDto) {
     return Future<ResponseObject>.value();
   }
 
