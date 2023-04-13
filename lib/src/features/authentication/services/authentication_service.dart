@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:path/path.dart' as path;
 import 'package:instock_mobile/src/features/authentication/data/sign_up_dto.dart';
 import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
 import 'package:instock_mobile/src/utilities/services/interfaces/Isecure_storage_service.dart';
@@ -98,21 +100,32 @@ class AuthenticationService implements IAuthenticationService {
     String url = ConfigService.url;
 
     final uri = Uri.parse('$url/user');
-    var data = Map<String, dynamic>();
-    data['firstName'] = userDetails.firstName;
-    data['lastName'] = userDetails.lastName;
-    data['email'] = userDetails.email;
-    data['password'] = userDetails.password;
 
-    var body = json.encode(data);
+    final request = http.MultipartRequest('POST', uri);
 
-    final response = await http.post(uri,
-        headers: {"Content-Type": "application/json"}, body: body);
+    // Add the fields to the request
+    request.fields.addAll(userDetails.toJson());
+
+    // Add the image file to the request
+    final imageFile = userDetails.imageFile;
+    if (imageFile != null) {
+      final fileExtension = path.extension(imageFile.path).substring(1);
+      request.files.add(
+          await http.MultipartFile.fromPath(
+              'imageFile',
+              imageFile.path,
+              contentType: MediaType('image', fileExtension)
+          )
+      );
+    }
+
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
 
     ResponseObject responseObject =
-        ResponseObject(statusCode: response.statusCode, body: response.body);
+        ResponseObject(statusCode: response.statusCode, body: responseBody);
     if (response.statusCode == 201) {
-      String bearerToken = response.body;
+      String bearerToken = responseBody;
       saveBearerToken(bearerToken);
       return (responseObject);
     } else {

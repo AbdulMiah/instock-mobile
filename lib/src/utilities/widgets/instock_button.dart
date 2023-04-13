@@ -9,7 +9,9 @@ class InStockButton extends StatefulWidget {
       required this.colorOption,
       this.icon,
       this.secondaryIcon,
-      this.isLoading = false});
+      this.isLoading = false,
+      this.minimumSize
+      });
 
   final String? text;
   final ThemeData theme;
@@ -18,6 +20,7 @@ class InStockButton extends StatefulWidget {
   final IconData? icon;
   final IconData? secondaryIcon;
   bool isLoading;
+  final Size? minimumSize;
 
   // Used for colorOptions
   static const int primary = 1;
@@ -106,6 +109,7 @@ class _InStockButtonState extends State<InStockButton> {
       child: ElevatedButton(
           onPressed: widget.onPressed,
           style: ElevatedButton.styleFrom(
+            minimumSize: widget.minimumSize,
             backgroundColor: buttonColors["background"],
             // Background color
             foregroundColor: buttonColors["foreground"],

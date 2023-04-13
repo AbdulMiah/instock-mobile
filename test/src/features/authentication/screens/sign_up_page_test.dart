@@ -10,7 +10,7 @@ void main() {
   testWidgets('Sign Up screen Renders', (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );
@@ -26,7 +26,7 @@ void main() {
       (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );
@@ -53,7 +53,7 @@ void main() {
       (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );
@@ -77,7 +77,7 @@ void main() {
       (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );
@@ -99,7 +99,7 @@ void main() {
       (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );
@@ -119,7 +119,7 @@ void main() {
       (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );
@@ -139,7 +139,7 @@ void main() {
       (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );
@@ -159,7 +159,7 @@ void main() {
   testWidgets('Sign Up has submit button', (tester) async {
     //Given
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(body: SignUp()),
       ),
     );

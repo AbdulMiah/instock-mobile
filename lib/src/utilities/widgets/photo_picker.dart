@@ -10,11 +10,13 @@ import '../../theme/common_theme.dart';
 class PhotoPicker extends StatefulWidget {
   PhotoPicker(
   {super.key,
+  this.avatarSize,
   this.imageUrl,
   this.enabled = true,
   this.onImageUpdated,
   });
 
+  double? avatarSize;
   String? imageUrl;
   bool enabled = true;
   final void Function(File?)? onImageUpdated;
@@ -25,7 +27,7 @@ class PhotoPicker extends StatefulWidget {
 
 class _PhotoPickerState extends State<PhotoPicker> {
   final theme = CommonTheme();
-  final avatarSize = 150.0;
+  final defaultAvatarSize = 150.0;
   File? imageFile;
 
   // Taken from https://medium.com/unitechie/flutter-tutorial-image-picker-from-camera-gallery-c27af5490b74
@@ -59,16 +61,16 @@ class _PhotoPickerState extends State<PhotoPicker> {
   }
 
   Widget updateAvatarImage() {
-    if (imageFile == null && widget.imageUrl == null) {
+    if (imageFile == null && (widget.imageUrl == "" || widget.imageUrl == null)) {
       return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
-    } else if (widget.imageUrl != null) {
+    } else if (widget.imageUrl != "" && widget.imageUrl != null) {
       return CircleAvatar(
-          radius: avatarSize/2,
+          radius: widget.avatarSize != null ? widget.avatarSize!/2 : defaultAvatarSize/2,
           backgroundImage: NetworkImage(widget.imageUrl!)
       );
     } else {
       return CircleAvatar(
-          radius: avatarSize/2,
+          radius: widget.avatarSize != null ? widget.avatarSize!/2 : defaultAvatarSize/2,
           backgroundImage: FileImage(imageFile!)
       );
     }
@@ -82,8 +84,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
         children: [
           Positioned(
             child: Container(
-              height: avatarSize,
-              width: avatarSize,
+              height: widget.avatarSize != null ? widget.avatarSize! : defaultAvatarSize,
+              width: widget.avatarSize != null ? widget.avatarSize! : defaultAvatarSize,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.grey.shade300,

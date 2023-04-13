@@ -6,10 +6,12 @@ import 'package:instock_mobile/src/features/business/screens/shop_connections.da
 import 'package:instock_mobile/src/features/business/services/business_service.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:instock_mobile/src/utilities/widgets/no_internet_page.dart';
 import '../../../theme/common_theme.dart';
 import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
+import '../../../utilities/widgets/page_route_animation.dart';
 import '../../../utilities/widgets/photo_picker.dart';
 import '../../../utilities/widgets/wave.dart';
 import 'add_business_page.dart';
@@ -25,6 +27,10 @@ class _BusinessPageState extends State<BusinessPage> {
   final _formKey = GlobalKey<FormState>();
 
   final BusinessService _businessService = BusinessService();
+
+  void refreshPage() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,42 +81,13 @@ class _BusinessPageState extends State<BusinessPage> {
                                   );
                                 }
                                 if (snapshot.error is SocketException) {
-                                  return Center(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "No Internet Connection",
-                                          style: theme
-                                              .themeData.textTheme.bodyLarge
-                                              ?.merge(const TextStyle(fontSize: 30)),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const SizedBox(height: 20),
-                                        Text(
-                                          "Please check your internet connection and try again",
-                                          style: theme.themeData.textTheme.bodySmall,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const SizedBox(height: 40),
-                                        InStockButton(
-                                          onPressed: () {
-                                            setState(() {});
-                                          },
-                                          theme: theme.themeData,
-                                          colorOption: InStockButton.primary,
-                                          text: "Try Again",
-                                          icon: Icons.refresh,
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                  return NoInternetPage(refreshFunc: refreshPage);
                                 }
                                 if (snapshot.data == null) {
                                   Future.delayed(Duration.zero, () {
                                     Navigator.pushAndRemoveUntil<void>(
                                       context,
-                                      MaterialPageRoute<void>(builder: (context) => const AddBusiness()),
+                                      PageRouteAnimation(page: const AddBusiness()),
                                           (route) => false,
                                     );
                                   });
@@ -176,7 +153,7 @@ class _BusinessPageState extends State<BusinessPage> {
                                         onPressed: () {
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => const ShopConnections()),
+                                            PageRouteAnimation(page: const ShopConnections()),
                                           );
                                         },
                                       ),
