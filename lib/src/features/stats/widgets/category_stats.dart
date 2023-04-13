@@ -49,7 +49,8 @@ class _CategoryStatsState extends State<CategoryStats> {
               theme: theme,
               stat: "Orders",
               figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                  ["Order"]!,
+                      ["Order"] ??
+                  0,
             ),
             StatsBox(
               theme: theme,
@@ -69,13 +70,15 @@ class _CategoryStatsState extends State<CategoryStats> {
                 theme: theme,
                 stat: "Giveaways",
                 figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                    ["Giveaway"]!,
+                        ["Giveaway"] ??
+                    0,
               ),
               StatsBox(
                 theme: theme,
                 stat: "Damaged",
                 figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                    ["Damaged"]!,
+                        ["Damaged"] ??
+                    0,
               ),
             ],
           ),
@@ -89,13 +92,15 @@ class _CategoryStatsState extends State<CategoryStats> {
                 theme: theme,
                 stat: "Restocked",
                 figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                    ["Restocked"]!,
+                        ["Restock"] ??
+                    0,
               ),
               StatsBox(
                 theme: theme,
                 stat: "Lost",
                 figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                    ["Lost"]!,
+                        ["Lost"]! ??
+                    0,
               ),
             ],
           ),
