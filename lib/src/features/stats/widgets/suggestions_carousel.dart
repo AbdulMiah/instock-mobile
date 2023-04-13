@@ -4,68 +4,108 @@ import 'package:instock_mobile/src/features/stats/data/stats_dto.dart';
 
 import '../../../theme/common_theme.dart';
 
-class SuggestionsCarousel extends StatelessWidget {
+class SuggestionsCarousel extends StatefulWidget {
   final StatsDto statsDto;
 
-  const SuggestionsCarousel({required this.statsDto});
+  const SuggestionsCarousel({super.key, required this.statsDto});
 
+  @override
+  State<SuggestionsCarousel> createState() => _SuggestionsCarouselState();
+}
+
+class _SuggestionsCarouselState extends State<SuggestionsCarousel> {
+  int _current = 0;
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
-    List<Map<String, String>> suggestionsMaps = extractSuggestions(statsDto);
+    List<Map<String, String>> suggestionsMaps =
+        extractSuggestions(widget.statsDto);
 
-    return CarouselSlider(
-      options: CarouselOptions(),
-      items: suggestionsMaps.map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            String positiveOrNegative = i.keys.first;
-            String suggestionText = i.values.first;
+    return Column(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(onPageChanged: (index, reason) {
+            setState(() {
+              _current = index;
+            });
+          }),
+          items: suggestionsMaps.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                String positiveOrNegative = i.keys.first;
+                String suggestionText = i.values.first;
+                return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: positiveOrNegative == ('Positive')
+                          ? theme.themeData.splashColor
+                          : suggestionText == ('Negative')
+                              ? theme.themeData.cardColor
+                              : theme.themeData.cardColor,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+                          child: Text(
+                            suggestionText,
+                            textAlign: TextAlign.center,
+                            style: positiveOrNegative == 'Positive'
+                                ? theme.themeData.textTheme.displaySmall?.merge(
+                                    const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold))
+                                : theme.themeData.textTheme.bodySmall?.merge(
+                                    const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Icon(
+                            positiveOrNegative == 'Positive'
+                                ? Icons.sentiment_very_satisfied
+                                : Icons.insert_chart,
+                            size: 40,
+                            color: positiveOrNegative == 'Positive'
+                                ? theme.themeData.primaryColorLight
+                                : theme.themeData.primaryColorDark,
+                          ),
+                        ),
+                      ],
+                    ));
+              },
+            );
+          }).toList(),
+        ),
+        // reference - indicator for carousel
+        // taken from https://github.com/Rapid-Technology/flutter_carousel_slider/blob/master/lib/CarouselWithDotsPage.dart
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: suggestionsMaps.map((url) {
+            int index = suggestionsMaps.indexOf(url);
             return Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: positiveOrNegative == ('Positive')
-                      ? theme.themeData.splashColor
-                      : suggestionText == ('Negative')
-                          ? theme.themeData.cardColor
-                          : theme.themeData.cardColor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-                      child: Text(
-                        suggestionText,
-                        textAlign: TextAlign.center,
-                        style: positiveOrNegative == 'Positive'
-                            ? theme.themeData.textTheme.displaySmall?.merge(
-                                const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold))
-                            : theme.themeData.textTheme.bodySmall?.merge(
-                                const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Icon(
-                        positiveOrNegative == 'Positive'
-                            ? Icons.sentiment_very_satisfied
-                            : Icons.insert_chart,
-                        size: 40,
-                        color: positiveOrNegative == 'Positive'
-                            ? theme.themeData.primaryColorLight
-                            : theme.themeData.primaryColorDark,
-                      ),
-                    ),
-                  ],
-                ));
-          },
-        );
-      }).toList(),
+              width: 8,
+              height: 8,
+              margin: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 3,
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _current == index
+                    ? const Color.fromRGBO(0, 0, 0, 0.9)
+                    : const Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            );
+          }).toList(),
+        )
+        // end of reference
+      ],
     );
   }
 
