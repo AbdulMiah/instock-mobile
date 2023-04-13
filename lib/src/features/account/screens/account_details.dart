@@ -128,7 +128,6 @@ class _AccountDetailsState extends State<AccountDetails> {
                           enable: false,
                           text: 'Password',
                           initialValue: "**********",
-                          icon: Icons.edit,
                           theme: theme.themeData,
                           validators: const [
                             Validators.notNull,
