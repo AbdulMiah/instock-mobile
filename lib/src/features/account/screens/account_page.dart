@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/account/screens/account_details.dart';
@@ -9,9 +8,7 @@ import 'package:instock_mobile/src/features/account/screens/notifications.dart';
 import 'package:instock_mobile/src/features/account/screens/payment_details.dart';
 import 'package:instock_mobile/src/features/account/screens/terms_privacy.dart';
 import 'package:instock_mobile/src/features/account/services/user_service.dart';
-import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
-import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
-import 'package:instock_mobile/src/utilities/objects/response_object.dart';
+import 'package:instock_mobile/src/features/account/widgets/logout_dialog.dart';
 import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
@@ -19,8 +16,6 @@ import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/no_internet_page.dart';
 import '../../../utilities/widgets/wave.dart';
-import '../../auth_check.dart';
-import '../../authentication/services/interfaces/Iauthentication_service.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -30,31 +25,13 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  final IAuthenticationService _authenticationService = AuthenticationService();
   final UserService _userService = UserService();
-  String _content = "";
 
   redirectToPage(Widget page) {
     Navigator.push(
       context,
       PageRouteAnimation(page: page)
     );
-  }
-
-  logOut() async {
-    ResponseObject response = await _authenticationService.logOut();
-    if (response.requestSuccess!) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        PageRouteAnimation(page: AuthCheck(const NavBar()), swipeLeft: true),
-            (route) => false,
-      );
-      //  I would literally never expect this to happen
-    } else {
-      setState(() {
-        _content = "Something went wrong please try again";
-      });
-    }
   }
 
   void refreshPage() {
@@ -210,51 +187,11 @@ class _AccountPageState extends State<AccountPage> {
                               InStockButton(
                                 text: "Log Out",
                                 onPressed: () async {
-                                  setState(() {
-                                    _content = "";
-                                  });
                                   await showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text(
-                                          "Are you sure you want to Log Out?",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Text(_content),
-                                        actions: [
-                                          Divider(
-                                              color: theme.themeData
-                                                  .primaryColorDark),
-                                          CupertinoDialogAction(
-                                            child: Text("Log Out",
-                                                style: theme
-                                                    .themeData.textTheme
-                                                    .labelMedium
-                                                    ?.copyWith(
-                                                    color: theme
-                                                        .themeData
-                                                        .highlightColor)),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              logOut();
-                                            },
-                                          ),
-                                          Divider(
-                                              color: theme.themeData
-                                                  .primaryColorDark),
-                                          CupertinoDialogAction(
-                                            child: Text("Cancel",
-                                                style: theme
-                                                    .themeData.textTheme
-                                                    .bodySmall),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                      return LogoutDialog(theme: theme);
+                                    }
                                   );
                                 },
                                 theme: theme.themeData,
