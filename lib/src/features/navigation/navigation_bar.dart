@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:instock_mobile/src/features/account/account_page.dart';
+import 'package:instock_mobile/src/features/account/screens/account_page.dart';
 import 'package:instock_mobile/src/features/inventory/screens/add_item_page.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 import 'package:instock_mobile/src/features/stats/screens/stats_page.dart';

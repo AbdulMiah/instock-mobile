@@ -113,7 +113,7 @@ class _InStockTextInputState extends State<InStockTextInput> {
                   decoration: InputDecoration(
                     prefixIcon: widget.icon != null ? Icon(widget.icon) : null,
                     prefixIconConstraints:
-                        BoxConstraints.loose(Size.fromWidth(1000)),
+                        BoxConstraints.loose(const Size.fromWidth(1000)),
                     prefixIconColor: widget.theme.primaryColorDark,
                     errorStyle: widget.theme.textTheme.headlineSmall,
                     errorMaxLines: 5,

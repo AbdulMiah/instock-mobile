@@ -12,6 +12,7 @@ import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/validation/validators.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
+import '../../../utilities/widgets/page_route_animation.dart';
 import '../../../utilities/widgets/wave.dart';
 
 class AddBusiness extends StatefulWidget {
@@ -43,7 +44,7 @@ class _AddBusinessState extends State<AddBusiness> {
       if (response.requestSuccess!) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const NavBar()),
+          PageRouteAnimation(page: const NavBar()),
           (route) => false,
         );
       } else if (response.hasErrors()) {

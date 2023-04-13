@@ -29,6 +29,7 @@ class SecureStorageService implements ISecureStorageService {
   }
 
   // Read all values
+  @override
   Future<Map<String, String>> getAll() async {
     Map<String, String> allValues =
         await storage.readAll(aOptions: _getAndroidOptions());

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/item_details_page.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
+import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 
 class InventoryItem extends StatefulWidget {
   const InventoryItem({super.key, required this.item, required this.refreshFunc});
@@ -16,11 +17,7 @@ class InventoryItem extends StatefulWidget {
 class _InventoryItemState extends State<InventoryItem> {
   void redirectToItemDetails() {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ItemDetails(
-          item: widget.item,
-        ),
-      ),
+      PageRouteAnimation(page: ItemDetails(item: widget.item))
     ).then((value) {
       if (value) {
         widget.refreshFunc();
