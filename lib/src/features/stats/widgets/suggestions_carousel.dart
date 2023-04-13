@@ -15,7 +15,7 @@ class SuggestionsCarousel extends StatelessWidget {
     List<Map<String, String>> suggestionsMaps = extractSuggestions(statsDto);
 
     return CarouselSlider(
-      options: CarouselOptions(height: 400.0),
+      options: CarouselOptions(),
       items: suggestionsMaps.map((i) {
         return Builder(
           builder: (BuildContext context) {
@@ -23,18 +23,45 @@ class SuggestionsCarousel extends StatelessWidget {
             String suggestionText = i.values.first;
             return Container(
                 width: MediaQuery.of(context).size.width,
-                height: null,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   color: positiveOrNegative == ('Positive')
                       ? theme.themeData.splashColor
                       : suggestionText == ('Negative')
                           ? theme.themeData.cardColor
                           : theme.themeData.cardColor,
                 ),
-                child: Text(
-                  suggestionText,
-                  style: TextStyle(fontSize: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+                      child: Text(
+                        suggestionText,
+                        textAlign: TextAlign.center,
+                        style: positiveOrNegative == 'Positive'
+                            ? theme.themeData.textTheme.displaySmall?.merge(
+                                const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold))
+                            : theme.themeData.textTheme.bodySmall?.merge(
+                                const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Icon(
+                        positiveOrNegative == 'Positive'
+                            ? Icons.sentiment_very_satisfied
+                            : Icons.insert_chart,
+                        size: 40,
+                        color: positiveOrNegative == 'Positive'
+                            ? theme.themeData.primaryColorLight
+                            : theme.themeData.primaryColorDark,
+                      ),
+                    ),
+                  ],
                 ));
           },
         );
