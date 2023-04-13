@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/account/data/user_dto.dart';
 import 'package:instock_mobile/src/features/account/screens/account_details.dart';
 import 'package:instock_mobile/src/features/account/screens/contact_us.dart';
+import 'package:instock_mobile/src/features/account/screens/notifications.dart';
+import 'package:instock_mobile/src/features/account/screens/payment_details.dart';
+import 'package:instock_mobile/src/features/account/screens/terms_privacy.dart';
 import 'package:instock_mobile/src/features/account/services/user_service.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
@@ -150,7 +153,7 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             InStockButton(
                                 onPressed: () {
-
+                                  redirectToPage(const Notifications());
                                 },
                                 text: "Notifications",
                                 theme: theme.themeData,
@@ -160,7 +163,7 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             InStockButton(
                                 onPressed: () {
-
+                                  redirectToPage(const PaymentDetails());
                                 },
                                 text: "Payment Details",
                                 theme: theme.themeData,
@@ -170,7 +173,7 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             InStockButton(
                                 onPressed: () {
-
+                                  redirectToPage(const TermsPrivacy());
                                 },
                                 text: "Terms & Privacy",
                                 theme: theme.themeData,
