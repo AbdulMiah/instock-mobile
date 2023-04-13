@@ -48,9 +48,9 @@ class _LoginState extends State<Login> {
       ResponseObject response =
           await authenticationService.authenticateUser(_email!, _password!);
 
-      bool doesBusinessExist = await businessService.doesBusinessExist();
 
       if (response.statusCode == 200) {
+        bool doesBusinessExist = await businessService.doesBusinessExist();
         if (!doesBusinessExist) {
           // Go to Add Business page if user has no business
           Navigator.push(
