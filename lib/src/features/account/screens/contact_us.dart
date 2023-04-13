@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/account/data/email_dto.dart';
 import 'package:instock_mobile/src/features/account/screens/account_page.dart';
 import 'package:instock_mobile/src/features/account/services/email_service.dart';
 
@@ -31,7 +32,12 @@ class _ContactUsState extends State<ContactUs> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      ResponseObject response = await _contactUsService.sendMessage(_topic!, _message!);
+      EmailDto emailDto = EmailDto(
+          topic: _topic!,
+          message: _message!
+      );
+
+      ResponseObject response = await _contactUsService.sendMessage(emailDto);
 
       if (response.statusCode == 200) {
         setState(() {
