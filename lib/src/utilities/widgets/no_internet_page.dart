@@ -39,7 +39,7 @@ class _NoInternetPageState extends State<NoInternetPage> {
           ),
           InStockButton(
             onPressed: () {
-              widget.refreshFunc!();
+              widget.refreshFunc();
             },
             theme: theme.themeData,
             colorOption: InStockButton.primary,
