@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/navigation/navigation_bar.dart';
+import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -53,7 +54,7 @@ class _AddItemState extends State<AddItem> {
       if (response.statusCode == 201) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const NavBar()),
+          PageRouteAnimation(page: const NavBar(), swipeLeft: true),
         );
       } else if (response.statusCode == 401) {
         setState(() {

@@ -46,7 +46,7 @@ class _AccountPageState extends State<AccountPage> {
     if (response.requestSuccess!) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => AuthCheck(const NavBar())),
+        PageRouteAnimation(page: AuthCheck(const NavBar()), swipeLeft: true),
             (route) => false,
       );
       //  I would literally never expect this to happen

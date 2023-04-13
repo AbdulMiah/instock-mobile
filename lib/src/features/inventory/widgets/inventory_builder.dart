@@ -8,6 +8,7 @@ import 'package:instock_mobile/src/features/inventory/services/inventory_service
 import 'package:instock_mobile/src/features/inventory/widgets/horizontal_category_list.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_search_bar.dart';
 import 'package:instock_mobile/src/utilities/widgets/no_internet_page.dart';
+import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../theme/common_theme.dart';
@@ -94,7 +95,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
       // Go to Add Business page if user has no business
       Navigator.pushAndRemoveUntil<void>(
         context,
-        MaterialPageRoute<void>(builder: (context) => const AddBusiness()),
+        PageRouteAnimation(page: const AddBusiness()),
             (route) => false,
       );
     }
