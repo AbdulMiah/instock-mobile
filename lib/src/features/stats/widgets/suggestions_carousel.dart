@@ -72,79 +72,96 @@ class SuggestionsCarousel extends StatelessWidget {
   List<Map<String, String>> extractSuggestions(StatsDto statsDto) {
     List<Map<String, String>> res = [];
     for (var key in statsDto.suggestions.keys) {
+      print("key: $key");
       // if there is a suggestion
       if (statsDto.suggestions[key].length > 0) {
         switch (key) {
           case "bestSellingItem":
             String sales = statsDto.suggestions[key].keys.first;
-            String itemName = statsDto.suggestions[key][sales]["name"];
-            String suggestion =
-                "With $sales sales, $itemName is your best seller!";
-            Map<String, String> sugMap = {
-              'Positive': suggestion,
-            };
-            res.add(sugMap);
+            if (statsDto.suggestions[key][sales] != null) {
+              String itemName = statsDto.suggestions[key][sales]["name"];
+              String suggestion =
+                  "With $sales sales, $itemName is your best seller!";
+              Map<String, String> sugMap = {
+                'Positive': suggestion,
+              };
+              res.add(sugMap);
+            }
             break;
           case "worstSellingItem":
             String sales = statsDto.suggestions[key].keys.first;
-            String itemName = statsDto.suggestions[key][sales]["name"];
-            String suggestion =
-                "With $sales sales, $itemName is your worst seller";
-            Map<String, String> sugMap = {
-              'Negative': suggestion,
-            };
-            res.add(sugMap);
+            if (statsDto.suggestions[key][sales] != null) {
+              String itemName = statsDto.suggestions[key][sales]["name"];
+              String suggestion =
+                  "With $sales sales, $itemName is your worst seller";
+              Map<String, String> sugMap = {
+                'Negative': suggestion,
+              };
+              res.add(sugMap);
+            }
+
             break;
           case "itemToRestock":
             String ratio = statsDto.suggestions[key].keys.first;
-            String itemName = statsDto.suggestions[key][ratio]["name"];
-            String suggestion =
-                "$itemName is flying off the shelves! We predict this will be "
-                "your next item to run out of stock. Better restock soon!";
-            Map<String, String> sugMap = {
-              'Positive': suggestion,
-            };
-            res.add(sugMap);
+            if (statsDto.suggestions[key][ratio] != null) {
+              String itemName = statsDto.suggestions[key][ratio]["name"];
+              String suggestion =
+                  "$itemName is flying off the shelves! We predict this will be "
+                  "your next item to run out of stock. Better restock soon!";
+              Map<String, String> sugMap = {
+                'Positive': suggestion,
+              };
+              res.add(sugMap);
+            }
             break;
           case "longestNoSales":
             String days = statsDto.suggestions[key].keys.first;
-            String itemName = statsDto.suggestions[key][days]["name"];
-            String suggestion =
-                "$itemName hasn't sold in $days. People don't know what they're missing!";
-            Map<String, String> sugMap = {
-              'Negative': suggestion,
-            };
-            res.add(sugMap);
+            if (statsDto.suggestions[key][days] != null) {
+              String itemName = statsDto.suggestions[key][days]["name"];
+              String suggestion =
+                  "$itemName hasn't sold in $days. People don't know what they're missing!";
+              Map<String, String> sugMap = {
+                'Negative': suggestion,
+              };
+              res.add(sugMap);
+            }
             break;
           case "bestSellingCategory":
             String sales = statsDto.suggestions[key].keys.first;
-            String category = statsDto.suggestions[key][sales];
-            String suggestion =
-                "With $sales sales, $category is your best selling category!";
-            Map<String, String> sugMap = {
-              'Positive': suggestion,
-            };
-            res.add(sugMap);
+            if (statsDto.suggestions[key][sales] != null) {
+              String category = statsDto.suggestions[key][sales];
+              String suggestion =
+                  "With $sales sales, $category is your best selling category!";
+              Map<String, String> sugMap = {
+                'Positive': suggestion,
+              };
+              res.add(sugMap);
+            }
             break;
           case "worstSellingCategory":
             String sales = statsDto.suggestions[key].keys.first;
-            String category = statsDto.suggestions[key][sales];
-            String suggestion =
-                "With $sales sales, $category is not a popular category";
-            Map<String, String> sugMap = {
-              'Negative': suggestion,
-            };
-            res.add(sugMap);
+            if (statsDto.suggestions[key][sales] != null &&
+                statsDto.suggestions[key][sales] != "No Categories Found") {
+              String category = statsDto.suggestions[key][sales];
+              String suggestion =
+                  "With $sales sales, $category is not a popular category";
+              Map<String, String> sugMap = {
+                'Negative': suggestion,
+              };
+              res.add(sugMap);
+            }
             break;
           case "mostReturns":
             String returns = statsDto.suggestions[key].keys.first;
-            String itemName = statsDto.suggestions[key][returns]["name"];
-            String suggestion =
-                "$itemName has had $returns returns. This is your most returned item.";
-            Map<String, String> sugMap = {
-              'Negative': suggestion,
-            };
-            res.add(sugMap);
+            if (statsDto.suggestions[key][returns]["name"] != null) {
+              String itemName = statsDto.suggestions[key][returns]["name"];
+              String suggestion =
+                  "$itemName has had $returns returns. This is your most returned item.";
+              Map<String, String> sugMap = {
+                'Negative': suggestion,
+              };
+              res.add(sugMap);
+            }
             break;
         }
       }
