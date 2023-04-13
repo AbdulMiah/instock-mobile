@@ -58,13 +58,13 @@ void main() {
   testWidgets('Input validators catch errors', (tester) async {
     //Given
     CommonTheme commonTheme = CommonTheme();
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
             body: Form(
-          key: _formKey,
+          key: formKey,
           child: InStockTextInput(
             text: 'Test Input',
             theme: commonTheme.themeData,
@@ -81,7 +81,7 @@ void main() {
     );
 
     //When
-    _formKey.currentState!.validate();
+    formKey.currentState!.validate();
     await tester.pumpAndSettle();
     final textFinder = find.text("This field is required");
 
@@ -97,13 +97,13 @@ void main() {
     }
 
     CommonTheme commonTheme = CommonTheme();
-    final _formKey = GlobalKey<FormState>();
+    final formKey0 = GlobalKey<FormState>();
 
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
             body: Form(
-          key: _formKey,
+          key: formKey0,
           child: InStockTextInput(
             text: 'Test Input',
             theme: commonTheme.themeData,
@@ -118,7 +118,7 @@ void main() {
     );
 
     //When
-    _formKey.currentState!.save();
+    formKey0.currentState!.save();
     await tester.pumpAndSettle();
 
     //Then

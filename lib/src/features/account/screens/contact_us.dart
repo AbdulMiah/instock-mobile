@@ -94,7 +94,7 @@ class _ContactUsState extends State<ContactUs> {
                             top: MediaQuery.of(context).size.height * 0.05 - 2,
                             child: const InStockWave(),
                           ),
-                          Positioned(
+                          const Positioned(
                               top: 10,
                               left: 10,
                               child: InStockBackButton(

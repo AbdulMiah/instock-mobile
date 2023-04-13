@@ -70,7 +70,7 @@ class _SignUpState extends State<SignUp> {
         // remove navigation stack and push
         Navigator.pushAndRemoveUntil<void>(
           context,
-          PageRouteAnimation(page: AddBusiness()),
+          PageRouteAnimation(page: const AddBusiness()),
           (route) => false,
         );
       } else if (response.statusCode == 404) {
@@ -106,7 +106,7 @@ class _SignUpState extends State<SignUp> {
         child: Text(_signUpError!, style: theme.textTheme.headlineSmall),
       );
     }
-    return Text("");
+    return const Text("");
   }
 
   @override
@@ -119,7 +119,7 @@ class _SignUpState extends State<SignUp> {
         value: SystemUiOverlayStyle.light
             .copyWith(statusBarColor: theme.themeData.splashColor),
         child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -146,7 +146,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                       ),
-                      Positioned(
+                      const Positioned(
                           top: 10,
                           left: 10,
                           child: InStockBackButton(
@@ -156,7 +156,7 @@ class _SignUpState extends State<SignUp> {
                       Positioned(
                         width: MediaQuery.of(context).size.width,
                         top: MediaQuery.of(context).size.height * 0.18 - 2,
-                        child: InStockWave(),
+                        child: const InStockWave(),
                       )
                     ],
                   ),
