@@ -50,7 +50,7 @@ class _ContactUsState extends State<ContactUs> {
       return Text(_error!, style: theme.textTheme.headlineSmall);
     }
     if (_success != null) {
-      return Text(_success!, style: theme.textTheme.labelSmall);
+      return Text(_success!, style: theme.textTheme.labelMedium);
     }
     return const Text("");
   }
