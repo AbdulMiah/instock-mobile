@@ -1,11 +1,26 @@
+import 'dart:io';
+
 class SignUpDto {
-  String firstName;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String password;
+  final File? imageFile;
 
-  String lastName;
+  const SignUpDto({
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.password,
+    this.imageFile
+  });
 
-  String email;
-
-  String password;
-
-  SignUpDto(this.firstName, this.lastName, this.email, this.password);
+  Map<String, String> toJson() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'password': password,
+    };
+  }
 }

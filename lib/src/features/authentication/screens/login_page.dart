@@ -5,6 +5,7 @@ import 'package:instock_mobile/src/features/authentication/screens/welcome_page.
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/business/screens/add_business_page.dart';
 import 'package:instock_mobile/src/features/business/services/business_service.dart';
+import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/objects/response_object.dart';
@@ -51,20 +52,20 @@ class _LoginState extends State<Login> {
       ResponseObject response =
           await authenticationService.authenticateUser(loginDto);
 
-      bool doesBusinessExist = await businessService.doesBusinessExist();
 
       if (response.statusCode == 200) {
+        bool doesBusinessExist = await businessService.doesBusinessExist();
         if (!doesBusinessExist) {
           // Go to Add Business page if user has no business
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AddBusiness())
+              PageRouteAnimation(page: const AddBusiness()),
           );
         } else {
           // remove navigation stack and push
           Navigator.pushAndRemoveUntil<void>(
             context,
-            MaterialPageRoute<void>(builder: (context) => const NavBar()),
+            PageRouteAnimation(page: const NavBar()),
                 (route) => false,
           );
         }
