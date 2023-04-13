@@ -49,11 +49,14 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
     // Pass connections list up to parent widget
 
     if (connectionsList.errorNotification.hasErrors) {
-      return setState(() {
+      print("Whoopsy");
+      print(_content);
+      setState(() {
         _content = connectionsList.errorNotification.getFirstErrorMessage();
       });
+      // Navigator.pop(dialogContext);
     } else {
-      Navigator.pop(dialogContext);
+      // Navigator.pop(dialogContext);
       print("Submitted");
       setState(() {
         _connected = true;
@@ -132,10 +135,10 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                                   content: _content,
                                   themeData: theme.themeData,
                                   onUsernameChanged: (String? value) {
-                                    _username = value!;
+                                    _username = value!.trim();
                                   },
                                   onPasswordChanged: (String? value) {
-                                    _password = value!;
+                                    _password = value!.trim();
                                   },
                                   onSubmit: () {
                                     print("=== Data ====");

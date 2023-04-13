@@ -19,7 +19,7 @@ class _ShopConnectionListState extends State<ShopConnectionList> {
     BusinessConnectionsDto connectionsList =
         await shopConnectionService.getBusinessesCurrentConnections();
 
-    connectionsList.connections.forEach((connection) {
+    connectionsList.connections!.forEach((connection) {
       print(connection.platformName);
     });
     return connectionsList;

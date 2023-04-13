@@ -3,8 +3,8 @@ import 'package:instock_mobile/src/features/business/data/shop_connections_dto.d
 import '../../../utilities/data/error_notification.dart';
 
 class BusinessConnectionsDto {
-  final String businessId;
-  final List<ConnectionDto> connections;
+  final String? businessId;
+  final List<ConnectionDto>? connections;
   final ErrorNotification errorNotification;
 
   BusinessConnectionsDto({
@@ -13,14 +13,30 @@ class BusinessConnectionsDto {
     required this.errorNotification,
   });
 
+  // This unholy factory is the result of error handling for the error notification pattern
   factory BusinessConnectionsDto.fromJson(Map<String, dynamic> json) {
-    return BusinessConnectionsDto(
-      businessId: json['businessId'],
-      connections: (json['connections'] as List)
-          .map((connectionJson) => ConnectionDto.fromJson(connectionJson))
-          .toList(),
-      errorNotification: ErrorNotification.fromJson(json['errorNotification']),
-    );
+    if (json['hasErrors'] == true) {
+      Map<String, dynamic>? errorsJson = json['errors'];
+      return BusinessConnectionsDto(
+        businessId: null,
+        connections: [],
+        errorNotification: ErrorNotification(
+          errors: errorsJson ?? {},
+          hasErrors: true,
+        ),
+      );
+    } else {
+      return BusinessConnectionsDto(
+        businessId: json['businessId'],
+        connections: (json['connections'] as List)
+            .map((connectionJson) => ConnectionDto.fromJson(connectionJson))
+            .toList(),
+        errorNotification: ErrorNotification(
+          errors: {},
+          hasErrors: false,
+        ),
+      );
+    }
   }
 
   @override
