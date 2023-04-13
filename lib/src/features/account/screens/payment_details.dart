@@ -63,6 +63,15 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.92,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[
+                          Text("Coming Soon!"),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               )
