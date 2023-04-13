@@ -5,6 +5,7 @@ import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/instock_text_input.dart';
 
 class ShopSignInAlert extends StatelessWidget {
+  final String shopTitle;
   final String? content;
   final ThemeData themeData;
   final ValueChanged<String?> onUsernameChanged;
@@ -12,6 +13,7 @@ class ShopSignInAlert extends StatelessWidget {
   final VoidCallback onSubmit;
 
   ShopSignInAlert({
+    required this.shopTitle,
     required this.content,
     required this.themeData,
     required this.onUsernameChanged,
@@ -23,8 +25,8 @@ class ShopSignInAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        "Sign In To Mock Shop?",
+      title: Text(
+        "Sign In To $shopTitle",
         textAlign: TextAlign.center,
       ),
       content: content == null ? null : Text(content!),

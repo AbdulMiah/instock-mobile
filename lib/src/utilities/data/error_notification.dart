@@ -13,4 +13,14 @@ class ErrorNotification {
       hasErrors: json['hasErrors'],
     );
   }
+
+  String? getFirstErrorMessage() {
+    if (errors != null && errors.isNotEmpty) {
+      for (String errorKey in errors.keys) {
+        String errorValue = errors[errorKey];
+        return errorValue;
+      }
+    }
+    return null;
+  }
 }

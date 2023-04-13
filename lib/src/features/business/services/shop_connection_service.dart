@@ -58,5 +58,12 @@ class ShopConnectionService {
       },
       body: addShopConnectionDto.toJson(),
     );
+
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+
+    BusinessConnectionsDto connections =
+        BusinessConnectionsDto.fromJson(jsonResponse);
+
+    return connections;
   }
 }

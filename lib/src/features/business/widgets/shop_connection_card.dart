@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/business/data/add_shop_connection_dto.dart';
 import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_alert.dart';
 import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_success_alert.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
+import '../data/business_shop_connections_dto.dart';
+import '../services/shop_connection_service.dart';
 
 class ShopConnectionCard extends StatefulWidget {
   final String title;
@@ -24,6 +27,7 @@ class ShopConnectionCard extends StatefulWidget {
 }
 
 class _ShopConnectionCardState extends State<ShopConnectionCard> {
+  ShopConnectionService shopConnectionService = ShopConnectionService();
   String? _content = "";
   bool _connected = false;
   String _username = "";
@@ -31,24 +35,39 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
 
   // String _pass
 
-  handleShopLoginRequest(BuildContext dialogContext, ThemeData themeData) {
+  handleShopLoginRequest(AddShopConnectionDto addShopConnectionDto,
+      BuildContext dialogContext, ThemeData themeData) async {
     // Closes the AlertDialog
     //CODE FOR HANDLING SERVICE GOES HERE
+    print("Handling shop login request");
+    print(addShopConnectionDto.platformName);
+    print(addShopConnectionDto.shopUsername);
+    print(addShopConnectionDto.shopUserPassword);
 
-    Navigator.pop(dialogContext);
-    print("Submitted");
-    setState(() {
-      _connected = true;
-    });
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return ShopSignInSuccessAlert(
-          text: "You are connected to ${widget.title}",
-          themeData: themeData,
-        );
-      },
-    );
+    BusinessConnectionsDto connectionsList =
+        await shopConnectionService.addShopConnection(addShopConnectionDto);
+    // Pass connections list up to parent widget
+
+    if (connectionsList.errorNotification.hasErrors) {
+      return setState(() {
+        _content = connectionsList.errorNotification.getFirstErrorMessage();
+      });
+    } else {
+      Navigator.pop(dialogContext);
+      print("Submitted");
+      setState(() {
+        _connected = true;
+      });
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ShopSignInSuccessAlert(
+            text: "You are connected to ${widget.title}",
+            themeData: themeData,
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -109,17 +128,31 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                               context: context,
                               builder: (BuildContext context) {
                                 return ShopSignInAlert(
-                                  content: '',
+                                  shopTitle: widget.title,
+                                  content: _content,
                                   themeData: theme.themeData,
                                   onUsernameChanged: (String? value) {
-                                    print(value);
+                                    _username = value!;
                                   },
                                   onPasswordChanged: (String? value) {
-                                    print(value);
+                                    _password = value!;
                                   },
                                   onSubmit: () {
+                                    print("=== Data ====");
+                                    print(_username);
+                                    print(_password);
+                                    AddShopConnectionDto addShopConnectionDto =
+                                        AddShopConnectionDto(
+                                      platformName: widget.title,
+                                      shopUsername: _username,
+                                      shopUserPassword: _password,
+                                    );
+
                                     handleShopLoginRequest(
-                                        context, theme.themeData);
+                                      addShopConnectionDto,
+                                      context,
+                                      theme.themeData,
+                                    );
                                   },
                                 );
                               },
