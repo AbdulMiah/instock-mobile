@@ -22,7 +22,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
   List<String>? _months = [];
-  int maxYAxis = 50;
+  int maxYAxis = 10;
 
   int touchedGroupIndex = -1;
 
@@ -31,29 +31,42 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
     List<BarChartGroupData> graphPoints = [];
     for (var year in widget.salesByMonth.keys) {
       Map<String, dynamic> salesYearDict = widget.salesByMonth[year];
-      Map<String, dynamic> deductionsYearDict = widget.deductionsByMonth[year];
+      Map<String, dynamic> deductionsYearDict = Map<String, dynamic>();
+      // add deductions if they exist
+      if (widget.deductionsByMonth[year] != null) {
+        deductionsYearDict = widget.deductionsByMonth[year];
+      }
+
       for (var month in salesYearDict.keys) {
         int? monthlySales = salesYearDict[month];
-        int? monthlyDeductions = deductionsYearDict[month];
+        // set deduction to 0 if there are none
+        int? monthlyDeductions = deductionsYearDict[month] ?? 0;
 
         int maxInt = max(monthlySales!, monthlyDeductions!);
+        String monthPlusYear = '$month $year';
 
+        // set max Y axis based on highest value
         if (maxInt > maxYAxis) {
           maxYAxis = (maxInt / 100).ceil() * 100;
         }
-
-        _months!.add(month);
-
         BarChartGroupData barGroup = makeGroupData(
             x, monthlySales!.toDouble(), monthlyDeductions!.toDouble());
-        graphPoints.add(barGroup);
 
+        _months!.add(monthPlusYear);
+        graphPoints.add(barGroup);
         x++;
       }
     }
 
-    rawBarGroups = graphPoints;
+    // only add 6 most recent months
+    _months = _months!.reversed
+        .toList()
+        .sublist(max(0, graphPoints.length - 6), graphPoints.length);
+    graphPoints = graphPoints.reversed
+        .toList()
+        .sublist(max(0, graphPoints.length - 6), graphPoints.length);
 
+    rawBarGroups = graphPoints;
     showingBarGroups = rawBarGroups;
   }
 
@@ -231,14 +244,15 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = _months;
+    var titlesReversed = _months;
+    Iterable<String>? titles = titlesReversed?.reversed;
 
     final Widget text = Text(
-      titles![value.toInt()],
+      titles!.elementAt(value.toInt()),
       style: const TextStyle(
         color: Color(0xff7589a2),
         fontWeight: FontWeight.bold,
-        fontSize: 14,
+        fontSize: 8,
       ),
     );
 
