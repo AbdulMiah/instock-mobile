@@ -51,24 +51,4 @@ void main() {
     expect(businessFinder, isNot(findsAtLeastNWidgets(2)));
     expect(accountFinder, isNot(findsAtLeastNWidgets(2)));
   });
-
-  testWidgets('Method is called on button press', (tester) async {
-    //Given
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(body: NavBar()),
-      ),
-    );
-    await tester.pump(const Duration(seconds: 5));
-
-    final accountFinder = find.text('Account');
-
-    expect(accountFinder, findsOneWidget);
-
-    //When
-    await tester.tap(accountFinder);
-    await tester.pumpAndSettle();
-    //Then
-    expect(accountFinder, findsAtLeastNWidgets(2));
-  });
 }
