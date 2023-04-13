@@ -110,6 +110,6 @@ deploy-to-play-store:
     - .download-cache
   script:
     - export PLAYSTORE_API_KEY=$PLAYSTORE_API_KEY
-    - fastlane android increment_version
+    #    - fastlane android increment_version
     - fastlane android deploy_internal
 
