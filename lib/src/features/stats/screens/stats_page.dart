@@ -125,14 +125,17 @@ class _StatsPageState extends State<StatsPage> {
                       lastSelected ??= dropdownItems.first;
                       _dropdownCategory = lastSelected!;
                       var categoryStats = statsDto.categoryStats;
-                      if (categoryStats.length == 0) {
+                      // If user has <5 sales, don't show stats
+                      var overallSales =
+                          statsDto.overallShopPerformance["Sale"];
+                      if (overallSales < 5) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.fromLTRB(15, 40, 15, 0),
                               child: Text(
-                                "Add some more items to get detailed statistics!",
+                                "We need at least 5 sales to provide statistics. Let's get selling!",
                                 style: theme.themeData.textTheme.bodyLarge
                                     ?.merge(const TextStyle(fontSize: 20)),
                                 textAlign: TextAlign.center,
