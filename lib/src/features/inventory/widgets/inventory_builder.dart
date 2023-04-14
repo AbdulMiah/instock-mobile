@@ -149,6 +149,10 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   onChanged: (value) {
                     filterSearchResults(value!);
                   },
+                  onClear: () {
+                    editingController.text = "";
+                    filterSearchResults(editingController.text);
+                  },
                 ),
               ),
               HorizontalCategoryList(
