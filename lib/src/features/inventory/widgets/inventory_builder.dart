@@ -7,10 +7,11 @@ import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/services/inventory_service.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/horizontal_category_list.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_search_bar.dart';
+import 'package:instock_mobile/src/utilities/widgets/no_internet_page.dart';
+import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../theme/common_theme.dart';
-import '../../../utilities/widgets/instock_button.dart';
 import '../../business/screens/add_business_page.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
@@ -94,7 +95,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
       // Go to Add Business page if user has no business
       Navigator.pushAndRemoveUntil<void>(
         context,
-        MaterialPageRoute<void>(builder: (context) => const AddBusiness()),
+        PageRouteAnimation(page: const AddBusiness()),
             (route) => false,
       );
     }
@@ -115,39 +116,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
             );
           }
           if (snapshot.error is SocketException) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "No Internet Connection",
-                    style: widget.theme.themeData.textTheme.bodyLarge
-                        ?.merge(const TextStyle(fontSize: 30)),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Please check your internet connection and try again",
-                    style: widget.theme.themeData.textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  InStockButton(
-                    onPressed: () {
-                      fetchData();
-                    },
-                    theme: widget.theme.themeData,
-                    colorOption: InStockButton.primary,
-                    text: "Try Again",
-                    icon: Icons.refresh,
-                  ),
-                ],
-              ),
-            );
+            return NoInternetPage(refreshFunc: fetchData);
           }
           if (snapshot.error is Exception) {
             return Center(

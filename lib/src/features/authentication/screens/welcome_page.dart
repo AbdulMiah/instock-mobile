@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:instock_mobile/src/features/authentication/screens/sign_up_page.dart';
+import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
@@ -18,14 +19,14 @@ class _WelcomeState extends State<Welcome> {
   redirectToLogin() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const Login()),
+      PageRouteAnimation(page: const Login()),
     );
   }
 
   redirectToSignUp() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SignUp()),
+      PageRouteAnimation(page: const SignUp()),
     );
   }
 
