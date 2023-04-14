@@ -110,7 +110,7 @@ class _SuggestionsCarouselState extends State<SuggestionsCarousel> {
   }
 
   List<Map<String, String>> extractSuggestions(StatsDto statsDto) {
-    List<Map<String, String>> res = [];
+    List<Map<String, String>> suggestionsMap = [];
     for (var key in statsDto.suggestions.keys) {
       if (statsDto.suggestions[key] != null) {
         // if there is a suggestion
@@ -140,12 +140,12 @@ class _SuggestionsCarouselState extends State<SuggestionsCarousel> {
               break;
           }
           if (sugMap != null) {
-            res.add(sugMap);
+            suggestionsMap.add(sugMap);
           }
         }
       }
     }
-    return res;
+    return suggestionsMap;
   }
 
   Map<String, String>? _bestSellingItem(Map<String, dynamic> data) {
