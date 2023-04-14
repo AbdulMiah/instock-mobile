@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hold_down_button/hold_down_button.dart';
 import 'package:instock_mobile/src/features/inventory/data/stock_update_dto.dart';
 import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 import 'package:instock_mobile/src/features/inventory/services/reason_for_change_enum.dart';
@@ -118,49 +119,69 @@ class _StockEditorState extends State<StockEditor> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockButton(
-                      text: "-10",
-                      onPressed: () {
-                        updateChangeStockAmountBy(-10);
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.primary),
+                  child: HoldDownButton(
+                    onHoldDown: () {
+                      updateChangeStockAmountBy(-10);
+                    },
+                    child: InStockButton(
+                        text: "-10",
+                        onPressed: () {
+                          updateChangeStockAmountBy(-10);
+                        },
+                        theme: theme.themeData,
+                        colorOption: InStockButton.primary),
+                  ),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockButton(
-                      text: "-1",
-                      onPressed: () {
-                        updateChangeStockAmountBy(-1);
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.primary),
+                  child: HoldDownButton(
+                    onHoldDown: () {
+                      updateChangeStockAmountBy(-1);
+                    },
+                    child: InStockButton(
+                        text: "-1",
+                        onPressed: () {
+                          updateChangeStockAmountBy(-1);
+                        },
+                        theme: theme.themeData,
+                        colorOption: InStockButton.primary),
+                  ),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockButton(
-                      text: "+1",
-                      onPressed: () {
-                        updateChangeStockAmountBy(1);
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.secondary),
+                  child: HoldDownButton(
+                    onHoldDown: () {
+                      updateChangeStockAmountBy(1);
+                    },
+                    child: InStockButton(
+                        text: "+1",
+                        onPressed: () {
+                          updateChangeStockAmountBy(1);
+                        },
+                        theme: theme.themeData,
+                        colorOption: InStockButton.secondary),
+                  ),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 4.0, 0),
-                  child: InStockButton(
-                      text: "+10",
-                      onPressed: () {
-                        updateChangeStockAmountBy(10);
-                      },
-                      theme: theme.themeData,
-                      colorOption: InStockButton.secondary),
+                  child: HoldDownButton(
+                    onHoldDown: () {
+                      updateChangeStockAmountBy(10);
+                    },
+                    child: InStockButton(
+                        text: "+10",
+                        onPressed: () {
+                          updateChangeStockAmountBy(10);
+                        },
+                        theme: theme.themeData,
+                        colorOption: InStockButton.secondary),
+                  ),
                 ),
               )
             ],

@@ -49,6 +49,7 @@ dependencies:
   firebase_messaging: ^14.3.0
   firebase_core: ^2.8.0
   get: ^4.6.5
+  hold_down_button: ^1.0.0
 
 dev_dependencies:
   flutter_test:
