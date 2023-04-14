@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/business/data/add_shop_connection_dto.dart';
 import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_alert.dart';
+import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_success_alert.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
@@ -129,34 +130,42 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                         await showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return ShopSignInAlert(
-                              shopTitle: widget.title,
-                              content: _content,
-                              themeData: theme.themeData,
-                              onUsernameChanged: (String? value) {
-                                _username = value!.trim();
-                              },
-                              onPasswordChanged: (String? value) {
-                                _password = value!.trim();
-                              },
-                              onSubmit: () {
-                                print("=== Data ====");
-                                print(_username);
-                                print(_password);
-                                AddShopConnectionDto addShopConnectionDto =
-                                    AddShopConnectionDto(
-                                  platformName: widget.title,
-                                  shopUsername: _username,
-                                  shopUserPassword: _password,
-                                );
+                            if (widget.connected) {
+                              return ShopSignInSuccessAlert(
+                                themeData: theme.themeData,
+                                text:
+                                    "You are already connected to ${widget.title}",
+                              );
+                            } else {
+                              return ShopSignInAlert(
+                                shopTitle: widget.title,
+                                content: _content,
+                                themeData: theme.themeData,
+                                onUsernameChanged: (String? value) {
+                                  _username = value!.trim();
+                                },
+                                onPasswordChanged: (String? value) {
+                                  _password = value!.trim();
+                                },
+                                onSubmit: () {
+                                  print("=== Data ====");
+                                  print(_username);
+                                  print(_password);
+                                  AddShopConnectionDto addShopConnectionDto =
+                                      AddShopConnectionDto(
+                                    platformName: widget.title,
+                                    shopUsername: _username,
+                                    shopUserPassword: _password,
+                                  );
 
-                                handleShopLoginRequest(
-                                  addShopConnectionDto,
-                                  context,
-                                  theme.themeData,
-                                );
-                              },
-                            );
+                                  handleShopLoginRequest(
+                                    addShopConnectionDto,
+                                    context,
+                                    theme.themeData,
+                                  );
+                                },
+                              );
+                            }
                           },
                         );
                       },

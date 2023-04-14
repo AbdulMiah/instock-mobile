@@ -59,11 +59,19 @@ class _ShopConnectionListState extends State<ShopConnectionList> {
                       'https://instock-shop-connection-icons.s3.eu-west-2.amazonaws.com/etsyLogo.jpeg',
                   description: 'For all things mocked and stocked',
                   connected: isConnected(snapshot.data!, "Mock Etsy"),
-                  onConnectionChanged: (bool connected) {
+                  onConnectionChanged: (bool connected) async {
                     print("Its connected");
                     setState(() {
                       connectedStates["mockshop"] = connected;
                     });
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ShopSignInSuccessAlert(
+                            themeData: theme.themeData,
+                            text: "Connected to Mock Etsy");
+                      },
+                    );
                   },
                 ),
 // ...
