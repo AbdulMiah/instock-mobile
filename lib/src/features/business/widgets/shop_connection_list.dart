@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/business/data/business_shop_connections_dto.dart';
 import 'package:instock_mobile/src/features/business/services/shop_connection_service.dart';
 import 'package:instock_mobile/src/features/business/widgets/shop_connection_card.dart';
+import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_success_alert.dart';
 
 import '../../../theme/common_theme.dart';
 
@@ -14,6 +15,7 @@ class ShopConnectionList extends StatefulWidget {
 
 class _ShopConnectionListState extends State<ShopConnectionList> {
   ShopConnectionService shopConnectionService = ShopConnectionService();
+  Map<String, bool> connectedStates = {};
 
   Future<BusinessConnectionsDto> getAvailableShopConnections() async {
     BusinessConnectionsDto connectionsList =
@@ -26,16 +28,13 @@ class _ShopConnectionListState extends State<ShopConnectionList> {
   }
 
   bool isConnected(connectionsList, platformName) {
-    // Generated using github co pilot
-    // only entered method name and if statement
-    // co pilot generated the rest (it even generated some of this comment
-    // as I was typing it).
-    print("Running");
     if (connectionsList.connections
         .any((connection) => connection.platformName == platformName)) {
       print("Connected to $platformName");
+      connectedStates[platformName] = true;
       return true;
     } else {
+      connectedStates[platformName] = false;
       return false;
     }
   }
@@ -59,17 +58,35 @@ class _ShopConnectionListState extends State<ShopConnectionList> {
                   imageUrl:
                       'https://instock-shop-connection-icons.s3.eu-west-2.amazonaws.com/etsyLogo.jpeg',
                   description: 'For all things mocked and stocked',
-                  connected: isConnected(snapshot.data!, "mockshop"),
+                  connected: isConnected(snapshot.data!, "Mock Etsy"),
+                  onConnectionChanged: (bool connected) {
+                    print("Its connected");
+                    setState(() {
+                      connectedStates["mockshop"] = connected;
+                    });
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 0),
-                  child: ShopConnectionCard(
-                    title: 'Mock Shopify',
-                    imageUrl:
-                        'https://instock-shop-connection-icons.s3.eu-west-2.amazonaws.com/shopifyLogo.png',
-                    description: 'Making a mockery of other business platforms',
-                    connected: isConnected(snapshot.data!, "mockmarket"),
-                  ),
+// ...
+                ShopConnectionCard(
+                  title: 'Mock Shopify',
+                  imageUrl:
+                      'https://instock-shop-connection-icons.s3.eu-west-2.amazonaws.com/shopifyLogo.png',
+                  description: 'Making a mockery of other business platforms',
+                  connected: isConnected(snapshot.data!, "Mock Shopify"),
+                  onConnectionChanged: (bool connected) async {
+                    print("Its connected");
+                    setState(() {
+                      connectedStates["mockmarket"] = connected;
+                    });
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ShopSignInSuccessAlert(
+                            themeData: theme.themeData,
+                            text: "Connected to Mock Shopify");
+                      },
+                    );
+                  },
                 ),
               ],
             ),

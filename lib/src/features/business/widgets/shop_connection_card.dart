@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/business/data/add_shop_connection_dto.dart';
 import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_alert.dart';
-import 'package:instock_mobile/src/features/business/widgets/shop_sign_in_success_alert.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
@@ -12,14 +11,16 @@ class ShopConnectionCard extends StatefulWidget {
   final String title;
   final String imageUrl;
   final String description;
-  final bool connected;
+  bool connected;
+  final Function(bool) onConnectionChanged;
 
-  const ShopConnectionCard({
+  ShopConnectionCard({
     Key? key,
     required this.title,
     required this.imageUrl,
     required this.description,
-    required this.connected,
+    this.connected = false,
+    required this.onConnectionChanged,
   }) : super(key: key);
 
   @override
@@ -28,12 +29,20 @@ class ShopConnectionCard extends StatefulWidget {
 
 class _ShopConnectionCardState extends State<ShopConnectionCard> {
   ShopConnectionService shopConnectionService = ShopConnectionService();
-  String? _content = "";
+
+  // Ref to value notifier https://medium.com/@avnishnishad/flutter-communication-between-widgets-using-valuenotifier-and-valuelistenablebuilder-b51ef627a58b
+  // we probably should've used this earlier
+  ValueNotifier<String> _content = ValueNotifier<String>("");
   bool _connected = false;
   String _username = "";
   String _password = "";
 
   // String _pass
+  @override
+  void initState() {
+    super.initState();
+    _connected = widget.connected;
+  }
 
   handleShopLoginRequest(AddShopConnectionDto addShopConnectionDto,
       BuildContext dialogContext, ThemeData themeData) async {
@@ -49,34 +58,25 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
     // Pass connections list up to parent widget
 
     if (connectionsList.errorNotification.hasErrors) {
-      print("Whoopsy");
-      print(_content);
-      setState(() {
-        _content = connectionsList.errorNotification.getFirstErrorMessage();
-      });
-      // Navigator.pop(dialogContext);
+      String error = connectionsList.errorNotification.getFirstErrorMessage()!;
+      if (error == "UNAUTHORIZED") {
+        _content.value = "Invalid username or password";
+      } else {
+        _content.value =
+            connectionsList.errorNotification.getFirstErrorMessage()!;
+      }
     } else {
-      // Navigator.pop(dialogContext);
       print("Submitted");
-      setState(() {
-        _connected = true;
-      });
-      return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ShopSignInSuccessAlert(
-            text: "You are connected to ${widget.title}",
-            themeData: themeData,
-          );
-        },
-      );
+      Navigator.pop(dialogContext);
+      _connected = true;
+      widget.onConnectionChanged(_connected);
+      if (mounted) {
+        print("======== ITS MOUNTED ===========");
+        setState(() {
+          widget.connected = true;
+        });
+      }
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _connected = widget.connected;
   }
 
   @override
@@ -120,63 +120,51 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                         style: theme.themeData.textTheme.bodySmall,
                         overflow: TextOverflow.fade),
                     InStockButton(
-                        icon: Icons.power_rounded,
-                        text: "Connect",
-                        onPressed: () async {
-                          setState(() {
-                            _content = "";
-                          });
-                          if (!_connected) {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ShopSignInAlert(
-                                  shopTitle: widget.title,
-                                  content: _content,
-                                  themeData: theme.themeData,
-                                  onUsernameChanged: (String? value) {
-                                    _username = value!.trim();
-                                  },
-                                  onPasswordChanged: (String? value) {
-                                    _password = value!.trim();
-                                  },
-                                  onSubmit: () {
-                                    print("=== Data ====");
-                                    print(_username);
-                                    print(_password);
-                                    AddShopConnectionDto addShopConnectionDto =
-                                        AddShopConnectionDto(
-                                      platformName: widget.title,
-                                      shopUsername: _username,
-                                      shopUserPassword: _password,
-                                    );
+                      icon: Icons.power_rounded,
+                      text: widget.connected ? "Connected" : "Connect",
+                      onPressed: () async {
+                        setState(() {
+                          _content.value = "";
+                        });
+                        await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ShopSignInAlert(
+                              shopTitle: widget.title,
+                              content: _content,
+                              themeData: theme.themeData,
+                              onUsernameChanged: (String? value) {
+                                _username = value!.trim();
+                              },
+                              onPasswordChanged: (String? value) {
+                                _password = value!.trim();
+                              },
+                              onSubmit: () {
+                                print("=== Data ====");
+                                print(_username);
+                                print(_password);
+                                AddShopConnectionDto addShopConnectionDto =
+                                    AddShopConnectionDto(
+                                  platformName: widget.title,
+                                  shopUsername: _username,
+                                  shopUserPassword: _password,
+                                );
 
-                                    handleShopLoginRequest(
-                                      addShopConnectionDto,
-                                      context,
-                                      theme.themeData,
-                                    );
-                                  },
+                                handleShopLoginRequest(
+                                  addShopConnectionDto,
+                                  context,
+                                  theme.themeData,
                                 );
                               },
                             );
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return ShopSignInSuccessAlert(
-                                  themeData: theme.themeData,
-                                  text:
-                                      "You are already connected to ${widget.title}.",
-                                  secondaryText:
-                                      "To disconnect please email us at InstockInventoryTeam@gmail.com",
-                                );
-                              },
-                            );
-                          }
-                        },
-                        theme: theme.themeData,
-                        colorOption: InStockButton.accent),
+                          },
+                        );
+                      },
+                      theme: theme.themeData,
+                      colorOption: widget.connected
+                          ? InStockButton.primary
+                          : InStockButton.accent,
+                    ),
                   ],
                 ),
               ),

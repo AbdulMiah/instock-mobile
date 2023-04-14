@@ -49,8 +49,6 @@ class ShopConnectionService {
 
     String url = ConfigService.url;
 
-    print("Getting here");
-
     final uri = Uri.parse('$url/businesses/$businessId/connections');
 
     final response = await client.post(
@@ -62,20 +60,10 @@ class ShopConnectionService {
       body: jsonEncode(addShopConnectionDto.toJson()),
     );
 
-    print("Raaaa");
-
-    print(response.statusCode);
-    print(response.body);
     Map<String, dynamic> jsonResponse = json.decode(response.body);
-
-    print("Weewoo");
-
-    print(jsonResponse);
 
     BusinessConnectionsDto connections =
         BusinessConnectionsDto.fromJson(jsonResponse);
-
-    print("Test");
 
     return connections;
   }

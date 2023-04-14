@@ -6,7 +6,10 @@ import '../../../utilities/widgets/instock_text_input.dart';
 
 class ShopSignInAlert extends StatelessWidget {
   final String shopTitle;
-  final String? content;
+
+  // Ref to value notifier https://medium.com/@avnishnishad/flutter-communication-between-widgets-using-valuenotifier-and-valuelistenablebuilder-b51ef627a58b
+  // we probably should've used this earlier
+  final ValueNotifier<String> content;
   final ThemeData themeData;
   final ValueChanged<String?> onUsernameChanged;
   final ValueChanged<String?> onPasswordChanged;
@@ -29,7 +32,20 @@ class ShopSignInAlert extends StatelessWidget {
         "Sign In To $shopTitle",
         textAlign: TextAlign.center,
       ),
-      content: content == null ? null : Text(content!),
+      content: ValueListenableBuilder<String>(
+        valueListenable: content,
+        builder: (BuildContext context, String value, Widget? child) {
+          // SizedBox.shrink() is a widget that has no size apparently
+          // better than using an empty container
+          return value.isEmpty
+              ? SizedBox.shrink()
+              : Text(
+                  value,
+                  style: themeData.textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
+                );
+        },
+      ),
       actions: [
         InStockTextInput(
           text: "Email / Username",
