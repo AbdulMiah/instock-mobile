@@ -6,6 +6,7 @@ import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
 import '../../../utilities/widgets/wave.dart';
+import '../../../utilities/widgets/welcome_animation.dart';
 import 'login_page.dart';
 
 class Welcome extends StatefulWidget {
@@ -64,6 +65,10 @@ class _WelcomeState extends State<Welcome> {
                             Text("A Small Business' Best Friend",
                                 style: theme.textTheme.displaySmall,
                                 textAlign: TextAlign.center),
+                            SizedBox(
+                                height: MediaQuery.of(context).size.width * 0.8,
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: const WelcomeAnimation()),
                           ]),
                         ),
                       ),

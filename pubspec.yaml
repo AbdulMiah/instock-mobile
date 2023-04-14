@@ -81,5 +81,6 @@ flutter:
     - lib/src/images/svgs/welcome_wave.svg
     - lib/src/images/animations/confirmed_tick.json
     - lib/src/images/animations/loading_spinner.json
+    - lib/src/images/animations/welcome_animation.json
 
 
