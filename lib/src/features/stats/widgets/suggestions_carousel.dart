@@ -112,7 +112,6 @@ class _SuggestionsCarouselState extends State<SuggestionsCarousel> {
   List<Map<String, String>> extractSuggestions(StatsDto statsDto) {
     List<Map<String, String>> res = [];
     for (var key in statsDto.suggestions.keys) {
-      print("key: $key");
       if (statsDto.suggestions[key] != null) {
         // if there is a suggestion
         if (statsDto.suggestions[key].length > 0) {
