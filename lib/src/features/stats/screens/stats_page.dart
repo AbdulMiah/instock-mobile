@@ -118,7 +118,6 @@ class _StatsPageState extends State<StatsPage> {
                       StatsDto statsDto = snapshot.data;
                       var suggestionsErrors = statsDto
                           .suggestions["errorNotification"]["hasErrors"];
-                      print("Suggestions errors: $suggestionsErrors");
                       // Set dropdown list to categories from request
                       List<String> dropdownItems = extractCategories(statsDto);
                       // If the user hasn't made a selection, default to first item
