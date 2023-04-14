@@ -25,6 +25,8 @@ class _CategoryStatsState extends State<CategoryStats> {
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();
+    final dropdownCategory =
+        widget.statsDto.categoryStats[widget.dropdownCategory];
     return Column(
       children: [
         Container(
@@ -33,8 +35,7 @@ class _CategoryStatsState extends State<CategoryStats> {
               borderRadius: BorderRadius.circular(5)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-                "Sales: ${widget.statsDto.categoryStats[widget.dropdownCategory]["Sale"]}",
+            child: Text("Sales: ${dropdownCategory["Sale"]}",
                 style: theme.themeData.textTheme.displayMedium
                     ?.merge(const TextStyle(fontSize: 24))),
           ),
@@ -48,16 +49,12 @@ class _CategoryStatsState extends State<CategoryStats> {
             StatsBox(
               theme: theme,
               stat: "Orders",
-              figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                      ["Order"] ??
-                  0,
+              figure: dropdownCategory["Order"] ?? 0,
             ),
             StatsBox(
               theme: theme,
               stat: "Returns",
-              figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                      ["Returned"] ??
-                  0,
+              figure: dropdownCategory["Returned"] ?? 0,
             ),
           ],
         ),
@@ -69,16 +66,12 @@ class _CategoryStatsState extends State<CategoryStats> {
               StatsBox(
                 theme: theme,
                 stat: "Giveaways",
-                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                        ["Giveaway"] ??
-                    0,
+                figure: dropdownCategory["Giveaway"] ?? 0,
               ),
               StatsBox(
                 theme: theme,
                 stat: "Damaged",
-                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                        ["Damaged"] ??
-                    0,
+                figure: dropdownCategory["Damaged"] ?? 0,
               ),
             ],
           ),
@@ -91,16 +84,12 @@ class _CategoryStatsState extends State<CategoryStats> {
               StatsBox(
                 theme: theme,
                 stat: "Restocked",
-                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                        ["Restock"] ??
-                    0,
+                figure: dropdownCategory["Restock"] ?? 0,
               ),
               StatsBox(
                 theme: theme,
                 stat: "Lost",
-                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
-                        ["Lost"]! ??
-                    0,
+                figure: dropdownCategory["Lost"]! ?? 0,
               ),
             ],
           ),
