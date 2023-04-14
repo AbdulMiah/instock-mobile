@@ -96,7 +96,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
       Navigator.pushAndRemoveUntil<void>(
         context,
         PageRouteAnimation(page: const AddBusiness()),
-            (route) => false,
+        (route) => false,
       );
     }
   }
@@ -202,7 +202,8 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                   bool isSameCategory = true;
                                   int stock = item.stockAmount;
                                   if (stock <= 5) {
-                                    item.itemWarning = 'Low Stock';
+                                    item.itemWarning =
+                                        'Low Stock: Below 5 Items';
                                   }
                                   String category =
                                       searchResults[index].category;
