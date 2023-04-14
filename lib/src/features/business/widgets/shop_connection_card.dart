@@ -47,16 +47,8 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
 
   handleShopLoginRequest(AddShopConnectionDto addShopConnectionDto,
       BuildContext dialogContext, ThemeData themeData) async {
-    // Closes the AlertDialog
-    //CODE FOR HANDLING SERVICE GOES HERE
-    print("Handling shop login request");
-    print(addShopConnectionDto.platformName);
-    print(addShopConnectionDto.shopUsername);
-    print(addShopConnectionDto.shopUserPassword);
-
     BusinessConnectionsDto connectionsList =
         await shopConnectionService.addShopConnection(addShopConnectionDto);
-    // Pass connections list up to parent widget
 
     if (connectionsList.errorNotification.hasErrors) {
       String error = connectionsList.errorNotification.getFirstErrorMessage()!;
@@ -67,12 +59,10 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
             connectionsList.errorNotification.getFirstErrorMessage()!;
       }
     } else {
-      print("Submitted");
       Navigator.pop(dialogContext);
       _connected = true;
       widget.onConnectionChanged(_connected);
       if (mounted) {
-        print("======== ITS MOUNTED ===========");
         setState(() {
           widget.connected = true;
         });
@@ -148,9 +138,6 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                                   _password = value!.trim();
                                 },
                                 onSubmit: () {
-                                  print("=== Data ====");
-                                  print(_username);
-                                  print(_password);
                                   AddShopConnectionDto addShopConnectionDto =
                                       AddShopConnectionDto(
                                     platformName: widget.title,

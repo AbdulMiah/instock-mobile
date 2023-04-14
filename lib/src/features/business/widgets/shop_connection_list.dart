@@ -30,7 +30,6 @@ class _ShopConnectionListState extends State<ShopConnectionList> {
   bool isConnected(connectionsList, platformName) {
     if (connectionsList.connections
         .any((connection) => connection.platformName == platformName)) {
-      print("Connected to $platformName");
       connectedStates[platformName] = true;
       return true;
     } else {
@@ -60,7 +59,6 @@ class _ShopConnectionListState extends State<ShopConnectionList> {
                   description: 'For all things mocked and stocked',
                   connected: isConnected(snapshot.data!, "Mock Etsy"),
                   onConnectionChanged: (bool connected) async {
-                    print("Its connected");
                     setState(() {
                       connectedStates["mockshop"] = connected;
                     });
@@ -82,7 +80,6 @@ class _ShopConnectionListState extends State<ShopConnectionList> {
                   description: 'Making a mockery of other business platforms',
                   connected: isConnected(snapshot.data!, "Mock Shopify"),
                   onConnectionChanged: (bool connected) async {
-                    print("Its connected");
                     setState(() {
                       connectedStates["mockmarket"] = connected;
                     });
