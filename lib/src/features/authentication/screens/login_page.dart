@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:instock_mobile/src/features/authentication/data/login_dto.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/business/screens/add_business_page.dart';
@@ -45,8 +46,11 @@ class _LoginState extends State<Login> {
       _formKey.currentState!.save();
       AuthenticationService authenticationService = AuthenticationService();
       BusinessService businessService = BusinessService();
+
+      LoginDto loginDto = LoginDto(email: _email!, password: _password!);
+
       ResponseObject response =
-          await authenticationService.authenticateUser(_email!, _password!);
+          await authenticationService.authenticateUser(loginDto);
 
 
       if (response.statusCode == 200) {
