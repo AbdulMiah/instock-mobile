@@ -20,8 +20,6 @@ class CategoryStats extends StatefulWidget {
 }
 
 class _CategoryStatsState extends State<CategoryStats> {
-  String category = "cards";
-
   @override
   Widget build(BuildContext context) {
     final theme = CommonTheme();

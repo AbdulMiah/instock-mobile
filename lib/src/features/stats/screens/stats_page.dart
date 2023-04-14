@@ -37,16 +37,16 @@ class _StatsPageState extends State<StatsPage> {
   }
 
   List<String> extractCategories(StatsDto statsDto) {
-    List<String> res = [];
+    List<String> categoryList = [];
     var perfByCat = statsDto.categoryStats;
     for (final perfSection in perfByCat.entries) {
       final key = perfSection.key;
-      res.add(key);
+      categoryList.add(key);
     }
-    if (res.isEmpty) {
-      res.add("No Categories");
+    if (categoryList.isEmpty) {
+      categoryList.add("No Categories");
     }
-    return res;
+    return categoryList;
   }
 
   void refreshPage() {
