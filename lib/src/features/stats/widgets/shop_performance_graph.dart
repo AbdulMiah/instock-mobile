@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
@@ -20,27 +22,51 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
   List<String>? _months = [];
+  int maxYAxis = 10;
 
   int touchedGroupIndex = -1;
 
   void extractGraphPoints() {
     int x = 0;
     List<BarChartGroupData> graphPoints = [];
-    for (var key in widget.salesByMonth.keys) {
-      int? monthlySales = widget.salesByMonth[key];
-      int? monthlyDeductions = widget.deductionsByMonth[key];
+    for (var year in widget.salesByMonth.keys) {
+      Map<String, dynamic> salesYearDict = widget.salesByMonth[year];
+      Map<String, dynamic> deductionsYearDict = Map<String, dynamic>();
+      // add deductions if they exist
+      if (widget.deductionsByMonth[year] != null) {
+        deductionsYearDict = widget.deductionsByMonth[year];
+      }
 
-      _months!.add(key.substring(0, 3));
+      for (var month in salesYearDict.keys) {
+        int? monthlySales = salesYearDict[month];
+        // set deduction to 0 if there are none
+        int? monthlyDeductions = deductionsYearDict[month] ?? 0;
 
-      BarChartGroupData barGroup = makeGroupData(
-          x, monthlySales!.toDouble(), monthlyDeductions!.toDouble());
-      graphPoints.add(barGroup);
+        int maxInt = max(monthlySales!, monthlyDeductions!);
+        String monthPlusYear = '$month $year';
 
-      x++;
+        // set max Y axis based on highest value
+        if (maxInt > maxYAxis) {
+          maxYAxis = (maxInt / 100).ceil() * 100;
+        }
+        BarChartGroupData barGroup = makeGroupData(
+            x, monthlySales.toDouble(), monthlyDeductions.toDouble());
+
+        _months!.add(monthPlusYear);
+        graphPoints.add(barGroup);
+        x++;
+      }
     }
 
-    rawBarGroups = graphPoints;
+    // only add 6 most recent months
+    _months = _months!.reversed
+        .toList()
+        .sublist(max(0, graphPoints.length - 6), graphPoints.length);
+    graphPoints = graphPoints.reversed
+        .toList()
+        .sublist(max(0, graphPoints.length - 6), graphPoints.length);
 
+    rawBarGroups = graphPoints;
     showingBarGroups = rawBarGroups;
   }
 
@@ -60,7 +86,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
             Expanded(
               child: BarChart(
                 BarChartData(
-                  maxY: 20,
+                  maxY: this.maxYAxis.toDouble(),
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
                       tooltipBgColor: widget.theme.themeData.primaryColorDark,
@@ -202,7 +228,9 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
       fontSize: 14,
     );
     String text;
-    if (value % 10 == 0) {
+    // Change this number to set intervals
+    int interval = (maxYAxis ~/ 10);
+    if (value % interval == 0) {
       int roundedValue = value.toInt();
       text = roundedValue.toString();
     } else {
@@ -216,14 +244,15 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = _months;
+    var titlesReversed = _months;
+    Iterable<String>? titles = titlesReversed?.reversed;
 
     final Widget text = Text(
-      titles![value.toInt()],
+      titles!.elementAt(value.toInt()),
       style: const TextStyle(
         color: Color(0xff7589a2),
         fontWeight: FontWeight.bold,
-        fontSize: 14,
+        fontSize: 8,
       ),
     );
 
