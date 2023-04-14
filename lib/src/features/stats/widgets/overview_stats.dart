@@ -24,7 +24,7 @@ class OverviewStats extends StatelessWidget {
               borderRadius: BorderRadius.circular(5)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Sales: ${statsDto.overallShopPerformance["Sale"]}",
+            child: Text("Sales: ${statsDto.overallShopPerformance["sales"]}",
                 style: theme.themeData.textTheme.displayMedium
                     ?.merge(const TextStyle(fontSize: 24))),
           ),
@@ -38,12 +38,12 @@ class OverviewStats extends StatelessWidget {
             StatsBox(
               theme: theme,
               stat: "Orders",
-              figure: statsDto.overallShopPerformance["Order"] ?? 0,
+              figure: statsDto.overallShopPerformance["orders"]!,
             ),
             StatsBox(
               theme: theme,
-              stat: "Returns",
-              figure: statsDto.overallShopPerformance["Returned"] ?? 0,
+              stat: "Corrections",
+              figure: 3,
             ),
           ],
         ),
@@ -54,13 +54,13 @@ class OverviewStats extends StatelessWidget {
             children: [
               StatsBox(
                 theme: theme,
-                stat: "Giveaways",
-                figure: statsDto.overallShopPerformance["Giveaway"] ?? 0,
+                stat: "Returns",
+                figure: statsDto.overallShopPerformance["returns"]!,
               ),
               StatsBox(
                 theme: theme,
-                stat: "Damaged",
-                figure: statsDto.overallShopPerformance["Damaged"] ?? 0,
+                stat: "Giveaways",
+                figure: 3,
               ),
             ],
           ),
@@ -72,14 +72,30 @@ class OverviewStats extends StatelessWidget {
             children: [
               StatsBox(
                 theme: theme,
-                stat: "Restocked",
-                figure: statsDto.overallShopPerformance["Restock"] ?? 0,
+                stat: "Damaged",
+                figure: statsDto.overallShopPerformance["damaged"]!,
               ),
               StatsBox(
                 theme: theme,
-                stat: "Lost",
-                figure: statsDto.overallShopPerformance["Lost"] ?? 0,
+                stat: "Restocked",
+                figure: statsDto.overallShopPerformance["restocked"]!,
               ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              StatsBox(
+                theme: theme,
+                stat: "Lost",
+                figure: statsDto.overallShopPerformance["lost"]!,
+              ),
+              const SizedBox(
+                width: 150,
+              )
             ],
           ),
         ),
