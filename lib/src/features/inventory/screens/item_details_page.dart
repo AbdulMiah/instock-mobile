@@ -42,7 +42,7 @@ class _ItemDetailsState extends State<ItemDetails> {
           msg: "${widget.item.name} Deleted",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: theme.splashColor,
+          backgroundColor: theme.cardColor,
           textColor: theme.primaryColorDark,
           fontSize: 18.0);
     } else {
@@ -55,7 +55,10 @@ class _ItemDetailsState extends State<ItemDetails> {
 
   Widget updateItemImage() {
     if (widget.item.itemImgUrl == '') {
-      return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
+      return const Icon(
+        Icons.image_not_supported_outlined,
+        size: 80.0,
+      );
     } else {
       return Image.network(widget.item.itemImgUrl);
     }
@@ -111,10 +114,10 @@ class _ItemDetailsState extends State<ItemDetails> {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                             child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.3,
-                              width: MediaQuery.of(context).size.height * 0.3,
-                              child: updateItemImage()
-                            ),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.height * 0.3,
+                                child: updateItemImage()),
                           ),
                         ),
                         Positioned(
