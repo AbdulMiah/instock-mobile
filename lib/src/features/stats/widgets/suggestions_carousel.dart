@@ -116,98 +116,112 @@ class _SuggestionsCarouselState extends State<SuggestionsCarousel> {
       if (statsDto.suggestions[key] != null) {
         // if there is a suggestion
         if (statsDto.suggestions[key].length > 0) {
+          Map<String, String>? sugMap;
           switch (key) {
             case "bestSellingItem":
-              String sales = statsDto.suggestions[key].keys.first;
-              if (statsDto.suggestions[key][sales] != null) {
-                String itemName = statsDto.suggestions[key][sales]["name"];
-                String suggestion =
-                    "With $sales sales, $itemName is your best seller!";
-                Map<String, String> sugMap = {
-                  'Positive': suggestion,
-                };
-                res.add(sugMap);
-              }
+              sugMap = _bestSellingItem(statsDto.suggestions[key]);
               break;
             case "worstSellingItem":
-              String sales = statsDto.suggestions[key].keys.first;
-              if (statsDto.suggestions[key][sales] != null) {
-                String itemName = statsDto.suggestions[key][sales]["name"];
-                String suggestion =
-                    "With $sales sales, $itemName is your worst seller";
-                Map<String, String> sugMap = {
-                  'Negative': suggestion,
-                };
-                res.add(sugMap);
-              }
-
+              sugMap = _worstSellingItem(statsDto.suggestions[key]);
               break;
             case "itemToRestock":
-              String ratio = statsDto.suggestions[key].keys.first;
-              if (statsDto.suggestions[key][ratio] != null) {
-                String itemName = statsDto.suggestions[key][ratio]["name"];
-                String suggestion =
-                    "$itemName is flying off the shelves! We predict this will be "
-                    "your next item to run out of stock. Better restock soon!";
-                Map<String, String> sugMap = {
-                  'Positive': suggestion,
-                };
-                res.add(sugMap);
-              }
+              sugMap = _itemToRestock(statsDto.suggestions[key]);
               break;
             case "longestNoSales":
-              String days = statsDto.suggestions[key].keys.first;
-              if (statsDto.suggestions[key][days] != null) {
-                String itemName = statsDto.suggestions[key][days]["name"];
-                String suggestion =
-                    "$itemName hasn't sold in $days. People don't know what they're missing!";
-                Map<String, String> sugMap = {
-                  'Negative': suggestion,
-                };
-                res.add(sugMap);
-              }
+              sugMap = _longestNoSales(statsDto.suggestions[key]);
               break;
             case "bestSellingCategory":
-              String sales = statsDto.suggestions[key].keys.first;
-              if (statsDto.suggestions[key][sales] != null) {
-                String category = statsDto.suggestions[key][sales];
-                String suggestion =
-                    "With $sales sales, $category is your best selling category!";
-                Map<String, String> sugMap = {
-                  'Positive': suggestion,
-                };
-                res.add(sugMap);
-              }
+              sugMap = _bestSellingCategory(statsDto.suggestions[key]);
               break;
             case "worstSellingCategory":
-              String sales = statsDto.suggestions[key].keys.first;
-              if (statsDto.suggestions[key][sales] != null &&
-                  statsDto.suggestions[key][sales] != "No Categories Found") {
-                String category = statsDto.suggestions[key][sales];
-                String suggestion =
-                    "With $sales sales, $category is not a popular category";
-                Map<String, String> sugMap = {
-                  'Negative': suggestion,
-                };
-                res.add(sugMap);
-              }
+              sugMap = _worstSellingCategory(statsDto.suggestions[key]);
               break;
             case "mostReturns":
-              String returns = statsDto.suggestions[key].keys.first;
-              if (statsDto.suggestions[key][returns]["name"] != null) {
-                String itemName = statsDto.suggestions[key][returns]["name"];
-                String suggestion =
-                    "$itemName has had $returns returns. This is your most returned item.";
-                Map<String, String> sugMap = {
-                  'Negative': suggestion,
-                };
-                res.add(sugMap);
-              }
+              sugMap = _mostReturns(statsDto.suggestions[key]);
               break;
+          }
+          if (sugMap != null) {
+            res.add(sugMap);
           }
         }
       }
     }
     return res;
+  }
+
+  Map<String, String>? _bestSellingItem(Map<String, dynamic> data) {
+    String sales = data.keys.first;
+    if (data[sales] != null) {
+      String itemName = data[sales]["name"];
+      String suggestion = "With $sales sales, $itemName is your best seller!";
+      return {'Positive': suggestion};
+    }
+    return null;
+  }
+
+  Map<String, String>? _worstSellingItem(Map<String, dynamic> data) {
+    String sales = data.keys.first;
+    if (data[sales] != null) {
+      String itemName = data[sales]["name"];
+      String suggestion = "With $sales sales, $itemName is your worst seller";
+      return {'Negative': suggestion};
+    }
+    return null;
+  }
+
+  Map<String, String>? _itemToRestock(Map<String, dynamic> data) {
+    String ratio = data.keys.first;
+    if (data[ratio] != null) {
+      String itemName = data[ratio]["name"];
+      String suggestion =
+          "$itemName is flying off the shelves! We predict this will be "
+          "your next item to run out of stock. Better restock soon!";
+      return {'Positive': suggestion};
+    }
+    return null;
+  }
+
+  Map<String, String>? _longestNoSales(Map<String, dynamic> data) {
+    String days = data.keys.first;
+    if (data[days] != null) {
+      String itemName = data[days]["name"];
+      String suggestion =
+          "$itemName hasn't sold in $days. People don't know what they're missing!";
+      return {'Negative': suggestion};
+    }
+    return null;
+  }
+
+  Map<String, String>? _bestSellingCategory(Map<String, dynamic> data) {
+    String sales = data.keys.first;
+    if (data[sales] != null) {
+      String category = data[sales];
+      String suggestion =
+          "With $sales sales, $category is your best selling category!";
+      return {'Positive': suggestion};
+    }
+    return null;
+  }
+
+  Map<String, String>? _worstSellingCategory(Map<String, dynamic> data) {
+    String sales = data.keys.first;
+    if (data[sales] != null && data[sales] != "No Categories Found") {
+      String category = data[sales];
+      String suggestion =
+          "With $sales sales, $category is not a popular category";
+      return {'Negative': suggestion};
+    }
+    return null;
+  }
+
+  Map<String, String>? _mostReturns(Map<String, dynamic> data) {
+    String returns = data.keys.first;
+    if (data[returns] != null) {
+      String itemName = data[returns]["name"];
+      String suggestion =
+          "$itemName has had $returns returns. This is your most returned item";
+      return {'Negative': suggestion};
+    }
+    return null;
   }
 }
