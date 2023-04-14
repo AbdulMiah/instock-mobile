@@ -62,7 +62,7 @@ class _WelcomeState extends State<Welcome> {
                               style: theme.textTheme.displayLarge,
                               textAlign: TextAlign.center,
                             ),
-                            Text("A Small Business' Best Friend",
+                            Text("A Small Business's Best Friend",
                                 style: theme.textTheme.displaySmall,
                                 textAlign: TextAlign.center),
                             SizedBox(
