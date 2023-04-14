@@ -1,21 +1,28 @@
 class StatsDto {
   final overallShopPerformance;
-  final performanceByCategory;
+  final categoryStats;
   final salesByMonth;
   final deductionsByMonth;
+  final suggestions;
 
   StatsDto(
       {required this.overallShopPerformance,
-      required this.performanceByCategory,
+      required this.categoryStats,
       required this.salesByMonth,
       required this.deductionsByMonth,
-      t});
+      required this.suggestions});
 
   factory StatsDto.fromJson(Map<String, dynamic> json) {
     return StatsDto(
         overallShopPerformance: json['overallShopPerformance'],
-        performanceByCategory: json['performanceByCategory'],
+        categoryStats: json['categoryStats'],
         salesByMonth: json['salesByMonth'],
-        deductionsByMonth: json['deductionsByMonth']);
+        deductionsByMonth: json['deductionsByMonth'],
+        suggestions: json['suggestions']);
+  }
+
+  @override
+  String toString() {
+    return 'StatsDto{overallShopPerformance: $overallShopPerformance, categoryStats: $categoryStats, salesByMonth: $salesByMonth, deductionsByMonth: $deductionsByMonth, suggestions: $suggestions}';
   }
 }
