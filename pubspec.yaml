@@ -80,6 +80,6 @@ flutter:
   assets:
     - lib/src/images/svgs/welcome_wave.svg
     - lib/src/images/animations/confirmed_tick.json
-  #   - images/a_dot_ham.jpeg
+    - lib/src/images/animations/loading_spinner.json
 
 

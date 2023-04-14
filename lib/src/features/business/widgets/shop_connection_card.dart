@@ -125,6 +125,8 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
                                 themeData: theme.themeData,
                                 text:
                                     "You are already connected to ${widget.title}",
+                                secondaryText:
+                                    "To disconnect email us at instockinventoryapp@gmail.com",
                               );
                             } else {
                               return ShopSignInAlert(
