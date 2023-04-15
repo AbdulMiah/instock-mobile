@@ -4,7 +4,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
-import 'package:instock_mobile/src/features/authentication/data/login_dto.dart';
 import 'package:instock_mobile/src/features/authentication/data/sign_up_dto.dart';
 import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
 import 'package:instock_mobile/src/utilities/services/interfaces/Isecure_storage_service.dart';
@@ -27,19 +26,20 @@ class AuthenticationService implements IAuthenticationService {
   // }
 
   @override
-  Future<ResponseObject> authenticateUser(LoginDto loginDto) async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-
-    Validators.isEmail(loginDto.email);
-    Validators.validatePassword(loginDto.password);
-    Validators.shortLength(loginDto.email);
-    Validators.shortLength(loginDto.password);
+  Future<ResponseObject> authenticateUser(String email, String password) async {
+    Validators.isEmail(email);
+    Validators.validatePassword(password);
+    Validators.shortLength(email);
+    Validators.shortLength(password);
 
     String url = ConfigService.url;
 
     final uri = Uri.parse('$url/login');
+    var data = Map<String, dynamic>();
+    data['Email'] = email;
+    data['Password'] = password;
 
-    var body = json.encode(loginDto.toJson(fcmToken!));
+    var body = json.encode(data);
 
     final response = await http.post(uri,
         headers: {"Content-Type": "application/json"}, body: body);
@@ -48,11 +48,12 @@ class AuthenticationService implements IAuthenticationService {
         ResponseObject(statusCode: response.statusCode, body: response.body);
 
     if (response.statusCode == 200) {
+      final fcmToken = await FirebaseMessaging.instance.getToken();
       print("================= Token ===================");
       print(fcmToken);
       String bearerToken = response.body;
       saveBearerToken(bearerToken);
-      _saveFcmToken(fcmToken);
+      _saveFcmToken(fcmToken!);
       return (responseObject);
     } else {
       return (responseObject);
