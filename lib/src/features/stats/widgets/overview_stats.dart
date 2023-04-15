@@ -6,6 +6,7 @@ import '../../../theme/common_theme.dart';
 
 class OverviewStats extends StatelessWidget {
   final StatsDto statsDto;
+
   const OverviewStats({
     super.key,
     required this.statsDto,
@@ -24,7 +25,7 @@ class OverviewStats extends StatelessWidget {
               borderRadius: BorderRadius.circular(5)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Sales: ${statsDto.overallShopPerformance["sales"]}",
+            child: Text("Sales: ${statsDto.overallShopPerformance["Sale"]}",
                 style: theme.themeData.textTheme.displayMedium
                     ?.merge(const TextStyle(fontSize: 24))),
           ),
@@ -38,12 +39,12 @@ class OverviewStats extends StatelessWidget {
             StatsBox(
               theme: theme,
               stat: "Orders",
-              figure: statsDto.overallShopPerformance["orders"]!,
+              figure: statsDto.overallShopPerformance["Order"] ?? 0,
             ),
             StatsBox(
               theme: theme,
-              stat: "Corrections",
-              figure: 3,
+              stat: "Returns",
+              figure: statsDto.overallShopPerformance["Returned"] ?? 0,
             ),
           ],
         ),
@@ -54,31 +55,13 @@ class OverviewStats extends StatelessWidget {
             children: [
               StatsBox(
                 theme: theme,
-                stat: "Returns",
-                figure: statsDto.overallShopPerformance["returns"]!,
-              ),
-              StatsBox(
-                theme: theme,
                 stat: "Giveaways",
-                figure: 3,
+                figure: statsDto.overallShopPerformance["Giveaway"] ?? 0,
               ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
               StatsBox(
                 theme: theme,
                 stat: "Damaged",
-                figure: statsDto.overallShopPerformance["damaged"]!,
-              ),
-              StatsBox(
-                theme: theme,
-                stat: "Restocked",
-                figure: statsDto.overallShopPerformance["restocked"]!,
+                figure: statsDto.overallShopPerformance["Damaged"] ?? 0,
               ),
             ],
           ),
@@ -90,12 +73,14 @@ class OverviewStats extends StatelessWidget {
             children: [
               StatsBox(
                 theme: theme,
-                stat: "Lost",
-                figure: statsDto.overallShopPerformance["lost"]!,
+                stat: "Restocked",
+                figure: statsDto.overallShopPerformance["Restock"] ?? 0,
               ),
-              const SizedBox(
-                width: 150,
-              )
+              StatsBox(
+                theme: theme,
+                stat: "Lost",
+                figure: statsDto.overallShopPerformance["Lost"] ?? 0,
+              ),
             ],
           ),
         ),
