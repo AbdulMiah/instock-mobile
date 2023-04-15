@@ -55,7 +55,10 @@ class _ItemDetailsState extends State<ItemDetails> {
 
   Widget updateItemImage() {
     if (widget.item.itemImgUrl == '') {
-      return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
+      return const Icon(
+        Icons.image_not_supported_outlined,
+        size: 80.0,
+      );
     } else {
       return Image.network(widget.item.itemImgUrl);
     }
@@ -111,10 +114,10 @@ class _ItemDetailsState extends State<ItemDetails> {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                             child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.3,
-                              width: MediaQuery.of(context).size.height * 0.3,
-                              child: updateItemImage()
-                            ),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.height * 0.3,
+                                child: updateItemImage()),
                           ),
                         ),
                         Positioned(
@@ -194,7 +197,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                                           title: Text(
                                             "Are you sure you want to delete this item from your inventory tracking? "
                                             "This action is irreversible.\n\n"
-                                            "You currently have ${widget.item.ordersAmount} orders active. "
+                                            "You currently have ${widget.item.totalOrders} orders active. "
                                             "This will not delete your active orders from your shops.",
                                             textAlign: TextAlign.center,
                                           ),

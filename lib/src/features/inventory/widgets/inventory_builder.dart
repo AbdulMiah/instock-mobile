@@ -96,7 +96,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
       Navigator.pushAndRemoveUntil<void>(
         context,
         PageRouteAnimation(page: const AddBusiness()),
-            (route) => false,
+        (route) => false,
       );
     }
   }
@@ -194,10 +194,13 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                     name: searchResults[index].name,
                                     stockAmount:
                                         searchResults[index].stockAmount,
-                                    ordersAmount:
-                                        searchResults[index].ordersAmount,
+                                    totalOrders:
+                                        searchResults[index].totalOrders,
                                     itemWarning: null,
                                     itemImgUrl: searchResults[index].itemImgUrl,
+                                    totalStock: searchResults[index].totalStock,
+                                    availableStock:
+                                        searchResults[index].availableStock,
                                   );
                                   bool isSameCategory = true;
                                   int stock = item.stockAmount;

@@ -5,7 +5,8 @@ import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 
 class InventoryItem extends StatefulWidget {
-  const InventoryItem({super.key, required this.item, required this.refreshFunc});
+  const InventoryItem(
+      {super.key, required this.item, required this.refreshFunc});
 
   final Item item;
   final VoidCallback refreshFunc;
@@ -16,9 +17,9 @@ class InventoryItem extends StatefulWidget {
 
 class _InventoryItemState extends State<InventoryItem> {
   void redirectToItemDetails() {
-    Navigator.of(context).push(
-      PageRouteAnimation(page: ItemDetails(item: widget.item))
-    ).then((value) {
+    Navigator.of(context)
+        .push(PageRouteAnimation(page: ItemDetails(item: widget.item)))
+        .then((value) {
       if (value) {
         widget.refreshFunc();
       }
@@ -92,21 +93,20 @@ class _InventoryItemState extends State<InventoryItem> {
                           height: 74,
                           width: 74,
                           child: ClipRRect(
-                            borderRadius: widget.item.itemWarning != null
-                                ? const BorderRadius.only(
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                    bottomRight: Radius.circular(0),
-                                    bottomLeft: Radius.circular(8),
-                                  )
-                                : const BorderRadius.only(
-                                    topLeft: Radius.circular(8),
-                                    topRight: Radius.circular(0),
-                                    bottomRight: Radius.circular(0),
-                                    bottomLeft: Radius.circular(8),
-                                  ),
-                            child: updateItemImage()
-                          ),
+                              borderRadius: widget.item.itemWarning != null
+                                  ? const BorderRadius.only(
+                                      topLeft: Radius.circular(0),
+                                      topRight: Radius.circular(0),
+                                      bottomRight: Radius.circular(0),
+                                      bottomLeft: Radius.circular(8),
+                                    )
+                                  : const BorderRadius.only(
+                                      topLeft: Radius.circular(8),
+                                      topRight: Radius.circular(0),
+                                      bottomRight: Radius.circular(0),
+                                      bottomLeft: Radius.circular(8),
+                                    ),
+                              child: updateItemImage()),
                         )
                       ],
                     ),
@@ -161,14 +161,13 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.item.stockAmount}",
+                                        text: " ${widget.item.availableStock}",
                                       ),
                                       TextSpan(
-                                        style: TextStyle(
-                                            color: theme
-                                                .themeData.primaryColorDark),
-                                        text: " In Stock",
-                                      ),
+                                          style: TextStyle(
+                                              color: theme
+                                                  .themeData.primaryColorDark),
+                                          text: " Available"),
                                     ],
                                   ),
                                 ),
@@ -197,7 +196,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.item.ordersAmount}"),
+                                        text: " ${widget.item.totalOrders}"),
                                     TextSpan(
                                       style: TextStyle(
                                           color:
