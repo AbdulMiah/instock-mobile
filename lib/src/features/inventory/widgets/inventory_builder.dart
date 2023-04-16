@@ -12,6 +12,7 @@ import 'package:instock_mobile/src/utilities/widgets/page_route_animation.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/widgets/loading_spinner.dart';
 import '../../business/screens/add_business_page.dart';
 import 'category_heading.dart';
 import 'inventory_item.dart';
@@ -110,9 +111,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
           if (snapshot.data == null &&
               snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(
-                color: widget.theme.themeData.splashColor,
-              ),
+              child: LoadingSpinner(),
             );
           }
           if (snapshot.error is SocketException) {

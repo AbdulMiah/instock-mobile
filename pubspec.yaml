@@ -49,8 +49,10 @@ dependencies:
   firebase_messaging: ^14.3.0
   firebase_core: ^2.8.0
   get: ^4.6.5
+  lottie: ^2.3.2
   carousel_slider: ^4.2.1
   intl: ^0.18.0
+
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +82,8 @@ flutter:
 
   assets:
     - lib/src/images/svgs/welcome_wave.svg
-  #   - images/a_dot_ham.jpeg
+    - lib/src/images/animations/confirmed_tick.json
+    - lib/src/images/animations/loading_spinner.json
+    - lib/src/images/animations/welcome_animation.json
 
 

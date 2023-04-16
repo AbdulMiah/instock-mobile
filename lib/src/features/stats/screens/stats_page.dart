@@ -8,6 +8,7 @@ import 'package:instock_mobile/src/features/stats/widgets/category_stats.dart';
 import 'package:instock_mobile/src/utilities/widgets/no_internet_page.dart';
 
 import '../../../theme/common_theme.dart';
+import '../../../utilities/widgets/loading_spinner.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
 import '../data/stats_dto.dart';
@@ -107,9 +108,7 @@ class _StatsPageState extends State<StatsPage> {
                       if (snapshot.data == null &&
                           snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
-                          child: CircularProgressIndicator(
-                            color: theme.themeData.splashColor,
-                          ),
+                          child: LoadingSpinner(),
                         );
                       }
                       if (snapshot.error is SocketException) {
