@@ -63,6 +63,7 @@ class ShopSignInAlert extends StatelessWidget {
           child: InStockTextInput(
             text: "Password",
             onChanged: onPasswordChanged,
+            obscureText: true,
             theme: themeData,
             validators: [Validators.longLength],
           ),
