@@ -34,6 +34,10 @@ class _InstockCarouselSliderState extends State<InstockCarouselSlider> {
                 _current = index;
               });
             },
+            enableInfiniteScroll: widget.carouselData.length > 1 ? true : false,
+            scrollPhysics: widget.carouselData.length > 1
+                ? const BouncingScrollPhysics()
+                : const NeverScrollableScrollPhysics(),
           ),
           items: widget.carouselData.map((carouselDto) {
             if (carouselDto.slideType == SlideTypes.positive) {

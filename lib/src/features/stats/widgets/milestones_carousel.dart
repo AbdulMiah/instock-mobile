@@ -8,14 +8,14 @@ class MilestonesCarousel extends StatelessWidget {
   MilestonesCarousel({Key? key});
 
   final List<CarouselDto> milestoneData = [
-    CarouselDto(
-      slideType: SlideTypes.share,
-      suggestionText: 'You have a positive milestone',
-    ),
-    CarouselDto(
-      slideType: SlideTypes.share,
-      suggestionText: 'You have a negative milestone',
-    ),
+    // CarouselDto(
+    //   slideType: SlideTypes.share,
+    //   suggestionText: 'You have a positive milestone',
+    // ),
+    // CarouselDto(
+    //   slideType: SlideTypes.share,
+    //   suggestionText: 'You have a negative milestone',
+    // ),
     CarouselDto(
       slideType: SlideTypes.share,
       suggestionText: 'You have a share milestone',
