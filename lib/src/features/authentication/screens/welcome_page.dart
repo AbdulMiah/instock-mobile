@@ -65,10 +65,14 @@ class _WelcomeState extends State<Welcome> {
                             Text("A Small Business's Best Friend",
                                 style: theme.textTheme.displaySmall,
                                 textAlign: TextAlign.center),
-                            SizedBox(
-                                height: MediaQuery.of(context).size.width * 0.8,
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                child: const WelcomeAnimation()),
+                            Expanded(
+                              child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: const WelcomeAnimation()),
+                            ),
                           ]),
                         ),
                       ),

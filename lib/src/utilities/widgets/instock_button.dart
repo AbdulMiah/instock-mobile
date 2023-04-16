@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'loading_spinner.dart';
-
 class InStockButton extends StatefulWidget {
   InStockButton(
       {super.key,
@@ -94,7 +92,8 @@ class _InStockButtonState extends State<InStockButton> {
         );
       }
     } else {
-      return SizedBox(width: 30, height: 30, child: LoadingSpinner());
+      return SizedBox(
+          width: 30, height: 30, child: CircularProgressIndicator());
     }
   }
 
