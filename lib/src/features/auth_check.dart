@@ -3,6 +3,7 @@ import 'package:instock_mobile/src/features/authentication/screens/welcome_page.
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
+import '../utilities/widgets/loading_spinner.dart';
 import 'authentication/services/authentication_service.dart';
 import 'authentication/services/interfaces/Iauthentication_service.dart';
 
@@ -34,11 +35,8 @@ class AuthCheck extends StatelessWidget {
             }
           }
           return Center(
-            child: CircularProgressIndicator(
-              color: theme.splashColor,
-            ),
+            child: LoadingSpinner(),
           );
-        }
-    );
+        });
   }
 }
