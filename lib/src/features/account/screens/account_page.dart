@@ -14,6 +14,7 @@ import 'package:instock_mobile/src/utilities/widgets/photo_picker.dart';
 
 import '../../../theme/common_theme.dart';
 import '../../../utilities/widgets/instock_button.dart';
+import '../../../utilities/widgets/loading_spinner.dart';
 import '../../../utilities/widgets/no_internet_page.dart';
 import '../../../utilities/widgets/wave.dart';
 
@@ -28,10 +29,7 @@ class _AccountPageState extends State<AccountPage> {
   final UserService _userService = UserService();
 
   redirectToPage(Widget page) {
-    Navigator.push(
-      context,
-      PageRouteAnimation(page: page)
-    );
+    Navigator.push(context, PageRouteAnimation(page: page));
   }
 
   void refreshPage() {
@@ -48,9 +46,7 @@ class _AccountPageState extends State<AccountPage> {
             if (snapshot.data == null &&
                 snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: CircularProgressIndicator(
-                  color: theme.themeData.splashColor,
-                ),
+                child: LoadingSpinner(),
               );
             }
             if (snapshot.error is SocketException) {
@@ -76,7 +72,8 @@ class _AccountPageState extends State<AccountPage> {
                               child: Container(
                                 color: theme.themeData.splashColor,
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 8, 0, 0),
                                   child: Column(children: <Widget>[
                                     PhotoPicker(
                                       avatarSize: 120.0,
@@ -85,11 +82,13 @@ class _AccountPageState extends State<AccountPage> {
                                     ),
                                     Text(
                                       "${snapshot.data.firstName} ${snapshot.data.lastName}",
-                                      style: theme.themeData.textTheme.titleMedium,
+                                      style:
+                                          theme.themeData.textTheme.titleMedium,
                                     ),
                                     Text(
                                       "${snapshot.data.email}",
-                                      style: theme.themeData.textTheme.bodySmall,
+                                      style:
+                                          theme.themeData.textTheme.bodySmall,
                                     ),
                                   ]),
                                 ),
@@ -97,17 +96,15 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             Positioned(
                               width: MediaQuery.of(context).size.width,
-                              top: MediaQuery.of(context).size.height * 0.25 - 2,
+                              top:
+                                  MediaQuery.of(context).size.height * 0.25 - 2,
                               child: const InStockWave(),
                             )
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.55,
+                        height: MediaQuery.of(context).size.height * 0.55,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
                           child: Column(
@@ -116,71 +113,72 @@ class _AccountPageState extends State<AccountPage> {
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: InStockButton(
-                                    onPressed: () {
-                                      redirectToPage(AccountDetails(userDto: snapshot.data));
-                                    },
-                                    text: "Account",
-                                    theme: theme.themeData,
-                                    colorOption: InStockButton.secondary,
-                                    icon: Icons.person_outlined,
-                                    secondaryIcon: Icons.arrow_forward,
-                                    minimumSize: const Size(0, 50),
+                                  onPressed: () {
+                                    redirectToPage(
+                                        AccountDetails(userDto: snapshot.data));
+                                  },
+                                  text: "Account",
+                                  theme: theme.themeData,
+                                  colorOption: InStockButton.secondary,
+                                  icon: Icons.person_outlined,
+                                  secondaryIcon: Icons.arrow_forward,
+                                  minimumSize: const Size(0, 50),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: InStockButton(
-                                    onPressed: () {
-                                      redirectToPage(const Notifications());
-                                    },
-                                    text: "Notifications",
-                                    theme: theme.themeData,
-                                    colorOption: InStockButton.secondary,
-                                    icon: Icons.notifications,
-                                    secondaryIcon: Icons.arrow_forward,
-                                    minimumSize: const Size(0, 50),
+                                  onPressed: () {
+                                    redirectToPage(const Notifications());
+                                  },
+                                  text: "Notifications",
+                                  theme: theme.themeData,
+                                  colorOption: InStockButton.secondary,
+                                  icon: Icons.notifications,
+                                  secondaryIcon: Icons.arrow_forward,
+                                  minimumSize: const Size(0, 50),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: InStockButton(
-                                    onPressed: () {
-                                      redirectToPage(const PaymentDetails());
-                                    },
-                                    text: "Payment Details",
-                                    theme: theme.themeData,
-                                    colorOption: InStockButton.secondary,
-                                    icon: Icons.credit_card,
-                                    secondaryIcon: Icons.arrow_forward,
-                                    minimumSize: const Size(0, 50),
+                                  onPressed: () {
+                                    redirectToPage(const PaymentDetails());
+                                  },
+                                  text: "Payment Details",
+                                  theme: theme.themeData,
+                                  colorOption: InStockButton.secondary,
+                                  icon: Icons.credit_card,
+                                  secondaryIcon: Icons.arrow_forward,
+                                  minimumSize: const Size(0, 50),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: InStockButton(
-                                    onPressed: () {
-                                      redirectToPage(const TermsPrivacy());
-                                    },
-                                    text: "Terms & Privacy",
-                                    theme: theme.themeData,
-                                    colorOption: InStockButton.secondary,
-                                    icon: Icons.lock,
-                                    secondaryIcon: Icons.arrow_forward,
-                                    minimumSize: const Size(0, 50),
+                                  onPressed: () {
+                                    redirectToPage(const TermsPrivacy());
+                                  },
+                                  text: "Terms & Privacy",
+                                  theme: theme.themeData,
+                                  colorOption: InStockButton.secondary,
+                                  icon: Icons.lock,
+                                  secondaryIcon: Icons.arrow_forward,
+                                  minimumSize: const Size(0, 50),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: InStockButton(
-                                    onPressed: () {
-                                      redirectToPage(const ContactUs());
-                                    },
-                                    text: "Contact Us",
-                                    theme: theme.themeData,
-                                    colorOption: InStockButton.secondary,
-                                    icon: Icons.chat,
-                                    secondaryIcon: Icons.arrow_forward,
-                                    minimumSize: const Size(0, 50),
+                                  onPressed: () {
+                                    redirectToPage(const ContactUs());
+                                  },
+                                  text: "Contact Us",
+                                  theme: theme.themeData,
+                                  colorOption: InStockButton.secondary,
+                                  icon: Icons.chat,
+                                  secondaryIcon: Icons.arrow_forward,
+                                  minimumSize: const Size(0, 50),
                                 ),
                               ),
                               const Spacer(),
@@ -188,11 +186,10 @@ class _AccountPageState extends State<AccountPage> {
                                 text: "Log Out",
                                 onPressed: () async {
                                   await showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return LogoutDialog(theme: theme);
-                                    }
-                                  );
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return LogoutDialog(theme: theme);
+                                      });
                                 },
                                 theme: theme.themeData,
                                 colorOption: InStockButton.danger,
@@ -208,8 +205,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
             );
-          }
-      ),
+          }),
     );
   }
 }
