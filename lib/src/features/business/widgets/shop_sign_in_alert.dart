@@ -47,13 +47,16 @@ class ShopSignInAlert extends StatelessWidget {
         },
       ),
       actions: [
-        InStockTextInput(
-          text: "Email / Username",
-          theme: themeData,
-          onChanged: onUsernameChanged,
-          validators: [
-            Validators.longLength,
-          ],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InStockTextInput(
+            text: "Email / Username",
+            theme: themeData,
+            onChanged: onUsernameChanged,
+            validators: [
+              Validators.longLength,
+            ],
+          ),
         ),
         Padding(
           padding: EdgeInsets.all(8.0),
