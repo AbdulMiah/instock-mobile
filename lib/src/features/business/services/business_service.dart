@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http_parser/http_parser.dart';
-import 'package:path/path.dart' as path;
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:instock_mobile/src/features/authentication/services/authentication_service.dart';
 import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
 import 'package:instock_mobile/src/features/business/data/AddNewBusinessDto.dart';
 import 'package:instock_mobile/src/features/business/data/business_dto.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:path/path.dart' as path;
 
 import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/services/config_service.dart';
@@ -44,6 +45,9 @@ class BusinessService {
   }
 
   Future<ResponseObject> addBusiness(AddNewBusinessDto business) async {
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
+    business.fcmToken = fcmToken;
+
     var tokenDict = await _authenticationService.retrieveBearerToken();
     var token = tokenDict["bearerToken"];
 
@@ -61,13 +65,9 @@ class BusinessService {
     final imageFile = business.imageFile;
     if (imageFile != null) {
       final fileExtension = path.extension(imageFile.path).substring(1);
-      request.files.add(
-          await http.MultipartFile.fromPath(
-              'imageFile',
-              imageFile.path,
-              contentType: MediaType('image', fileExtension)
-          )
-      );
+      request.files.add(await http.MultipartFile.fromPath(
+          'imageFile', imageFile.path,
+          contentType: MediaType('image', fileExtension)));
     }
 
     final response = await request.send();
