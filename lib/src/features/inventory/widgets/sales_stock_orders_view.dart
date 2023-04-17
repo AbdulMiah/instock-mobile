@@ -5,14 +5,14 @@ class SaleStockOrderView extends StatefulWidget {
   const SaleStockOrderView(
       {Key? key,
         required this.theme,
-        required this.totalSales,
+        this.totalSales,
         required this.totalStock,
         required this.availableStock,
         required this.totalOrders})
       : super(key: key);
 
   final CommonTheme theme;
-  final int totalSales;
+  final int? totalSales;
   final int totalStock;
   final int availableStock;
   final int totalOrders;
@@ -27,18 +27,20 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: widget.theme.themeData.cardColor,
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-            ),
-            child: Text(
-              "Total Sales: ${widget.totalSales}",
-              style: widget.theme.themeData.textTheme.headlineMedium,
-              textAlign: TextAlign.center,
-            ),
-          ),
+          widget.totalSales == null
+              ? const SizedBox()
+              : Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: widget.theme.themeData.cardColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  ),
+                  child: Text(
+                    "Total Sales: ${widget.totalSales}",
+                    style: widget.theme.themeData.textTheme.headlineMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
           const SizedBox(
             height: 20,
           ),
@@ -52,18 +54,18 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
                       textAlign: TextAlign.center,
                   ),
                   const Divider(
-                    height: 25,
+                    height: 10,
                   ),
                   Text("${widget.totalStock}",
                       style: widget.theme.themeData.textTheme.bodySmall),
                 ],
               ),
               SizedBox(
-                height: 90,
+                height: 70,
                 child: VerticalDivider(
                   width: 20,
-                  thickness: 3,
-                  color: widget.theme.themeData.cardColor,
+                  thickness: 1,
+                  color: widget.theme.themeData.primaryColorDark,
                 ),
               ),
               Column(
@@ -73,18 +75,18 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
                       textAlign: TextAlign.center,
                   ),
                   const Divider(
-                    height: 25,
+                    height: 10,
                   ),
                   Text("${widget.availableStock}",
                       style: widget.theme.themeData.textTheme.bodySmall),
                 ],
               ),
               SizedBox(
-                height: 90,
+                height: 70,
                 child: VerticalDivider(
                   width: 20,
-                  thickness: 3,
-                  color: widget.theme.themeData.cardColor,
+                  thickness: 1,
+                  color: widget.theme.themeData.primaryColorDark,
                 ),
               ),
               Column(
@@ -94,7 +96,7 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
                       textAlign: TextAlign.center,
                   ),
                   const Divider(
-                    height: 25,
+                    height: 10,
                   ),
                   Text("${widget.totalOrders}",
                       style: widget.theme.themeData.textTheme.bodySmall),

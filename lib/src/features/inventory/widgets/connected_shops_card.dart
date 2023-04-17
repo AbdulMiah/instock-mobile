@@ -1,19 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/sales_stock_orders_view.dart';
+import 'package:instock_mobile/src/theme/common_theme.dart';
+import 'package:intl/intl.dart';
 
 import '../data/connected_item_dto.dart';
 
 class ConnectedShopsCard extends StatefulWidget {
-  const ConnectedShopsCard({Key? key, required this.connectedItems }) : super(key: key);
+  const ConnectedShopsCard({Key? key, required this.theme, required this.connectedItem }) : super(key: key);
 
-  final List<ConnectedItemDto> connectedItems;
+  final CommonTheme theme;
+  final ConnectedItemDto connectedItem;
 
   @override
   State<ConnectedShopsCard> createState() => _ConnectedShopsCardState();
 }
 
 class _ConnectedShopsCardState extends State<ConnectedShopsCard> {
+
+  String getLastUpdated(String dateTimeString) {
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    String lastUpdated = dateFormat.format(dateTime);
+    return lastUpdated;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Text("You have a connection");
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: widget.theme.themeData.cardColor,
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Last Updated: ${getLastUpdated(widget.connectedItem.lastUpdated!)}",
+            style: widget.theme.themeData.textTheme.titleSmall,
+          ),
+          const SizedBox(height: 10,),
+          Row(
+            children: [
+              const Icon(Icons.image),
+              Text(
+                "${widget.connectedItem.shopName}",
+                style: widget.theme.themeData.textTheme.bodySmall,
+              ),
+            ],
+          ),
+          SaleStockOrderView(
+            theme: widget.theme,
+            totalStock: widget.connectedItem.totalStock!,
+            availableStock: widget.connectedItem.availableStock!,
+            totalOrders: widget.connectedItem.totalOrders!,
+          ),
+        ],
+      )
+    );
   }
 }

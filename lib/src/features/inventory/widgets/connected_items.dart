@@ -28,6 +28,14 @@ class ConnectedItems extends StatefulWidget {
 }
 
 class _ConnectedItemsState extends State<ConnectedItems> {
+  Widget getConnectedShops(List<ConnectedItemDto> connectedItems) {
+    return Column(
+        children: connectedItems.expand((shop) => [
+          ConnectedShopsCard(theme: widget.theme, connectedItem: shop,),
+          const SizedBox(height: 10,)
+        ]).toList());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,7 +48,7 @@ class _ConnectedItemsState extends State<ConnectedItems> {
         ),
 
         widget.connectedItems.isNotEmpty
-          ? ConnectedShopsCard(connectedItems: widget.connectedItems,)
+          ? getConnectedShops(widget.connectedItems)
           : Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
