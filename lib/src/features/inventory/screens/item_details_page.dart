@@ -64,7 +64,10 @@ class _ItemDetailsState extends State<ItemDetails> {
 
   Widget updateItemImage() {
     if (widget.item.itemImgUrl == '') {
-      return const Icon(Icons.image_not_supported_outlined, size: 80.0,);
+      return const Icon(
+        Icons.image_not_supported_outlined,
+        size: 80.0,
+      );
     } else {
       return Image.network(widget.item.itemImgUrl);
     }
