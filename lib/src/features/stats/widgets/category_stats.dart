@@ -34,7 +34,7 @@ class _CategoryStatsState extends State<CategoryStats> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-                "Sales: ${widget.statsDto.performanceByCategory[widget.dropdownCategory]["sales"]}",
+                "Sales: ${widget.statsDto.categoryStats[widget.dropdownCategory]["Sale"]}",
                 style: theme.themeData.textTheme.displayMedium
                     ?.merge(const TextStyle(fontSize: 24))),
           ),
@@ -48,13 +48,16 @@ class _CategoryStatsState extends State<CategoryStats> {
             StatsBox(
               theme: theme,
               stat: "Orders",
-              figure: widget.statsDto
-                  .performanceByCategory[widget.dropdownCategory]["orders"]!,
+              figure: widget.statsDto.categoryStats[widget.dropdownCategory]
+                      ["Order"] ??
+                  0,
             ),
             StatsBox(
               theme: theme,
-              stat: "Corrections",
-              figure: 3,
+              stat: "Returns",
+              figure: widget.statsDto.categoryStats[widget.dropdownCategory]
+                      ["Returned"] ??
+                  0,
             ),
           ],
         ),
@@ -65,14 +68,17 @@ class _CategoryStatsState extends State<CategoryStats> {
             children: [
               StatsBox(
                 theme: theme,
-                stat: "Returns",
-                figure: widget.statsDto
-                    .performanceByCategory[widget.dropdownCategory]["returns"]!,
+                stat: "Giveaways",
+                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
+                        ["Giveaway"] ??
+                    0,
               ),
               StatsBox(
                 theme: theme,
-                stat: "Giveaways",
-                figure: 3,
+                stat: "Damaged",
+                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
+                        ["Damaged"] ??
+                    0,
               ),
             ],
           ),
@@ -84,16 +90,17 @@ class _CategoryStatsState extends State<CategoryStats> {
             children: [
               StatsBox(
                 theme: theme,
-                stat: "Damaged",
-                figure: widget.statsDto
-                    .performanceByCategory[widget.dropdownCategory]["damaged"]!,
+                stat: "Restocked",
+                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
+                        ["Restock"] ??
+                    0,
               ),
               StatsBox(
                 theme: theme,
-                stat: "Restocked",
-                figure: widget
-                        .statsDto.performanceByCategory[widget.dropdownCategory]
-                    ["restocked"]!,
+                stat: "Lost",
+                figure: widget.statsDto.categoryStats[widget.dropdownCategory]
+                        ["Lost"]! ??
+                    0,
               ),
             ],
           ),
@@ -102,14 +109,8 @@ class _CategoryStatsState extends State<CategoryStats> {
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              StatsBox(
-                theme: theme,
-                stat: "Lost",
-                figure: widget.statsDto
-                    .performanceByCategory[widget.dropdownCategory]["lost"]!,
-              ),
-              const SizedBox(
+            children: const [
+              SizedBox(
                 width: 150,
               )
             ],

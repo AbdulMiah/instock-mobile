@@ -10,8 +10,7 @@ class InStockButton extends StatefulWidget {
       this.icon,
       this.secondaryIcon,
       this.isLoading = false,
-      this.minimumSize
-      });
+      this.minimumSize});
 
   final String? text;
   final ThemeData theme;
@@ -86,18 +85,15 @@ class _InStockButtonState extends State<InStockButton> {
                   ?.copyWith(color: buttonColors["foreground"]),
             ),
             const Spacer(),
-            widget.secondaryIcon != null ? Icon(widget.secondaryIcon) : const Icon(null),
+            widget.secondaryIcon != null
+                ? Icon(widget.secondaryIcon)
+                : const Icon(null),
           ],
         );
       }
     } else {
       return SizedBox(
-        width: 30,
-        height: 30,
-        child: CircularProgressIndicator(
-          color: buttonColors["foreground"],
-        ),
-      );
+          width: 30, height: 30, child: CircularProgressIndicator());
     }
   }
 
