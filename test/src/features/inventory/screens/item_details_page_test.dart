@@ -7,14 +7,17 @@ import 'package:network_image_mock/network_image_mock.dart';
 
 void main() {
   Item item = Item(
-      category: 'Test Category',
-      sku: 'Test SKU',
-      name: 'Test Name',
-      businessId: "123",
-      stockAmount: 10,
-      ordersAmount: 10,
-      itemWarning: '',
-      itemImgUrl: '');
+    category: 'Test Category',
+    sku: 'Test SKU',
+    name: 'Test Name',
+    businessId: 'WEE-WEE',
+    stockAmount: 33,
+    itemWarning: '',
+    itemImgUrl: '',
+    totalStock: 30,
+    totalOrders: 10,
+    availableStock: 20,
+  );
 
   testWidgets('Page displays correct data', (tester) async {
     await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(

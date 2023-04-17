@@ -10,19 +10,23 @@ void main() {
     'Displays Item Details',
     (tester) async {
       Item item = Item(
-          category: 'Test',
-          sku: 'Test SKU',
-          name: 'Test Name',
-          businessId: 'WEE-WEE',
-          stockAmount: 33,
-          ordersAmount: 10,
-          itemWarning: '',
-          itemImgUrl: '');
+        category: 'Test',
+        sku: 'Test SKU',
+        name: 'Test Name',
+        businessId: 'WEE-WEE',
+        stockAmount: 33,
+        itemWarning: '',
+        itemImgUrl: '',
+        totalStock: 30,
+        totalOrders: 10,
+        availableStock: 20,
+      );
 
       await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
             home: Scaffold(
               body: InventoryItem(
-                item: item, refreshFunc: () {  },
+                item: item,
+                refreshFunc: () {},
               ),
             ),
           )));
@@ -30,7 +34,7 @@ void main() {
       final nameFinder = find.text('Test Name');
       final skuFinder = find.text('Test SKU');
       final itemStockNoFinder =
-          find.textContaining('33 In Stock', findRichText: true);
+          find.textContaining('20 Available', findRichText: true);
 
       expect(nameFinder, findsOneWidget);
       expect(skuFinder, findsOneWidget);
@@ -42,19 +46,23 @@ void main() {
     'Displays Low Stock Warning',
     (tester) async {
       Item item = Item(
-          category: 'Test',
-          sku: 'Test SKU',
-          name: 'Test Name',
-          businessId: 'WEE-WEE',
-          stockAmount: 3,
-          ordersAmount: 2,
-          itemWarning: 'Low Stock',
-          itemImgUrl: '');
+        category: 'Test',
+        sku: 'Test SKU',
+        name: 'Test Name',
+        businessId: 'WEE-WEE',
+        stockAmount: 3,
+        itemWarning: 'Low Stock',
+        itemImgUrl: '',
+        totalStock: 3,
+        totalOrders: 3,
+        availableStock: 3,
+      );
 
       await mockNetworkImagesFor(() => tester.pumpWidget(MaterialApp(
             home: Scaffold(
               body: InventoryItem(
-                item: item, refreshFunc: () {  },
+                item: item,
+                refreshFunc: () {},
               ),
             ),
           )));
