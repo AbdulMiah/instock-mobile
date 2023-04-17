@@ -161,25 +161,34 @@ class _ItemDetailsState extends State<ItemDetails> {
                                       child: Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            SaleStockOrderView(
-                                                theme: theme,
-                                                totalSales: snapshot.data.totalSales,
-                                                totalStock: snapshot.data.totalStock,
-                                                availableStock: snapshot.data.availableStock,
-                                                totalOrders: snapshot.data.totalOrders
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                                              child: SaleStockOrderView(
+                                                  theme: theme,
+                                                  totalSales: snapshot.data.totalSales,
+                                                  totalStock: snapshot.data.totalStock,
+                                                  availableStock: snapshot.data.availableStock,
+                                                  totalOrders: snapshot.data.totalOrders
+                                              ),
                                             ),
-                                            ConnectedItems(
-                                                theme: theme,
-                                                totalSales: snapshot.data.totalSales,
-                                                totalStock: snapshot.data.totalStock,
-                                                availableStock: snapshot.data.availableStock,
-                                                totalOrders: snapshot.data.totalOrders,
-                                                connectedItems: snapshot.data.connectedItems
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                              child: ConnectedItems(
+                                                  theme: theme,
+                                                  totalSales: snapshot.data.totalSales,
+                                                  totalStock: snapshot.data.totalStock,
+                                                  availableStock: snapshot.data.availableStock,
+                                                  totalOrders: snapshot.data.totalOrders,
+                                                  connectedItems: snapshot.data.connectedItems
+                                              ),
                                             ),
-                                            StockEditor(
-                                              currentStock: snapshot.data.totalStock,
-                                              itemSKU: snapshot.data.sku,
-                                              businessId: widget.item.businessId,
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                              child: StockEditor(
+                                                currentStock: snapshot.data.totalStock,
+                                                itemSKU: snapshot.data.sku,
+                                                businessId: widget.item.businessId,
+                                              ),
                                             ),
                                             Padding(
                                               padding: theme.textFieldPadding,

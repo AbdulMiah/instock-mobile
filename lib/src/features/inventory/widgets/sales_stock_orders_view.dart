@@ -104,7 +104,6 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
               ),
             ],
           ),
-          const SizedBox(height: 10,)
         ]
     );
   }
