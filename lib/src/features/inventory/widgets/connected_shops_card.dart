@@ -18,7 +18,7 @@ class ConnectedShopsCard extends StatefulWidget {
 class _ConnectedShopsCardState extends State<ConnectedShopsCard> {
 
   String getLastUpdated(String dateTimeString) {
-    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+    DateFormat dateFormat = DateFormat("dd/MM/yyyy HH:mm:ss");
     DateTime dateTime = DateTime.parse(dateTimeString);
     String lastUpdated = dateFormat.format(dateTime);
     return lastUpdated;
