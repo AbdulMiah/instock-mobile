@@ -169,14 +169,13 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.item.stockAmount}",
+                                        text: " ${widget.item.availableStock}",
                                       ),
                                       TextSpan(
-                                        style: TextStyle(
-                                            color: theme
-                                                .themeData.primaryColorDark),
-                                        text: " In Stock",
-                                      ),
+                                          style: TextStyle(
+                                              color: theme
+                                                  .themeData.primaryColorDark),
+                                          text: " Available"),
                                     ],
                                   ),
                                 ),
@@ -205,7 +204,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                         style: TextStyle(
                                             color: theme
                                                 .themeData.primaryColorDark),
-                                        text: " ${widget.item.ordersAmount}"),
+                                        text: " ${widget.item.totalOrders}"),
                                     TextSpan(
                                       style: TextStyle(
                                           color:
