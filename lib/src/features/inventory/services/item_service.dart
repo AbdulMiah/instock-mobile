@@ -10,6 +10,7 @@ import 'package:jwt_decode/jwt_decode.dart';
 import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/services/config_service.dart';
 import '../../authentication/services/interfaces/Iauthentication_service.dart';
+import '../data/specific_item_dto.dart';
 
 @injectable
 class ItemService {
@@ -85,5 +86,31 @@ class ItemService {
         requestSuccess: requestSuccess);
     // create response object
     return responseObject;
+  }
+
+  Future<SpecificItemDto> getItem(String sku) async {
+    var tokenDict = await _authenticationService.retrieveBearerToken();
+    var token = tokenDict["bearerToken"];
+    Map<String, dynamic> payload = Jwt.parseJwt(token);
+
+    String businessId = payload["BusinessId"];
+
+    String url = ConfigService.url;
+
+    final uri = Uri.parse('$url/businesses/$businessId/items/$sku');
+
+    final response = await http.get(
+      uri,
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      return SpecificItemDto.fromJson(jsonData);
+    } else {
+      throw Exception('Failed to load item');
+    }
   }
 }

@@ -26,7 +26,7 @@ class _UpdateStockViewState extends State<UpdateStockView> {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: widget.theme.themeData.cardColor,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
         child: Column(children: <Widget>[
           Text(
