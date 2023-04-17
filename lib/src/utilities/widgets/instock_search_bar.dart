@@ -29,6 +29,7 @@ class InStockSearchBar extends StatefulWidget {
 }
 
 class _InStockSearchBarState extends State<InStockSearchBar> {
+  bool _showClearIcon = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,7 +42,14 @@ class _InStockSearchBarState extends State<InStockSearchBar> {
                 controller: widget.controller,
                 style: widget.theme.textTheme.bodySmall,
                 enabled: widget.enable,
-                onChanged: widget.onChanged,
+                onChanged: (text) {
+                  setState(() {
+                    _showClearIcon = text.isNotEmpty;
+                  });
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(text);
+                  }
+                },
                 enableSuggestions: true,
                 autocorrect: true,
                 cursorColor: widget.theme.primaryColorDark,
@@ -54,13 +62,16 @@ class _InStockSearchBarState extends State<InStockSearchBar> {
                       ? Icon(widget.icon)
                       : const Icon(Icons.search),
                   prefixIconColor: widget.theme.primaryColorDark,
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      widget.onClear!();
-                    },
-                    child: Icon(
-                      Icons.clear,
-                      color: widget.theme.primaryColorDark,
+                  suffixIcon: Visibility(
+                    visible: _showClearIcon,
+                    child: GestureDetector(
+                      onTap: () {
+                        widget.onClear!();
+                      },
+                      child: Icon(
+                        Icons.clear,
+                        color: widget.theme.primaryColorDark,
+                      ),
                     ),
                   ),
                   border: OutlineInputBorder(
