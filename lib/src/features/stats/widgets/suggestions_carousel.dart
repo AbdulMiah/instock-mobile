@@ -204,7 +204,7 @@ class _SuggestionsCarouselState extends State<SuggestionsCarousel> {
 
   Map<String, String>? _worstSellingCategory(Map<String, dynamic> data) {
     String sales = data.keys.first;
-    if (data[sales] != null && data[sales] != "No Categories Found") {
+    if (data[sales] != null) {
       String category = data[sales];
       String suggestion =
           "With $sales sales, $category is not a popular category";
