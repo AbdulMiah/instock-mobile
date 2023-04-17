@@ -239,6 +239,22 @@ class _AddItemState extends State<AddItem> {
                                 ],
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const WidgetSpan(
+                                      child: Icon(Icons.info_outline, size: 17,),
+                                    ),
+                                    TextSpan(
+                                      text: " Match the SKU number to an item in your shop to enable integrations",
+                                      style: theme.themeData.textTheme.titleSmall
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),

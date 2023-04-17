@@ -30,9 +30,12 @@ class CommonTheme {
       headlineMedium: TextStyle(
           color: blackColor, fontSize: 20, fontWeight: FontWeight.bold),
       bodySmall: TextStyle(color: blackColor, fontSize: 18),
-
+      titleSmall: TextStyle(
+          color: blackColor, fontSize: 15),
       titleMedium: TextStyle(
           color: blackColor, fontSize: 24, fontWeight: FontWeight.bold),
+      titleLarge: TextStyle(
+          color: blackColor, fontSize: 30, fontWeight: FontWeight.bold),
       // Error Message
       headlineSmall: TextStyle(color: pinkColor, fontSize: 18),
       // Success Message

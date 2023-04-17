@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instock_mobile/src/features/inventory/data/stock_update_dto.dart';
 import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
 import 'package:instock_mobile/src/features/inventory/services/reason_for_change_enum.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/update_stock_view.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_button.dart';
 
@@ -93,24 +94,12 @@ class _StockEditorState extends State<StockEditor> {
     final theme = CommonTheme();
     return Column(
       children: <Widget>[
-        Text(
-          "In stock:",
-          style: theme.themeData.textTheme.titleMedium,
+        UpdateStockView(
+            theme: theme,
+            currentStock: widget.currentStock,
+            changeStockAmountBy: _changeStockAmountBy,
+            calculatedStockAmount: _calculatedStockAmount
         ),
-        Text('${widget.currentStock}',
-            style: theme.themeData.textTheme.headlineMedium),
-        Text("${_changeStockAmountBy}",
-            style: theme.themeData.textTheme.headlineMedium),
-        SizedBox(
-          width: 100,
-          child: Divider(
-            thickness: 1,
-            height: 16,
-            color: theme.themeData.primaryColorDark,
-          ),
-        ),
-        Text("${_calculatedStockAmount}",
-            style: theme.themeData.textTheme.headlineMedium),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
           child: Row(
