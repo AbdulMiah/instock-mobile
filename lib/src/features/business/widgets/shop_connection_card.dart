@@ -33,7 +33,7 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
 
   // Ref to value notifier https://medium.com/@avnishnishad/flutter-communication-between-widgets-using-valuenotifier-and-valuelistenablebuilder-b51ef627a58b
   // we probably should've used this earlier
-  ValueNotifier<String> _content = ValueNotifier<String>("");
+  final ValueNotifier<String> _content = ValueNotifier<String>("");
   bool _connected = false;
   String _username = "";
   String _password = "";
@@ -76,7 +76,7 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
     return Container(
       decoration: BoxDecoration(
         color: theme.themeData.cardColor,
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(5.0),
         ),
       ),
@@ -87,7 +87,7 @@ class _ShopConnectionCardState extends State<ShopConnectionCard> {
             Container(
               width: MediaQuery.of(context).size.width * 0.3,
               child: ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(5.0),
                   bottomLeft: Radius.circular(5.0),
                 ),

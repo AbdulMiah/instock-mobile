@@ -91,7 +91,7 @@ class _InstockCarouselSliderState extends State<InstockCarouselSlider> {
                   },
                 );
               } else {
-                return NegativeSlide(
+                return const NegativeSlide(
                     suggestionText: "Whoops something went wrong");
               }
             }).toList(),

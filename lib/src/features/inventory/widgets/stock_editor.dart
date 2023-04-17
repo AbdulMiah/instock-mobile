@@ -29,7 +29,7 @@ class _StockEditorState extends State<StockEditor> {
   int _calculatedStockAmount = 0;
   ReasonForChange _reasonForChange = ReasonForChange.Sale;
   bool _isLoading = false;
-  ItemService _itemService = ItemService();
+  final ItemService _itemService = ItemService();
   String _errorText = "";
 
   calculateNewStockAmount() {
@@ -109,7 +109,7 @@ class _StockEditorState extends State<StockEditor> {
             color: theme.themeData.primaryColorDark,
           ),
         ),
-        Text("${_calculatedStockAmount}",
+        Text("$_calculatedStockAmount",
             style: theme.themeData.textTheme.headlineMedium),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
@@ -251,7 +251,7 @@ class _StockEditorState extends State<StockEditor> {
           child: Container(
             decoration: BoxDecoration(
               color: theme.themeData.cardColor,
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(5),
               ),
             ),

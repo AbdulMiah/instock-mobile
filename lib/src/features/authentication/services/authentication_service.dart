@@ -50,8 +50,6 @@ class AuthenticationService implements IAuthenticationService {
         ResponseObject(statusCode: response.statusCode, body: response.body);
 
     if (response.statusCode == 200) {
-      print("================= Token ===================");
-      print(fcmToken);
       String bearerToken = response.body;
       saveBearerToken(bearerToken);
       _saveFcmToken(fcmToken);

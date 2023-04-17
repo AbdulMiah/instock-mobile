@@ -64,7 +64,7 @@ class _ShopConnectionsState extends State<ShopConnections> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 64.0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 64.0, 0, 0),
                     child: Column(
                       children: [
                         Text(
@@ -72,8 +72,8 @@ class _ShopConnectionsState extends State<ShopConnections> {
                           style: theme.themeData.textTheme.bodySmall,
                           textAlign: TextAlign.center,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 0),
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 0),
                           child: ShopConnectionList(),
                         )
                       ],

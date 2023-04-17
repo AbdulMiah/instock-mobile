@@ -86,7 +86,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
             Expanded(
               child: BarChart(
                 BarChartData(
-                  maxY: this.maxYAxis.toDouble(),
+                  maxY: maxYAxis.toDouble(),
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
                       tooltipBgColor: widget.theme.themeData.primaryColorDark,
