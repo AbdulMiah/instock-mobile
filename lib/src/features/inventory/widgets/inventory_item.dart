@@ -19,7 +19,7 @@ class _InventoryItemState extends State<InventoryItem> {
     Navigator.of(context).push(
       PageRouteAnimation(page: ItemDetails(item: widget.item))
     ).then((value) {
-      if (value) {
+      if (value != null && value is bool && value) {
         widget.refreshFunc();
       }
     });

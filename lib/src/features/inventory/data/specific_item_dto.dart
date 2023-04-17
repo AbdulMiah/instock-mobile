@@ -1,14 +1,17 @@
 import 'package:instock_mobile/src/features/inventory/data/connected_item_dto.dart';
 
+import '../../../utilities/data/error_notification.dart';
+
 class SpecificItemDto {
-  final String sku;
-  final String name;
-  final int totalStock;
-  final int availableStock;
-  final int totalOrders;
-  final int totalSales;
-  final String imageUrl;
-  final List<ConnectedItemDto> connectedItems;
+  final String? sku;
+  final String? name;
+  final int? totalStock;
+  final int? availableStock;
+  final int? totalOrders;
+  final int? totalSales;
+  final String? imageUrl;
+  final List<ConnectedItemDto>? connectedItems;
+  final ErrorNotification errorNotification;
 
   SpecificItemDto({
     required this.sku,
@@ -19,6 +22,7 @@ class SpecificItemDto {
     required this.totalSales,
     required this.imageUrl,
     required this.connectedItems,
+    required this.errorNotification
   });
 
   Map<String, dynamic> toJson() {
@@ -41,16 +45,38 @@ class SpecificItemDto {
         .map((itemJson) => ConnectedItemDto.fromJson(itemJson))
         .toList();
 
-    return SpecificItemDto(
-      sku: json['sku'],
-      name: json['name'],
-      totalStock: json['totalStock'],
-      availableStock: json['availableStock'],
-      totalOrders: json['totalOrders'],
-      totalSales: json['totalSales'],
-      imageUrl: json['imageUrl'],
-      connectedItems: connectedItems,
-    );
+    if (json['hasErrors'] == true) {
+      Map<String, dynamic>? errorsJson = json['errors'];
+      return SpecificItemDto(
+        sku: null,
+        name: null,
+        totalStock: null,
+        availableStock: null,
+        totalOrders: null,
+        totalSales: null,
+        imageUrl: null,
+        connectedItems: [],
+        errorNotification: ErrorNotification(
+          errors: errorsJson ?? {},
+          hasErrors: true,
+        ),
+      );
+    } else {
+      return SpecificItemDto(
+        sku: json['sku'],
+        name: json['name'],
+        totalStock: json['totalStock'],
+        availableStock: json['availableStock'],
+        totalOrders: json['totalOrders'],
+        totalSales: json['totalSales'],
+        imageUrl: json['imageUrl'],
+        connectedItems: connectedItems,
+        errorNotification: ErrorNotification(
+          errors: {},
+          hasErrors: false,
+        ),
+      );
+    }
   }
 
   @override

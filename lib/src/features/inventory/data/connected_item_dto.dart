@@ -1,9 +1,12 @@
+import '../../../utilities/data/error_notification.dart';
+
 class ConnectedItemDto {
-  final String shopName;
-  final int totalStock;
-  final int availableStock;
-  final int totalOrders;
-  final String lastUpdated;
+  final String? shopName;
+  final int? totalStock;
+  final int? availableStock;
+  final int? totalOrders;
+  final String? lastUpdated;
+  final ErrorNotification errorNotification;
 
   ConnectedItemDto({
     required this.shopName,
@@ -11,6 +14,7 @@ class ConnectedItemDto {
     required this.availableStock,
     required this.totalOrders,
     required this.lastUpdated,
+    required this.errorNotification
   });
 
   Map<String, dynamic> toJson() {
@@ -24,13 +28,32 @@ class ConnectedItemDto {
   }
 
   factory ConnectedItemDto.fromJson(Map<String, dynamic> json) {
-    return ConnectedItemDto(
-      shopName: json['shopName'],
-      totalStock: json['totalStock'],
-      availableStock: json['availableStock'],
-      totalOrders: json['totalOrders'],
-      lastUpdated: json['lastUpdated'],
-    );
+    if (json['hasErrors'] == true) {
+      Map<String, dynamic>? errorsJson = json['errors'];
+      return ConnectedItemDto(
+        shopName: null,
+        totalStock: null,
+        availableStock: null,
+        totalOrders: null,
+        lastUpdated: null,
+        errorNotification: ErrorNotification(
+          errors: errorsJson ?? {},
+          hasErrors: true,
+        ),
+      );
+    } else {
+      return ConnectedItemDto(
+        shopName: json['shopName'],
+        totalStock: int.parse(json['totalStock']),
+        availableStock: int.parse(json['availableStock']),
+        totalOrders: int.parse(json['totalOrders']),
+        lastUpdated: json['lastUpdated'],
+        errorNotification: ErrorNotification(
+          errors: {},
+          hasErrors: false,
+        ),
+      );
+    }
   }
 
   @override
