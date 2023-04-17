@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
       AuthenticationService authenticationService = AuthenticationService();
       BusinessService businessService = BusinessService();
 
-      LoginDto loginDto = LoginDto(email: _email!, password: _password!);
+      LoginDto loginDto = LoginDto(email: _email!.trim(), password: _password!);
 
       ResponseObject response =
           await authenticationService.authenticateUser(loginDto);
