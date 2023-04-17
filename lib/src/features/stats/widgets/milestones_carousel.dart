@@ -51,6 +51,7 @@ class MilestonesCarousel extends StatelessWidget {
             .map((milestone) => CarouselDto(
                   slideType: SlideTypes.share,
                   suggestionText: messageGenerator(milestone),
+                  milestone: milestone,
                 ))
             .toList();
 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:instock_mobile/src/features/stats/data/milestone_dto.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:social_share/social_share.dart';
 
@@ -9,12 +10,18 @@ import '../../../theme/common_theme.dart';
 
 class ShareSlide extends StatelessWidget {
   final String suggestionText;
+  final MilestoneDto milestone;
 
-  const ShareSlide({Key? key, required this.suggestionText}) : super(key: key);
+  const ShareSlide(
+      {Key? key, required this.suggestionText, required this.milestone})
+      : super(key: key);
 
-  Future<String> _downloadImage(String imageUrl) async {
-    var url = Uri.parse(imageUrl);
+  Future<String> _downloadImage() async {
+    var url = Uri.parse(milestone.imageUrl!);
     var response = await http.get(url);
+    print("=====================");
+    print(response);
+    print("=====================");
     var directory = await getTemporaryDirectory();
     String imagePath = '${directory.path}/image.jpg';
     File imageFile = await File(imagePath).create(recursive: true);
@@ -22,8 +29,12 @@ class ShareSlide extends StatelessWidget {
     return imagePath;
   }
 
-  Future<void> _deleteTemporaryImage(String imagePath) async {
-    File file = File(imagePath);
+  // Flutter lifecycle https://medium.flutterdevs.com/app-lifecycle-in-flutter-c248d894b830
+  // Deletes image on end of lifecycle otherwise there are issues re-getting the issue
+  // from AWS
+  @override
+  Future<void> dispose() async {
+    File file = File(milestone.imageUrl!);
     if (await file.exists()) {
       await file.delete();
     }
@@ -58,10 +69,14 @@ class ShareSlide extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
             child: TextButton(
               onPressed: () async {
-                String imagePath = await _downloadImage(
-                    "https://instock-shop-connection-icons.s3.eu-west-2.amazonaws.com/etsyLogo.jpeg");
-                SocialShare.shareOptions("Hello world", imagePath: imagePath);
-                _deleteTemporaryImage(imagePath);
+                print("Milestone =======");
+                print(milestone.imageUrl);
+                if (milestone.imageUrl == null) {
+                  SocialShare.shareOptions("Hello world");
+                } else {
+                  String imagePath = await _downloadImage();
+                  SocialShare.shareOptions("Hello world", imagePath: imagePath);
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

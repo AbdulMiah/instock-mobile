@@ -45,7 +45,10 @@ class _InstockCarouselSliderState extends State<InstockCarouselSlider> {
             } else if (carouselDto.slideType == SlideTypes.negative) {
               return NegativeSlide(suggestionText: carouselDto.suggestionText);
             } else if (carouselDto.slideType == SlideTypes.share) {
-              return ShareSlide(suggestionText: carouselDto.suggestionText);
+              return ShareSlide(
+                suggestionText: carouselDto.suggestionText,
+                milestone: carouselDto.milestone!,
+              );
             } else {
               return NegativeSlide(
                   suggestionText: "Whoops something went wrong");

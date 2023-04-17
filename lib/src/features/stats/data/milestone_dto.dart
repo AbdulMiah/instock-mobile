@@ -5,7 +5,7 @@ class MilestoneDto {
   String businessId;
   String itemSku;
   String itemName;
-  String imageUrl;
+  String? imageUrl;
   int totalSales;
   int dateTime;
   bool displayMilestone;
@@ -16,7 +16,7 @@ class MilestoneDto {
     required this.businessId,
     required this.itemSku,
     required this.itemName,
-    required this.imageUrl,
+    this.imageUrl,
     required this.totalSales,
     required this.dateTime,
     required this.displayMilestone,
@@ -24,12 +24,16 @@ class MilestoneDto {
   });
 
   factory MilestoneDto.fromJson(Map<String, dynamic> json) {
+    String? imageUrlJson = json['ImageUrl'];
+    if (imageUrlJson == null || imageUrlJson == '') {
+      imageUrlJson = null;
+    }
     return MilestoneDto(
       milestoneId: json['MilestoneId'],
       businessId: json['BusinessId'],
       itemSku: json['ItemSku'],
       itemName: json['ItemName'],
-      imageUrl: json['ImageUrl'],
+      imageUrl: imageUrlJson,
       totalSales: json['TotalSales'],
       dateTime: json['DateTime'],
       displayMilestone: json['DisplayMilestone'],
