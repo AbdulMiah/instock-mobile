@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:instock_mobile/src/features/inventory/data/item.dart';
 import 'package:instock_mobile/src/features/inventory/screens/inventory_page.dart';
 import 'package:instock_mobile/src/features/inventory/services/item_service.dart';
+import 'package:instock_mobile/src/features/inventory/widgets/connected_items.dart';
 import 'package:instock_mobile/src/features/inventory/widgets/sales_stock_orders_view.dart';
 import 'package:instock_mobile/src/utilities/widgets/instock_text_input.dart';
 
@@ -166,6 +167,14 @@ class _ItemDetailsState extends State<ItemDetails> {
                                                 totalStock: snapshot.data.totalStock,
                                                 availableStock: snapshot.data.availableStock,
                                                 totalOrders: snapshot.data.totalOrders
+                                            ),
+                                            ConnectedItems(
+                                                theme: theme,
+                                                totalSales: snapshot.data.totalSales,
+                                                totalStock: snapshot.data.totalStock,
+                                                availableStock: snapshot.data.availableStock,
+                                                totalOrders: snapshot.data.totalOrders,
+                                                connectedItems: snapshot.data.connectedItems
                                             ),
                                             StockEditor(
                                               currentStock: snapshot.data.totalStock,

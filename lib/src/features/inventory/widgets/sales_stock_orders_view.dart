@@ -24,89 +24,86 @@ class SaleStockOrderView extends StatefulWidget {
 class _SaleStockOrderViewState extends State<SaleStockOrderView> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: widget.theme.themeData.cardColor,
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-              ),
-              child: Text(
-                "Total Sales: ${widget.totalSales}",
-                style: widget.theme.themeData.textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: widget.theme.themeData.cardColor,
+              borderRadius: const BorderRadius.all(Radius.circular(5)),
             ),
-            const SizedBox(
-              height: 20,
+            child: Text(
+              "Total Sales: ${widget.totalSales}",
+              style: widget.theme.themeData.textTheme.headlineMedium,
+              textAlign: TextAlign.center,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Text('Total\nStock',
-                        style: widget.theme.themeData.textTheme.bodySmall,
-                        textAlign: TextAlign.center,
-                    ),
-                    const Divider(
-                      height: 25,
-                    ),
-                    Text("${widget.totalStock}",
-                        style: widget.theme.themeData.textTheme.bodySmall),
-                  ],
-                ),
-                SizedBox(
-                  height: 90,
-                  child: VerticalDivider(
-                    width: 20,
-                    thickness: 3,
-                    color: widget.theme.themeData.cardColor,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Text('Total\nStock',
+                      style: widget.theme.themeData.textTheme.bodySmall,
+                      textAlign: TextAlign.center,
                   ),
-                ),
-                Column(
-                  children: [
-                    Text('Available\nStock',
-                        style: widget.theme.themeData.textTheme.bodySmall,
-                        textAlign: TextAlign.center,
-                    ),
-                    const Divider(
-                      height: 25,
-                    ),
-                    Text("${widget.availableStock}",
-                        style: widget.theme.themeData.textTheme.bodySmall),
-                  ],
-                ),
-                SizedBox(
-                  height: 90,
-                  child: VerticalDivider(
-                    width: 20,
-                    thickness: 3,
-                    color: widget.theme.themeData.cardColor,
+                  const Divider(
+                    height: 25,
                   ),
+                  Text("${widget.totalStock}",
+                      style: widget.theme.themeData.textTheme.bodySmall),
+                ],
+              ),
+              SizedBox(
+                height: 90,
+                child: VerticalDivider(
+                  width: 20,
+                  thickness: 3,
+                  color: widget.theme.themeData.cardColor,
                 ),
-                Column(
-                  children: [
-                    Text('Total\nOrders',
-                        style: widget.theme.themeData.textTheme.bodySmall,
-                        textAlign: TextAlign.center,
-                    ),
-                    const Divider(
-                      height: 25,
-                    ),
-                    Text("${widget.totalOrders}",
-                        style: widget.theme.themeData.textTheme.bodySmall),
-                  ],
+              ),
+              Column(
+                children: [
+                  Text('Available\nStock',
+                      style: widget.theme.themeData.textTheme.bodySmall,
+                      textAlign: TextAlign.center,
+                  ),
+                  const Divider(
+                    height: 25,
+                  ),
+                  Text("${widget.availableStock}",
+                      style: widget.theme.themeData.textTheme.bodySmall),
+                ],
+              ),
+              SizedBox(
+                height: 90,
+                child: VerticalDivider(
+                  width: 20,
+                  thickness: 3,
+                  color: widget.theme.themeData.cardColor,
                 ),
-              ],
-            ),
-            const SizedBox(height: 10,)
-          ]
-      ),
+              ),
+              Column(
+                children: [
+                  Text('Total\nOrders',
+                      style: widget.theme.themeData.textTheme.bodySmall,
+                      textAlign: TextAlign.center,
+                  ),
+                  const Divider(
+                    height: 25,
+                  ),
+                  Text("${widget.totalOrders}",
+                      style: widget.theme.themeData.textTheme.bodySmall),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 10,)
+        ]
     );
   }
 }
