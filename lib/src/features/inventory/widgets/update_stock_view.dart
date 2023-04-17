@@ -74,6 +74,7 @@ class _UpdateStockViewState extends State<UpdateStockView> {
                       style: widget.theme.themeData.textTheme.bodySmall),
                 ],
               ),
+              const SizedBox(),
             ],
           ),
         ])

@@ -92,8 +92,6 @@ class _ItemDetailsState extends State<ItemDetails> {
                 return NoInternetPage(refreshFunc: refreshPage);
               }
 
-              print(snapshot.data);
-
               return Scaffold(
                 resizeToAvoidBottomInset: false,
                 body: AnnotatedRegion<SystemUiOverlayStyle>(
