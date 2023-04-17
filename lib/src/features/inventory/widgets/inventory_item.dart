@@ -123,7 +123,6 @@ class _InventoryItemState extends State<InventoryItem> {
                               widget.item.name,
                               maxLines: 1,
                               overflow: TextOverflow.fade,
-                              // overflow: TextOverflow.ellipsis,
                               softWrap: false,
                               style: theme.themeData.textTheme.headlineMedium
                                   ?.merge(const TextStyle(fontSize: 17)),
