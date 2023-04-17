@@ -41,10 +41,22 @@ class _ConnectedShopsCardState extends State<ConnectedShopsCard> {
           const SizedBox(height: 10,),
           Row(
             children: [
-              const Icon(Icons.image),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.15,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  child: widget.connectedItem.platformImageUrl != null
+                    ? Image(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(widget.connectedItem.platformImageUrl!),
+                    )
+                    : const Icon(Icons.image),
+                ),
+              ),
+              const VerticalDivider(width: 10,),
               Text(
                 "${widget.connectedItem.shopName}",
-                style: widget.theme.themeData.textTheme.bodySmall,
+                style: widget.theme.themeData.textTheme.labelMedium,
               ),
             ],
           ),

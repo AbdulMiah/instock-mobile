@@ -6,6 +6,7 @@ class ConnectedItemDto {
   final int? availableStock;
   final int? totalOrders;
   final String? lastUpdated;
+  final String? platformImageUrl;
   final ErrorNotification errorNotification;
 
   ConnectedItemDto({
@@ -14,6 +15,7 @@ class ConnectedItemDto {
     required this.availableStock,
     required this.totalOrders,
     required this.lastUpdated,
+    this.platformImageUrl,
     required this.errorNotification
   });
 
@@ -24,6 +26,7 @@ class ConnectedItemDto {
       'availableStock': availableStock,
       'totalOrders': totalOrders,
       'lastUpdated': lastUpdated,
+      'platformImageUrl': platformImageUrl,
     };
   }
 
@@ -48,6 +51,7 @@ class ConnectedItemDto {
         availableStock: int.parse(json['availableStock']),
         totalOrders: int.parse(json['totalOrders']),
         lastUpdated: json['lastUpdated'],
+        platformImageUrl: json['platformImageUrl'],
         errorNotification: ErrorNotification(
           errors: {},
           hasErrors: false,
