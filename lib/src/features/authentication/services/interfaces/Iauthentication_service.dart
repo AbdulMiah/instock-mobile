@@ -1,6 +1,7 @@
 import 'package:instock_mobile/src/features/authentication/data/login_dto.dart';
 
 import '../../../../utilities/objects/response_object.dart';
+import '../../data/identity_dto.dart';
 import '../../data/sign_up_dto.dart';
 
 class IAuthenticationService {
@@ -30,5 +31,9 @@ class IAuthenticationService {
 
   Future<ResponseObject> logOut() async {
     return Future<ResponseObject>.value();
+  }
+
+  Future<IdentityDto> getUserIdAndBusiness() async {
+    return Future<IdentityDto>.value();
   }
 }
