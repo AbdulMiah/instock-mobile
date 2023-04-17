@@ -6,15 +6,18 @@ import 'package:http/http.dart' as http;
 
 import '../../../utilities/services/config_service.dart';
 import '../../authentication/data/identity_dto.dart';
+import '../../authentication/services/authentication_service.dart';
 import '../../authentication/services/interfaces/Iauthentication_service.dart';
+import '../data/milestone_dto.dart';
 import '../data/milestone_list_dto.dart';
 
 class MilestoneService {
-  final IAuthenticationService _authenticationService;
+  final IAuthenticationService _authenticationService = AuthenticationService();
+  final http.Client client = http.Client();
 
-  MilestoneService(this._authenticationService);
+  MilestoneService();
 
-  Future<MilestoneListDto> getMilestones(http.Client client) async {
+  Future<MilestoneListDto> getMilestones() async {
     try {
       IdentityDto identityDto =
           await _authenticationService.getUserIdAndBusiness();
@@ -39,6 +42,30 @@ class MilestoneService {
       }
     } catch (e) {
       throw Exception('Could not retrieve milestones: ${e.toString()}');
+    }
+  }
+
+  Future<MilestoneDto> hideMilestone(String milestoneId) async {
+    try {
+      IdentityDto identityDto =
+          await _authenticationService.getUserIdAndBusiness();
+
+      String url = ConfigService.url;
+
+      final uri = Uri.parse('$url/milestones/$milestoneId');
+
+      final response = await client.post(
+        uri,
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer ${identityDto.authToken}',
+        },
+      );
+
+      var jsonData = json.decode(response.body);
+      MilestoneDto milestoneDto = MilestoneDto.fromJson(jsonData);
+      return milestoneDto;
+    } catch (exception) {
+      throw Exception('Could not hide milestone: ${exception.toString()}');
     }
   }
 }

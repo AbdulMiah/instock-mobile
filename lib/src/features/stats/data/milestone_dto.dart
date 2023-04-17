@@ -1,3 +1,5 @@
+import '../../../utilities/data/error_notification.dart';
+
 class MilestoneDto {
   String milestoneId;
   String businessId;
@@ -7,6 +9,7 @@ class MilestoneDto {
   int totalSales;
   int dateTime;
   bool displayMilestone;
+  ErrorNotification? errorNotificationDto;
 
   MilestoneDto({
     required this.milestoneId,
@@ -17,6 +20,7 @@ class MilestoneDto {
     required this.totalSales,
     required this.dateTime,
     required this.displayMilestone,
+    this.errorNotificationDto,
   });
 
   factory MilestoneDto.fromJson(Map<String, dynamic> json) {
@@ -29,6 +33,9 @@ class MilestoneDto {
       totalSales: json['TotalSales'],
       dateTime: json['DateTime'],
       displayMilestone: json['DisplayMilestone'],
+      errorNotificationDto: json['ErrorNotificationDto'] != null
+          ? ErrorNotification.fromJson(json['ErrorNotificationDto'])
+          : null,
     );
   }
 }
