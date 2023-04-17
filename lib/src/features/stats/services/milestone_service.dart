@@ -52,7 +52,7 @@ class MilestoneService {
 
       String url = ConfigService.url;
 
-      final uri = Uri.parse('$url/milestones/$milestoneId');
+      final uri = Uri.parse('$url/milestones/$milestoneId/hide');
 
       final response = await client.post(
         uri,
@@ -62,10 +62,10 @@ class MilestoneService {
       );
 
       var jsonData = json.decode(response.body);
-      MilestoneDto milestoneDto = MilestoneDto.fromJson(jsonData);
+      MilestoneDto milestoneDto = MilestoneDto.fromJsonPost(jsonData);
       return milestoneDto;
     } catch (exception) {
-      throw Exception('Could not hide milestone: ${exception.toString()}');
+      throw Exception('Error hiding milestone: ${exception.toString()}');
     }
   }
 }

@@ -11,17 +11,18 @@ import '../../../theme/common_theme.dart';
 class ShareSlide extends StatelessWidget {
   final String suggestionText;
   final MilestoneDto milestone;
+  final Function hideFunction;
 
   const ShareSlide(
-      {Key? key, required this.suggestionText, required this.milestone})
+      {Key? key,
+      required this.suggestionText,
+      required this.milestone,
+      required this.hideFunction})
       : super(key: key);
 
   Future<String> _downloadImage() async {
     var url = Uri.parse(milestone.imageUrl!);
     var response = await http.get(url);
-    print("=====================");
-    print(response);
-    print("=====================");
     var directory = await getTemporaryDirectory();
     String imagePath = '${directory.path}/image.jpg';
     File imageFile = await File(imagePath).create(recursive: true);
@@ -54,44 +55,72 @@ class ShareSlide extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-            child: Text(
-              suggestionText,
-              textAlign: TextAlign.center,
-              style: theme.themeData.textTheme.displaySmall?.merge(
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-          ),
-          Padding(
-            // This is set to 2 because there is 8 padding on the button
-            // and the other slides use 10 padding total
-            padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
-            child: TextButton(
-              onPressed: () async {
-                print("Milestone =======");
-                print(milestone.imageUrl);
-                if (milestone.imageUrl == null) {
-                  SocialShare.shareOptions("Hello world");
-                } else {
-                  String imagePath = await _downloadImage();
-                  SocialShare.shareOptions("Hello world", imagePath: imagePath);
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.shortcut,
-                  size: 40,
-                  color: theme.themeData.primaryColorLight,
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: TextButton(
+                    onPressed: () async {
+                      hideFunction();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      size: 28,
+                      color: theme.themeData.primaryColorLight,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          Text(
-            "Tap to share",
-            style: theme.themeData.textTheme.displaySmall?.merge(
-              const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                Positioned(
+                  top: 30,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.76,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+                          child: Text(
+                            suggestionText,
+                            textAlign: TextAlign.center,
+                            style:
+                                theme.themeData.textTheme.displaySmall?.merge(
+                              const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            if (milestone.imageUrl == null) {
+                              SocialShare.shareOptions("Hello world");
+                            } else {
+                              String imagePath = await _downloadImage();
+                              SocialShare.shareOptions("Hello world",
+                                  imagePath: imagePath);
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.shortcut,
+                              size: 40,
+                              color: theme.themeData.primaryColorLight,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "Tap to share",
+                          style: theme.themeData.textTheme.displaySmall?.merge(
+                            const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

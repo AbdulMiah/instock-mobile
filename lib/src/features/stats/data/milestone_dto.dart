@@ -6,6 +6,7 @@ class MilestoneDto {
   String itemSku;
   String itemName;
   String? imageUrl;
+  String? imageFilename;
   int totalSales;
   int dateTime;
   bool displayMilestone;
@@ -16,11 +17,11 @@ class MilestoneDto {
     required this.businessId,
     required this.itemSku,
     required this.itemName,
-    this.imageUrl,
+    required this.imageUrl,
     required this.totalSales,
     required this.dateTime,
     required this.displayMilestone,
-    this.errorNotificationDto,
+    required this.errorNotificationDto,
   });
 
   factory MilestoneDto.fromJson(Map<String, dynamic> json) {
@@ -28,6 +29,7 @@ class MilestoneDto {
     if (imageUrlJson == null || imageUrlJson == '') {
       imageUrlJson = null;
     }
+
     return MilestoneDto(
       milestoneId: json['MilestoneId'],
       businessId: json['BusinessId'],
@@ -37,8 +39,30 @@ class MilestoneDto {
       totalSales: json['TotalSales'],
       dateTime: json['DateTime'],
       displayMilestone: json['DisplayMilestone'],
-      errorNotificationDto: json['ErrorNotificationDto'] != null
-          ? ErrorNotification.fromJson(json['ErrorNotificationDto'])
+      errorNotificationDto: json['ErrorNotification'] != null
+          ? ErrorNotification.fromJson(json['ErrorNotification'])
+          : null,
+    );
+  }
+
+  // The hide milestone endpoint returns a json with lowercase keys
+  factory MilestoneDto.fromJsonPost(Map<String, dynamic> json) {
+    String? imageUrlJson = json['imageUrl'];
+    if (imageUrlJson == null || imageUrlJson == '') {
+      imageUrlJson = null;
+    }
+
+    return MilestoneDto(
+      milestoneId: json['milestoneId'],
+      businessId: json['businessId'],
+      itemSku: json['itemSku'],
+      itemName: json['itemName'],
+      imageUrl: imageUrlJson,
+      totalSales: json['totalSales'],
+      dateTime: json['dateTime'],
+      displayMilestone: json['displayMilestone'],
+      errorNotificationDto: json['errorNotification'] != null
+          ? ErrorNotification.fromJson(json['errorNotification'])
           : null,
     );
   }
