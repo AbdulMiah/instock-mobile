@@ -16,7 +16,7 @@ class StatsBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
+      width: 160,
       decoration: BoxDecoration(
           color: theme.themeData.cardColor,
           borderRadius: BorderRadius.circular(5)),
