@@ -45,7 +45,7 @@ class _AccountPageState extends State<AccountPage> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.data == null &&
                 snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: LoadingSpinner(),
               );
             }

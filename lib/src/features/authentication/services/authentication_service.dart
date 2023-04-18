@@ -3,16 +3,18 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:path/path.dart' as path;
 import 'package:instock_mobile/src/features/authentication/data/login_dto.dart';
 import 'package:instock_mobile/src/features/authentication/data/sign_up_dto.dart';
 import 'package:instock_mobile/src/features/authentication/services/interfaces/Iauthentication_service.dart';
 import 'package:instock_mobile/src/utilities/services/interfaces/Isecure_storage_service.dart';
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:path/path.dart' as path;
 
 import '../../../utilities/objects/response_object.dart';
 import '../../../utilities/services/config_service.dart';
 import '../../../utilities/services/secure_storage_service.dart';
 import '../../../utilities/validation/validators.dart';
+import '../data/identity_dto.dart';
 
 class AuthenticationService implements IAuthenticationService {
   static Future<AuthenticationService> init() async {
@@ -48,8 +50,6 @@ class AuthenticationService implements IAuthenticationService {
         ResponseObject(statusCode: response.statusCode, body: response.body);
 
     if (response.statusCode == 200) {
-      print("================= Token ===================");
-      print(fcmToken);
       String bearerToken = response.body;
       saveBearerToken(bearerToken);
       _saveFcmToken(fcmToken);
@@ -109,13 +109,9 @@ class AuthenticationService implements IAuthenticationService {
     final imageFile = userDetails.imageFile;
     if (imageFile != null) {
       final fileExtension = path.extension(imageFile.path).substring(1);
-      request.files.add(
-          await http.MultipartFile.fromPath(
-              'imageFile',
-              imageFile.path,
-              contentType: MediaType('image', fileExtension)
-          )
-      );
+      request.files.add(await http.MultipartFile.fromPath(
+          'imageFile', imageFile.path,
+          contentType: MediaType('image', fileExtension)));
     }
 
     final response = await request.send();
@@ -140,6 +136,28 @@ class AuthenticationService implements IAuthenticationService {
     } catch (error) {
       return ResponseObject(
           requestSuccess: false, body: "Oops Something went wrong");
+    }
+  }
+
+  @override
+  Future<IdentityDto> getUserIdAndBusiness() async {
+    try {
+      var tokenDict = await retrieveBearerToken();
+      String? token = tokenDict["bearerToken"];
+      if (token == null) {
+        throw Exception('Failed to retrieve bearer token');
+      }
+
+      Map<String, dynamic> payload = Jwt.parseJwt(token);
+      String? businessId = payload["BusinessId"];
+      if (businessId == null) {
+        throw Exception('Failed to retrieve business ID from token payload');
+      }
+
+      return IdentityDto(businessId: businessId, authToken: token);
+    } catch (exception) {
+      throw Exception(
+          'Could not retrieve identity details: ${exception.toString()}');
     }
   }
 }

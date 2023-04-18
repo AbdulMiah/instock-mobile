@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/features/authentication/screens/welcome_page.dart';
-import 'package:instock_mobile/src/theme/common_theme.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 import '../utilities/widgets/loading_spinner.dart';
@@ -17,7 +16,6 @@ class AuthCheck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = CommonTheme().themeData;
     return FutureBuilder(
         future: _authenticationService.retrieveBearerToken(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -34,7 +32,7 @@ class AuthCheck extends StatelessWidget {
               return authenticatedPage;
             }
           }
-          return Center(
+          return const Center(
             child: LoadingSpinner(),
           );
         });

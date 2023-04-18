@@ -47,26 +47,25 @@ class _LoginState extends State<Login> {
       AuthenticationService authenticationService = AuthenticationService();
       BusinessService businessService = BusinessService();
 
-      LoginDto loginDto = LoginDto(email: _email!, password: _password!);
+      LoginDto loginDto = LoginDto(email: _email!.trim(), password: _password!);
 
       ResponseObject response =
           await authenticationService.authenticateUser(loginDto);
-
 
       if (response.statusCode == 200) {
         bool doesBusinessExist = await businessService.doesBusinessExist();
         if (!doesBusinessExist) {
           // Go to Add Business page if user has no business
           Navigator.push(
-              context,
-              PageRouteAnimation(page: const AddBusiness()),
+            context,
+            PageRouteAnimation(page: const AddBusiness()),
           );
         } else {
           // remove navigation stack and push
           Navigator.pushAndRemoveUntil<void>(
             context,
             PageRouteAnimation(page: const NavBar()),
-                (route) => false,
+            (route) => false,
           );
         }
       } else if (response.statusCode == 404) {

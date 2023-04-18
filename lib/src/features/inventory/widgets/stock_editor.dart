@@ -99,8 +99,7 @@ class _StockEditorState extends State<StockEditor> {
             theme: theme,
             currentStock: widget.currentStock,
             changeStockAmountBy: _changeStockAmountBy,
-            calculatedStockAmount: _calculatedStockAmount
-        ),
+            calculatedStockAmount: _calculatedStockAmount),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
           child: Row(

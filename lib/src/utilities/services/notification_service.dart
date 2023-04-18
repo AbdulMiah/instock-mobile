@@ -8,38 +8,34 @@ import 'package:instock_mobile/src/features/inventory/screens/item_details_page.
 
 import '../../features/inventory/data/item.dart';
 
-class NotificationService{
-  static Future initialize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+class NotificationService {
+  static Future initialize(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize = const AndroidInitializationSettings('ic_launcher');
     var iOSInitialize = const DarwinInitializationSettings();
-    var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+    var initializationsSettings =
+        InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
     await flutterLocalNotificationsPlugin.initialize(initializationsSettings,
         onDidReceiveNotificationResponse: (response) async {
-          print('notification payload: ${response.payload}');
-          if (response.payload != null) {
-            final item = Item.fromJson(jsonDecode(response.payload as String));
-            await Get.to(() => AuthCheck(ItemDetails(item: item)));
-          }
-        }
-    );
+      if (response.payload != null) {
+        final item = Item.fromJson(jsonDecode(response.payload as String));
+        await Get.to(() => AuthCheck(ItemDetails(item: item)));
+      }
+    });
 
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
     );
-    
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) { 
-      print("=========== onMessage ===========");
-      print("onMessage: ${message.notification?.title}/${message.notification?.body}");
 
-      NotificationService.showNotification(message: message, fln: flutterLocalNotificationsPlugin);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      NotificationService.showNotification(
+          message: message, fln: flutterLocalNotificationsPlugin);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      print("=========== onOpenApp ===========");
-      print("onOpenApp: ${message.notification?.title}/${message.notification?.body}");
-
       if (message.data != null) {
         final response = jsonEncode(message.data);
         final item = Item.fromJson(jsonDecode(response));
@@ -48,14 +44,15 @@ class NotificationService{
     });
   }
 
-  static Future showNotification({
-      var id = 0, required RemoteMessage message, var payload, required FlutterLocalNotificationsPlugin fln
-    }) async {
+  static Future showNotification(
+      {var id = 0,
+      required RemoteMessage message,
+      var payload,
+      required FlutterLocalNotificationsPlugin fln}) async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-    const AndroidNotificationDetails(
+        const AndroidNotificationDetails(
       'InStockChannelId',
       'Stock Notifications',
-
       playSound: true,
       importance: Importance.high,
       priority: Priority.high,
@@ -63,13 +60,10 @@ class NotificationService{
 
     NotificationDetails platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
-        iOS: const DarwinNotificationDetails()
-    );
+        iOS: const DarwinNotificationDetails());
 
-    await fln.show(
-        id, message.notification?.title, message.notification?.body,
+    await fln.show(id, message.notification?.title, message.notification?.body,
         platformChannelSpecifics,
-        payload: jsonEncode(message.data)
-    );
+        payload: jsonEncode(message.data));
   }
 }

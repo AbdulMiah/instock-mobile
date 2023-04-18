@@ -79,15 +79,15 @@ class _NavBarState extends State<NavBar> {
   Widget? getBody(int index) {
     switch (index) {
       case 0:
-        return Inventory();
+        return const Inventory();
       case 1:
-        return StatsPage();
+        return const StatsPage();
       case 2:
-        return AddItem();
+        return const AddItem();
       case 3:
-        return BusinessPage();
+        return const BusinessPage();
       case 4:
-        return AccountPage();
+        return const AccountPage();
     }
     //  End of reference
   }

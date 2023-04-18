@@ -12,6 +12,7 @@ import '../../../utilities/widgets/loading_spinner.dart';
 import '../../../utilities/widgets/wave.dart';
 import '../../authentication/services/authentication_service.dart';
 import '../data/stats_dto.dart';
+import '../widgets/milestones_carousel.dart';
 import '../widgets/overview_stats.dart';
 import '../widgets/shop_performance_graph.dart';
 import '../widgets/suggestions_carousel.dart';
@@ -170,6 +171,7 @@ class _StatsPageState extends State<StatsPage> {
                                             statsDto.deductionsByMonth,
                                       ),
                                     ),
+                                    MilestonesCarousel(),
                                   ],
                                 ),
                               ),
