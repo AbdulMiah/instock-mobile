@@ -4,11 +4,11 @@ import 'package:instock_mobile/src/theme/common_theme.dart';
 class SaleStockOrderView extends StatefulWidget {
   const SaleStockOrderView(
       {Key? key,
-        required this.theme,
-        this.totalSales,
-        required this.totalStock,
-        required this.availableStock,
-        required this.totalOrders})
+      required this.theme,
+      this.totalSales,
+      required this.totalStock,
+      required this.availableStock,
+      required this.totalOrders})
       : super(key: key);
 
   final CommonTheme theme;
@@ -25,7 +25,7 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           widget.totalSales == null
               ? const SizedBox()
@@ -49,9 +49,10 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
             children: [
               Column(
                 children: [
-                  Text('Total\nStock',
-                      style: widget.theme.themeData.textTheme.bodySmall,
-                      textAlign: TextAlign.center,
+                  Text(
+                    'Total\nStock',
+                    style: widget.theme.themeData.textTheme.bodySmall,
+                    textAlign: TextAlign.center,
                   ),
                   const Divider(
                     height: 10,
@@ -70,9 +71,10 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
               ),
               Column(
                 children: [
-                  Text('Available\nStock',
-                      style: widget.theme.themeData.textTheme.bodySmall,
-                      textAlign: TextAlign.center,
+                  Text(
+                    'Available\nStock',
+                    style: widget.theme.themeData.textTheme.bodySmall,
+                    textAlign: TextAlign.center,
                   ),
                   const Divider(
                     height: 10,
@@ -91,9 +93,10 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
               ),
               Column(
                 children: [
-                  Text('Total\nOrders',
-                      style: widget.theme.themeData.textTheme.bodySmall,
-                      textAlign: TextAlign.center,
+                  Text(
+                    'Live\nOrders',
+                    style: widget.theme.themeData.textTheme.bodySmall,
+                    textAlign: TextAlign.center,
                   ),
                   const Divider(
                     height: 10,
@@ -104,7 +107,6 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
               ),
             ],
           ),
-        ]
-    );
+        ]);
   }
 }

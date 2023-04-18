@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../theme/common_theme.dart';
 import '../data/connected_item_dto.dart';
-import 'connected_item_sales_stock_orders_view.dart';
+import 'connected_item_card.dart';
 
 class ConnectedShopsCard extends StatefulWidget {
   const ConnectedShopsCard(

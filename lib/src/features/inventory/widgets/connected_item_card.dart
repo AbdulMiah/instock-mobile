@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
 class ConnectedItemSaleStockOrderView extends StatefulWidget {
-  const ConnectedItemSaleStockOrderView({Key? key,
-    required this.theme,
-    this.totalSales,
-    required this.totalStock,
-    required this.availableStock,
-    required this.totalOrders})
+  const ConnectedItemSaleStockOrderView(
+      {Key? key,
+      required this.theme,
+      this.totalSales,
+      required this.totalStock,
+      required this.availableStock,
+      required this.totalOrders})
       : super(key: key);
 
   final CommonTheme theme;
@@ -31,22 +32,22 @@ class _ConnectedItemSaleStockOrderViewState
           widget.totalSales == null
               ? const SizedBox()
               : Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: widget.theme.themeData.cardColor,
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-            ),
-            child: Text(
-              "Total Sales: ${widget.totalSales}",
-              style: widget.theme.themeData.textTheme.headlineMedium,
-              textAlign: TextAlign.center,
-            ),
-          ),
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: widget.theme.themeData.cardColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  ),
+                  child: Text(
+                    "Total Sales: ${widget.totalSales}",
+                    style: widget.theme.themeData.textTheme.headlineMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
           const SizedBox(
             height: 20,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 children: [
