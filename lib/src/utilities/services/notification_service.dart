@@ -17,7 +17,6 @@ class NotificationService {
         InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
     await flutterLocalNotificationsPlugin.initialize(initializationsSettings,
         onDidReceiveNotificationResponse: (response) async {
-      print('notification payload: ${response.payload}');
       if (response.payload != null) {
         final item = Item.fromJson(jsonDecode(response.payload as String));
         await Get.to(() => AuthCheck(ItemDetails(item: item)));
