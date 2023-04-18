@@ -115,6 +115,20 @@ class _StatsPageState extends State<StatsPage> {
                       if (snapshot.error is SocketException) {
                         return NoInternetPage(refreshFunc: refreshPage);
                       }
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 40, 15, 0),
+                            child: Text(
+                              "Unable to get statistics. Add some more sales or "
+                              "get in touch if the problem persists",
+                              style: theme.themeData.textTheme.bodyLarge
+                                  ?.merge(const TextStyle(fontSize: 20)),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                      }
                       StatsDto statsDto = snapshot.data;
                       var suggestionsErrors = statsDto
                           .suggestions["errorNotification"]["hasErrors"];
