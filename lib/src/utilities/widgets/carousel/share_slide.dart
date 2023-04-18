@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:emojis/emojis.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:instock_mobile/src/features/stats/data/milestone_dto.dart';
@@ -93,10 +94,12 @@ class ShareSlide extends StatelessWidget {
                         TextButton(
                           onPressed: () async {
                             if (milestone.imageUrl == null) {
-                              SocialShare.shareOptions("Hello world");
+                              SocialShare.shareOptions(
+                                  "I just hit ${milestone.totalSales} sales on ${milestone.itemName}! ${Emojis.partyPopper}");
                             } else {
                               String imagePath = await _downloadImage();
-                              SocialShare.shareOptions("Hello world",
+                              SocialShare.shareOptions(
+                                  "I just hit ${milestone.totalSales} sales on ${milestone.itemName}! ${Emojis.partyPopper}",
                                   imagePath: imagePath);
                             }
                           },
