@@ -9,7 +9,7 @@ import 'package:social_share/social_share.dart';
 
 import '../../../theme/common_theme.dart';
 
-class ShareSlide extends StatelessWidget {
+class ShareSlide extends StatefulWidget {
   final String suggestionText;
   final MilestoneDto milestone;
   final Function hideFunction;
@@ -21,24 +21,31 @@ class ShareSlide extends StatelessWidget {
       required this.hideFunction})
       : super(key: key);
 
+  @override
+  State<ShareSlide> createState() => _ShareSlideState();
+}
+
+class _ShareSlideState extends State<ShareSlide> {
+  String? imagePath;
+
   Future<String> _downloadImage() async {
-    var url = Uri.parse(milestone.imageUrl!);
+    var url = Uri.parse(widget.milestone.imageUrl!);
     var response = await http.get(url);
     var directory = await getTemporaryDirectory();
-    String imagePath = '${directory.path}/image.jpg';
-    File imageFile = await File(imagePath).create(recursive: true);
+    imagePath = '${directory.path}/image.jpg';
+    File imageFile = await File(imagePath!).create(recursive: true);
     await imageFile.writeAsBytes(response.bodyBytes);
-    return imagePath;
+    return imagePath!;
   }
 
   // Flutter lifecycle https://medium.flutterdevs.com/app-lifecycle-in-flutter-c248d894b830
-  // Deletes image on end of lifecycle otherwise there are issues re-getting the issue
-  // from AWS
   @override
   Future<void> dispose() async {
-    File file = File(milestone.imageUrl!);
-    if (await file.exists()) {
-      await file.delete();
+    if (imagePath != null) {
+      File file = File(imagePath!);
+      if (await file.exists()) {
+        await file.delete();
+      }
     }
   }
 
@@ -64,7 +71,7 @@ class ShareSlide extends StatelessWidget {
                   right: 0,
                   child: TextButton(
                     onPressed: () async {
-                      hideFunction();
+                      widget.hideFunction();
                     },
                     child: Icon(
                       Icons.close,
@@ -82,7 +89,7 @@ class ShareSlide extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
                           child: Text(
-                            suggestionText,
+                            widget.suggestionText,
                             textAlign: TextAlign.center,
                             style:
                                 theme.themeData.textTheme.displaySmall?.merge(
@@ -93,13 +100,13 @@ class ShareSlide extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            if (milestone.imageUrl == null) {
+                            if (widget.milestone.imageUrl == null) {
                               SocialShare.shareOptions(
-                                  "I just hit ${milestone.totalSales} sales on ${milestone.itemName}! ${Emojis.partyPopper}");
+                                  "I just hit ${widget.milestone.totalSales} sales on ${widget.milestone.itemName}! ${Emojis.partyPopper}");
                             } else {
                               String imagePath = await _downloadImage();
                               SocialShare.shareOptions(
-                                  "I just hit ${milestone.totalSales} sales on ${milestone.itemName}! ${Emojis.partyPopper}",
+                                  "I just hit ${widget.milestone.totalSales} sales on ${widget.milestone.itemName}! ${Emojis.partyPopper}",
                                   imagePath: imagePath);
                             }
                           },
