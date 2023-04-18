@@ -110,7 +110,7 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
           checkBusinessExists();
           if (snapshot.data == null &&
               snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: LoadingSpinner(),
             );
           }
