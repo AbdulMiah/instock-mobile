@@ -38,11 +38,7 @@ class MilestonesCarousel extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container();
         } else if (snapshot.hasError) {
-          return Center(
-            child: Text("Whoops we can't get your milestones",
-                textAlign: TextAlign.center,
-                style: theme.textTheme.displaySmall),
-          );
+          return Container();
         } else if (!snapshot.hasData) {
           return Container();
         }
