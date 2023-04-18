@@ -154,7 +154,7 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
                     leftTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        reservedSize: 28,
+                        reservedSize: 50,
                         interval: 1,
                         getTitlesWidget: leftTitles,
                       ),

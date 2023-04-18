@@ -20,7 +20,7 @@ class _InventoryItemState extends State<InventoryItem> {
     Navigator.of(context)
         .push(PageRouteAnimation(page: ItemDetails(item: widget.item)))
         .then((value) {
-      if (value) {
+      if (value != null && value is bool && value) {
         widget.refreshFunc();
       }
     });
@@ -61,7 +61,9 @@ class _InventoryItemState extends State<InventoryItem> {
                       widget.item.itemWarning!,
                       textDirection: TextDirection.ltr,
                       style: theme.themeData.textTheme.bodySmall?.merge(
-                          TextStyle(color: theme.themeData.primaryColorLight)),
+                          TextStyle(
+                              color: theme.themeData.primaryColorLight,
+                              fontSize: 15)),
                     ),
                   ),
                 ),
@@ -69,6 +71,7 @@ class _InventoryItemState extends State<InventoryItem> {
             ),
           ],
           Container(
+            height: 74,
             decoration: BoxDecoration(
                 borderRadius: widget.item.itemWarning != null
                     ? const BorderRadius.only(
@@ -106,7 +109,8 @@ class _InventoryItemState extends State<InventoryItem> {
                                       bottomRight: Radius.circular(0),
                                       bottomLeft: Radius.circular(8),
                                     ),
-                              child: updateItemImage()),
+                              child: updateItemImage()
+                          ),
                         )
                       ],
                     ),
@@ -118,17 +122,22 @@ class _InventoryItemState extends State<InventoryItem> {
                             padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 4),
                             child: Text(
                               widget.item.name,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: theme.themeData.textTheme.headlineMedium,
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              softWrap: false,
+                              style: theme.themeData.textTheme.headlineMedium
+                                  ?.merge(const TextStyle(fontSize: 17)),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 4),
                             child: Text(
                               widget.item.sku,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
                               style: theme.themeData.textTheme.bodySmall
-                                  ?.merge(const TextStyle(fontSize: 16)),
+                                  ?.merge(const TextStyle(fontSize: 14)),
                             ),
                           ),
                         ],

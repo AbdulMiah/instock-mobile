@@ -38,13 +38,13 @@ class OverviewStats extends StatelessWidget {
           children: [
             StatsBox(
               theme: theme,
-              stat: "Orders",
-              figure: statsDto.overallShopPerformance["Order"] ?? 0,
+              stat: "Returns",
+              figure: statsDto.overallShopPerformance["Returned"] ?? 0,
             ),
             StatsBox(
               theme: theme,
-              stat: "Returns",
-              figure: statsDto.overallShopPerformance["Returned"] ?? 0,
+              stat: "Giveaways",
+              figure: statsDto.overallShopPerformance["Giveaway"] ?? 0,
             ),
           ],
         ),
@@ -55,13 +55,13 @@ class OverviewStats extends StatelessWidget {
             children: [
               StatsBox(
                 theme: theme,
-                stat: "Giveaways",
-                figure: statsDto.overallShopPerformance["Giveaway"] ?? 0,
+                stat: "Damaged",
+                figure: statsDto.overallShopPerformance["Damaged"] ?? 0,
               ),
               StatsBox(
                 theme: theme,
-                stat: "Damaged",
-                figure: statsDto.overallShopPerformance["Damaged"] ?? 0,
+                stat: "Lost",
+                figure: statsDto.overallShopPerformance["Lost"] ?? 0,
               ),
             ],
           ),
@@ -75,11 +75,6 @@ class OverviewStats extends StatelessWidget {
                 theme: theme,
                 stat: "Restocked",
                 figure: statsDto.overallShopPerformance["Restock"] ?? 0,
-              ),
-              StatsBox(
-                theme: theme,
-                stat: "Lost",
-                figure: statsDto.overallShopPerformance["Lost"] ?? 0,
               ),
             ],
           ),
