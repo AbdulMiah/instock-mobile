@@ -52,7 +52,7 @@ dependencies:
   lottie: ^2.3.2
   carousel_slider: ^4.2.1
   intl: ^0.18.0
-
+  hold_down_button: ^1.0.0
 
 dev_dependencies:
   flutter_test:

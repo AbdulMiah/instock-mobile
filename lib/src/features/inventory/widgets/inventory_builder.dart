@@ -148,6 +148,10 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                   onChanged: (value) {
                     filterSearchResults(value!);
                   },
+                  onClear: () {
+                    editingController.text = "";
+                    filterSearchResults(editingController.text);
+                  },
                 ),
               ),
               HorizontalCategoryList(
@@ -204,7 +208,8 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                   bool isSameCategory = true;
                                   int stock = item.stockAmount;
                                   if (stock <= 5) {
-                                    item.itemWarning = 'Low Stock'; //
+                                    item.itemWarning =
+                                        'Low Stock: Below 5 Items';
                                   }
                                   String category =
                                       searchResults[index].category;

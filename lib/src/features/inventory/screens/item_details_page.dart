@@ -51,7 +51,7 @@ class _ItemDetailsState extends State<ItemDetails> {
           msg: "${widget.item.name} Deleted",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: theme.splashColor,
+          backgroundColor: theme.cardColor,
           textColor: theme.primaryColorDark,
           fontSize: 18.0);
     } else {

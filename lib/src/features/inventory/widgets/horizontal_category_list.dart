@@ -22,7 +22,7 @@ class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
   Widget build(BuildContext context) {
     final theme = CommonTheme();
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 40),
+      constraints: const BoxConstraints(maxHeight: 50),
       child: RawScrollbar(
         thumbColor: theme.themeData.primaryColorDark.withOpacity(0.5),
         radius: const Radius.circular(20),
@@ -53,7 +53,10 @@ class _HorizontalCategoryListState extends State<HorizontalCategoryList> {
                     ? theme.themeData.splashColor.withOpacity(0.5)
                     : Colors.white,
               ),
-              child: Text(widget.categories.keys.elementAt(index)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(widget.categories.keys.elementAt(index)),
+              ),
             ),
           ),
         ),
