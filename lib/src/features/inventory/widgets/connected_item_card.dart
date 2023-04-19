@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:instock_mobile/src/theme/common_theme.dart';
 
-class SaleStockOrderView extends StatefulWidget {
-  const SaleStockOrderView(
+class ConnectedItemSaleStockOrderView extends StatefulWidget {
+  const ConnectedItemSaleStockOrderView(
       {Key? key,
       required this.theme,
       this.totalSales,
@@ -18,10 +18,12 @@ class SaleStockOrderView extends StatefulWidget {
   final int totalOrders;
 
   @override
-  State<SaleStockOrderView> createState() => _SaleStockOrderViewState();
+  State<ConnectedItemSaleStockOrderView> createState() =>
+      _ConnectedItemSaleStockOrderViewState();
 }
 
-class _SaleStockOrderViewState extends State<SaleStockOrderView> {
+class _ConnectedItemSaleStockOrderViewState
+    extends State<ConnectedItemSaleStockOrderView> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,12 +47,12 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
             height: 20,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 children: [
                   Text(
-                    'Total\nStock',
+                    'Total Listed',
                     style: widget.theme.themeData.textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),
@@ -72,29 +74,7 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
               Column(
                 children: [
                   Text(
-                    'Available\nStock',
-                    style: widget.theme.themeData.textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                  const Divider(
-                    height: 10,
-                  ),
-                  Text("${widget.availableStock}",
-                      style: widget.theme.themeData.textTheme.bodySmall),
-                ],
-              ),
-              SizedBox(
-                height: 70,
-                child: VerticalDivider(
-                  width: 20,
-                  thickness: 1,
-                  color: widget.theme.themeData.primaryColorDark,
-                ),
-              ),
-              Column(
-                children: [
-                  Text(
-                    'Live\nOrders',
+                    'Live Orders',
                     style: widget.theme.themeData.textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),
