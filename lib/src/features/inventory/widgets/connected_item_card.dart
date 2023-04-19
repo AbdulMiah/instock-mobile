@@ -49,19 +49,23 @@ class _ConnectedItemSaleStockOrderViewState
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Total Listed',
-                    style: widget.theme.themeData.textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                  const Divider(
-                    height: 10,
-                  ),
-                  Text("${widget.totalStock}",
-                      style: widget.theme.themeData.textTheme.bodySmall),
-                ],
+              SizedBox(
+                width: 100,
+                child: Column(
+                  children: [
+                    Text(
+                      'Total\nListed',
+                      style: widget.theme.themeData.textTheme.bodySmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const Divider(
+                      height: 10,
+                      color: Colors.transparent,
+                    ),
+                    Text("${widget.totalStock}",
+                        style: widget.theme.themeData.textTheme.bodySmall),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 70,
@@ -71,19 +75,23 @@ class _ConnectedItemSaleStockOrderViewState
                   color: widget.theme.themeData.primaryColorDark,
                 ),
               ),
-              Column(
-                children: [
-                  Text(
-                    'Live Orders',
-                    style: widget.theme.themeData.textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                  ),
-                  const Divider(
-                    height: 10,
-                  ),
-                  Text("${widget.totalOrders}",
-                      style: widget.theme.themeData.textTheme.bodySmall),
-                ],
+              SizedBox(
+                width: 100,
+                child: Column(
+                  children: [
+                    Text(
+                      'Pending\nOrders',
+                      style: widget.theme.themeData.textTheme.bodySmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const Divider(
+                      height: 10,
+                      color: Colors.transparent,
+                    ),
+                    Text("${widget.totalOrders}",
+                        style: widget.theme.themeData.textTheme.bodySmall),
+                  ],
+                ),
               ),
             ],
           ),

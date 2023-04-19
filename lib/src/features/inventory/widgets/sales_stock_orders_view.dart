@@ -94,7 +94,7 @@ class _SaleStockOrderViewState extends State<SaleStockOrderView> {
               Column(
                 children: [
                   Text(
-                    'Live\nOrders',
+                    'Pending\nOrders',
                     style: widget.theme.themeData.textTheme.bodySmall,
                     textAlign: TextAlign.center,
                   ),

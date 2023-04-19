@@ -261,7 +261,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                                                   title: Text(
                                                     "Are you sure you want to delete this item from your inventory tracking? "
                                                     "This action is irreversible.\n\n"
-                                                    "You currently have ${snapshot.data.totalOrders} live orders. "
+                                                    "You currently have ${snapshot.data.totalOrders} pending orders. "
                                                     "This will not delete your active orders from your shops.",
                                                     textAlign: TextAlign.center,
                                                     style: theme.themeData
