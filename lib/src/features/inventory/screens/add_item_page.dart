@@ -47,8 +47,7 @@ class _AddItemState extends State<AddItem> {
           category: _category!,
           name: _itemName!,
           stockAmount: _stockLevel!,
-          imageFile: _imageFile
-      );
+          imageFile: _imageFile);
       ResponseObject response = await _inventoryService.addItem(newItem);
 
       if (response.statusCode == 201) {
@@ -245,12 +244,16 @@ class _AddItemState extends State<AddItem> {
                                 text: TextSpan(
                                   children: [
                                     const WidgetSpan(
-                                      child: Icon(Icons.info_outline, size: 17,),
+                                      child: Icon(
+                                        Icons.info_outline,
+                                        size: 17,
+                                      ),
                                     ),
                                     TextSpan(
-                                      text: " Match the SKU number to an item in your shop to enable integrations",
-                                      style: theme.themeData.textTheme.titleSmall
-                                    ),
+                                        text:
+                                            " Match the SKU number to an item in your shop to enable integrations, for more info go to Business",
+                                        style: theme
+                                            .themeData.textTheme.titleSmall),
                                   ],
                                 ),
                               ),
