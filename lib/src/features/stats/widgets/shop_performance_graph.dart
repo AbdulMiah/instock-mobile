@@ -23,14 +23,39 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
   late List<BarChartGroupData> showingBarGroups;
   List<String>? _months = [];
   int maxYAxis = 10;
-
   int touchedGroupIndex = -1;
+
+  Map<String, dynamic> _sortByMonth(Map<String, dynamic> inputMap) {
+    List<String> monthsInOrder = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+    // sort the map by month order. Taken from chatgpt
+    Map<String, dynamic> sortedSalesByMonth = Map.fromEntries(
+        inputMap.entries.toList()
+          ..sort((a, b) => monthsInOrder
+              .indexOf(a.key)
+              .compareTo(monthsInOrder.indexOf(b.key))));
+
+    return sortedSalesByMonth;
+  }
 
   void extractGraphPoints() {
     int x = 0;
     List<BarChartGroupData> graphPoints = [];
     for (var year in widget.salesByMonth.keys) {
-      Map<String, dynamic> salesYearDict = widget.salesByMonth[year];
+      Map<String, dynamic> salesYearDict =
+          _sortByMonth(widget.salesByMonth[year]);
       Map<String, dynamic> deductionsYearDict = Map<String, dynamic>();
       // add deductions if they exist
       if (widget.deductionsByMonth[year] != null) {
@@ -51,18 +76,17 @@ class ShopPerformanceGraphState extends State<ShopPerformanceGraph> {
         }
         BarChartGroupData barGroup = makeGroupData(
             x, monthlySales.toDouble(), monthlyDeductions.toDouble());
-
-        _months!.add(monthPlusYear);
+        _months!.insert(0, monthPlusYear);
         graphPoints.add(barGroup);
         x++;
       }
     }
 
     // only add 6 most recent months
-    _months = _months!.reversed
+    _months = _months!
         .toList()
         .sublist(max(0, graphPoints.length - 6), graphPoints.length);
-    graphPoints = graphPoints.reversed
+    graphPoints = graphPoints
         .toList()
         .sublist(max(0, graphPoints.length - 6), graphPoints.length);
 
