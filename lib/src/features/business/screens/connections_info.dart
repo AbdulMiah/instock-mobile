@@ -67,7 +67,7 @@ class ConnectionInfo extends StatelessWidget {
                           children: [
                             Text("Connections Info"),
                             Text(
-                              "If you connect to a platform and create a new item with the same SKU as an item already on that platform, the two items will be linked together. Your items can be linked to multiple platforms simultaneously. Once they're linked, you'll be able to see the total number of live orders from all platforms, and the platform's listed item quantity will automatically adjust to match the available stock (Total stock you listed - Live Orders = Available Stock). \n \n If you change the total stock you have listed that will in turn change the available stock for your platforms and will cause that platforms stock listing amount to be updated.",
+                              "If you connect to a platform and create a new item with the same SKU as an item already on that platform, the two items will be linked together. Your items can be linked to multiple platforms simultaneously. Once they're linked, you'll be able to see the total number of pending orders from all platforms, and the platform's listed item quantity will automatically adjust to match the available stock (Total stock you listed - Live Orders = Available Stock). \n \n If you change the total stock you have listed that will in turn change the available stock for your platforms and will cause that platforms stock listing amount to be updated.",
                               maxLines: 100,
                               style: theme.themeData.textTheme.bodySmall,
                             ),
