@@ -37,13 +37,15 @@ class ShopSignInSuccessAlert extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-        InStockButton(
-          text: "Ok",
-          onPressed: () {
-            Navigator.pop(context); // Close the AlertDialog
-          },
-          theme: themeData,
-          colorOption: InStockButton.accent,
+        Center(
+          child: InStockButton(
+            text: "Ok",
+            onPressed: () {
+              Navigator.pop(context); // Close the AlertDialog
+            },
+            theme: themeData,
+            colorOption: InStockButton.accent,
+          ),
         ),
       ],
     );
