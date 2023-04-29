@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:instock_mobile/src/features/business/screens/connections_info.dart';
 import 'package:instock_mobile/src/features/business/screens/shop_connections.dart';
 import 'package:instock_mobile/src/features/business/services/business_service.dart';
 import 'package:instock_mobile/src/utilities/widgets/no_internet_page.dart';
@@ -164,28 +163,11 @@ class _BusinessPageState extends State<BusinessPage> {
                                         );
                                       },
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 16.0, 0, 0),
-                                      child: InStockButton(
-                                        text: 'Connections Info',
-                                        theme: theme.themeData,
-                                        colorOption: InStockButton.primary,
-                                        icon: Icons.question_mark,
-                                        secondaryIcon: Icons.arrow_forward,
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            PageRouteAnimation(
-                                                page: const ConnectionInfo()),
-                                          );
-                                        },
-                                      ),
-                                    ),
                                   ],
                                 ),
                               );
-                            }),
+                            }
+                        ),
                       ],
                     ),
                   ),
