@@ -46,7 +46,9 @@ class _InventoryItemState extends State<InventoryItem> {
           if (widget.item.itemWarning != null) ...[
             Container(
               decoration: BoxDecoration(
-                color: theme.themeData.highlightColor,
+                color: widget.item.availableStock == 0
+                    ? theme.themeData.highlightColor
+                    : Colors.deepOrangeAccent,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(8.0),
                   topRight: Radius.circular(8.0),
@@ -109,8 +111,7 @@ class _InventoryItemState extends State<InventoryItem> {
                                       bottomRight: Radius.circular(0),
                                       bottomLeft: Radius.circular(8),
                                     ),
-                              child: updateItemImage()
-                          ),
+                              child: updateItemImage()),
                         )
                       ],
                     ),

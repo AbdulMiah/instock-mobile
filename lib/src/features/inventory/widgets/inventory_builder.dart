@@ -206,10 +206,15 @@ class _InventoryBuilderState extends State<InventoryBuilder> {
                                         searchResults[index].availableStock,
                                   );
                                   bool isSameCategory = true;
-                                  int stock = item.stockAmount;
+                                  int stock = item.availableStock;
                                   if (stock <= 5) {
                                     item.itemWarning =
                                         'Low Stock: Below 5 Items';
+                                  }
+                                  //Will overwrite low stock warning if no stock
+                                  if (stock == 0) {
+                                    item.itemWarning =
+                                        'No Stock: 0 Items Available';
                                   }
                                   String category =
                                       searchResults[index].category;
