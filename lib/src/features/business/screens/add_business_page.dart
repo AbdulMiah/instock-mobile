@@ -72,7 +72,6 @@ class _AddBusinessState extends State<AddBusiness> {
   Widget build(BuildContext context) {
     final theme = CommonTheme();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light
             .copyWith(statusBarColor: theme.themeData.splashColor),
